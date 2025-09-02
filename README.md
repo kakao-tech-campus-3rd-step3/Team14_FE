@@ -78,6 +78,27 @@ npm run dev
 
 - `scope`, `body`, `footer`는 생략 가능.
 
+## 🗂️ 폴더 구조
+
+```bash
+src/
+ ├─ assets/          # 이미지, 폰트, 아이콘 등 정적 요소
+ ├─ components/      # 공용 UI 컴포넌트(Button, Modal 등)
+ ├─ pages/           # 라우팅 단위 페이지(Home, Login 등)
+ ├─ features/        # 독립 기능 단위 (auth, festival, profile 등)
+ ├─ apis/            # axios 인스턴스, API 함수
+ ├─ hooks/           # 공용 커스텀 훅
+ ├─ context/         # React Context API (전역 상태 관리)
+ ├─ utils/           # 유틸 함수(storage 등)
+ ├─ constants/       # 상수 값(에러 메시지, API URL, 토큰 키 등)
+ ├─ types/           # 전역 타입 정의 (DTO, API 응답 타입)
+ ├─ mocks/           # MSW(Mock Service Worker) 관련 코드
+ ├─ styles/          # 전역 스타일, Tailwind 세팅, index.css
+ │   └─ index.css    # 메인 스타일 파일
+ ├─ App.tsx          # 앱 루트 컴포넌트
+ └─ main.tsx         # ReactDOM.createRoot() 엔트리 포인트
+```
+
 ## 🛠 기술 스택
 
 <p align="center">
