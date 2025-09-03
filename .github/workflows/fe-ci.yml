@@ -55,17 +55,9 @@ jobs:
 
       - name: Lint
         run: npm run lint
-
+      
       - name: Typecheck
-        shell: bash
-        run: |
-          if [ -f tsconfig.app.json ]; then
-            npx tsc -p tsconfig.app.json --noEmit
-          elif [ -f tsconfig.json ]; then
-            npx tsc --noEmit
-          else
-            echo "No tsconfig found, skipping typecheck."
-          fi
+        run: npm run typecheck
 
       - name: Test 
         env:
