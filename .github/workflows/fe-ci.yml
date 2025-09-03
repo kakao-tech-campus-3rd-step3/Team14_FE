@@ -1,0 +1,82 @@
+name: FE CI
+
+on:
+  pull_request:
+    branches: [develop, main]
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.png'
+      - '**/*.jpg'
+      - '**/*.jpeg'
+      - '**/*.svg'
+      - '**/*.gif'
+  push:
+    branches:
+      - develop
+      - main
+      - 'feature/**'
+      - 'docs/**'
+      - 'refactor/**'
+      - 'setting/**'
+      - 'ci/**'
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.png'
+      - '**/*.jpg'
+      - '**/*.jpeg'
+      - '**/*.svg'
+      - '**/*.gif'
+
+concurrency:
+  group: fe-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        shell: bash
+        run: |
+          if [ -f tsconfig.app.json ]; then
+            npx tsc -p tsconfig.app.json --noEmit
+          elif [ -f tsconfig.json ]; then
+            npx tsc --noEmit
+          else
+            echo "No tsconfig found, skipping typecheck."
+          fi
+
+      - name: Test 
+        env:
+          CI: true
+        shell: bash
+        run: |
+          if npm run | grep -qE ' test'; then
+            npm run test -- --run || npm run test -- --ci || npm run test
+          else
+            echo "No test script, skipping."
+          fi
+
+      - name: Build 
+        run: npm run build
