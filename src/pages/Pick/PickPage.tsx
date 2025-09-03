@@ -1,7 +1,7 @@
 import React from 'react';
 
 const PickPage = () => {
-  return <div></div>;
+  return <div />;
 };
 
 export default PickPage;

@@ -22,7 +22,10 @@ const Button = ({ children, variant = 'primary', size = 'md', fullWidth = false 
   };
 
   return (
-    <button className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]}`}>
+    <button
+      type="button"
+      className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]}`}
+    >
       {children}
     </button>
   );

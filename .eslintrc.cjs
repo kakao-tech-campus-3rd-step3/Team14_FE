@@ -39,6 +39,13 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'import/extensions': 'off',
     'react/jsx-filename-extension': ['warn', { extensions: ['.tsx'] }],
+    // TypeScript 환경에서는 defaultProps 없이 optional props를 허용
+    'react/require-default-props': 'off',
+    // arrow function 허용
+    'react/function-component-definition': [
+      'error',
+      { namedComponents: 'arrow-function', unnamedComponents: 'arrow-function' },
+    ],
   },
   ignorePatterns: ['dist', 'build', 'node_modules'],
 };
