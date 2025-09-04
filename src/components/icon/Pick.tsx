@@ -1,8 +1,9 @@
 interface PickProps {
   className?: string;
+  variant?: 'outline' | 'solid';
 }
 
-const Pick = ({ className }: PickProps) => {
+const Pick = ({ className, variant = 'outline' }: PickProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -10,7 +11,7 @@ const Pick = ({ className }: PickProps) => {
       height={24}
       viewBox="0 0 64 64"
       strokeWidth={4}
-      fill="none"
+      fill={variant === 'solid' ? 'currentColor' : 'none'}
       stroke="currentColor"
       className={className}
     >
