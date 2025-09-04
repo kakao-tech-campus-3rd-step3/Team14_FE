@@ -3,9 +3,16 @@ interface ButtonProps {
   size?: 'sm' | 'md' | 'lg';
   fullWidth?: boolean;
   children: React.ReactNode;
+  className?: string;
 }
 
-const Button = ({ children, variant = 'primary', size = 'md', fullWidth = false }: ButtonProps) => {
+const Button = ({
+  children,
+  variant = 'primary',
+  size = 'md',
+  fullWidth = false,
+  className,
+}: ButtonProps) => {
   const baseClasses = `cursor-pointer flex items-center justify-center ${fullWidth ? 'w-full' : 'w-fit'}`;
 
   const variantClasses = {
@@ -24,7 +31,7 @@ const Button = ({ children, variant = 'primary', size = 'md', fullWidth = false 
   return (
     <button
       type="button"
-      className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]}`}
+      className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`}
     >
       {children}
     </button>
