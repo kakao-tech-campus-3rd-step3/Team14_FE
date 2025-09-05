@@ -3,6 +3,7 @@ import Modal from '@/pages/Home/components/Modal';
 import Button from '@/components/common/Button';
 import type { Region } from '@/types/Region';
 
+//api 구현 후 삭제 예정입니다.
 const regions: Region[] = [
   { id: '1', name: '부산' },
   { id: '2', name: '서울' },
