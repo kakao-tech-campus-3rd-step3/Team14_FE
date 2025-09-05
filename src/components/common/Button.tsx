@@ -23,7 +23,7 @@ const Button = ({
     secondary: 'bg-primary-50 text-primary-300',
     tertiary: 'bg-gray-100 text-gray-600',
     icon: 'bg-transparent text-gray-900',
-    link: 'bg-transparent text-gray-400 text-sm ',
+    link: 'bg-transparent text-gray-400 text-sm !p-0 !rounded-none',
   };
 
   const sizeClasses = {
