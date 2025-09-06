@@ -1,43 +1,31 @@
-# Node.js dependencies
+# Node / Logs 
 node_modules/
+logs/
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+lerna-debug.log*
 
-# Vite build output
+#  Build / Cache
 dist/
 dist-ssr/
-*.local
-
-# Typescript
 *.tsbuildinfo
+.emotion-cache/
+coverage/
+*.css.map
 
-# Environment variables
+#  Env 
 .env
 .env.local
 .env.*.local
+*.local
 
-# Editor & OS files
+#  Editors / OS 
 .DS_Store
 Thumbs.db
+.idea/
 .vscode/*
 !.vscode/settings.json
 !.vscode/extensions.json
-.idea/
-*.swp
-
-# Tailwind
-*.css.map
-
-# Emotion (cache files)
-.emotion-cache/
-
-# Testing
-coverage/
-jest-html-reporters-*.html
-jest-*.json
-
-# Logs
-*.log
-logs
