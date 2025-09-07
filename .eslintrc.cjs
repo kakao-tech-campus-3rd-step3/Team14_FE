@@ -22,8 +22,6 @@ module.exports = {
     tsconfigRootDir: __dirname,
   },
   extends: [
-    'airbnb',
-    'airbnb-typescript',
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
     'plugin:prettier/recommended',
