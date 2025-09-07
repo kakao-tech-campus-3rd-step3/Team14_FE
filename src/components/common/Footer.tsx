@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import Home from '@/components/icon/Home';
-import Profile from '@/components/icon/Profile';
+import Home from '@/components/icon/HomeIcon';
+import Profile from '@/components/icon/ProfileIcon';
 import Button from '@/components/common/Button';
-import Search from '@/components/icon/Search';
-import Pick from '@/components/icon/Pick';
+import Search from '@/components/icon/SearchIcon';
+import Pick from '@/components/icon/PickIcon';
 
 type FooterSelected = 'home' | 'search' | 'pick' | 'my';
 
