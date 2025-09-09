@@ -5,10 +5,10 @@ import Button from '@/components/common/Button';
 import Search from '@/components/icon/SearchIcon';
 import Pick from '@/components/icon/PickIcon';
 
-type FooterSelected = 'home' | 'search' | 'pick' | 'my';
+type FooterSelected = 'home' | 'search' | 'pick' | 'my' | 'none';
 
-const Footer = () => {
-  const [selected, setSelected] = useState<FooterSelected>('home');
+const Footer = ({ initialSelected = 'none' }: { initialSelected?: FooterSelected }) => {
+  const [selected, setSelected] = useState<FooterSelected>(initialSelected);
 
   const containerClasses = 'w-full mx-auto flex flex-col items-center fixed bottom-0 left-0 z-999';
   const baseClasses =
