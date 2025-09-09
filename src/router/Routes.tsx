@@ -4,6 +4,7 @@ import HomePage from '@/pages/Home/HomePage';
 import LoginPage from '@/pages/Login/LoginPage';
 import MyPage from '@/pages/My/MyPage';
 import PickPage from '@/pages/Pick/PickPage';
+import FestivalsPage from '@/pages/Festivals/FestivalsPage';
 
 const Routes = () => {
   return (
@@ -12,6 +13,7 @@ const Routes = () => {
       <Route path={ROUTE_PATH.LOGIN} element={<LoginPage />} />
       <Route path={ROUTE_PATH.MY} element={<MyPage />} />
       <Route path={ROUTE_PATH.PICK} element={<PickPage />} />
+      <Route path={ROUTE_PATH.FESTIVALS} element={<FestivalsPage />} />
     </RouterRoutes>
   );
 };
