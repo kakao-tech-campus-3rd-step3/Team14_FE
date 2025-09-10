@@ -49,11 +49,11 @@ jobs:
 
       - name: Lint
         run: npm run lint
-      
+
       - name: Typecheck
         run: npm run typecheck
 
-      - name: Test 
+      - name: Test
         env:
           CI: true
         shell: bash
@@ -64,5 +64,5 @@ jobs:
             echo "No test script, skipping."
           fi
 
-      - name: Build 
+      - name: Build
         run: npm run build
