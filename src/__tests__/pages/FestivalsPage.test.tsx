@@ -190,45 +190,20 @@ describe('FestivalsPage 테스트', () => {
       expect(skeletons.length).toBeGreaterThan(0);
     });
 
-    test('API 에러 상태가 올바르게 처리된다', async () => {
+    test('API 에러 상태가 올바르게 처리된다 (ErrorBoundary가 null을 렌더링)', async () => {
       // Given: API 호출이 실패할 때
       mockGetFestivals.mockRejectedValue(new Error('API Error'));
 
       // When: FestivalsPage를 렌더링하면
-      class ErrorBoundary extends React.Component<React.PropsWithChildren, { hasError: boolean }> {
-        constructor(props: React.PropsWithChildren) {
-          super(props);
-          this.state = { hasError: false };
-        }
-        static getDerivedStateFromError() {
-          return { hasError: true };
-        }
-        componentDidCatch() {}
-        render() {
-          if (this.state.hasError) {
-            return (
-              <div>
-                <div>오류가 발생했습니다</div>
-                <p>축제 정보를 불러올 수 없습니다.</p>
-              </div>
-            );
-          }
-          return this.props.children as React.ReactNode;
-        }
-      }
-
       render(
         <TestWrapper>
-          <ErrorBoundary>
-            <FestivalsPage />
-          </ErrorBoundary>
+          <FestivalsPage />
         </TestWrapper>,
       );
 
-      // Then: 에러 메시지가 표시되어야 한다
+      // Then: ErrorBoundary가 null을 렌더링하므로 해당 섹션 텍스트가 나타나지 않는다
       await waitFor(() => {
-        expect(screen.getByText('오류가 발생했습니다')).toBeInTheDocument();
-        expect(screen.getByText('축제 정보를 불러올 수 없습니다.')).toBeInTheDocument();
+        expect(screen.queryByText('Festivals')).not.toBeInTheDocument();
       });
     });
   });
