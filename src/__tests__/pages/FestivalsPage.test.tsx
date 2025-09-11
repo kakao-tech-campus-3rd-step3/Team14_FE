@@ -1,15 +1,19 @@
 import { render, screen, waitFor } from '@testing-library/react';
+import React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { vi } from 'vitest';
 import FestivalsPage from '@/pages/Festivals/FestivalsPage';
 import * as getFestivalsApi from '@/apis/festivals/getFestivals';
+import type { GetFestivalsResponse } from '@/apis/festivals/getFestivals';
+import type { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import type { ApiErrorResponse } from '@/apis/instance';
 
 // API 모킹
 vi.mock('@/apis/festivals/getFestivals');
 const mockGetFestivals = vi.mocked(getFestivalsApi.default);
 
 // 테스트용 축제 데이터
-const mockFestivalsData = {
+const mockFestivalsData: AxiosResponse<GetFestivalsResponse, ApiErrorResponse> = {
   data: {
     content: [
       {
@@ -31,7 +35,27 @@ const mockFestivalsData = {
         endDate: '2024-10-03',
       },
     ],
+    pageable: {
+      pageNumber: 0,
+      pageSize: 10,
+      sort: { empty: true, sorted: false, unsorted: true },
+      offset: 0,
+      paged: true,
+      unpaged: false,
+    },
+    last: false,
+    totalElements: 2,
+    totalPages: 1,
+    first: true,
+    size: 10,
+    number: 0,
+    sort: { empty: true, sorted: false, unsorted: true },
+    numberOfElements: 2,
   },
+  status: 200,
+  statusText: 'OK',
+  headers: {},
+  config: { headers: {} } as InternalAxiosRequestConfig,
 };
 
 // QueryClient 설정
@@ -59,7 +83,9 @@ describe('FestivalsPage 테스트', () => {
   describe('페이지 기본 구조', () => {
     test('페이지의 주요 콘텐츠 섹션이 렌더링된다', async () => {
       // Given: API 호출이 성공적으로 데이터를 반환할 때
-      mockGetFestivals.mockResolvedValue(mockFestivalsData as any);
+      mockGetFestivals.mockResolvedValue(
+        mockFestivalsData as AxiosResponse<GetFestivalsResponse, ApiErrorResponse>,
+      );
 
       // When: FestivalsPage를 렌더링하면
       render(
@@ -81,7 +107,7 @@ describe('FestivalsPage 테스트', () => {
   describe('AI 추천 섹션', () => {
     test('AI 추천 축제 목록이 표시된다', async () => {
       // Given: API 호출이 성공적으로 데이터를 반환할 때
-      mockGetFestivals.mockResolvedValue(mockFestivalsData as any);
+      mockGetFestivals.mockResolvedValue(mockFestivalsData);
 
       // When: FestivalsPage를 렌더링하면
       render(
@@ -101,7 +127,7 @@ describe('FestivalsPage 테스트', () => {
 
     test('AI 추천 축제 카드가 클릭 가능하다', async () => {
       // Given: API 호출이 성공적으로 데이터를 반환하고 AI 추천 축제가 표시될 때
-      mockGetFestivals.mockResolvedValue(mockFestivalsData as any);
+      mockGetFestivals.mockResolvedValue(mockFestivalsData);
 
       render(
         <TestWrapper>
@@ -124,7 +150,7 @@ describe('FestivalsPage 테스트', () => {
   describe('축제 목록 섹션', () => {
     test('API에서 가져온 축제 목록이 표시된다', async () => {
       // Given: API가 축제 데이터를 성공적으로 반환할 때
-      mockGetFestivals.mockResolvedValue(mockFestivalsData as any);
+      mockGetFestivals.mockResolvedValue(mockFestivalsData);
 
       // When: FestivalsPage를 렌더링하면
       render(
@@ -159,8 +185,9 @@ describe('FestivalsPage 테스트', () => {
         </TestWrapper>,
       );
 
-      // Then: 로딩 메시지가 표시되어야 한다
-      expect(screen.getByText('Loading...')).toBeInTheDocument();
+      // Then: 스켈레톤 UI가 표시되어야 한다
+      const skeletons = document.querySelectorAll('.animate-pulse');
+      expect(skeletons.length).toBeGreaterThan(0);
     });
 
     test('API 에러 상태가 올바르게 처리된다', async () => {
@@ -168,15 +195,40 @@ describe('FestivalsPage 테스트', () => {
       mockGetFestivals.mockRejectedValue(new Error('API Error'));
 
       // When: FestivalsPage를 렌더링하면
+      class ErrorBoundary extends React.Component<React.PropsWithChildren, { hasError: boolean }> {
+        constructor(props: React.PropsWithChildren) {
+          super(props);
+          this.state = { hasError: false };
+        }
+        static getDerivedStateFromError() {
+          return { hasError: true };
+        }
+        componentDidCatch() {}
+        render() {
+          if (this.state.hasError) {
+            return (
+              <div>
+                <div>오류가 발생했습니다</div>
+                <p>축제 정보를 불러올 수 없습니다.</p>
+              </div>
+            );
+          }
+          return this.props.children as React.ReactNode;
+        }
+      }
+
       render(
         <TestWrapper>
-          <FestivalsPage />
+          <ErrorBoundary>
+            <FestivalsPage />
+          </ErrorBoundary>
         </TestWrapper>,
       );
 
       // Then: 에러 메시지가 표시되어야 한다
       await waitFor(() => {
-        expect(screen.getByText('Error')).toBeInTheDocument();
+        expect(screen.getByText('오류가 발생했습니다')).toBeInTheDocument();
+        expect(screen.getByText('축제 정보를 불러올 수 없습니다.')).toBeInTheDocument();
       });
     });
   });
@@ -184,7 +236,7 @@ describe('FestivalsPage 테스트', () => {
   describe('반응형 레이아웃', () => {
     test('축제 카드들이 그리드 레이아웃으로 배치된다', async () => {
       // Given: API가 여러 축제 데이터를 반환할 때
-      mockGetFestivals.mockResolvedValue(mockFestivalsData as any);
+      mockGetFestivals.mockResolvedValue(mockFestivalsData);
 
       // When: FestivalsPage를 렌더링하면
       const { container } = render(
@@ -202,7 +254,7 @@ describe('FestivalsPage 테스트', () => {
 
     test('모바일과 데스크탑에서 적절한 패딩이 적용된다', () => {
       // Given: API 호출이 성공적으로 데이터를 반환할 때
-      mockGetFestivals.mockResolvedValue(mockFestivalsData as any);
+      mockGetFestivals.mockResolvedValue(mockFestivalsData);
 
       // When: FestivalsPage를 렌더링하면
       const { container } = render(
@@ -220,7 +272,7 @@ describe('FestivalsPage 테스트', () => {
   describe('사용자 상호작용', () => {
     test('축제 카드 호버 효과가 적용된다', async () => {
       // Given: API가 축제 데이터를 반환하고 축제 카드가 표시될 때
-      mockGetFestivals.mockResolvedValue(mockFestivalsData as any);
+      mockGetFestivals.mockResolvedValue(mockFestivalsData);
 
       render(
         <TestWrapper>
@@ -248,7 +300,7 @@ describe('FestivalsPage 테스트', () => {
   describe('데이터 통합', () => {
     test('AI 추천과 실시간 축제 데이터가 모두 표시된다', async () => {
       // Given: API가 실시간 축제 데이터를 반환할 때
-      mockGetFestivals.mockResolvedValue(mockFestivalsData as any);
+      mockGetFestivals.mockResolvedValue(mockFestivalsData);
 
       // When: FestivalsPage를 렌더링하면
       render(
@@ -272,9 +324,32 @@ describe('FestivalsPage 테스트', () => {
 
     test('빈 데이터 상태가 적절히 처리된다', async () => {
       // Given: API가 빈 배열을 반환할 때
-      mockGetFestivals.mockResolvedValue({
-        data: { content: [] },
-      } as any);
+      const emptyResponse: AxiosResponse<GetFestivalsResponse, ApiErrorResponse> = {
+        data: {
+          content: [],
+          pageable: {
+            pageNumber: 0,
+            pageSize: 10,
+            sort: { empty: true, sorted: false, unsorted: true },
+            offset: 0,
+            paged: true,
+            unpaged: false,
+          },
+          last: true,
+          totalElements: 0,
+          totalPages: 0,
+          first: true,
+          size: 10,
+          number: 0,
+          sort: { empty: true, sorted: false, unsorted: true },
+          numberOfElements: 0,
+        },
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        config: { headers: {} } as InternalAxiosRequestConfig,
+      };
+      mockGetFestivals.mockResolvedValue(emptyResponse);
 
       // When: FestivalsPage를 렌더링하면
       render(

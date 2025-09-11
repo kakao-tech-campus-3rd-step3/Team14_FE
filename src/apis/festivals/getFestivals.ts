@@ -5,7 +5,7 @@ import type { ApiErrorResponse } from '@/apis/instance';
 import type { AxiosResponse } from 'axios';
 import { generatePath } from 'react-router-dom';
 
-interface GetFestivalsResponse {
+export interface GetFestivalsResponse {
   content: Festival[];
   pageable: {
     pageNumber: number;
