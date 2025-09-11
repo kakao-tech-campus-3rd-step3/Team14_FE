@@ -7,7 +7,7 @@ import FestivalsAreaSection from '@/pages/Festivals/components/FestivalsAreaSect
 const FestivalsPage = () => {
   return (
     <Container>
-      <Header variant="logo" title="Festivals" />
+      <Header variant="page" />
       <div className="flex flex-col items-center px-8 py-4 gap-12">
         <FestivalsAISection />
         <FestivalsAreaSection />

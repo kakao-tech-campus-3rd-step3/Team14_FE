@@ -6,7 +6,7 @@ interface FestivalCardProps {
 
 const FestivalCard = ({ data }: FestivalCardProps) => {
   return (
-    <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] cursor-pointer">
+    <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-100 hover:scale-[1.02] cursor-pointer">
       {/* 이미지 섹션 */}
       <div className="aspect-[3/2] w-full">
         <img
