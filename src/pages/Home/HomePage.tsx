@@ -7,7 +7,6 @@ const HomePage = () => {
   return (
     <Container>
       <Header variant="logo" title="Home" />
-      <div className="w-full h-full mt-12">HomePage</div>
       <HomeContent />
       <Footer />
     </Container>
