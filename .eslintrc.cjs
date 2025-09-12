@@ -22,8 +22,6 @@ module.exports = {
     tsconfigRootDir: __dirname,
   },
   extends: [
-    'airbnb',
-    'airbnb-typescript',
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
     'plugin:prettier/recommended',
@@ -47,5 +45,5 @@ module.exports = {
       { namedComponents: 'arrow-function', unnamedComponents: 'arrow-function' },
     ],
   },
-  ignorePatterns: ['dist', 'build', 'node_modules'],
+  ignorePatterns: ['dist', 'build', 'node_modules', 'public'],
 };
