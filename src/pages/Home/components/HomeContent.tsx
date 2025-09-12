@@ -28,10 +28,10 @@ const PINS: Pin[] = [
 
 export default function HomeContent() {
   const [openModal, setOpenModal] = useState(false);
-  const [selectedRegion, setSelectedRegion] = useState<Region | null>(null);
+  const [selectedPin, setSelectedPin] = useState<Pin | null>(null);
 
-  const openFor = (r: Region) => { setSelectedRegion(r); setOpenModal(true); };
-  const closeModal = () => { setOpenModal(false); setSelectedRegion(null); };
+  const openFor = (pin: Pin) => { setSelectedPin(pin); setOpenModal(true); };
+  const closeModal = () => { setOpenModal(false); setSelectedPin(null); };
 
   return (
     <div className="relative w-full h-[calc(100vh-3.7rem)] bg-[#42B5D9] flex items-center justify-center">
@@ -67,7 +67,7 @@ export default function HomeContent() {
         </div>
       </div>
 
-      {openModal && <Modal isOpen={openModal} close={closeModal} region={selectedRegion} />}
+      {openModal && <Modal isOpen={openModal} close={closeModal} pin={selectedPin} />}
     </div>
   );
 }
