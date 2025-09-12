@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '@/components/common/Button';
 import type { Region } from '@/types/Region';
 
-type Pin = Region & { top: number; left: number; icon: string; areaCode: string };
+type Pin = Region & { top: number; left: number; icon: string };
 
 interface Props {
   close: () => void;
@@ -55,11 +55,24 @@ const Modal = ({ close, isOpen, pin }: Props) => {
     '취향에 딱 맞게 찾아드립니다!\n나만을 위한 지역 축제 추천';
 
   return (
-    <div className="fixed inset-0 z-[1001] flex items-center justify-center bg-black/40">
+    <div
+      className="fixed inset-0 z-[1001] flex items-center justify-center bg-black/40"
+      role="button"
+      aria-label="모달 닫기"
+      tabIndex={0}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) close();
+      }}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape') {
+          e.preventDefault();
+          close();
+        }
+      }}
+    >
       <div className="max-w-[720px] px-[7px] py-[10px] gap-[9px] bg-white shadow-lg max-w-md w-full mx-4 justify-center flex flex-col items-center justify-center h-auto">
         <p className="text-xl font-semibold">AI Pick Festival</p>
-        <p className="text-2xl font-bold text-primary-400 mt-1">{pin?.name}</p>
-
+        <p className="text-6xl font-bold text-primary-400 mt-1">{pin?.name}</p>
         <p className="mt-2 text-sm text-center whitespace-pre-line">{message}</p>
 
         {pin?.icon ? (
@@ -73,15 +86,24 @@ const Modal = ({ close, isOpen, pin }: Props) => {
         <Button
           className="mt-4 px-5 py-3 w-[180px]"
           onClick={() => {
-            if (pin?.areaCode) {
-              navigate(`/pick?areaCode=${pin.areaCode}&regionName=${encodeURIComponent(pin.name)}`);
+            if (pin?.areaId) {
+              navigate(`/pick?areaId=${pin.areaId}`);
             }
             close();
           }}
         >
           나만의 지역 축제 찾기
         </Button>
-        <Button variant="link" onClick={close} className="mt-1">
+        <Button
+          variant="link"
+          className="mt-1"
+          onClick={() => {
+            if (pin?.areaId) {
+              navigate(`/pick?areaId=${pin.areaId}`);
+            }
+            close();
+          }}
+        >
           건너뛰기
         </Button>
       </div>
