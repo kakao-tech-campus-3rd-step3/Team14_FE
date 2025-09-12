@@ -56,6 +56,7 @@ jobs:
       - name: Test
         env:
           CI: true
+          VITE_ENABLE_MSW: false
         shell: bash
         run: |
           if npm run | grep -qE ' test'; then
