@@ -45,5 +45,5 @@ module.exports = {
       { namedComponents: 'arrow-function', unnamedComponents: 'arrow-function' },
     ],
   },
-  ignorePatterns: ['dist', 'build', 'node_modules'],
+  ignorePatterns: ['dist', 'build', 'node_modules', 'public'],
 };

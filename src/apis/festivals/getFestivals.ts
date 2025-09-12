@@ -37,7 +37,7 @@ export const getFestivals = async (params: {
   areaId: string;
 }): Promise<AxiosResponse<GetFestivalsResponse, ApiErrorResponse>> => {
   return await apiInstance.get<GetFestivalsResponse>(
-    generatePath(API_ENDPOINTS.FESTIVALS, { areaId: params.areaId }),
+    generatePath(API_ENDPOINTS.FESTIVALS, { areaId: params.areaId }) + '?size=10000',
   );
 };
 
