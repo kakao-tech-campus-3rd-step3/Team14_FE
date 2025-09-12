@@ -83,18 +83,6 @@ const HomeContent = () => {
                   />
                 </button>
               ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="relative w-full h-full max-w-[720px] max-h-[700px] mx-auto">
-          <div className="relative w-full h-full flex items-center justify-center">
-            <div
-              className="relative w-full h-full"
-              style={{ aspectRatio: `${STAGE_W}/${STAGE_H}` }}
-            >
               {OCEAN_PINS.map((p) => (
                 <div
                   key={p.id}
