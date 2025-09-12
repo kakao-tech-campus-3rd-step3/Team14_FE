@@ -1,43 +1,62 @@
-import { useState } from "react";
-import Modal from "@/pages/Home/components/Modal";
-import type { Region } from "@/types/Region";
+import { useState } from 'react';
+import Modal from '@/pages/Home/components/Modal';
+import type { Region } from '@/types/Region';
 
-type Pin = Region & { top: number; left: number; icon: string };
+type Pin = Region & { top: number; left: number; icon: string; areaCode: string };
 
 const STAGE_W = 720;
 const STAGE_H = 700;
 
-const PINS: Pin[] = [
-  { id: "seoul",    name: "서울",   top: 20, left: 38, icon: "/seoul.svg" },
-  { id: "incheon",  name: "인천",   top: 24, left: 30, icon: "/incheon.svg" },
-  { id: "kyungki",  name: "경기",   top: 26, left: 45, icon: "/kyungki.svg" },
-  { id: "kangwon",  name: "강원",   top: 18, left: 58, icon: "/kangwon.svg" },
-  { id: "daejeon",  name: "대전",   top: 44, left: 44, icon: "/daejeon.svg" },
-  { id: "chungbuk", name: "충북",   top: 35, left: 48, icon: "/chungbuk.svg" },
-  { id: "chungnam", name: "충남",   top: 45, left: 32, icon: "/chungnam.svg" },
-  { id: "gwanju",   name: "광주",   top: 68, left: 34, icon: "/gwanju.svg" },
-  { id: "jeonbuk",  name: "전북",   top: 63, left: 43, icon: "/jeonbuk.svg" },
-  { id: "jyunnam",  name: "전남",   top: 78, left: 37, icon: "/jyunnam.svg" },
-  { id: "kyungbuk", name: "경북",   top: 42, left: 65, icon: "/kyungbuk.svg" },
-  { id: "daegue",   name: "대구",   top: 54, left: 62, icon: "/daegue.svg" },
-  { id: "kyungnam", name: "경남",   top: 62, left: 58, icon: "/kyungnam.svg" },
-  { id: "ulsan",    name: "울산",   top: 58, left: 72, icon: "/ulsan.svg" },
-  { id: "buan",     name: "부산",   top: 70, left: 70, icon: "/buan.svg" },
-  { id: "jeju",     name: "제주",   top: 90, left: 35, icon: "/jeju.svg" },
+const MAP_PINS: Pin[] = [
+  { id: 'seoul', name: '서울', top: 20, left: 38, icon: '/seoul.svg', areaCode: '1' },
+  { id: 'incheon', name: '인천', top: 24, left: 30, icon: '/incheon.svg', areaCode: '2' },
+  { id: 'kyungki', name: '경기', top: 26, left: 45, icon: '/kyungki.svg', areaCode: '31' },
+  { id: 'kangwon', name: '강원', top: 18, left: 58, icon: '/kangwon.svg', areaCode: '32' },
+  { id: 'daejeon', name: '대전', top: 44, left: 44, icon: '/daejeon.svg', areaCode: '3' },
+  { id: 'chungbuk', name: '충북', top: 35, left: 48, icon: '/chungbuk.svg', areaCode: '33' },
+  { id: 'chungnam', name: '충남', top: 45, left: 32, icon: '/chungnam.svg', areaCode: '34' },
+  { id: 'gwanju', name: '광주', top: 68, left: 34, icon: '/gwanju.svg', areaCode: '5' },
+  { id: 'jeonbuk', name: '전북', top: 63, left: 43, icon: '/jeonbuk.svg', areaCode: '35' },
+  { id: 'jyunnam', name: '전남', top: 78, left: 37, icon: '/jyunnam.svg', areaCode: '36' },
+  { id: 'kyungbuk', name: '경북', top: 42, left: 65, icon: '/kyungbuk.svg', areaCode: '37' },
+  { id: 'daegue', name: '대구', top: 54, left: 62, icon: '/daegue.svg', areaCode: '4' },
+  { id: 'kyungnam', name: '경남', top: 62, left: 58, icon: '/kyungnam.svg', areaCode: '38' },
+  { id: 'ulsan', name: '울산', top: 58, left: 72, icon: '/ulsan.svg', areaCode: '7' },
+  { id: 'buan', name: '부산', top: 70, left: 70, icon: '/buan.svg', areaCode: '6' },
+  { id: 'jeju', name: '제주', top: 90, left: 35, icon: '/jeju.svg', areaCode: '39' },
+];
+
+const OCEAN_PINS: Pin[] = [
+  { id: 'shipment', name: '어선', top: 90, left: 80, icon: '/shipment.svg', areaCode: '' },
+  { id: 'fish01', name: '물고기', top: 95, left: 70, icon: '/fish.svg', areaCode: '' },
+  { id: 'fish02', name: '물고기', top: 98, left: 60, icon: '/fish.svg', areaCode: '' },
+  { id: 'fish03', name: '물고기', top: 100, left: 66, icon: '/fish.svg', areaCode: '' },
+  { id: 'ferry', name: '페리선', top: 80, left: 15, icon: '/ferry.svg', areaCode: '' },
+  { id: 'dokdo', name: '독도', top: 30, left: 84, icon: '/dokdo.svg', areaCode: '' },
+  { id: 'airplane', name: '비행기', top: 30, left: 14, icon: '/airplane.svg', areaCode: '' },
 ];
 
 export default function HomeContent() {
   const [openModal, setOpenModal] = useState(false);
   const [selectedPin, setSelectedPin] = useState<Pin | null>(null);
 
-  const openFor = (pin: Pin) => { setSelectedPin(pin); setOpenModal(true); };
-  const closeModal = () => { setOpenModal(false); setSelectedPin(null); };
+  const openFor = (pin: Pin) => {
+    setSelectedPin(pin);
+    setOpenModal(true);
+  };
+  const closeModal = () => {
+    setOpenModal(false);
+    setSelectedPin(null);
+  };
 
   return (
-    <div className="relative w-full h-[calc(100vh-3.7rem)] bg-[#42B5D9] flex items-center justify-center">
+    <div className="relative w-full h-[calc(100vh-3.7rem)] bg-gradient-to-br from-[var(--color-secondary-300)] via-[var(--color-secondary-400)] to-[var(--color-secondary-300)] flex items-center justify-center">
       <div className="relative w-full h-full max-w-[720px] max-h-[700px] flex items-center justify-center">
         <div className="relative w-full h-full flex items-center justify-center">
-          <div className="relative w-full h-full max-w-full max-h-full" style={{ aspectRatio: `${STAGE_W}/${STAGE_H}` }}>
+          <div
+            className="relative w-full h-full max-w-full max-h-full"
+            style={{ aspectRatio: `${STAGE_W}/${STAGE_H}` }}
+          >
             <img
               src="/koreamap.svg"
               width={STAGE_W}
@@ -45,7 +64,7 @@ export default function HomeContent() {
               className="absolute inset-0 w-full h-full object-contain select-none"
             />
             <div className="absolute inset-0">
-              {PINS.map((p) => (
+              {MAP_PINS.map((p) => (
                 <button
                   key={p.id}
                   className="absolute -translate-x-1/2 -translate-y-1/2 z-10 group"
@@ -67,8 +86,33 @@ export default function HomeContent() {
         </div>
       </div>
 
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="relative w-full h-full max-w-[720px] max-h-[700px] mx-auto">
+          <div className="relative w-full h-full flex items-center justify-center">
+            <div
+              className="relative w-full h-full"
+              style={{ aspectRatio: `${STAGE_W}/${STAGE_H}` }}
+            >
+              {OCEAN_PINS.map((p) => (
+                <div
+                  key={p.id}
+                  className="absolute -translate-x-1/2 -translate-y-1/2 z-10 group pointer-events-none"
+                  style={{ top: `${p.top}%`, left: `${p.left}%` }}
+                >
+                  <img
+                    src={p.icon}
+                    alt={p.name}
+                    className="w-12 sm:w-14 md:w-16 drop-shadow-[0_4px_8px_rgba(0,0,0,0.3)]"
+                    draggable={false}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
       {openModal && <Modal isOpen={openModal} close={closeModal} pin={selectedPin} />}
     </div>
   );
 }
-
