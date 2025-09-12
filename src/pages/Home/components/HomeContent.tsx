@@ -36,7 +36,7 @@ const OCEAN_PINS: Pin[] = [
   { id: 'airplane', name: '비행기', top: 30, left: 14, icon: '/ocean/airplane.svg', areaCode: '' },
 ];
 
-export default function HomeContent() {
+const HomeContent = () => {
   const [openModal, setOpenModal] = useState(false);
   const [selectedPin, setSelectedPin] = useState<Pin | null>(null);
 
@@ -62,11 +62,13 @@ export default function HomeContent() {
               width={STAGE_W}
               height={STAGE_H}
               className="absolute inset-0 w-full h-full object-contain select-none"
+              alt="koreamap"
             />
             <div className="absolute inset-0">
               {MAP_PINS.map((p) => (
                 <button
                   key={p.id}
+                  type="button"
                   className="absolute -translate-x-1/2 -translate-y-1/2 z-10 group"
                   style={{ top: `${p.top}%`, left: `${p.left}%` }}
                   onClick={() => openFor(p)}
@@ -115,4 +117,6 @@ export default function HomeContent() {
       {openModal && <Modal isOpen={openModal} close={closeModal} pin={selectedPin} />}
     </div>
   );
-}
+};
+
+export default HomeContent;

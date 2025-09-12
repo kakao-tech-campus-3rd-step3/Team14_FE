@@ -41,7 +41,6 @@ const Modal = ({ close, isOpen, pin }: Props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isOpen) return;
     const original = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     return () => {
@@ -71,11 +70,10 @@ const Modal = ({ close, isOpen, pin }: Props) => {
           </div>
         )}
 
-        <Button 
-          className="mt-4 px-5 py-3 w-[180px]" 
+        <Button
+          className="mt-4 px-5 py-3 w-[180px]"
           onClick={() => {
             if (pin?.areaCode) {
-              console.log('Selected areaCode:', pin.areaCode);
               navigate(`/pick?areaCode=${pin.areaCode}&regionName=${encodeURIComponent(pin.name)}`);
             }
             close();
