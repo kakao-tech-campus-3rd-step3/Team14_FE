@@ -85,6 +85,7 @@ npm run dev
 
 ```bash
 src/
+ ├─ __tests__        # 테스트 코드
  ├─ assets/          # 이미지, 폰트, 아이콘 등 정적 요소
  ├─ components/      # 공용 UI 컴포넌트(Button, Modal 등)
  ├─ pages/           # 라우팅 단위 페이지(Home, Login 등)

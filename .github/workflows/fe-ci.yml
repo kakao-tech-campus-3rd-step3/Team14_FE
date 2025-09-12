@@ -49,20 +49,21 @@ jobs:
 
       - name: Lint
         run: npm run lint
-      
+
       - name: Typecheck
         run: npm run typecheck
 
-      - name: Test 
+      - name: Test
         env:
           CI: true
+          VITE_ENABLE_MSW: false
         shell: bash
         run: |
           if npm run | grep -qE ' test'; then
-            npm run test -- --run || npm run test -- --ci || npm run test
+            npm run test
           else
             echo "No test script, skipping."
           fi
 
-      - name: Build 
+      - name: Build
         run: npm run build

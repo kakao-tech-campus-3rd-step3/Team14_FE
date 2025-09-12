@@ -1,8 +1,8 @@
 import Button from '@/components/common/Button';
-import Home from '@/components/icon/Home';
-import LeftArrow from '@/components/icon/LeftArrow';
-import Profile from '@/components/icon/Profile';
-import Logo from '../icon/Logo';
+import Home from '@/components/icon/HomeIcon';
+import LeftArrow from '@/components/icon/LeftArrowIcon';
+import Profile from '@/components/icon/ProfileIcon';
+import Logo from '../icon/LogoIcon';
 
 interface HeaderProps {
   variant?: 'logo' | 'page' | 'all';
