@@ -3,10 +3,10 @@ import React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import FestivalsPage from '@/pages/Festivals/FestivalsPage';
 import { festivalsMockData } from '@/mocks/data/festivals.mock';
+import * as ReactRouter from 'react-router-dom';
 
 vi.mock('react-router-dom', async () => ({
   ...(await vi.importActual('react-router-dom')),
-  useParams: vi.fn().mockReturnValue({ areaId: '2' }),
 }));
 
 // QueryClient 설정
@@ -27,9 +27,7 @@ const TestWrapper = ({ children }: { children: React.ReactNode }) => {
 };
 
 describe('FestivalsPage 테스트', () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
+  vi.spyOn(ReactRouter, 'useParams').mockReturnValue({ areaId: '2' });
   describe('페이지 기본 구조', () => {
     test('페이지의 주요 콘텐츠 섹션이 렌더링된다', async () => {
       // Given: API 호출이 성공적으로 데이터를 반환할 때

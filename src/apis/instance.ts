@@ -6,7 +6,7 @@ export interface ApiErrorResponse {
   message: string;
 }
 
-export const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+export const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
 
 const initInstance = (config: CreateAxiosDefaults): AxiosInstance => {
   const instance = axios.create({
