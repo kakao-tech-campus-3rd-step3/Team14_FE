@@ -14,6 +14,10 @@ const navigationItems = [
   { id: 'my', icon: Profile, label: 'My' },
 ] as const;
 
+/**
+ * 하단 푸터(네비게이션) 컴포넌트
+ * @param initialSelected - 초기 선택된 메뉴 아이템 (기본값: 'none')
+ */
 const Footer = ({ initialSelected = 'none' }: { initialSelected?: FooterSelected }) => {
   const [selected, setSelected] = useState<FooterSelected>(initialSelected);
 

@@ -9,6 +9,14 @@ interface HeaderProps {
   title?: string;
 }
 
+/**
+ * 상단 헤더 컴포넌트
+ * @param variant - 헤더 변형 타입 (기본값: 'logo')
+ *   - logo: 로고와 앱 이름을 표시하는 메인 헤더
+ *   - page: 뒤로가기 버튼과 페이지 제목을 표시하는 서브 헤더
+ *   - all: 뒤로가기, 제목, 홈/프로필 버튼을 모두 표시
+ * @param title - 페이지 제목 (variant가 'page' 또는 'all'일 때 사용)
+ */
 const Header = ({ variant = 'logo', title = '' }: HeaderProps) => {
   const containerClasses =
     'w-full mx-auto flex flex-col items-center fixed top-0 left-0 z-999 bg-gray-100';
