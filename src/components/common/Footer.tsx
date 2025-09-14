@@ -19,7 +19,7 @@ const Footer = ({ initialSelected = 'none' }: { initialSelected?: FooterSelected
 
   const containerClasses = 'w-full mx-auto flex flex-col items-center fixed bottom-0 left-0 z-999';
   const baseClasses =
-    'w-full max-w-[720px] h-15 border-t border-gray-300 flex items-center bg-white';
+    'w-full max-w-[480px] h-15 border-t border-gray-300 flex items-center bg-white';
   const buttonClasses = 'flex items-center justify-center flex-1 flex-col text-xs pt-2 pb-3 px-3';
   const iconClasses = 'size-6';
 

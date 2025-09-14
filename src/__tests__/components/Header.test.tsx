@@ -22,7 +22,7 @@ describe('Header 컴포넌트', () => {
       expect(outerDiv).toHaveClass('w-full', 'fixed', 'top-0', 'bg-gray-100');
 
       const innerDiv = outerDiv.firstChild as HTMLElement;
-      expect(innerDiv).toHaveClass('w-full', 'max-w-[720px]', 'h-12', 'bg-white');
+      expect(innerDiv).toHaveClass('w-full', 'max-w-[480px]', 'h-12', 'bg-white');
     });
   });
 
@@ -99,7 +99,7 @@ describe('Header 컴포넌트', () => {
       expect(outerDiv).toHaveClass('fixed', 'top-0', 'z-999');
 
       const innerDiv = outerDiv.firstChild as HTMLElement;
-      expect(innerDiv).toHaveClass('max-w-[720px]', 'h-12');
+      expect(innerDiv).toHaveClass('max-w-[480px]', 'h-12');
     });
   });
 

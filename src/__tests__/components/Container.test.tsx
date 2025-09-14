@@ -32,7 +32,7 @@ describe('Container 컴포넌트', () => {
       expect(outerDiv).toHaveClass('w-full', 'h-full', 'bg-gray-100');
 
       const innerDiv = outerDiv.firstChild as HTMLElement;
-      expect(innerDiv).toHaveClass('max-w-[720px]', 'w-full', 'bg-white');
+      expect(innerDiv).toHaveClass('max-w-[480px]', 'w-full', 'bg-white');
     });
   });
 

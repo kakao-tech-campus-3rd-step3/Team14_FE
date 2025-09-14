@@ -13,7 +13,7 @@ const Header = ({ variant = 'logo', title = '' }: HeaderProps) => {
   const containerClasses =
     'w-full mx-auto flex flex-col items-center fixed top-0 left-0 z-999 bg-gray-100';
   const baseClasses =
-    'w-full max-w-[720px] h-12 border-b border-gray-300 flex items-center bg-white';
+    'w-full max-w-[480px] h-12 border-b border-gray-300 flex items-center bg-white';
 
   if (variant === 'logo') {
     return (
