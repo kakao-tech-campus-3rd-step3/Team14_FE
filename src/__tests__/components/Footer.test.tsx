@@ -47,7 +47,7 @@ describe('Footer 컴포넌트', () => {
       const innerDiv = outerDiv.firstChild as HTMLElement;
       expect(innerDiv).toHaveClass(
         'w-full',
-        'max-w-[720px]',
+        'max-w-[480px]',
         'h-15',
         'border-t',
         'border-gray-300',
@@ -150,10 +150,10 @@ describe('Footer 컴포넌트', () => {
       // When: Footer 컴포넌트를 렌더링하면
       const { container } = render(<Footer />);
 
-      // Then: 내부 컨테이너에 최대 너비 720px이 적용돼야 한다
+      // Then: 내부 컨테이너에 최대 너비 480px이 적용돼야 한다
       const outerDiv = container.firstChild as HTMLElement;
       const innerDiv = outerDiv.firstChild as HTMLElement;
-      expect(innerDiv).toHaveClass('max-w-[720px]');
+      expect(innerDiv).toHaveClass('max-w-[480px]');
     });
 
     test('z-index가 적용된다', () => {
