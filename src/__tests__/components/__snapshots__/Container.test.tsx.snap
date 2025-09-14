@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Container 컴포넌트 > 스냅샷 테스트 > Container가 렌더링된다 1`] = `
+<div>
+  <div
+    class="w-full h-full flex flex-col items-center bg-gray-100"
+  >
+    <div
+      class="min-h-screen pt-12 pb-15 max-w-[480px] w-full relative bg-white "
+    >
+      테스트
+    </div>
+  </div>
+</div>
+`;

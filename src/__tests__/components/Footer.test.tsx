@@ -3,58 +3,11 @@ import Footer from '@/components/common/Footer';
 
 describe('Footer 컴포넌트', () => {
   describe('기본 렌더링', () => {
-    test('모든 네비게이션 버튼이 렌더링된다', () => {
-      // Given: Footer 컴포넌트가 주어졌을 때
-      // When: Footer 컴포넌트를 렌더링하면
-      render(<Footer />);
-
-      // Then: 모든 네비게이션 버튼과 텍스트가 화면에 표시돼야 한다
-      expect(screen.getByText('홈')).toBeInTheDocument();
-      expect(screen.getByText('검색')).toBeInTheDocument();
-      expect(screen.getByText('AI 추천')).toBeInTheDocument();
-      expect(screen.getByText('My')).toBeInTheDocument();
-    });
-
-    test('4개의 네비게이션 버튼이 있다', () => {
-      // Given: Footer 컴포넌트가 주어졌을 때
-      // When: Footer 컴포넌트를 렌더링하면
-      render(<Footer />);
-
-      // Then: 4개의 버튼이 렌더링되어야 한다
-      const buttons = screen.getAllByRole('button');
-      expect(buttons).toHaveLength(4);
-    });
-
-    test('Footer 구조가 올바르게 렌더링된다', () => {
+    test('Footer가 렌더링된다', () => {
       // Given: Footer 컴포넌트가 주어졌을 때
       // When: Footer 컴포넌트를 렌더링하면
       const { container } = render(<Footer />);
-
-      // Then: 올바른 구조와 클래스가 적용돼야 한다
-      const outerDiv = container.firstChild as HTMLElement;
-      expect(outerDiv).toHaveClass(
-        'w-full',
-        'mx-auto',
-        'flex',
-        'flex-col',
-        'items-center',
-        'fixed',
-        'bottom-0',
-        'left-0',
-        'z-999',
-      );
-
-      const innerDiv = outerDiv.firstChild as HTMLElement;
-      expect(innerDiv).toHaveClass(
-        'w-full',
-        'max-w-[480px]',
-        'h-15',
-        'border-t',
-        'border-gray-300',
-        'flex',
-        'items-center',
-        'bg-white',
-      );
+      expect(container).toMatchSnapshot();
     });
   });
 
@@ -131,67 +84,6 @@ describe('Footer 컴포넌트', () => {
         // Then: 클릭된 버튼의 텍스트가 볼드로 변경되어야 한다
         expect(button).toHaveClass('font-bold');
       });
-    });
-  });
-
-  describe('레이아웃 테스트', () => {
-    test('Footer가 하단에 고정된다', () => {
-      // Given: Footer 컴포넌트가 주어졌을 때
-      // When: Footer 컴포넌트를 렌더링하면
-      const { container } = render(<Footer />);
-
-      // Then: 하단 고정 클래스가 적용돼야 한다
-      const outerDiv = container.firstChild as HTMLElement;
-      expect(outerDiv).toHaveClass('fixed', 'bottom-0', 'left-0');
-    });
-
-    test('최대 너비 제한이 적용된다', () => {
-      // Given: Footer 컴포넌트가 주어졌을 때
-      // When: Footer 컴포넌트를 렌더링하면
-      const { container } = render(<Footer />);
-
-      // Then: 내부 컨테이너에 최대 너비 480px이 적용돼야 한다
-      const outerDiv = container.firstChild as HTMLElement;
-      const innerDiv = outerDiv.firstChild as HTMLElement;
-      expect(innerDiv).toHaveClass('max-w-[480px]');
-    });
-
-    test('z-index가 적용된다', () => {
-      // Given: Footer 컴포넌트가 주어졌을 때
-      // When: Footer 컴포넌트를 렌더링하면
-      const { container } = render(<Footer />);
-
-      // Then: z-index 클래스가 적용돼야 한다
-      const outerDiv = container.firstChild as HTMLElement;
-      expect(outerDiv).toHaveClass('z-999');
-    });
-  });
-
-  describe('접근성 테스트', () => {
-    test('모든 버튼이 접근 가능하다', () => {
-      // Given: Footer 컴포넌트가 주어졌을 때
-      // When: Footer 컴포넌트를 렌더링하면
-      render(<Footer />);
-
-      // Then: 모든 버튼이 role="button"으로 접근 가능해야 한다
-      const buttons = screen.getAllByRole('button');
-      expect(buttons).toHaveLength(4);
-
-      buttons.forEach((button) => {
-        expect(button).not.toHaveAttribute('tabindex', '-1');
-      });
-    });
-
-    test('버튼에 적절한 텍스트 라벨이 있다', () => {
-      // Given: Footer 컴포넌트가 주어졌을 때
-      // When: Footer 컴포넌트를 렌더링하면
-      render(<Footer />);
-
-      // Then: 각 버튼에 텍스트 라벨이 포함되어야 한다
-      expect(screen.getByRole('button', { name: /홈/i })).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: /검색/i })).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: /AI 추천/i })).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: /My/i })).toBeInTheDocument();
     });
   });
 });
