@@ -17,12 +17,6 @@ const initInstance = (config: CreateAxiosDefaults): AxiosInstance => {
     ...config,
   });
 
-  // Request 인터셉터
-  instance.interceptors.request.use((config) => {
-    // 요청 전 설정
-    return config;
-  });
-
   // Response 인터셉터
   instance.interceptors.response.use(
     (response) => {
