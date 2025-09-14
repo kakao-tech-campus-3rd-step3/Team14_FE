@@ -4,8 +4,8 @@ import type { Pin } from '@/types/Pin';
 import MAP_PINS from '@/constants/mapPins';
 import OCEAN_PINS from '@/constants/oceanPins';
 
-const STAGE_W = 720;
-const STAGE_H = 700;
+const STAGE_W = 480;
+const STAGE_H = 467;
 
 const HomeContent = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -22,7 +22,7 @@ const HomeContent = () => {
 
   return (
     <div className="relative w-full h-[calc(100vh-3.7rem)] bg-gradient-to-br from-[var(--color-secondary-300)] via-[var(--color-secondary-400)] to-[var(--color-secondary-300)] flex items-center justify-center">
-      <div className="relative w-full h-full max-w-[720px] max-h-[700px] flex items-center justify-center">
+      <div className="relative w-full h-full max-w-[480px] max-h-[467px] flex items-center justify-center">
         <div className="relative w-full h-full flex items-center justify-center">
           <div
             className="relative w-full h-full max-w-full max-h-full"
