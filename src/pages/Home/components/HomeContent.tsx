@@ -21,9 +21,9 @@ const HomeContent = () => {
   };
 
   return (
-    <div className="relative w-full h-[calc(100vh-3.7rem)] bg-gradient-to-br from-[var(--color-secondary-300)] via-[var(--color-secondary-400)] to-[var(--color-secondary-300)] flex items-center justify-center">
-      <div className="relative w-full h-full max-w-[480px] max-h-[467px] flex items-center justify-center">
-        <div className="relative w-full h-full flex items-center justify-center">
+    <div className="absolute w-full h-[calc(100vh-6.75rem)] bg-gradient-to-br from-[var(--color-secondary-300)] via-[var(--color-secondary-400)] to-[var(--color-secondary-300)] flex items-center justify-center">
+      <div className="relative w-full h-full flex items-center justify-center">
+        
           <div
             className="relative w-full h-full max-w-full max-h-full"
             style={{ aspectRatio: `${STAGE_W}/${STAGE_H}` }}
@@ -49,7 +49,7 @@ const HomeContent = () => {
                   <img
                     src={p.icon}
                     alt={p.name}
-                    className="w-10 sm:w-12 md:w-14 transition-transform group-hover:scale-110 active:scale-95 drop-shadow-[0_4px_8px_rgba(0,0,0,0.2)]"
+                    className="w-10 sm:w-10 md:w-12 transition-transform group-hover:scale-110 active:scale-95 drop-shadow-[0_4px_8px_rgba(0,0,0,0.2)]"
                     draggable={false}
                   />
                 </button>
@@ -71,7 +71,7 @@ const HomeContent = () => {
             </div>
           </div>
         </div>
-      </div>
+
 
       {openModal && <Modal isOpen={openModal} close={closeModal} pin={selectedPin} />}
     </div>
