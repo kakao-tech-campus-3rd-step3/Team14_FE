@@ -10,7 +10,7 @@ const App = () => {
       <BrowserRouter>
         <Routes />
       </BrowserRouter>
-      <ReactQueryDevtools />
+      {import.meta.env.VITE_ENABLE_RQ_DEVTOOLS === 'true' && <ReactQueryDevtools />}
     </QueryClientProvider>
   );
 };
