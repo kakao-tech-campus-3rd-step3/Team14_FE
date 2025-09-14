@@ -8,6 +8,15 @@ interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
   className?: string;
 }
 
+/**
+ * Button 컴포넌트
+ * @param children - 버튼 내부에 표시될 콘텐츠
+ * @param variant - 버튼 스타일 변형 (기본값: 'primary')
+ * @param size - 버튼 크기 (기본값: 'md')
+ * @param fullWidth - 전체 너비 사용 여부 (기본값: false)
+ * @param className - 추가 CSS 클래스명
+ * @param props - 기타 HTML button 속성들
+ */
 const Button = ({
   children,
   variant = 'primary',
