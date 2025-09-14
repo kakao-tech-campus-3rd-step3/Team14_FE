@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import Modal from '@/pages/Home/components/Modal';
-import type { Region } from '@/types/Region';
-
-type Pin = Region & { top: number; left: number; icon: string };
+import type { Pin } from '@/types/Pin';
 
 const STAGE_W = 720;
 const STAGE_H = 700;
