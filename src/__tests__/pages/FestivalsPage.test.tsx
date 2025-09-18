@@ -23,7 +23,11 @@ const createTestQueryClient = () =>
 // 테스트용 래퍼 컴포넌트
 const TestWrapper = ({ children }: { children: React.ReactNode }) => {
   const queryClient = createTestQueryClient();
-  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
+  return (
+    <ReactRouter.MemoryRouter>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    </ReactRouter.MemoryRouter>
+  );
 };
 
 describe('FestivalsPage 테스트', () => {
