@@ -6,7 +6,7 @@ exports[`OutlineInputField 컴포넌트 > 기본 스냅샷 테스트 > 기본 �
     class="w-full h-full gap-1"
   >
     <input
-      class="w-full h-[3rem] border border-gray-300 rounded-none p-2 focus:outline-primary-300"
+      class="w-full h-[3rem] border border-gray-300 rounded-none py-2 px-3 focus:outline-primary-300"
     />
   </div>
 </div>
