@@ -1,0 +1,415 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`PickPage 테스트 > 스냅샷 테스트 > 기본 스냅샷 테스트 1`] = `
+<div
+  class="w-full h-full flex flex-col items-center bg-gray-100"
+>
+  <div
+    class="min-h-screen pt-12 pb-15 max-w-[480px] w-full relative bg-white "
+  >
+    <div
+      class="w-full mx-auto flex flex-col items-center fixed top-0 left-0 z-999 bg-gray-100"
+    >
+      <div
+        class="w-full max-w-[480px] h-12 border-b border-gray-300 flex items-center bg-white justify-between"
+      >
+        <div
+          class="flex-1 flex justify-start"
+        >
+          <button
+            class="cursor-pointer flex items-center justify-center w-fit bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 undefined"
+            type="button"
+          >
+            <svg
+              class="size-8"
+              fill="none"
+              height="28"
+              stroke="black"
+              stroke-width="3"
+              viewBox="0 0 24 24"
+              width="28"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M16 4 L8 12 L16 20"
+              />
+            </svg>
+          </button>
+        </div>
+        <div
+          class="flex-1 flex justify-center"
+        >
+          <h1
+            class="text-xl font-bold"
+          />
+        </div>
+        <div
+          class="flex-1 flex justify-end"
+        />
+      </div>
+    </div>
+    <section
+      class="flex flex-col h-full px-8 py-4"
+    >
+      <div
+        class="flex flex-col items-center gap-1 mb-8"
+      >
+        <h2
+          class="w-full text-left text-xl text-gray-500"
+        >
+          당신에 대해 알려주세요!
+        </h2>
+        <h1
+          class="w-full text-left text-2xl"
+        >
+          즐기고 싶은 
+          <span
+            class="font-bold"
+          >
+            축제의 스타일
+          </span>
+          을
+          <br />
+          선택해 주세요.
+        </h1>
+      </div>
+      <div
+        class="w-full h-full grid grid-cols-3 gap-4 gap-y-6"
+      >
+        <div
+          class="w-full h-full overflow-hidden flex flex-col items-center justify-center gap-3"
+        >
+          <img
+            alt="전통 문화"
+            class="size-[100px] rounded-lg  object-cover bg-gray-200"
+          />
+          <p
+            class="text-lg"
+          >
+            전통 문화
+          </p>
+        </div>
+        <div
+          class="w-full h-full overflow-hidden flex flex-col items-center justify-center gap-3"
+        >
+          <img
+            alt="예술/공연"
+            class="size-[100px] rounded-lg  object-cover bg-gray-200"
+          />
+          <p
+            class="text-lg"
+          >
+            예술/공연
+          </p>
+        </div>
+        <div
+          class="w-full h-full overflow-hidden flex flex-col items-center justify-center gap-3"
+        >
+          <img
+            alt="먹거리"
+            class="size-[100px] rounded-lg  object-cover bg-gray-200"
+          />
+          <p
+            class="text-lg"
+          >
+            먹거리
+          </p>
+        </div>
+        <div
+          class="w-full h-full overflow-hidden flex flex-col items-center justify-center gap-3"
+        >
+          <img
+            alt="자연/경관"
+            class="size-[100px] rounded-lg  object-cover bg-gray-200"
+          />
+          <p
+            class="text-lg"
+          >
+            자연/경관
+          </p>
+        </div>
+        <div
+          class="w-full h-full overflow-hidden flex flex-col items-center justify-center gap-3"
+        >
+          <img
+            alt="체험/참여"
+            class="size-[100px] rounded-lg  object-cover bg-gray-200"
+          />
+          <p
+            class="text-lg"
+          >
+            체험/참여
+          </p>
+        </div>
+        <div
+          class="w-full h-full overflow-hidden flex flex-col items-center justify-center gap-3"
+        >
+          <img
+            alt="트렌디"
+            class="size-[100px] rounded-lg  object-cover bg-gray-200"
+          />
+          <p
+            class="text-lg"
+          >
+            트렌디
+          </p>
+        </div>
+        <div
+          class="w-full h-full overflow-hidden flex flex-col items-center justify-center gap-3"
+        >
+          <img
+            alt="커뮤니티"
+            class="size-[100px] rounded-lg  object-cover bg-gray-200"
+          />
+          <p
+            class="text-lg"
+          >
+            커뮤니티
+          </p>
+        </div>
+        <div
+          class="w-full h-full overflow-hidden flex flex-col items-center justify-center gap-3"
+        >
+          <img
+            alt="지역특색"
+            class="size-[100px] rounded-lg  object-cover bg-gray-200"
+          />
+          <p
+            class="text-lg"
+          >
+            지역특색
+          </p>
+        </div>
+        <div
+          class="w-full h-full overflow-hidden flex flex-col items-center justify-center gap-3"
+        >
+          <img
+            alt="국제"
+            class="size-[100px] rounded-lg  object-cover bg-gray-200"
+          />
+          <p
+            class="text-lg"
+          >
+            국제
+          </p>
+        </div>
+      </div>
+    </section>
+    <div
+      class="w-full mx-auto flex flex-col items-center fixed bottom-0 left-0 z-999"
+    >
+      <div
+        class="w-full max-w-[480px] h-15 border-t border-gray-300 flex items-center bg-white"
+      >
+        <a
+          class="flex-1 flex items-center justify-center"
+          data-discover="true"
+          href="/"
+        >
+          <button
+            class="cursor-pointer flex items-center justify-center w-fit bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3"
+            type="button"
+          >
+            <svg
+              class="size-6"
+              fill="none"
+              height="24"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.99999 10L12 3L20 10L20 20H15V16C15 15.2044 14.6839 14.4413 14.1213 13.8787C13.5587 13.3161 12.7956 13 12 13C11.2043 13 10.4413 13.3161 9.87868 13.8787C9.31607 14.4413 9 15.2043 9 16V20H4L3.99999 10Z"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <p
+              class="font-normal"
+            >
+              홈
+            </p>
+          </button>
+        </a>
+        <a
+          class="flex-1 flex items-center justify-center"
+          data-discover="true"
+          href="/search"
+        >
+          <button
+            class="cursor-pointer flex items-center justify-center w-fit bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3"
+            type="button"
+          >
+            <svg
+              class="size-6"
+              fill="none"
+              height="24"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <p
+              class="font-normal"
+            >
+              검색
+            </p>
+          </button>
+        </a>
+        <a
+          class="flex-1 flex items-center justify-center"
+          data-discover="true"
+          href="/pick"
+        >
+          <button
+            class="cursor-pointer flex items-center justify-center w-fit bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3"
+            type="button"
+          >
+            <svg
+              class="size-6"
+              fill="currentColor"
+              height="24"
+              stroke="currentColor"
+              stroke-width="4"
+              viewBox="0 0 64 64"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="34.52"
+                cy="11.43"
+                r="5.82"
+              />
+              <circle
+                cx="53.63"
+                cy="31.6"
+                r="5.82"
+              />
+              <circle
+                cx="34.52"
+                cy="50.57"
+                r="5.82"
+              />
+              <circle
+                cx="15.16"
+                cy="42.03"
+                r="5.82"
+              />
+              <circle
+                cx="15.16"
+                cy="19.27"
+                r="5.82"
+              />
+              <circle
+                cx="34.51"
+                cy="29.27"
+                r="4.7"
+              />
+              <line
+                x1="20.17"
+                x2="28.9"
+                y1="16.3"
+                y2="12.93"
+              />
+              <line
+                x1="38.6"
+                x2="49.48"
+                y1="15.59"
+                y2="27.52"
+              />
+              <line
+                x1="50.07"
+                x2="38.67"
+                y1="36.2"
+                y2="46.49"
+              />
+              <line
+                x1="18.36"
+                x2="30.91"
+                y1="24.13"
+                y2="46.01"
+              />
+              <line
+                x1="20.31"
+                x2="28.7"
+                y1="44.74"
+                y2="48.63"
+              />
+              <line
+                x1="17.34"
+                x2="31.37"
+                y1="36.63"
+                y2="16.32"
+              />
+              <line
+                x1="20.52"
+                x2="30.34"
+                y1="21.55"
+                y2="27.1"
+              />
+              <line
+                x1="39.22"
+                x2="47.81"
+                y1="29.8"
+                y2="30.45"
+              />
+              <line
+                x1="34.51"
+                x2="34.52"
+                y1="33.98"
+                y2="44.74"
+              />
+            </svg>
+            <p
+              class="font-bold"
+            >
+              AI 추천
+            </p>
+          </button>
+        </a>
+        <a
+          class="flex-1 flex items-center justify-center"
+          data-discover="true"
+          href="/mypage"
+        >
+          <button
+            class="cursor-pointer flex items-center justify-center w-fit bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3"
+            type="button"
+          >
+            <svg
+              class="size-6"
+              fill="none"
+              height="24"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5 21C5 17.134 8.13401 14 12 14C15.866 14 19 17.134 19 21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+              />
+            </svg>
+            <p
+              class="font-normal"
+            >
+              My
+            </p>
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
