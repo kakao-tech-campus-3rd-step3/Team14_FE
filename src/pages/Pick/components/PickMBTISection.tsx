@@ -2,6 +2,8 @@ import PickSubTitle from '@/pages/Pick/components/PickSubTitle';
 import PickMBTIList from '@/pages/Pick/components/PickMBTIList';
 import OutlineInputField from '@/components/form/OutlineInputField';
 import Button from '@/components/common/Button';
+import { generatePath, Link } from 'react-router-dom';
+import { ROUTE_PATH } from '@/constants/routes';
 
 const PickMBTISection = () => {
   return (
@@ -21,9 +23,11 @@ const PickMBTISection = () => {
           나를 <span className="font-bold">더</span> 알려주고 싶어요.
         </h1>
         <OutlineInputField placeholder="캠핑, 불멍, 서핑" rounded="xl" />
-        <Button className="text-lg" fullWidth>
-          추천 받기
-        </Button>
+        <Link to={generatePath(ROUTE_PATH.PICK)}>
+          <Button className="text-lg" fullWidth>
+            추천 받기
+          </Button>
+        </Link>
       </div>
     </section>
   );

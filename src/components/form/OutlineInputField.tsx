@@ -19,7 +19,7 @@ const OutlineInputField = ({ errorMsg, rounded = 'none', ...props }: OutlineInpu
     <div className="w-full h-full gap-1">
       <input
         {...props}
-        className={`w-full h-[3rem] border border-gray-300 rounded-${rounded} p-2 focus:outline-primary-300`}
+        className={`w-full h-[3rem] border border-gray-300 rounded-${rounded} py-2 px-3 focus:outline-primary-300`}
       />
       {errorMsg && <p className="text-sm text-red-500">{errorMsg}</p>}
     </div>
