@@ -23,7 +23,7 @@ const PickPage = () => {
     <Container>
       <Header variant="page" />
       {isShowStyle ? <PickStyleSection /> : <PickMBTISection />}
-      <Footer initialSelected="pick" />
+      <Footer initialSelected={'pick'} />
     </Container>
   );
 };
