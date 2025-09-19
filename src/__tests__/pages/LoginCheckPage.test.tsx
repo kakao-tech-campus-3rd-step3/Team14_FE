@@ -45,16 +45,16 @@ describe('LoginCheckPage 테스트', () => {
     });
   });
 
-  describe('로딩 상태', () => {
-    test('로딩 상태가 올바르게 표시된다', () => {
+  describe('기본 렌더링', () => {
+    test('페이지 제목이 올바르게 표시된다', () => {
       render(
         <TestWrapper>
           <LoginCheckPage />
         </TestWrapper>,
       );
 
-      // 로딩 스피너가 표시되어야 한다
-      expect(screen.getByText('로그인 처리 중')).toBeInTheDocument();
+      // 페이지 제목이 표시되어야 한다
+      expect(screen.getByText('로그인 확인')).toBeInTheDocument();
     });
   });
 });
