@@ -91,13 +91,23 @@ const LoginCheckPage = () => {
   return (
     <Container>
       <Header variant="page" title="로그인 성공!" />
-      
+
       <div className="flex-1 px-6 py-8">
         <div className="max-w-md mx-auto">
           <div className="text-center mb-8">
             <div className="w-16 h-16 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
-              <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              <svg
+                className="w-8 h-8 text-green-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 13l4 4L19 7"
+                />
               </svg>
             </div>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">로그인 성공!</h2>
@@ -129,21 +139,11 @@ const LoginCheckPage = () => {
           </div>
 
           <div className="space-y-3">
-            <Button
-              variant="primary"
-              size="lg"
-              fullWidth
-              onClick={handleGoHome}
-            >
+            <Button variant="primary" size="lg" fullWidth onClick={handleGoHome}>
               홈으로 이동
             </Button>
 
-            <Button
-              variant="secondary"
-              size="lg"
-              fullWidth
-              onClick={handleLogout}
-            >
+            <Button variant="secondary" size="lg" fullWidth onClick={handleLogout}>
               로그아웃
             </Button>
           </div>

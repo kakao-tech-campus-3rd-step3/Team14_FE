@@ -9,5 +9,4 @@ export const ROUTE_PATH = {
   LOGIN_CHECK: '/login/check',
 
   SEARCH: '/search', // 검색 추가 예정
-
 } as const;
