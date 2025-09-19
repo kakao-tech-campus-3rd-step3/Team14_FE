@@ -268,7 +268,7 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > 기본 스냅샷 테스트 1
         <a
           class="flex-1 flex items-center justify-center"
           data-discover="true"
-          href="/pick"
+          href="/pick/:areaId"
         >
           <button
             class="cursor-pointer flex items-center justify-center w-fit bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3"
