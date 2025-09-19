@@ -1,7 +1,7 @@
 import { type ComponentPropsWithoutRef } from 'react';
 
 interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'icon' | 'link';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'icon' | 'link' | 'socialLogin';
   size?: 'sm' | 'md' | 'lg';
   fullWidth?: boolean;
   children: React.ReactNode;
@@ -33,6 +33,7 @@ const Button = ({
     tertiary: 'bg-gray-100 text-gray-600',
     icon: 'bg-transparent text-gray-900',
     link: 'bg-transparent text-gray-400 text-sm !p-0 !rounded-none',
+    socialLogin: 'border transition-colors duration-200',
   };
 
   const sizeClasses = {
