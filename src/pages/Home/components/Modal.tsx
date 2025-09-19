@@ -1,41 +1,16 @@
 import ModalLogo from '@/components/icon/ModalLogo';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { generatePath, useNavigate } from 'react-router-dom';
 import Button from '@/components/common/Button';
-import type { Region } from '@/types/Region';
-
-type Pin = Region & { top: number; left: number; icon: string };
+import type { Pin } from '@/types/Pin';
+import { ROUTE_PATH } from '@/constants/routes';
+import DIALECT_MESSAGES from '@/constants/dialectMessages';
 
 interface Props {
   close: () => void;
   isOpen: boolean;
   pin: Pin | null;
 }
-
-const DIALECT_MESSAGES: Record<string, string> = {
-  seoul: '취향에 딱 맞게 찾아드릴게요!\n나만을 위한 서울 축제 추천',
-  incheon: '인천 오셨네요, 믿고 맡겨요~\n나만을 위한 인천 축제 추천',
-  kyungki: '경기도 구석구석 골라드릴게요!\n나만을 위한 경기 축제 추천',
-
-  kangwon: '시원한 강원 바람처럼 딱 골라드릴게요!\n나만을 위한 강원 축제 추천',
-
-  daejeon: '그려유, 취향 맞춰드릴게유~\n나만을 위한 대전 축제 추천',
-  chungbuk: '취향 맞춰드릴게유~\n나만을 위한 충북 축제 추천',
-  chungnam: '느긋하게 골라드릴게유~\n나만을 위한 충남 축제 추천',
-
-  gwanju: '거시기 취향 딱 맞춰주겠당께!\n나만을 위한 광주 축제 추천',
-  jeonbuk: '거시기~ 니 취향 맞춰줄라잉?\n나만을 위한 전북 축제 추천',
-  jyunnam: '거 그라제잉, 딱 맞춰주제잉!\n나만을 위한 전남 축제 추천',
-
-  kyungbuk: '와! 취향 딱 맞춰줄게카이!\n나만을 위한 경북 축제 추천',
-  daegue: '마, 취향 딱 맞춰줄게!\n나만을 위한 대구 축제 추천',
-  kyungnam: '아이라~ 취향대로 골라줄게예!\n나만을 위한 경남 축제 추천',
-  ulsan: '마, 울산은 내가 챙길게! 딱 맞춰준다!\n나만을 위한 울산 축제 추천',
-  buan: '마! 취향에 딱 맞게 찾아줄게!\n나만을 위한 부산 축제 추천',
-
-  jeju: '혼저옵서예, 취향 싹 맞춰드릴게!\n나만을 위한 제주 축제 추천',
-  shipment: '바다에서도 취향 맞춰드릴게요!\n나만을 위한 해상 축제 추천',
-};
 
 const Modal = ({ close, isOpen, pin }: Props) => {
   const navigate = useNavigate();
@@ -87,7 +62,7 @@ const Modal = ({ close, isOpen, pin }: Props) => {
           className="mt-4 px-5 py-3 w-[180px]"
           onClick={() => {
             if (pin?.areaId) {
-              navigate(`/pick?areaId=${pin.areaId}`);
+              navigate(generatePath(ROUTE_PATH.PICK, { areaId: pin.areaId }));
             }
             close();
           }}
@@ -99,7 +74,7 @@ const Modal = ({ close, isOpen, pin }: Props) => {
           className="mt-1"
           onClick={() => {
             if (pin?.areaId) {
-              navigate(`/pick?areaId=${pin.areaId}`);
+              navigate(generatePath(ROUTE_PATH.FESTIVALS, { areaId: pin.areaId }));
             }
             close();
           }}
