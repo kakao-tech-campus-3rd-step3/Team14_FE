@@ -1,12 +1,28 @@
 import Logo from '@/components/icon/LogoIcon';
 import Button from '@/components/common/Button';
+import API_ENDPOINTS from '@/constants/apiEndpoints';
+import { apiBaseUrl } from '@/apis/apiInstance';
 
 const LoginContent = () => {
   const handleGoogleLogin = () => {
-    console.log('Google Login');
+    // 구글 OAuth 로그인 페이지로 리다이렉트
+    const loginUrl = `${apiBaseUrl}${API_ENDPOINTS.GOOGLE_LOGIN}`;
+
+    console.log('구글 로그인 URL:', loginUrl);
+    console.log('구글 로그인 시도...');
+
+    window.location.href = loginUrl;
   };
+
   const handleKakaoLogin = () => {
-    console.log('Kakao Login');
+    // 카카오 OAuth 로그인 페이지로 리다이렉트
+    const timestamp = Date.now();
+    const loginUrl = `${apiBaseUrl}${API_ENDPOINTS.KAKAO_LOGIN}?t=${timestamp}`;
+
+    console.log('카카오 로그인 URL:', loginUrl);
+    console.log('카카오 로그인 시도...');
+
+    window.location.href = loginUrl;
   };
 
   return (
