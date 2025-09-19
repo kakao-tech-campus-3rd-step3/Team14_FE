@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { generatePath, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import jwtExchange from '@/apis/auth/jwtExchange';
 import type { AxiosError } from 'axios';
+import { ROUTE_PATH } from '@/constants/routes';
 
 const LoginCallback = () => {
   const navigate = useNavigate();
@@ -42,9 +43,9 @@ const LoginCallback = () => {
           setAccessToken(accessToken);
           console.log('accessToken 메모리 저장 완료');
 
-          // 마이페이지로 리다이렉트
-          console.log('마이페이지로 리다이렉트...');
-          navigate('/mypage', { replace: true });
+          // 로그인 확인 페이지로 리다이렉트
+          console.log('로그인 확인 페이지로 리다이렉트');
+          navigate(generatePath(ROUTE_PATH.LOGIN_CHECK));
         } else {
           throw new Error('Authorization 헤더에서 accessToken을 찾을 수 없습니다.');
         }
@@ -71,7 +72,7 @@ const LoginCallback = () => {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-300"></div>
-        <p className="mt-4 text-lg text-gray-600">로그인 처리 중...</p>
+        <p className="mt-4 text-lg text-gray-600">로그인 처리 중</p>
       </div>
     );
   }

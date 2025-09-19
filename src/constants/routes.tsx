@@ -5,4 +5,5 @@ export const ROUTE_PATH = {
   MY: '/mypage',
   PICK: '/pick',
   FESTIVALS: '/festivals/:areaId',
+  LOGIN_CHECK: '/login/check',
 } as const;
