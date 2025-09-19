@@ -83,7 +83,7 @@ describe('FestivalsPage 테스트', () => {
           expect(festivalsSection).toHaveTextContent(festivalsMockData.content[0].title);
           expect(festivalsSection).toHaveTextContent(festivalsMockData.content[1].title);
           expect(festivalsSection).toHaveTextContent(festivalsMockData.content[2].title);
-        
+
           expect(festivalsSection).toHaveTextContent(festivalsMockData.content[0].startDate);
           expect(festivalsSection).toHaveTextContent(festivalsMockData.content[1].startDate);
           expect(festivalsSection).toHaveTextContent(festivalsMockData.content[2].startDate);

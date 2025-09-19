@@ -26,9 +26,7 @@ const TestWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
     <ReactRouter.MemoryRouter>
       <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+        <AuthProvider>{children}</AuthProvider>
       </QueryClientProvider>
     </ReactRouter.MemoryRouter>
   );
