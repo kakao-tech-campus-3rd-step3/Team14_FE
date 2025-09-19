@@ -3,6 +3,7 @@ import Home from '@/components/icon/HomeIcon';
 import LeftArrow from '@/components/icon/LeftArrowIcon';
 import Profile from '@/components/icon/ProfileIcon';
 import Logo from '../icon/LogoIcon';
+import { useNavigate } from 'react-router-dom';
 
 interface HeaderProps {
   variant?: 'logo' | 'page' | 'all';
@@ -23,6 +24,11 @@ const Header = ({ variant = 'logo', title = '' }: HeaderProps) => {
   const baseClasses =
     'w-full max-w-[480px] h-12 border-b border-gray-300 flex items-center bg-white';
 
+  const navigate = useNavigate();
+  const goBack = () => {
+    navigate(-1);
+  };
+
   if (variant === 'logo') {
     return (
       <div className={containerClasses}>
@@ -38,7 +44,7 @@ const Header = ({ variant = 'logo', title = '' }: HeaderProps) => {
     <div className={containerClasses}>
       <div className={`${baseClasses} justify-between`}>
         <div className="flex-1 flex justify-start">
-          <Button variant="icon">
+          <Button variant="icon" onClick={goBack}>
             <LeftArrow className="size-8" />
           </Button>
         </div>

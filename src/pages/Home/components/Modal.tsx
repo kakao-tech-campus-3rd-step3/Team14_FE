@@ -74,7 +74,7 @@ const Modal = ({ close, isOpen, pin }: Props) => {
           className="mt-1"
           onClick={() => {
             if (pin?.areaId) {
-              navigate(generatePath(ROUTE_PATH.PICK, { areaId: pin.areaId }));
+              navigate(generatePath(ROUTE_PATH.FESTIVALS, { areaId: pin.areaId }));
             }
             close();
           }}
