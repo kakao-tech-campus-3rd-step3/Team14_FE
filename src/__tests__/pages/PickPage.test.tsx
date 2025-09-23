@@ -1,6 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import PickPage from '@/pages/Pick/PickPage';
+import PICK_MBTI from '@/constants/pickMBTI';
+import PICK_STYLES from '@/constants/pickStyles';
 
 // 테스트용 래퍼 컴포넌트
 const TestWrapper = ({ initialEntries = ['/pick'] }: { initialEntries?: string[] }) => {
@@ -49,6 +51,23 @@ describe('PickPage 테스트', () => {
       expect(screen.queryByText(/여행 MBTI/)).not.toBeInTheDocument();
       expect(screen.queryByPlaceholderText('캠핑, 불멍, 서핑')).not.toBeInTheDocument();
     });
+
+    test('스타일 선택 전에는 다음 버튼이 비활성화이고, 스타일 3개 선택 시 활성화된다', () => {
+      // Given: 스타일 선택 화면이 렌더링된 상태
+      render(<TestWrapper />);
+
+      const nextButton = screen.getByRole('button', { name: '다음' });
+      // 처음에는 비활성화가 되어야 한다.
+      expect(nextButton).toBeDisabled();
+
+      // When: 스타일 카드 3개 클릭했을 때
+      fireEvent.click(screen.getByText(PICK_STYLES[0].name).closest('div') as HTMLElement);
+      fireEvent.click(screen.getByText(PICK_STYLES[1].name).closest('div') as HTMLElement);
+      fireEvent.click(screen.getByText(PICK_STYLES[2].name).closest('div') as HTMLElement);
+
+      // Then: 다음 버튼이 활성화되어야 한다.
+      expect(nextButton).not.toBeDisabled();
+    });
   });
 
   describe('MBTI 선택 화면 (유효한 style 파라미터)', () => {
@@ -79,6 +98,23 @@ describe('PickPage 테스트', () => {
 
       // Then: 스타일 선택 텍스트는 보이지 않아야 한다
       expect(screen.queryByText(/축제의 스타일/)).not.toBeInTheDocument();
+    });
+
+    test('MBTI 4개 선택 전에는 추천 받기 버튼이 비활성화이고, MBTI 4개 선택 시 활성화된다', () => {
+      // Given: MBTI 선택 화면이 렌더링된 상태
+      render(<TestWrapper initialEntries={['/pick?step=mbti']} />);
+      const submitButton = screen.getByRole('button', { name: '추천 받기' });
+      // 추천 받기 버튼 비활성화가 되어야 한다.
+      expect(submitButton).toBeDisabled();
+
+      // When: 각 질문에 대해 하나씩 선택했을 때
+      fireEvent.click(screen.getByRole('button', { name: PICK_MBTI[0].option1 }));
+      fireEvent.click(screen.getByRole('button', { name: PICK_MBTI[1].option1 }));
+      fireEvent.click(screen.getByRole('button', { name: PICK_MBTI[2].option1 }));
+      fireEvent.click(screen.getByRole('button', { name: PICK_MBTI[3].option1 }));
+
+      // Then: 추천 받기 버튼이 활성화되어야 한다.
+      expect(submitButton).not.toBeDisabled();
     });
   });
 
