@@ -32,7 +32,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       try {
         const response = await jwtExchange();
         const authHeader = response.headers?.authorization || response.headers?.Authorization;
-        
+
         if (authHeader && authHeader.startsWith('Bearer ')) {
           const token = authHeader.substring(7);
           setAccessToken(token); // 이미 정의된 함수 사용
@@ -41,9 +41,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         // refresh token이 없거나 만료된 경우 - 로그아웃 상태 유지
       }
     };
-    
+
     initAuth();
-  }, []); 
+  }, []);
   const setAccessToken = (token: string | null) => {
     tokenRef.current = token;
     setAccessTokenState(token);
