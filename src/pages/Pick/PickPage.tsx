@@ -1,30 +1,34 @@
 import Container from '@/components/common/Container';
 import Footer from '@/components/common/Footer';
 import Header from '@/components/common/Header';
-import { useSearchParams } from 'react-router-dom';
-import { useEffect } from 'react';
 import PickStyleSection from '@/pages/Pick/components/PickStyleSection';
 import PickMBTISection from '@/pages/Pick/components/PickMBTISection';
-import PICK_STYLES from '@/constants/pickStyles';
+import { PickProvider } from '@/contexts/PickContext';
+import { useSearchParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const PickPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const style = searchParams.get('style');
-  const isValidStyle = style ? PICK_STYLES.some((s) => s.id === style) : false;
-
-  const isShowStyle = !style || !isValidStyle;
+  const step = searchParams.get('step');
+  const isValidStep = step === 'style' || step === 'mbti';
+  const isStyleStep = step === 'style';
 
   useEffect(() => {
-    if (style && !isValidStyle) {
-      setSearchParams({}, { replace: true });
+    if (!step || !isValidStep) {
+      const newParams = new URLSearchParams(searchParams);
+      newParams.set('step', 'style');
+      setSearchParams(newParams);
     }
-  }, [style, isValidStyle, setSearchParams]);
+  }, [step, searchParams, isValidStep, setSearchParams]);
+
   return (
-    <Container>
-      <Header variant="page" />
-      {isShowStyle ? <PickStyleSection /> : <PickMBTISection />}
-      <Footer initialSelected={'pick'} />
-    </Container>
+    <PickProvider>
+      <Container>
+        <Header variant="page" />
+        {isStyleStep ? <PickStyleSection /> : <PickMBTISection />}
+        <Footer initialSelected={'pick'} />
+      </Container>
+    </PickProvider>
   );
 };
 

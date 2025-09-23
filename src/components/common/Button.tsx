@@ -6,6 +6,7 @@ interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
   fullWidth?: boolean;
   children: React.ReactNode;
   className?: string;
+  disabled?: boolean;
 }
 
 /**
@@ -23,9 +24,10 @@ const Button = ({
   size = 'md',
   fullWidth = false,
   className,
+  disabled = false,
   ...props
 }: ButtonProps) => {
-  const baseClasses = `cursor-pointer flex items-center justify-center ${fullWidth ? 'w-full' : 'w-fit'}`;
+  const baseClasses = `flex items-center justify-center ${fullWidth ? 'w-full' : 'w-fit'}`;
 
   const variantClasses = {
     primary: 'bg-primary-300 text-gray-50',
@@ -36,6 +38,9 @@ const Button = ({
     socialLogin: 'border transition-colors duration-200',
   };
 
+  const disabledClasses = 'opacity-50';
+  const cursorClasses = disabled ? 'cursor-not-allowed' : 'cursor-pointer';
+
   const sizeClasses = {
     sm: 'text-sm rounded-lg px-4 py-2',
     md: 'text-md rounded-xl px-5 py-3',
@@ -45,7 +50,8 @@ const Button = ({
   return (
     <button
       type="button"
-      className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`}
+      className={`${baseClasses} ${cursorClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className} ${disabled ? disabledClasses : ''}`}
+      disabled={disabled}
       {...props}
     >
       {children}

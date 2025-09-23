@@ -4,9 +4,12 @@ import OutlineInputField from '@/components/form/OutlineInputField';
 import Button from '@/components/common/Button';
 import { generatePath, Link, useParams } from 'react-router-dom';
 import { ROUTE_PATH } from '@/constants/routes';
+import { usePick } from '@/contexts/PickContext';
 
 const PickMBTISection = () => {
   const { areaId } = useParams();
+  const { additionalInfo, handleAdditionalInfo, onSubmitRecommendation } = usePick();
+
   return (
     <section className="flex flex-col h-full px-8 py-4 gap-8">
       <div className="flex flex-col gap-6">
@@ -23,8 +26,16 @@ const PickMBTISection = () => {
         <h1 className="w-full text-left text-2xl">
           나를 <span className="font-bold">더</span> 알려주고 싶어요.
         </h1>
-        <OutlineInputField placeholder="캠핑, 불멍, 서핑" rounded="xl" />
-        <Link to={generatePath(ROUTE_PATH.FESTIVALS, { areaId: areaId || '' })}>
+        <OutlineInputField
+          placeholder="캠핑, 불멍, 서핑"
+          rounded="xl"
+          value={additionalInfo}
+          onChange={handleAdditionalInfo}
+        />
+        <Link
+          to={generatePath(ROUTE_PATH.FESTIVALS, { areaId: areaId || '' })}
+          onClick={() => onSubmitRecommendation()}
+        >
           <Button className="text-lg" fullWidth>
             추천 받기
           </Button>
