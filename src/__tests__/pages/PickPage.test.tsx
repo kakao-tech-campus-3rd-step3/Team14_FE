@@ -55,7 +55,7 @@ describe('PickPage 테스트', () => {
     test('유효한 style 파라미터가 있으면 MBTI 선택 화면이 표시된다', () => {
       // Given: 유효한 style 파라미터가 있는 상태
       // When: PickPage를 렌더링하면
-      render(<TestWrapper initialEntries={['/pick?style=tradition']} />);
+      render(<TestWrapper initialEntries={['/pick?step=mbti']} />);
 
       // Then: MBTI 섹션 텍스트가 보여야 한다
       expect(screen.getByText(/여행 MBTI/)).toBeInTheDocument();
@@ -65,7 +65,7 @@ describe('PickPage 테스트', () => {
     test('추가 정보 입력 필드와 버튼이 표시된다', () => {
       // Given: 유효한 style 파라미터가 있는 상태
       // When: PickPage를 렌더링하면
-      render(<TestWrapper initialEntries={['/pick?style=art']} />);
+      render(<TestWrapper initialEntries={['/pick?step=mbti']} />);
 
       // Then: 입력 필드와 추천 받기 버튼이 보여야 한다
       expect(screen.getByPlaceholderText('캠핑, 불멍, 서핑')).toBeInTheDocument();
@@ -75,7 +75,7 @@ describe('PickPage 테스트', () => {
     test('스타일 선택 관련 콘텐츠는 표시되지 않는다', () => {
       // Given: 유효한 style 파라미터가 있는 상태
       // When: PickPage를 렌더링하면
-      render(<TestWrapper initialEntries={['/pick?style=food']} />);
+      render(<TestWrapper initialEntries={['/pick?step=mbti']} />);
 
       // Then: 스타일 선택 텍스트는 보이지 않아야 한다
       expect(screen.queryByText(/축제의 스타일/)).not.toBeInTheDocument();
@@ -86,7 +86,7 @@ describe('PickPage 테스트', () => {
     test('허용되지 않은 style 값이면 스타일 선택 화면을 보여준다', () => {
       // Given: 잘못된 style 파라미터가 있는 상태
       // When: PickPage를 렌더링하면
-      render(<TestWrapper initialEntries={['/pick?style=invalid']} />);
+      render(<TestWrapper initialEntries={['/pick?step=hello']} />);
 
       // Then: 스타일 선택 안내 문구가 나타나고 MBTI 문구는 없어야 한다
       expect(screen.getByText(/축제의 스타일/)).toBeInTheDocument();
@@ -96,7 +96,7 @@ describe('PickPage 테스트', () => {
     test('빈 문자열 style 파라미터도 스타일 선택 화면을 보여준다', () => {
       // Given: 빈 style 파라미터가 있는 상태
       // When: PickPage를 렌더링하면
-      render(<TestWrapper initialEntries={['/pick?style=']} />);
+      render(<TestWrapper initialEntries={['/pick?step=']} />);
 
       // Then: 스타일 선택 화면이 표시되어야 한다
       expect(screen.getByText(/축제의 스타일/)).toBeInTheDocument();
@@ -106,7 +106,7 @@ describe('PickPage 테스트', () => {
     test('숫자 style 파라미터도 잘못된 값으로 처리된다', () => {
       // Given: 숫자 style 파라미터가 있는 상태
       // When: PickPage를 렌더링하면
-      render(<TestWrapper initialEntries={['/pick?style=123']} />);
+      render(<TestWrapper initialEntries={['/pick?step=123']} />);
 
       // Then: 스타일 선택 화면이 표시되어야 한다
       expect(screen.getByText(/축제의 스타일/)).toBeInTheDocument();
