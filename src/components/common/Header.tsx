@@ -3,7 +3,7 @@ import Home from '@/components/icon/HomeIcon';
 import LeftArrow from '@/components/icon/LeftArrowIcon';
 import Profile from '@/components/icon/ProfileIcon';
 import Logo from '../icon/LogoIcon';
-import { useNavigate } from 'react-router-dom';
+import useNav from '@/hooks/useNav';
 
 interface HeaderProps {
   variant?: 'logo' | 'page' | 'all';
@@ -24,10 +24,7 @@ const Header = ({ variant = 'logo', title = '' }: HeaderProps) => {
   const baseClasses =
     'w-full max-w-[480px] h-12 border-b border-gray-300 flex items-center bg-white';
 
-  const navigate = useNavigate();
-  const goBack = () => {
-    navigate(-1);
-  };
+  const { goBack } = useNav();
 
   if (variant === 'logo') {
     return (

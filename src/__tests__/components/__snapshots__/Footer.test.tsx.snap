@@ -14,7 +14,7 @@ exports[`Footer 컴포넌트 > 기본 렌더링 > Footer가 렌더링된다 1`] 
         href="/"
       >
         <button
-          class="cursor-pointer flex items-center justify-center w-fit bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3"
+          class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3 "
           type="button"
         >
           <svg
@@ -46,7 +46,7 @@ exports[`Footer 컴포넌트 > 기본 렌더링 > Footer가 렌더링된다 1`] 
         href="/search"
       >
         <button
-          class="cursor-pointer flex items-center justify-center w-fit bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3"
+          class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3 "
           type="button"
         >
           <svg
@@ -78,7 +78,7 @@ exports[`Footer 컴포넌트 > 기본 렌더링 > Footer가 렌더링된다 1`] 
         href="/pick/:areaId"
       >
         <button
-          class="cursor-pointer flex items-center justify-center w-fit bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3"
+          class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3 "
           type="button"
         >
           <svg
@@ -189,7 +189,7 @@ exports[`Footer 컴포넌트 > 기본 렌더링 > Footer가 렌더링된다 1`] 
         href="/mypage"
       >
         <button
-          class="cursor-pointer flex items-center justify-center w-fit bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3"
+          class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3 "
           type="button"
         >
           <svg
