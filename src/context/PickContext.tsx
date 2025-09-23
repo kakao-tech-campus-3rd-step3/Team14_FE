@@ -5,12 +5,13 @@ interface PickContextType {
   selectedStyles: string[];
   mbtiAnswers: Record<string, string>;
   additionalInfo: string;
+  canProceedToMbti: boolean;
+  canProceedToRecommendation: boolean;
   handleStyleSelect: (styleId: string) => void;
   handleMbtiAnswer: (questionId: string, answer: string) => void;
   handleAdditionalInfo: (e: ChangeEvent<HTMLInputElement>) => void;
   goToNextStep: () => void;
   onSubmitRecommendation: () => void;
-  canProceedToMbti: boolean;
 }
 
 const PickContext = createContext<PickContextType | undefined>(undefined);
@@ -44,6 +45,7 @@ export const PickProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const canProceedToMbti = selectedStyles.length > 0;
+  const canProceedToRecommendation = Object.keys(mbtiAnswers).length === 4;
 
   const goToNextStep = () => {
     if (canProceedToMbti) {
@@ -70,6 +72,7 @@ export const PickProvider = ({ children }: { children: ReactNode }) => {
     mbtiAnswers,
     additionalInfo,
     canProceedToMbti,
+    canProceedToRecommendation,
     handleStyleSelect,
     handleMbtiAnswer,
     handleAdditionalInfo,

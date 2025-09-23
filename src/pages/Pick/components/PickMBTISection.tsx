@@ -8,7 +8,12 @@ import { usePick } from '@/context/PickContext';
 
 const PickMBTISection = () => {
   const { areaId } = useParams();
-  const { additionalInfo, handleAdditionalInfo, onSubmitRecommendation } = usePick();
+  const {
+    additionalInfo,
+    handleAdditionalInfo,
+    onSubmitRecommendation,
+    canProceedToRecommendation,
+  } = usePick();
 
   return (
     <section className="flex flex-col h-full px-8 py-4 gap-8">
@@ -36,7 +41,7 @@ const PickMBTISection = () => {
           to={generatePath(ROUTE_PATH.FESTIVALS, { areaId: areaId || '' })}
           onClick={() => onSubmitRecommendation()}
         >
-          <Button className="text-lg" fullWidth>
+          <Button className="text-lg" fullWidth disabled={!canProceedToRecommendation}>
             추천 받기
           </Button>
         </Link>
