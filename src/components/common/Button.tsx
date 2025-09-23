@@ -16,6 +16,7 @@ interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
  * @param size - 버튼 크기 (기본값: 'md')
  * @param fullWidth - 전체 너비 사용 여부 (기본값: false)
  * @param className - 추가 CSS 클래스명
+ * @param disabled - 버튼 비활성화 여부 (기본값: false) / 비활성화 시 커서 비활성화, 투명도 50% 적용
  * @param props - 기타 HTML button 속성들
  */
 const Button = ({
