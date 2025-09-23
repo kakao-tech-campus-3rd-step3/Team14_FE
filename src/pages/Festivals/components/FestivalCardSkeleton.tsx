@@ -28,7 +28,7 @@ export const FestivalsSectionSkeleton = ({ count = 6 }: { count?: number }) => (
       <Skeleton className="h-8 w-32" variant="rectangular" />
     </div>
 
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
       {Array.from({ length: count }).map((_, index) => (
         <FestivalCardSkeleton key={index} />
       ))}
