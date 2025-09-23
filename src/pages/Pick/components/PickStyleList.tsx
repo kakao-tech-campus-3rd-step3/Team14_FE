@@ -5,7 +5,7 @@ const PickStyleList = () => {
   return (
     <div className="w-full h-full grid grid-cols-3 gap-4 gap-y-6">
       {PICK_STYLES.map((style) => (
-        <PickStyleCard key={style.id} image={''} title={style.name} id={style.id} />
+        <PickStyleCard key={style.id} image={style.image} title={style.name} id={style.id} />
       ))}
     </div>
   );

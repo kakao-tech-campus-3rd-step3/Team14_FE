@@ -7,7 +7,7 @@ interface PickStyleCardProps {
 }
 
 const PickStyleCard = ({ image, title, id }: PickStyleCardProps) => {
-  const selectedCardClasses = 'outline-2 outline-primary-300';
+  const selectedCardClasses = 'border-3 border-primary-300';
   const { selectedStyles, handleStyleSelect } = usePick();
   const isSelected = selectedStyles.includes(id);
 
@@ -19,7 +19,7 @@ const PickStyleCard = ({ image, title, id }: PickStyleCardProps) => {
       <img
         src={image}
         alt={title}
-        className={`size-[100px] rounded-lg ${isSelected ? selectedCardClasses : ''} object-cover bg-gray-200`}
+        className={`size-[100px] rounded-lg ${isSelected ? selectedCardClasses : ''} object-cover bg-transparent border-2 border-gray-900`}
       />
       <p className={`text-lg ${isSelected ? 'font-bold' : ''}`}>{title}</p>
     </div>
