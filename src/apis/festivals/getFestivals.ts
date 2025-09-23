@@ -1,7 +1,7 @@
-import { apiInstance } from '@/apis/instance';
+import { apiInstance } from '@/apis/apiInstance';
 import API_ENDPOINTS from '@/constants/apiEndpoints';
 import type { Festival } from '@/types/FestivalType';
-import type { ApiErrorResponse } from '@/apis/instance';
+import type { ApiErrorResponse } from '@/apis/apiInstance';
 import type { AxiosResponse } from 'axios';
 import { generatePath } from 'react-router-dom';
 

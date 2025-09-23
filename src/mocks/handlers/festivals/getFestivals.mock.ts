@@ -1,4 +1,4 @@
-import { apiBaseUrl } from '@/apis/instance';
+import { apiBaseUrl } from '@/apis/apiInstance';
 import API_ENDPOINTS from '@/constants/apiEndpoints';
 import { festivalsMockData } from '@/mocks/data/festivals.mock';
 import { http, HttpResponse } from 'msw';

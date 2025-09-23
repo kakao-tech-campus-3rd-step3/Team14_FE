@@ -1,0 +1,112 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Button 컴포넌트 > 스냅샷 테스트 > disabled Button 스냅샷 1`] = `
+<button
+  class="cursor-pointer flex items-center justify-center w-fit bg-primary-300 text-gray-50 text-md rounded-xl px-5 py-3 undefined"
+  disabled=""
+  type="button"
+>
+  비활성화 버튼
+</button>
+`;
+
+exports[`Button 컴포넌트 > 스냅샷 테스트 > fullWidth Button 스냅샷 1`] = `
+<button
+  class="cursor-pointer flex items-center justify-center w-full bg-primary-300 text-gray-50 text-md rounded-xl px-5 py-3 undefined"
+  type="button"
+>
+  전체 너비 버튼
+</button>
+`;
+
+exports[`Button 컴포넌트 > 스냅샷 테스트 > icon variant 스냅샷 1`] = `
+<button
+  class="cursor-pointer flex items-center justify-center w-fit bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 undefined"
+  type="button"
+>
+  아이콘 버튼
+</button>
+`;
+
+exports[`Button 컴포넌트 > 스냅샷 테스트 > lg size 스냅샷 1`] = `
+<button
+  class="cursor-pointer flex items-center justify-center w-fit bg-primary-300 text-gray-50 text-lg rounded-2xl px-6 py-4 undefined"
+  type="button"
+>
+  큰 버튼
+</button>
+`;
+
+exports[`Button 컴포넌트 > 스냅샷 테스트 > link variant 스냅샷 1`] = `
+<button
+  class="cursor-pointer flex items-center justify-center w-fit bg-transparent text-gray-400 text-sm !p-0 !rounded-none text-md rounded-xl px-5 py-3 undefined"
+  type="button"
+>
+  링크 버튼
+</button>
+`;
+
+exports[`Button 컴포넌트 > 스냅샷 테스트 > md size 스냅샷 1`] = `
+<button
+  class="cursor-pointer flex items-center justify-center w-fit bg-primary-300 text-gray-50 text-md rounded-xl px-5 py-3 undefined"
+  type="button"
+>
+  중간 버튼
+</button>
+`;
+
+exports[`Button 컴포넌트 > 스냅샷 테스트 > primary variant 스냅샷 1`] = `
+<button
+  class="cursor-pointer flex items-center justify-center w-fit bg-primary-300 text-gray-50 text-md rounded-xl px-5 py-3 undefined"
+  type="button"
+>
+  주 버튼
+</button>
+`;
+
+exports[`Button 컴포넌트 > 스냅샷 테스트 > secondary variant 스냅샷 1`] = `
+<button
+  class="cursor-pointer flex items-center justify-center w-fit bg-primary-50 text-primary-300 text-md rounded-xl px-5 py-3 undefined"
+  type="button"
+>
+  보조 버튼
+</button>
+`;
+
+exports[`Button 컴포넌트 > 스냅샷 테스트 > sm size 스냅샷 1`] = `
+<button
+  class="cursor-pointer flex items-center justify-center w-fit bg-primary-300 text-gray-50 text-sm rounded-lg px-4 py-2 undefined"
+  type="button"
+>
+  작은 버튼
+</button>
+`;
+
+exports[`Button 컴포넌트 > 스냅샷 테스트 > tertiary variant 스냅샷 1`] = `
+<button
+  class="cursor-pointer flex items-center justify-center w-fit bg-gray-100 text-gray-600 text-md rounded-xl px-5 py-3 undefined"
+  type="button"
+>
+  3차 버튼
+</button>
+`;
+
+exports[`Button 컴포넌트 > 스냅샷 테스트 > 기본 Button 컴포넌트 스냅샷 1`] = `
+<button
+  class="cursor-pointer flex items-center justify-center w-fit bg-primary-300 text-gray-50 text-md rounded-xl px-5 py-3 undefined"
+  type="button"
+>
+  기본 버튼
+</button>
+`;
+
+exports[`Button 컴포넌트 > 스냅샷 테스트 > 커스텀 className과 props가 적용된 Button 스냅샷 1`] = `
+<button
+  class="cursor-pointer flex items-center justify-center w-full bg-primary-50 text-primary-300 text-lg rounded-2xl px-6 py-4 custom-class"
+  data-testid="snapshot-button"
+  id="test-button"
+  type="button"
+>
+  복합 속성 버튼
+</button>
+`;

@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`OutlineInputField 컴포넌트 > 기본 스냅샷 테스트 > 기본 스냅샷 테스트 1`] = `
+<div>
+  <div
+    class="w-full h-full gap-1"
+  >
+    <input
+      class="w-full h-[3rem] border border-gray-300 rounded-none py-2 px-3 focus:outline-primary-300"
+    />
+  </div>
+</div>
+`;

@@ -8,7 +8,7 @@ const HomePage = () => {
     <Container>
       <Header variant="logo" title="Home" />
       <HomeContent />
-      <Footer />
+      <Footer initialSelected="home" />
     </Container>
   );
 };

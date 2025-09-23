@@ -1,5 +1,6 @@
 import Skeleton from '@/components/skeleton/Skeleton';
 
+/** 축제 카드 스켈레톤 */
 export const FestivalCardSkeleton = () => (
   <div className="bg-white rounded-xl overflow-hidden shadow-lg">
     <div className="aspect-[3/2] w-full">
@@ -20,7 +21,7 @@ export const FestivalCardSkeleton = () => (
   </div>
 );
 
-// 축제 섹션 스켈레톤 (여러 카드)
+/** 축제 섹션 스켈레톤 (여러 카드) */
 export const FestivalsSectionSkeleton = ({ count = 6 }: { count?: number }) => (
   <section className="w-full">
     <div className="mb-6">
