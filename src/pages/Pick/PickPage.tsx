@@ -3,7 +3,7 @@ import Footer from '@/components/common/Footer';
 import Header from '@/components/common/Header';
 import PickStyleSection from '@/pages/Pick/components/PickStyleSection';
 import PickMBTISection from '@/pages/Pick/components/PickMBTISection';
-import { PickProvider } from '@/contexts/PickContext';
+import { PickProvider } from '@/context/PickContext';
 import { useSearchParams } from 'react-router-dom';
 import { useEffect } from 'react';
 

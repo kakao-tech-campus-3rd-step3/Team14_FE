@@ -1,5 +1,5 @@
 import Button from '@/components/common/Button';
-import { usePick } from '@/contexts/PickContext';
+import { usePick } from '@/context/PickContext';
 
 interface PickMBTICardProps {
   title: string;

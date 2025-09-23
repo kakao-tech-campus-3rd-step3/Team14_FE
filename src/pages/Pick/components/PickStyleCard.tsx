@@ -1,4 +1,4 @@
-import { usePick } from '@/contexts/PickContext';
+import { usePick } from '@/context/PickContext';
 
 interface PickStyleCardProps {
   image: string;

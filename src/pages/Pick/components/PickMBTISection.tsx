@@ -4,7 +4,7 @@ import OutlineInputField from '@/components/form/OutlineInputField';
 import Button from '@/components/common/Button';
 import { generatePath, Link, useParams } from 'react-router-dom';
 import { ROUTE_PATH } from '@/constants/routes';
-import { usePick } from '@/contexts/PickContext';
+import { usePick } from '@/context/PickContext';
 
 const PickMBTISection = () => {
   const { areaId } = useParams();

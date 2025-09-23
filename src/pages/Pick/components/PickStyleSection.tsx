@@ -1,7 +1,7 @@
 import PickSubTitle from '@/pages/Pick/components/PickSubTitle';
 import PickStyleList from '@/pages/Pick/components/PickStyleList';
 import Button from '@/components/common/Button';
-import { usePick } from '@/contexts/PickContext';
+import { usePick } from '@/context/PickContext';
 
 const PickStyleSection = () => {
   const { goToNextStep, canProceedToMbti } = usePick();
