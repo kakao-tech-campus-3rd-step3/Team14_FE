@@ -17,7 +17,7 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > 기본 스냅샷 테스트 1
           class="flex-1 flex justify-start"
         >
           <button
-            class="cursor-pointer flex items-center justify-center w-fit bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 undefined"
+            class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 undefined "
             type="button"
           >
             <svg
@@ -49,10 +49,10 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > 기본 스냅샷 테스트 1
       </div>
     </div>
     <section
-      class="flex flex-col h-full px-8 py-4"
+      class="flex flex-col h-full px-8 py-4 gap-8"
     >
       <div
-        class="flex flex-col items-center gap-1 mb-8"
+        class="flex flex-col items-center gap-1"
       >
         <h2
           class="w-full text-left text-xl text-gray-500"
@@ -70,130 +70,151 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > 기본 스냅샷 테스트 1
           </span>
           을
           <br />
-          선택해 주세요.
+          선택해 주세요. 
+          <span
+            class="text-gray-500 text-sm"
+          >
+            (최대 3개)
+          </span>
         </h1>
       </div>
       <div
         class="w-full h-full grid grid-cols-3 gap-4 gap-y-6"
       >
         <div
-          class="w-full h-full overflow-hidden flex flex-col items-center justify-center gap-3"
+          class="w-full h-full flex flex-col items-center justify-center gap-3"
         >
           <img
             alt="전통 문화"
-            class="size-[100px] rounded-lg  object-cover bg-gray-200"
+            class="size-[100px] rounded-lg  object-cover bg-transparent border-2 border-gray-900"
+            src="/pickStyle/tradition.svg"
           />
           <p
-            class="text-lg"
+            class="text-lg "
           >
             전통 문화
           </p>
         </div>
         <div
-          class="w-full h-full overflow-hidden flex flex-col items-center justify-center gap-3"
+          class="w-full h-full flex flex-col items-center justify-center gap-3"
         >
           <img
             alt="예술/공연"
-            class="size-[100px] rounded-lg  object-cover bg-gray-200"
+            class="size-[100px] rounded-lg  object-cover bg-transparent border-2 border-gray-900"
+            src="/pickStyle/art.svg"
           />
           <p
-            class="text-lg"
+            class="text-lg "
           >
             예술/공연
           </p>
         </div>
         <div
-          class="w-full h-full overflow-hidden flex flex-col items-center justify-center gap-3"
+          class="w-full h-full flex flex-col items-center justify-center gap-3"
         >
           <img
             alt="먹거리"
-            class="size-[100px] rounded-lg  object-cover bg-gray-200"
+            class="size-[100px] rounded-lg  object-cover bg-transparent border-2 border-gray-900"
+            src="/pickStyle/food.svg"
           />
           <p
-            class="text-lg"
+            class="text-lg "
           >
             먹거리
           </p>
         </div>
         <div
-          class="w-full h-full overflow-hidden flex flex-col items-center justify-center gap-3"
+          class="w-full h-full flex flex-col items-center justify-center gap-3"
         >
           <img
             alt="자연/경관"
-            class="size-[100px] rounded-lg  object-cover bg-gray-200"
+            class="size-[100px] rounded-lg  object-cover bg-transparent border-2 border-gray-900"
+            src="/pickStyle/nature.svg"
           />
           <p
-            class="text-lg"
+            class="text-lg "
           >
             자연/경관
           </p>
         </div>
         <div
-          class="w-full h-full overflow-hidden flex flex-col items-center justify-center gap-3"
+          class="w-full h-full flex flex-col items-center justify-center gap-3"
         >
           <img
             alt="체험/참여"
-            class="size-[100px] rounded-lg  object-cover bg-gray-200"
+            class="size-[100px] rounded-lg  object-cover bg-transparent border-2 border-gray-900"
+            src="/pickStyle/experience.svg"
           />
           <p
-            class="text-lg"
+            class="text-lg "
           >
             체험/참여
           </p>
         </div>
         <div
-          class="w-full h-full overflow-hidden flex flex-col items-center justify-center gap-3"
+          class="w-full h-full flex flex-col items-center justify-center gap-3"
         >
           <img
             alt="트렌디"
-            class="size-[100px] rounded-lg  object-cover bg-gray-200"
+            class="size-[100px] rounded-lg  object-cover bg-transparent border-2 border-gray-900"
+            src="/pickStyle/trendy.svg"
           />
           <p
-            class="text-lg"
+            class="text-lg "
           >
             트렌디
           </p>
         </div>
         <div
-          class="w-full h-full overflow-hidden flex flex-col items-center justify-center gap-3"
+          class="w-full h-full flex flex-col items-center justify-center gap-3"
         >
           <img
             alt="커뮤니티"
-            class="size-[100px] rounded-lg  object-cover bg-gray-200"
+            class="size-[100px] rounded-lg  object-cover bg-transparent border-2 border-gray-900"
+            src="/pickStyle/community.svg"
           />
           <p
-            class="text-lg"
+            class="text-lg "
           >
             커뮤니티
           </p>
         </div>
         <div
-          class="w-full h-full overflow-hidden flex flex-col items-center justify-center gap-3"
+          class="w-full h-full flex flex-col items-center justify-center gap-3"
         >
           <img
             alt="지역특색"
-            class="size-[100px] rounded-lg  object-cover bg-gray-200"
+            class="size-[100px] rounded-lg  object-cover bg-transparent border-2 border-gray-900"
+            src="/pickStyle/local.svg"
           />
           <p
-            class="text-lg"
+            class="text-lg "
           >
             지역특색
           </p>
         </div>
         <div
-          class="w-full h-full overflow-hidden flex flex-col items-center justify-center gap-3"
+          class="w-full h-full flex flex-col items-center justify-center gap-3"
         >
           <img
             alt="국제"
-            class="size-[100px] rounded-lg  object-cover bg-gray-200"
+            class="size-[100px] rounded-lg  object-cover bg-transparent border-2 border-gray-900"
+            src="/pickStyle/international.svg"
           />
           <p
-            class="text-lg"
+            class="text-lg "
           >
             국제
           </p>
         </div>
       </div>
+      <button
+        class="flex items-center justify-center w-full cursor-not-allowed bg-primary-300 text-gray-50 text-md rounded-xl px-5 py-3 text-lg opacity-50"
+        disabled=""
+        type="button"
+      >
+        다음
+      </button>
     </section>
     <div
       class="w-full mx-auto flex flex-col items-center fixed bottom-0 left-0 z-999"
@@ -207,7 +228,7 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > 기본 스냅샷 테스트 1
           href="/"
         >
           <button
-            class="cursor-pointer flex items-center justify-center w-fit bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3"
+            class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3 "
             type="button"
           >
             <svg
@@ -239,7 +260,7 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > 기본 스냅샷 테스트 1
           href="/search"
         >
           <button
-            class="cursor-pointer flex items-center justify-center w-fit bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3"
+            class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3 "
             type="button"
           >
             <svg
@@ -271,7 +292,7 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > 기본 스냅샷 테스트 1
           href="/pick/:areaId"
         >
           <button
-            class="cursor-pointer flex items-center justify-center w-fit bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3"
+            class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3 "
             type="button"
           >
             <svg
@@ -382,7 +403,7 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > 기본 스냅샷 테스트 1
           href="/mypage"
         >
           <button
-            class="cursor-pointer flex items-center justify-center w-fit bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3"
+            class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3 "
             type="button"
           >
             <svg
