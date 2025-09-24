@@ -7,6 +7,7 @@ import LoginCheckPage from '@/pages/Login/LoginCheckPage';
 import MyPage from '@/pages/My/MyPage';
 import PickPage from '@/pages/Pick/PickPage';
 import FestivalsPage from '@/pages/Festivals/FestivalsPage';
+import FestivalInfoPage from '@/pages/FestivalInfo/FestivalInfoPage';
 
 const Routes = () => {
   return (
@@ -18,6 +19,7 @@ const Routes = () => {
       <Route path={ROUTE_PATH.MY} element={<MyPage />} />
       <Route path={ROUTE_PATH.PICK} element={<PickPage />} />
       <Route path={ROUTE_PATH.FESTIVALS} element={<FestivalsPage />} />
+      <Route path={ROUTE_PATH.FESTIVAL_INFO} element={<FestivalInfoPage />} />
     </RouterRoutes>
   );
 };
