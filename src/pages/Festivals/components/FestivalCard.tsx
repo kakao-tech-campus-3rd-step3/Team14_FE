@@ -10,7 +10,7 @@ const FestivalCard = ({ data }: FestivalCardProps) => {
       {/* 이미지 섹션 */}
       <div className="aspect-[3/2] w-full">
         <img
-          src={data.imageUrl}
+          src={data.posterInfo}
           alt={`${data.title} 축제 이미지`}
           className="w-full h-full object-cover"
         />

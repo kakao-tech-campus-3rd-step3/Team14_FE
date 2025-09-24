@@ -3,7 +3,7 @@ export interface Festival {
   title: string;
   addr1: string;
   addr2: string;
-  imageUrl: string;
+  posterInfo: string;
   startDate: string;
   endDate: string;
 }
