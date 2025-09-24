@@ -27,23 +27,7 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [accessToken, setAccessTokenState] = useState<string | null>(null);
   const tokenRef = useRef<string | null>(null);
-  useEffect(() => {
-    const initAuth = async () => {
-      try {
-        const response = await jwtExchange();
-        const authHeader = response.headers?.authorization || response.headers?.Authorization;
 
-        if (authHeader && authHeader.startsWith('Bearer ')) {
-          const token = authHeader.substring(7);
-          setAccessToken(token); // 이미 정의된 함수 사용
-        }
-      } catch (error) {
-        // refresh token이 없거나 만료된 경우 - 로그아웃 상태 유지
-      }
-    };
-
-    initAuth();
-  }, []);
   const setAccessToken = (token: string | null) => {
     tokenRef.current = token;
     setAccessTokenState(token);
@@ -57,12 +41,37 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setAccessToken(null);
   };
 
-  const isLoggedIn = !!accessToken;
+  // 새로고침 시 자동 토큰 복구
+  useEffect(() => {
+    const initAuth = async () => {
+      const hasRefreshToken = document.cookie.includes('refreshToken=');
+      
+      if (!hasRefreshToken) {
+        return;
+      }
+      
+      try {
+        const response = await jwtExchange();
+        const authHeader = response.headers?.authorization || response.headers?.Authorization;
+
+        if (authHeader && authHeader.startsWith('Bearer ')) {
+          const token = authHeader.substring(7);
+          setAccessToken(token);
+        }
+      } catch (error) {
+        console.error('토큰 교환 실패:', error);
+      }
+    };
+
+    initAuth();
+  }, []);
 
   // apiInstance와 연결
   useEffect(() => {
     setAuthCallbacks(getAccessToken, setAccessToken);
   }, []);
+
+  const isLoggedIn = !!accessToken;
 
   const value: AuthContextType = {
     accessToken,

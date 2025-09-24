@@ -1,24 +1,35 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { generatePath, useLocation, useNavigate } from 'react-router-dom';
 import Container from '@/components/common/Container';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
 import { useAuth } from '@/context/AuthContext';
 import LoginContent from './components/LoginContent';
-
+import { ROUTE_PATH } from '@/constants/routes';
+import { safePath } from '@/utils/safePath';
+/**
+ * 로그인 페이지
+ * 로그인이 되어있지 않으면 로그인 페이지로 리다이렉트
+ * 로그인 되어 있지 않을 시 로그인 폼 표시
+ * continue 파라미터가 있을 시 해당 페이지로 리다이렉트
+ * continue 파라미터가 없을 시 홈으로 리다이렉트
+ * @param children - 로그인이 되었을 때 표시될 페이지
+ * @returns 로그인 페이지
+ */
 const LoginPage = () => {
   const navigate = useNavigate();
   const { isLoggedIn } = useAuth();
+  const location = useLocation();
 
   useEffect(() => {
-    // 이미 로그인되어 있으면 마이페이지로 자동 리다이렉트
     if (isLoggedIn) {
-      console.log('이미 로그인되어 있음 - 마이페이지로 이동');
-      navigate('/mypage', { replace: true });
-    }
-  }, [isLoggedIn, navigate]);
+      const params = new URLSearchParams(location.search);
+      const cont = safePath(params.get('continue'));
 
-  // 로그인되어 있지 않은 경우 - 로그인 폼 표시
+      navigate(cont ?? generatePath(ROUTE_PATH.HOME) , { replace: true });
+    }
+  }, [isLoggedIn, navigate, location.search]);
+
   return (
     <Container>
       <Header variant="logo" />
