@@ -3,12 +3,12 @@ import { useSearchParams } from 'react-router-dom';
 
 interface PickContextType {
   selectedStyles: string[];
-  mbtiAnswers: Record<string, string>;
+  mbtiAnswers: Record<string, boolean>;
   additionalInfo: string;
   canProceedToMbti: boolean;
   canProceedToRecommendation: boolean;
   handleStyleSelect: (styleId: string) => void;
-  handleMbtiAnswer: (questionId: string, answer: string) => void;
+  handleMbtiAnswer: (questionId: string, answer: boolean) => void;
   handleAdditionalInfo: (e: ChangeEvent<HTMLInputElement>) => void;
   goToNextStep: () => void;
   onSubmitRecommendation: () => void;
@@ -19,7 +19,7 @@ const PickContext = createContext<PickContextType | undefined>(undefined);
 export const PickProvider = ({ children }: { children: ReactNode }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedStyles, setSelectedStyles] = useState<string[]>([]);
-  const [mbtiAnswers, setMbtiAnswers] = useState<Record<string, string>>({});
+  const [mbtiAnswers, setMbtiAnswers] = useState<Record<string, boolean>>({});
   const [additionalInfo, setAdditionalInfo] = useState<string>('');
 
   const handleStyleSelect = (styleId: string) => {
@@ -36,7 +36,7 @@ export const PickProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  const handleMbtiAnswer = (questionId: string, answer: string) => {
+  const handleMbtiAnswer = (questionId: string, answer: boolean) => {
     setMbtiAnswers((prev) => ({ ...prev, [questionId]: answer }));
   };
 
