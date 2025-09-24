@@ -1,5 +1,6 @@
 const API_ENDPOINTS = {
   FESTIVALS: '/api/festivals/area/:areaId',
+  FESTIVAL_INFO: '/api/festivals/:festivalId',
   // OAuth 로그인
   GOOGLE_LOGIN: '/oauth2/authorization/google',
   KAKAO_LOGIN: '/oauth2/authorization/kakao',
