@@ -18,17 +18,28 @@ import { safePath } from '@/utils/safePath';
  */
 const LoginPage = () => {
   const navigate = useNavigate();
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, isInitialized } = useAuth();
   const location = useLocation();
 
   useEffect(() => {
-    if (isLoggedIn) {
+    console.log(isInitialized, isLoggedIn, location.search)
+    if (isInitialized && isLoggedIn) {
       const params = new URLSearchParams(location.search);
       const cont = safePath(params.get('continue'));
 
       navigate(cont ?? generatePath(ROUTE_PATH.HOME) , { replace: true });
     }
-  }, [isLoggedIn, navigate, location.search]);
+  }, [isInitialized, isLoggedIn, navigate, location.search]);
+
+  // 초기화가 완료되지 않았으면 로딩 표시
+  if (!isInitialized) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-300"></div>
+        <p className="mt-4 text-lg text-gray-600">로그인 상태 확인 중...</p>
+      </div>
+    );
+  }
 
   return (
     <Container>

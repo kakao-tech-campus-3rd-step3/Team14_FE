@@ -57,7 +57,14 @@ const exchangeTokens = async (): Promise<string | null> => {
     }
     return null;
   } catch (error) {
-    console.error('Token exchange failed:', error);
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      // 비로그인 상태에서 토큰 교환 실패는 예상된 동작임.
+      // 콘솔에 에러를 출력하지 않고 분기 처리로 넘어감.
+    } else {
+      // 401이 아닌 다른 에러(네트워크 문제, 서버 500 에러 등)는
+      // 여전히 개발자가 인지해야 하므로 콘솔에 출력함.
+      console.error('Token exchange failed:', error);
+    }
     return null;
   }
 };
@@ -142,12 +149,6 @@ const initInstance = (config: CreateAxiosDefaults): AxiosInstance => {
         } catch (refreshError) {
           processQueue(refreshError, null);
           updateAccessToken(null);
-
-          // 로그인 페이지나 쿠키 페이지가 아닌 경우에만 리다이렉트
-          const currentPath = window.location.pathname;
-          if (currentPath !== '/login' && currentPath !== '/cookie') {
-            window.location.href = '/login';
-          }
 
           return Promise.reject(refreshError);
         } finally {
