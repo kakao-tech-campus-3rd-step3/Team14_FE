@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { generatePath, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import jwtExchange from '@/apis/auth/jwtExchange';
-import type { AxiosError } from 'axios';
+import axios from 'axios';
 import { ROUTE_PATH } from '@/constants/routes';
 import { safePath } from '@/utils/safePath';
 /**
@@ -50,13 +50,14 @@ const LoginCallback = () => {
           throw new Error('Authorization 헤더에서 accessToken을 찾을 수 없습니다.');
         }
       } catch (err) {
-        const axiosError = err as AxiosError;
-        if (axiosError.response?.status === 401) {
-          setError('인증이 만료되었습니다. 다시 로그인해주세요.');
-          setTimeout(() => navigate(generatePath(ROUTE_PATH.LOGIN), { replace: true }), 2000);
-        } else {
-          setError('로그인 처리 중 오류가 발생했습니다.');
-          setTimeout(() => navigate(generatePath(ROUTE_PATH.LOGIN), { replace: true }), 2000);
+        if (axios.isAxiosError(err)) {
+          if (err.response?.status === 401) {
+            setError('인증이 만료되었습니다. 다시 로그인해주세요.');
+            setTimeout(() => navigate(generatePath(ROUTE_PATH.LOGIN), { replace: true }), 2000);
+          } else {
+            setError('로그인 처리 중 오류가 발생했습니다.');
+            setTimeout(() => navigate(generatePath(ROUTE_PATH.LOGIN), { replace: true }), 2000);
+          }
         }
       } finally {
         setIsLoading(false);

@@ -1,6 +1,9 @@
 import type { AxiosInstance, CreateAxiosDefaults } from 'axios';
 import axios from 'axios';
 import API_ENDPOINTS from '@/constants/apiEndpoints';
+import type { AuthToken } from '@/types/Auth/AuthToken';
+import type { TokenGetter } from '@/types/Auth/TokenGetter';
+import type { TokenSetter } from '@/types/Auth/TokenSetter';
 
 export interface ApiErrorResponse {
   status: number;
@@ -10,27 +13,24 @@ export interface ApiErrorResponse {
 export const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
 // 토큰 관리
-let currentAccessToken: string | null = null;
-let getTokenCallback: (() => string | null) | null = null;
-let setTokenCallback: ((token: string | null) => void) | null = null;
+let currentAccessToken: AuthToken = null;
+let getTokenCallback: TokenGetter | null = null;
+let setTokenCallback: TokenSetter | null = null;
 
-export const setAuthCallbacks = (
-  getToken: () => string | null,
-  setToken: (token: string | null) => void,
-) => {
+export const setAuthCallbacks = (getToken: TokenGetter, setToken: TokenSetter) => {
   getTokenCallback = getToken;
   setTokenCallback = setToken;
   currentAccessToken = getToken(); // 초기값 설정
 };
 
-export const updateAccessToken = (token: string | null) => {
+export const updateAccessToken = (token: AuthToken) => {
   currentAccessToken = token;
   if (setTokenCallback) {
     setTokenCallback(token);
   }
 };
 
-export const getCurrentToken = (): string | null => {
+export const getCurrentToken = (): AuthToken => {
   if (getTokenCallback) {
     currentAccessToken = getTokenCallback();
   }
@@ -38,7 +38,7 @@ export const getCurrentToken = (): string | null => {
 };
 
 // JWT 교환 함수 (인터셉터에서 사용)
-const exchangeTokens = async (): Promise<string | null> => {
+const exchangeTokens = async (): Promise<AuthToken> => {
   try {
     const response = await axios.post(
       `${apiBaseUrl}${API_ENDPOINTS.JWT_EXCHANGE}`,
@@ -71,11 +71,11 @@ const exchangeTokens = async (): Promise<string | null> => {
 
 let isRefreshing = false;
 let failedQueue: Array<{
-  resolve: (value: string | null) => void;
+  resolve: (value: AuthToken) => void;
   reject: (error: unknown) => void;
 }> = [];
 
-const processQueue = (error: unknown, token: string | null = null) => {
+const processQueue = (error: unknown, token: AuthToken = null) => {
   failedQueue.forEach(({ resolve, reject }) => {
     if (error) {
       reject(error);

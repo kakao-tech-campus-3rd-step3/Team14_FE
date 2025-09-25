@@ -3,10 +3,11 @@ import type { ReactNode } from 'react';
 import { setAuthCallbacks } from '@/apis/apiInstance';
 import jwtExchange from '@/apis/auth/jwtExchange';
 import axios from 'axios';
+import type { AuthToken } from '@/types/Auth/AuthToken';
 
 interface AuthContextType {
-  accessToken: string | null;
-  setAccessToken: (token: string | null) => void;
+  accessToken: AuthToken;
+  setAccessToken: (token: AuthToken) => void;
   isLoggedIn: boolean;
   isInitialized: boolean;
   clearAuth: () => void;
@@ -27,11 +28,11 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [accessToken, setAccessTokenState] = useState<string | null>(null);
+  const [accessToken, setAccessTokenState] = useState<AuthToken>(null);
   const [isInitialized, setIsInitialized] = useState(false);
-  const tokenRef = useRef<string | null>(null);
+  const tokenRef = useRef<AuthToken>(null);
 
-  const setAccessToken = (token: string | null) => {
+  const setAccessToken = (token: AuthToken) => {
     tokenRef.current = token;
     setAccessTokenState(token);
   };
