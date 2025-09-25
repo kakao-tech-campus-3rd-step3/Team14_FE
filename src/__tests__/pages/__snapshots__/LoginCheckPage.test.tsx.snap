@@ -17,7 +17,7 @@ exports[`LoginCheckPage 테스트 > 페이지 기본 구조 > 스냅샷 테스�
           class="flex-1 flex justify-start"
         >
           <button
-            class="cursor-pointer flex items-center justify-center w-fit bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 undefined"
+            class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 undefined "
             type="button"
           >
             <svg
@@ -76,7 +76,7 @@ exports[`LoginCheckPage 테스트 > 페이지 기본 구조 > 스냅샷 테스�
           href="/"
         >
           <button
-            class="cursor-pointer flex items-center justify-center w-fit bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3"
+            class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3 "
             type="button"
           >
             <svg
@@ -108,7 +108,7 @@ exports[`LoginCheckPage 테스트 > 페이지 기본 구조 > 스냅샷 테스�
           href="/search"
         >
           <button
-            class="cursor-pointer flex items-center justify-center w-fit bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3"
+            class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3 "
             type="button"
           >
             <svg
@@ -140,7 +140,7 @@ exports[`LoginCheckPage 테스트 > 페이지 기본 구조 > 스냅샷 테스�
           href="/pick/:areaId"
         >
           <button
-            class="cursor-pointer flex items-center justify-center w-fit bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3"
+            class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3 "
             type="button"
           >
             <svg
@@ -251,7 +251,7 @@ exports[`LoginCheckPage 테스트 > 페이지 기본 구조 > 스냅샷 테스�
           href="/mypage"
         >
           <button
-            class="cursor-pointer flex items-center justify-center w-fit bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3"
+            class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3 "
             type="button"
           >
             <svg
