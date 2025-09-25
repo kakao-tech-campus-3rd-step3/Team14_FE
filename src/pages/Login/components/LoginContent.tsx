@@ -3,24 +3,21 @@ import Button from '@/components/common/Button';
 import API_ENDPOINTS from '@/constants/apiEndpoints';
 import { apiBaseUrl } from '@/apis/apiInstance';
 
-
 const LoginContent = () => {
-/**
- * 구글 OAuth 로그인 페이지로 리다이렉트
- * @returns 구글 OAuth 로그인 페이지로 리다이렉트
- */
+  /**
+   * 구글 OAuth 로그인 페이지로 리다이렉트
+   * @returns 구글 OAuth 로그인 페이지로 리다이렉트
+   */
   const handleGoogleLogin = () => {
-
     const loginUrl = `${apiBaseUrl}${API_ENDPOINTS.GOOGLE_LOGIN}`;
 
     window.location.href = loginUrl;
   };
-/**
- * 카카오 OAuth 로그인 페이지로 리다이렉트
- * @returns 카카오 OAuth 로그인 페이지로 리다이렉트
- */
+  /**
+   * 카카오 OAuth 로그인 페이지로 리다이렉트
+   * @returns 카카오 OAuth 로그인 페이지로 리다이렉트
+   */
   const handleKakaoLogin = () => {
-
     const timestamp = Date.now();
     const loginUrl = `${apiBaseUrl}${API_ENDPOINTS.KAKAO_LOGIN}?t=${timestamp}`;
 

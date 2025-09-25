@@ -13,23 +13,21 @@ interface ProtectedRouteProps {
  * @param children - 로그인이 되었을 때 표시될 페이지
  */
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-    const { isLoggedIn } = useAuth();
-    const navigate = useNavigate();
-    const location = useLocation();
-  
-    useEffect(() => {
-      if (!isLoggedIn) {
-        const cont = encodeURIComponent(
-          location.pathname + location.search + location.hash
-        );
-        navigate(`${generatePath(ROUTE_PATH.LOGIN)}?continue=${cont}`, {
-          replace: true,
-        });
-      }
-    }, [isLoggedIn, navigate, location]);
-  
-    if (!isLoggedIn) return null; 
-    return <>{children}</>;
-  };
-  
-  export default ProtectedRoute;
+  const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      const cont = encodeURIComponent(location.pathname + location.search + location.hash);
+      navigate(`${generatePath(ROUTE_PATH.LOGIN)}?continue=${cont}`, {
+        replace: true,
+      });
+    }
+  }, [isLoggedIn, navigate, location]);
+
+  if (!isLoggedIn) return null;
+  return <>{children}</>;
+};
+
+export default ProtectedRoute;

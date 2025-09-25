@@ -47,7 +47,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // 새로고침 시 자동 토큰 복구
   useEffect(() => {
     const initAuth = async () => {
-      
       try {
         // 토큰 교환 로직이 제일 처음 서비스 사용자가 홈페이지에 접근했을떄도 실행됨.
         // 따라서 비로그인 상태에서 실패한 결과가 리턴됨
@@ -64,8 +63,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         if (axios.isAxiosError(error) && error.response?.status === 401) {
           // 비로그인 상태에서 토큰 교환 실패는 예상된 동작임.
           // 콘솔에 에러를 출력하지 않고 분기 처리로 넘어감.
-        }else if (error instanceof Error && error.message === 'Token refresh 실패') {} 
-        else {
+        } else if (error instanceof Error && error.message === 'Token refresh 실패') {
+        } else {
           // 401이 아닌 다른 에러(네트워크 문제, 서버 500 에러 등)는
           // 여전히 개발자가 인지해야 하므로 콘솔에 출력함.
           console.error('Authentication check failed:', error);

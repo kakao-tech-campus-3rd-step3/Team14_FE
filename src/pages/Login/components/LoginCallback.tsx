@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { generatePath,useLocation, useNavigate } from 'react-router-dom';
+import { generatePath, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import jwtExchange from '@/apis/auth/jwtExchange';
 import type { AxiosError } from 'axios';
@@ -12,7 +12,7 @@ import { safePath } from '@/utils/safePath';
  */
 const LoginCallback = () => {
   const navigate = useNavigate();
-  const location = useLocation(); 
+  const location = useLocation();
   const { setAccessToken } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -20,7 +20,6 @@ const LoginCallback = () => {
   useEffect(() => {
     const handleLoginCallback = async () => {
       try {
-
         // URL에서 에러 파라미터 확인
         const urlParams = new URLSearchParams(window.location.search);
         const errorParam = urlParams.get('error');
@@ -30,7 +29,6 @@ const LoginCallback = () => {
           setTimeout(() => navigate(generatePath(ROUTE_PATH.LOGIN), { replace: true }), 2000);
           return;
         }
-
 
         // withCredentials: true로 refreshToken 쿠키 포함하여 JWT 교환
         const response = await jwtExchange();
@@ -44,16 +42,14 @@ const LoginCallback = () => {
           // 메모리(Context)에 accessToken 저장
           setAccessToken(accessToken);
 
-        // 🔄 continue 파라미터 처리
-        const params = new URLSearchParams(location.search);
-        const cont = safePath(params.get('continue'));
-        navigate(cont ?? generatePath(ROUTE_PATH.HOME) , { replace: true });
-
+          // 🔄 continue 파라미터 처리
+          const params = new URLSearchParams(location.search);
+          const cont = safePath(params.get('continue'));
+          navigate(cont ?? generatePath(ROUTE_PATH.HOME), { replace: true });
         } else {
           throw new Error('Authorization 헤더에서 accessToken을 찾을 수 없습니다.');
         }
       } catch (err) {
-
         const axiosError = err as AxiosError;
         if (axiosError.response?.status === 401) {
           setError('인증이 만료되었습니다. 다시 로그인해주세요.');
@@ -62,7 +58,6 @@ const LoginCallback = () => {
           setError('로그인 처리 중 오류가 발생했습니다.');
           setTimeout(() => navigate(generatePath(ROUTE_PATH.LOGIN), { replace: true }), 2000);
         }
-
       } finally {
         setIsLoading(false);
       }

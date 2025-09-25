@@ -22,12 +22,12 @@ const LoginPage = () => {
   const location = useLocation();
 
   useEffect(() => {
-    console.log(isInitialized, isLoggedIn, location.search)
+    console.log(isInitialized, isLoggedIn, location.search);
     if (isInitialized && isLoggedIn) {
       const params = new URLSearchParams(location.search);
       const cont = safePath(params.get('continue'));
 
-      navigate(cont ?? generatePath(ROUTE_PATH.HOME) , { replace: true });
+      navigate(cont ?? generatePath(ROUTE_PATH.HOME), { replace: true });
     }
   }, [isInitialized, isLoggedIn, navigate, location.search]);
 
