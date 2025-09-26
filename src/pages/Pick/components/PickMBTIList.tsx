@@ -7,6 +7,7 @@ const PickMBTIList = () => {
       {PICK_MBTI.map((mbti) => (
         <PickMBTICard
           key={mbti.id}
+          id={mbti.id}
           title={mbti.title}
           option1={mbti.option1}
           option2={mbti.option2}

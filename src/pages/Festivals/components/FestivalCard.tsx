@@ -1,4 +1,6 @@
+import { ROUTE_PATH } from '@/constants/routes';
 import type { Festival } from '@/types/FestivalType';
+import { generatePath, Link } from 'react-router-dom';
 
 interface FestivalCardProps {
   data: Festival;
@@ -6,11 +8,14 @@ interface FestivalCardProps {
 
 const FestivalCard = ({ data }: FestivalCardProps) => {
   return (
-    <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-100 hover:scale-[1.02] cursor-pointer">
+    <Link
+      className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-100 hover:scale-[1.02] cursor-pointer"
+      to={generatePath(ROUTE_PATH.FESTIVAL_INFO, { festivalId: data.id.toString() })}
+    >
       {/* 이미지 섹션 */}
       <div className="aspect-[3/2] w-full">
         <img
-          src={data.imageUrl}
+          src={data.posterInfo}
           alt={`${data.title} 축제 이미지`}
           className="w-full h-full object-cover"
         />
@@ -31,7 +36,7 @@ const FestivalCard = ({ data }: FestivalCardProps) => {
           </p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

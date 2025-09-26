@@ -6,6 +6,7 @@ import LoginCallback from '@/pages/Login/components/LoginCallback';
 import MyPage from '@/pages/My/MyPage';
 import PickPage from '@/pages/Pick/PickPage';
 import FestivalsPage from '@/pages/Festivals/FestivalsPage';
+import FestivalInfoPage from '@/pages/FestivalInfo/FestivalInfoPage';
 import ProtectedRoute from './ProtectedRoute';
 import SearchPage from '@/pages/Search/SearchPage';
 /**
@@ -36,6 +37,7 @@ const Routes = () => {
         }
       />
       <Route path={ROUTE_PATH.FESTIVALS} element={<FestivalsPage />} />
+      <Route path={ROUTE_PATH.FESTIVAL_INFO} element={<FestivalInfoPage />} />
       <Route path={ROUTE_PATH.SEARCH} element={<SearchPage />} />
     </RouterRoutes>
   );
