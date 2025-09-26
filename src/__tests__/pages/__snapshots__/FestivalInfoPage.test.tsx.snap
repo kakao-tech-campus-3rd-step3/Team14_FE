@@ -1,0 +1,253 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`FestivalInfoPage 테스트 > 스냅샷 테스트 > 로딩 상태 스냅샷 1`] = `
+<div
+  class="flex flex-col items-center justify-center min-h-screen"
+>
+  <div
+    class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-300"
+  />
+  <p
+    class="mt-4 text-lg text-gray-600"
+  >
+    축제 정보를 불러오는 중
+  </p>
+</div>
+`;
+
+exports[`FestivalInfoPage 테스트 > 스냅샷 테스트 > 로딩 완료 스냅샷 1`] = `
+<div
+  class="w-full h-full flex flex-col items-center bg-gray-100"
+>
+  <div
+    class="min-h-screen pt-12 pb-15 max-w-[480px] w-full relative bg-white "
+  >
+    <div
+      class="w-full mx-auto flex flex-col items-center fixed top-0 left-0 z-999 bg-gray-100"
+    >
+      <div
+        class="w-full max-w-[480px] h-12 border-b border-gray-300 flex items-center bg-white justify-between"
+      >
+        <div
+          class="flex-1 flex justify-start"
+        >
+          <button
+            class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 undefined "
+            type="button"
+          >
+            <svg
+              class="size-8"
+              fill="none"
+              height="28"
+              stroke="black"
+              stroke-width="3"
+              viewBox="0 0 24 24"
+              width="28"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M16 4 L8 12 L16 20"
+              />
+            </svg>
+          </button>
+        </div>
+        <div
+          class="flex-1 flex justify-center"
+        >
+          <h1
+            class="text-xl font-bold"
+          />
+        </div>
+        <div
+          class="flex-1 flex justify-end"
+        >
+          <button
+            class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 undefined "
+            type="button"
+          >
+            <svg
+              class="size-8"
+              fill="none"
+              height="24"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.99999 10L12 3L20 10L20 20H15V16C15 15.2044 14.6839 14.4413 14.1213 13.8787C13.5587 13.3161 12.7956 13 12 13C11.2043 13 10.4413 13.3161 9.87868 13.8787C9.31607 14.4413 9 15.2043 9 16V20H4L3.99999 10Z"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <svg
+              class="size-8"
+              fill="none"
+              height="24"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5 21C5 17.134 8.13401 14 12 14C15.866 14 19 17.134 19 21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="flex flex-col items-center w-full h-full"
+    >
+      <img
+        alt="가평 양떼목장 수국축제"
+        class="w-full h-full object-cover"
+        src="http://tong.visitkorea.or.kr/cms/resource/88/3503888_image2_1.png"
+      />
+      <div
+        class="w-full h-full p-4 gap-4 flex flex-col"
+      >
+        <div
+          class="w-full h-full flex justify-between"
+        >
+          <button
+            class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-400 text-sm !p-0 !rounded-none text-md rounded-xl px-5 py-3 text-gray-900 "
+            type="button"
+          />
+          <div>
+            <svg
+              aria-hidden="true"
+              class="lucide lucide-heart"
+              fill="none"
+              height="20"
+              stroke="#000"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              width="20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          class="w-full bg-gray-400"
+          style="height: 1px;"
+        />
+        <div
+          class="w-full h-full flex flex-col gap-2"
+        >
+          <h1
+            class="text-xl font-bold"
+          >
+            가평 양떼목장 수국축제
+          </h1>
+          <div
+            class="w-full h-full flex items-center gap-2"
+          >
+            <img
+              alt="time"
+              class="size-4"
+              src="/time.svg"
+            />
+            <p
+              class="text-sm text-gray-900"
+            >
+              2025-06-27
+               ~ 
+              2025-10-31
+            </p>
+          </div>
+          <div
+            class="w-full h-full flex flex-col"
+          >
+            <div
+              class="flex items-center gap-2"
+            >
+              <img
+                alt="location"
+                class="size-4"
+                src="/location.svg"
+              />
+              <p
+                class="text-sm text-gray-900"
+              >
+                경기도 가평군 설악면 유명로 1209
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="w-full bg-gray-400"
+          style="height: 1px;"
+        />
+        <div
+          class="w-full h-full flex flex-col gap-2"
+        >
+          <h3
+            class="text-sm text-gray-900 font-bold"
+          >
+            상세정보
+          </h3>
+          <p
+            class="text-sm text-gray-900 leading-relaxed whitespace-pre-wrap"
+          >
+            가평의 아름다운 자연 속에서 펼쳐지는 본 축제는, 활짝 핀 가을 수국의 물결과 사랑스러운 알파카들을 한자리에서 만날 수 있다. 가을의 정취를 가득 담은 수국밭을 거닐며 싱그러움을 만끽하고, 순수하고 귀여운 알파카들에게 직접 먹이를 주거나 함께 사진을 찍으며 잊지 못할 추억을 만들 수 있다. 단순히 꽃과 동물을 감상하는 것을 넘어, 방문객들이 직접 참여하고 즐길 수 있는 다채로운 프로그램들이 마련되어 있다. 수국밭 속 양떼목장에서는 동물들에게 먹...
+          </p>
+          <div
+            class="flex justify-center"
+          >
+            <button
+              class="flex items-center justify-center w-full cursor-pointer bg-gray-100 text-gray-600 text-sm rounded-lg px-4 py-2 undefined "
+              type="button"
+            >
+              더보기
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="w-full mx-auto flex flex-col items-center fixed bottom-0 left-0 z-999"
+    >
+      <div
+        class="w-full max-w-[480px] h-15 border-t border-gray-300 flex items-center bg-white p-2 gap-2"
+      >
+        <a
+          class="flex-1 flex items-center justify-center h-full"
+          data-discover="true"
+          href="/festival/1"
+        >
+          <button
+            class="flex items-center justify-center w-full cursor-pointer bg-primary-50 text-primary-300 text-sm rounded-lg px-4 py-2 h-full "
+            type="button"
+          >
+            리뷰하기
+          </button>
+        </a>
+        <a
+          class="flex-1 flex items-center justify-center h-full"
+          data-discover="true"
+          href="/festival/1"
+        >
+          <button
+            class="flex items-center justify-center w-full cursor-pointer bg-primary-300 text-gray-50 text-sm rounded-lg px-4 py-2 h-full "
+            type="button"
+          >
+            채팅 참여하기
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
