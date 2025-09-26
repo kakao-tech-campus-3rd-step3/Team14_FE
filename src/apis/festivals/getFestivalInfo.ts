@@ -1,16 +1,12 @@
 import { apiInstance } from '@/apis/apiInstance';
 import API_ENDPOINTS from '@/constants/apiEndpoints';
-import type { Festival } from '@/types/FestivalType';
+import type { FestivalInfo } from '@/types/FestivalType';
 import type { ApiErrorResponse } from '@/apis/apiInstance';
 import type { AxiosResponse } from 'axios';
 import { generatePath } from 'react-router-dom';
 
 export interface GetFestivalInfoResponse {
-  content: Festival & {
-    overView: string;
-    homePage: string;
-    imageInfos: string[];
-  };
+  content: FestivalInfo;
 }
 
 export const getFestivalInfo = async (params: {

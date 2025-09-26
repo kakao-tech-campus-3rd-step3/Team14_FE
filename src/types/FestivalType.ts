@@ -7,3 +7,9 @@ export interface Festival {
   startDate: string;
   endDate: string;
 }
+
+export interface FestivalInfo extends Festival {
+  overView: string;
+  homePage: string;
+  imageInfos: string[];
+}
