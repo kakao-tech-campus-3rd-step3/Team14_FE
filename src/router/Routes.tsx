@@ -7,6 +7,7 @@ import MyPage from '@/pages/My/MyPage';
 import PickPage from '@/pages/Pick/PickPage';
 import FestivalsPage from '@/pages/Festivals/FestivalsPage';
 import ProtectedRoute from './ProtectedRoute';
+import SearchPage from '@/pages/Search/SearchPage';
 /**
  * 라우터 컴포넌트
  * 로그인 필요 여부에 따라 ProtectedRoute 컴포넌트로 감싸져 있음
@@ -35,6 +36,7 @@ const Routes = () => {
         }
       />
       <Route path={ROUTE_PATH.FESTIVALS} element={<FestivalsPage />} />
+      <Route path={ROUTE_PATH.SEARCH} element={<SearchPage />} />
     </RouterRoutes>
   );
 };
