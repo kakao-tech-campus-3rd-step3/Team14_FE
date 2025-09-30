@@ -17,6 +17,7 @@ const MAP_PINS: Pin[] = [
   { id: 'ulsan', name: '울산', top: 58, left: 85, icon: '/area/ulsan.svg', areaId: '7' },
   { id: 'buan', name: '부산', top: 67, left: 80, icon: '/area/buan.svg', areaId: '6' },
   { id: 'jeju', name: '제주', top: 90, left: 30, icon: '/area/jeju.svg', areaId: '39' },
+  { id: 'mistery', name: '전국', top: 10, left: 15, icon: '/area/mistery.svg', areaId: '0' },
 ] as const;
 
 export default MAP_PINS;

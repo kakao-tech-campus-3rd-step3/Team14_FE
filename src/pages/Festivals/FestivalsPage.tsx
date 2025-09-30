@@ -13,12 +13,12 @@ const FestivalsPage = () => {
       <Header variant="page" />
       <div className="flex flex-col items-center px-8 py-4 gap-12">
         <ErrorBoundary FallbackComponent={() => null}>
-          <Suspense fallback={<FestivalsSectionSkeleton count={3} />}>
+          <Suspense fallback={<FestivalsSectionSkeleton count={2} />}>
             <FestivalsAISection />
           </Suspense>
         </ErrorBoundary>
         <ErrorBoundary FallbackComponent={() => null}>
-          <Suspense fallback={<FestivalsSectionSkeleton count={3} />}>
+          <Suspense fallback={<FestivalsSectionSkeleton count={2} />}>
             <FestivalsAreaSection />
           </Suspense>
         </ErrorBoundary>

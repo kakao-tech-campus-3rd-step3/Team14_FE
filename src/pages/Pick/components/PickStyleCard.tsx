@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom';
+import { usePick } from '@/context/PickContext';
 
 interface PickStyleCardProps {
   image: string;
@@ -7,14 +7,21 @@ interface PickStyleCardProps {
 }
 
 const PickStyleCard = ({ image, title, id }: PickStyleCardProps) => {
-  const [, setSearchParams] = useSearchParams();
+  const selectedCardClasses = 'border-3 border-primary-300';
+  const { selectedStyles, handleStyleSelect } = usePick();
+  const isSelected = selectedStyles.includes(id);
+
   return (
     <div
-      className="w-full h-full overflow-hidden flex flex-col items-center justify-center gap-3"
-      onClick={() => setSearchParams({ style: id })}
+      className="w-full h-full flex flex-col items-center justify-center gap-3"
+      onClick={() => handleStyleSelect(id)}
     >
-      <img src={image} alt={title} className="size-[100px] rounded-lg  object-cover bg-gray-200" />
-      <p className="text-lg">{title}</p>
+      <img
+        src={image}
+        alt={title}
+        className={`size-[100px] rounded-lg ${isSelected ? selectedCardClasses : ''} object-cover bg-transparent border-2 border-gray-900`}
+      />
+      <p className={`text-lg ${isSelected ? 'font-bold' : ''}`}>{title}</p>
     </div>
   );
 };

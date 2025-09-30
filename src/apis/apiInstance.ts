@@ -1,36 +1,36 @@
 import type { AxiosInstance, CreateAxiosDefaults } from 'axios';
 import axios from 'axios';
 import API_ENDPOINTS from '@/constants/apiEndpoints';
+import type { AuthToken } from '@/types/Auth/AuthToken';
+import type { TokenGetter } from '@/types/Auth/TokenGetter';
+import type { TokenSetter } from '@/types/Auth/TokenSetter';
 
 export interface ApiErrorResponse {
   status: number;
   message: string;
 }
 
-export const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+export const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost';
 
 // 토큰 관리
-let currentAccessToken: string | null = null;
-let getTokenCallback: (() => string | null) | null = null;
-let setTokenCallback: ((token: string | null) => void) | null = null;
+let currentAccessToken: AuthToken = null;
+let getTokenCallback: TokenGetter | null = null;
+let setTokenCallback: TokenSetter | null = null;
 
-export const setAuthCallbacks = (
-  getToken: () => string | null,
-  setToken: (token: string | null) => void,
-) => {
+export const setAuthCallbacks = (getToken: TokenGetter, setToken: TokenSetter) => {
   getTokenCallback = getToken;
   setTokenCallback = setToken;
   currentAccessToken = getToken(); // 초기값 설정
 };
 
-export const updateAccessToken = (token: string | null) => {
+export const updateAccessToken = (token: AuthToken) => {
   currentAccessToken = token;
   if (setTokenCallback) {
     setTokenCallback(token);
   }
 };
 
-export const getCurrentToken = (): string | null => {
+export const getCurrentToken = (): AuthToken => {
   if (getTokenCallback) {
     currentAccessToken = getTokenCallback();
   }
@@ -38,7 +38,7 @@ export const getCurrentToken = (): string | null => {
 };
 
 // JWT 교환 함수 (인터셉터에서 사용)
-const exchangeTokens = async (): Promise<string | null> => {
+const exchangeTokens = async (): Promise<AuthToken> => {
   try {
     const response = await axios.post(
       `${apiBaseUrl}${API_ENDPOINTS.JWT_EXCHANGE}`,
@@ -57,18 +57,25 @@ const exchangeTokens = async (): Promise<string | null> => {
     }
     return null;
   } catch (error) {
-    console.error('Token exchange failed:', error);
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      // 비로그인 상태에서 토큰 교환 실패는 예상된 동작임.
+      // 콘솔에 에러를 출력하지 않고 분기 처리로 넘어감.
+    } else {
+      // 401이 아닌 다른 에러(네트워크 문제, 서버 500 에러 등)는
+      // 여전히 개발자가 인지해야 하므로 콘솔에 출력함.
+      console.error('Token exchange failed:', error);
+    }
     return null;
   }
 };
 
 let isRefreshing = false;
 let failedQueue: Array<{
-  resolve: (value: string | null) => void;
+  resolve: (value: AuthToken) => void;
   reject: (error: unknown) => void;
 }> = [];
 
-const processQueue = (error: unknown, token: string | null = null) => {
+const processQueue = (error: unknown, token: AuthToken = null) => {
   failedQueue.forEach(({ resolve, reject }) => {
     if (error) {
       reject(error);
@@ -142,12 +149,6 @@ const initInstance = (config: CreateAxiosDefaults): AxiosInstance => {
         } catch (refreshError) {
           processQueue(refreshError, null);
           updateAccessToken(null);
-
-          // 로그인 페이지나 쿠키 페이지가 아닌 경우에만 리다이렉트
-          const currentPath = window.location.pathname;
-          if (currentPath !== '/login' && currentPath !== '/cookie') {
-            window.location.href = '/login';
-          }
 
           return Promise.reject(refreshError);
         } finally {
