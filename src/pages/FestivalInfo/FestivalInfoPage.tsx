@@ -19,6 +19,8 @@ const FestivalInfoPage = () => {
     select: (data) => data.data,
     enabled: !!festivalId,
   });
+  // Todo:
+  // 로딩,에러 페이지 통일하기
 
   if (isPending) {
     return (
@@ -45,7 +47,11 @@ const FestivalInfoPage = () => {
     <Container>
       <Header variant="all" />
       <div className="flex flex-col items-center w-full h-full">
-        <FestivalPoster imageUrl={data.content.posterInfo} title={data.content.title} />
+        <FestivalPoster
+          posterUrl={data.content.posterInfo}
+          imageUrls={data.content.imageInfos}
+          title={data.content.title}
+        />
         <div className="w-full h-full p-4 gap-4 flex flex-col">
           <FestivalBannerSection url={data.content.homePage} />
           <Divider height="1px" />

@@ -104,11 +104,120 @@ exports[`FestivalInfoPage 테스트 > 스냅샷 테스트 > 로딩 완료 스냅
     <div
       class="flex flex-col items-center w-full h-full"
     >
-      <img
-        alt="가평 양떼목장 수국축제"
-        class="w-full h-full object-cover"
-        src="http://tong.visitkorea.or.kr/cms/resource/88/3503888_image2_1.png"
-      />
+      <div
+        class="w-full relative"
+      >
+        <div
+          class="relative w-full h-[500px] overflow-hidden"
+        >
+          <div
+            class="flex transition-transform duration-300 ease-out h-full"
+            style="transform: translateX(0%);"
+          >
+            <div
+              class="w-full h-full flex-shrink-0"
+            >
+              <img
+                alt="가평 양떼목장 수국축제 - 1"
+                class="w-full h-full object-contain select-none bg-gray-50"
+                draggable="false"
+                src="http://tong.visitkorea.or.kr/cms/resource/88/3503888_image2_1.png"
+              />
+            </div>
+            <div
+              class="w-full h-full flex-shrink-0"
+            >
+              <img
+                alt="가평 양떼목장 수국축제 - 2"
+                class="w-full h-full object-contain select-none bg-gray-50"
+                draggable="false"
+                src="http://tong.visitkorea.or.kr/cms/resource/82/3503882_image2_1.jpg"
+              />
+            </div>
+            <div
+              class="w-full h-full flex-shrink-0"
+            >
+              <img
+                alt="가평 양떼목장 수국축제 - 3"
+                class="w-full h-full object-contain select-none bg-gray-50"
+                draggable="false"
+                src="http://tong.visitkorea.or.kr/cms/resource/83/3503883_image2_1.jpg"
+              />
+            </div>
+            <div
+              class="w-full h-full flex-shrink-0"
+            >
+              <img
+                alt="가평 양떼목장 수국축제 - 4"
+                class="w-full h-full object-contain select-none bg-gray-50"
+                draggable="false"
+                src="http://tong.visitkorea.or.kr/cms/resource/84/3503884_image2_1.jpg"
+              />
+            </div>
+            <div
+              class="w-full h-full flex-shrink-0"
+            >
+              <img
+                alt="가평 양떼목장 수국축제 - 5"
+                class="w-full h-full object-contain select-none bg-gray-50"
+                draggable="false"
+                src="http://tong.visitkorea.or.kr/cms/resource/85/3503885_image2_1.jpg"
+              />
+            </div>
+            <div
+              class="w-full h-full flex-shrink-0"
+            >
+              <img
+                alt="가평 양떼목장 수국축제 - 6"
+                class="w-full h-full object-contain select-none bg-gray-50"
+                draggable="false"
+                src="http://tong.visitkorea.or.kr/cms/resource/86/3503886_image2_1.jpg"
+              />
+            </div>
+          </div>
+          <button
+            aria-label="다음 이미지"
+            class="absolute top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hidden md:flex right-4"
+          >
+            <svg
+              class="stroke-white"
+              fill="none"
+              height="28"
+              stroke="black"
+              stroke-width="3"
+              viewBox="0 0 24 24"
+              width="28"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8 4 L16 12 L8 20"
+              />
+            </svg>
+          </button>
+        </div>
+        <div
+          class="flex justify-center mt-2 gap-1"
+        >
+          <button
+            class="w-2 h-2 rounded-full transition-colors bg-primary-300"
+          />
+          <button
+            class="w-2 h-2 rounded-full transition-colors bg-gray-300"
+          />
+          <button
+            class="w-2 h-2 rounded-full transition-colors bg-gray-300"
+          />
+          <button
+            class="w-2 h-2 rounded-full transition-colors bg-gray-300"
+          />
+          <button
+            class="w-2 h-2 rounded-full transition-colors bg-gray-300"
+          />
+          <button
+            class="w-2 h-2 rounded-full transition-colors bg-gray-300"
+          />
+        </div>
+      </div>
       <div
         class="w-full h-full p-4 gap-4 flex flex-col"
       >
