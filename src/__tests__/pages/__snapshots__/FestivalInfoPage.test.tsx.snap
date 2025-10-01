@@ -228,7 +228,9 @@ exports[`FestivalInfoPage 테스트 > 스냅샷 테스트 > 로딩 완료 스냅
             class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-400 text-sm !p-0 !rounded-none text-md rounded-xl px-5 py-3 text-gray-900 "
             type="button"
           />
-          <div>
+          <div
+            class="cursor-pointer"
+          >
             <svg
               aria-hidden="true"
               class="lucide lucide-heart"
