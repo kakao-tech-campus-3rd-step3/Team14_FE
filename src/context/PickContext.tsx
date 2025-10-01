@@ -1,6 +1,9 @@
 import { createContext, useContext, useState, type ReactNode, type ChangeEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
+// 최대 선택 가능한 스타일 수
+const MAX_SELECTED_STYLES = 3;
+
 interface PickContextType {
   selectedStyles: string[];
   mbtiAnswers: Record<string, boolean>;
@@ -28,7 +31,7 @@ export const PickProvider = ({ children }: { children: ReactNode }) => {
         return prev.filter((id) => id !== styleId);
       }
 
-      if (prev.length < 3) {
+      if (prev.length < MAX_SELECTED_STYLES) {
         return [...prev, styleId];
       }
 
