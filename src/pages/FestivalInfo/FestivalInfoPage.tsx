@@ -9,6 +9,7 @@ import FestivalBannerSection from '@/pages/FestivalInfo/components/FestivalBanne
 import Divider from '@/components/common/Divider';
 import FestivalContentInfoSection from '@/pages/FestivalInfo/components/FestivalContentInfoSection';
 import FestivalContentOverviewSection from '@/pages/FestivalInfo/components/FestivalContentOverviewSection';
+import FestivalContentReviewSection from '@/pages/FestivalInfo/components/FestivalContentReviewSection';
 import Footer from '@/components/common/Footer';
 
 const FestivalInfoPage = () => {
@@ -31,7 +32,7 @@ const FestivalInfoPage = () => {
     );
   }
 
-  if (isError) {
+  if (isError || !festivalId) {
     return (
       <Container>
         <Header variant="page" />
@@ -58,6 +59,8 @@ const FestivalInfoPage = () => {
           <FestivalContentInfoSection content={data.content} />
           <Divider height="1px" />
           <FestivalContentOverviewSection overview={data.content.overView} />
+          <Divider height="1px" />
+          <FestivalContentReviewSection festivalId={festivalId} />
         </div>
       </div>
       <FestivalInfoFooter />

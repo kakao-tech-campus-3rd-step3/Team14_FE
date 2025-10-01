@@ -325,6 +325,10 @@ exports[`FestivalInfoPage 테스트 > 스냅샷 테스트 > 로딩 완료 스냅
             </button>
           </div>
         </div>
+        <div
+          class="w-full bg-gray-400"
+          style="height: 1px;"
+        />
       </div>
     </div>
     <div
