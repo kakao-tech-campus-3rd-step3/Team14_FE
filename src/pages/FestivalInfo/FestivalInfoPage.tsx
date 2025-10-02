@@ -67,7 +67,10 @@ const FestivalInfoPage = () => {
           <Divider height="1px" />
           <FestivalContentOverviewSection overview={data.content.overView} />
           <Divider height="1px" />
-          <FestivalContentReviewSection reviewsData={reviewsData?.content} />
+          <FestivalContentReviewSection
+            reviewsData={reviewsData?.content}
+            festivalTitle={data.content.title}
+          />
         </div>
       </div>
       <FestivalInfoFooter />
