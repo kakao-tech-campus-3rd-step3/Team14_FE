@@ -40,16 +40,16 @@ const FestivalContentReviewMediaSlider = ({
                     onClick={() => handleMediaClick(index)}
                   />
                   <div
-                    className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 transition-all cursor-pointer"
+                    className="absolute inset-0 flex items-center justify-center bg-black/30 transition-all cursor-pointer"
                     onClick={() => handleMediaClick(index)}
                   >
-                    <div className="w-12 h-12 bg-black bg-opacity-60 rounded-full flex items-center justify-center">
+                    <div className="size-10 bg-black/60 rounded-full flex items-center justify-center">
                       <svg
                         width="16"
                         height="16"
                         viewBox="0 0 24 24"
                         fill="none"
-                        className="text-white ml-1"
+                        className="text-white"
                       >
                         <path d="M8 5v14l11-7z" fill="currentColor" />
                       </svg>
