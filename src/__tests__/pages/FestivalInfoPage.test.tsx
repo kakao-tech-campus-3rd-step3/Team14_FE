@@ -6,6 +6,7 @@ import { ROUTE_PATH } from '@/constants/routes';
 import FestivalPoster from '@/pages/FestivalInfo/components/FestivalPoster';
 import { festivalInfoMockData } from '@/mocks/data/festivalInfo.mock';
 import { waitFor } from '@testing-library/react';
+import { reviewMockData } from '@/mocks/data/review.mock';
 
 const createTestClient = () =>
   new QueryClient({
@@ -358,6 +359,75 @@ describe('FestivalPoster 컴포넌트', () => {
 
       expect(prevButton).toHaveClass('hidden', 'md:flex');
       expect(nextButton).toHaveClass('hidden', 'md:flex');
+    });
+  });
+});
+
+describe('리뷰 섹션 컴포넌트', () => {
+  test('리뷰 섹션이 로드되고 첫 리뷰의 작성자와 별점이 보인다', async () => {
+    // Given: 축제 상세 페이지 렌더링
+    render(<TestWrapper />);
+
+    // When: 데이터가 로드될 때까지 대기
+    await screen.findByText('가평 양떼목장 수국축제');
+
+    // Then: 리뷰 섹션 헤더와 첫 리뷰 작성자 노출
+    expect(screen.getByText(/리뷰 \(\d+\)/)).toBeInTheDocument();
+    const firstReviewer = reviewMockData.content[0].reviwerName;
+    expect(screen.getByText(firstReviewer)).toBeInTheDocument();
+  });
+
+  test('이미지 리뷰 썸네일 클릭 시 모달이 열리고 카운터가 표시된다 (이미지 전용)', async () => {
+    // Given: 페이지 렌더링 및 데이터 로드
+    render(<TestWrapper />);
+    await screen.findByText('가평 양떼목장 수국축제');
+
+    // When: 첫 번째 리뷰 카드 내의 첫 이미지 썸네일을 클릭
+    const firstReviewer = reviewMockData.content[0].reviwerName;
+    const reviewer = screen.getByText(firstReviewer);
+    const reviewCard = reviewer.closest('div')?.parentElement; // 카드 컨테이너
+    const firstImage = reviewCard?.querySelector('img');
+    expect(firstImage).toBeTruthy();
+    firstImage && fireEvent.click(firstImage);
+
+    // Then: 모달 닫기 버튼, 미디어 카운터, 다음 화살표가 보인다
+    expect(await screen.findByRole('button', { name: '모달 닫기' })).toBeInTheDocument();
+    expect(screen.getByText(/\d+ \/ \d+/)).toBeInTheDocument();
+    expect(screen.getByLabelText('다음 미디어')).toBeInTheDocument();
+
+    // And: 다음으로 이동하면 카운터가 증가한다
+    fireEvent.click(screen.getByLabelText('다음 미디어'));
+    expect(screen.getByText(/2 \/ \d+/)).toBeInTheDocument();
+
+    // And: 모달을 닫을 수 있다
+    fireEvent.click(screen.getByRole('button', { name: '모달 닫기' }));
+    await waitFor(() => {
+      expect(screen.queryByRole('button', { name: '모달 닫기' })).not.toBeInTheDocument();
+    });
+  });
+
+  test('비디오가 포함된 리뷰에서 비디오 썸네일 클릭 시 모달 오픈 및 화살표 표시', async () => {
+    // Given: 페이지 렌더링 및 데이터 로드
+    render(<TestWrapper />);
+    await screen.findByText('가평 양떼목장 수국축제');
+
+    // When: 두 번째 리뷰 카드 내의 비디오 썸네일(비디오 요소)을 클릭
+    const secondReviewer = reviewMockData.content[1].reviwerName;
+    const reviewer = screen.getByText(secondReviewer);
+    const reviewCard = reviewer.closest('div')?.parentElement; // 카드 컨테이너
+    const videoEl = reviewCard?.querySelector('video') as HTMLVideoElement | null;
+    expect(videoEl).toBeTruthy();
+    videoEl && fireEvent.click(videoEl);
+
+    // Then: 모달이 열리고 화살표는 hidden md:flex 클래스를 가진다
+    const nextBtn = await screen.findByLabelText('다음 미디어');
+    expect(nextBtn).toHaveClass('hidden', 'md:flex');
+    expect(screen.getByText(/\d+ \/ \d+/)).toBeInTheDocument();
+
+    // And: 모달 닫기 가능
+    fireEvent.click(screen.getByRole('button', { name: '모달 닫기' }));
+    await waitFor(() => {
+      expect(screen.queryByRole('button', { name: '모달 닫기' })).not.toBeInTheDocument();
     });
   });
 });
