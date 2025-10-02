@@ -58,7 +58,7 @@ const StarRating = ({ rating, maxRating = 5, size = 'md', showScore = false }: S
     <div className="flex items-center gap-1">
       <div className="flex items-center">{renderStars()}</div>
       {showScore && (
-        <span className={`${textSizeClasses[size]} text-gray-600 ml-1`}>({rating.toFixed(1)})</span>
+        <span className={`${textSizeClasses[size]} text-gray-600 ml-1`}>{rating.toFixed(1)}</span>
       )}
     </div>
   );

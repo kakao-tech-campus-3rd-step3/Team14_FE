@@ -1,32 +1,24 @@
-import { useQuery } from '@tanstack/react-query';
-import getReview from '@/apis/review/getReview';
 import StarRating from '@/components/common/StarRating';
+import type { Review } from '@/apis/review/getReview';
 
 interface FestivalContentReviewSectionProps {
-  festivalId: string;
+  reviewsData: Review[] | undefined;
 }
 
-const FestivalContentReviewSection = ({ festivalId }: FestivalContentReviewSectionProps) => {
-  const { data } = useQuery({
-    queryKey: ['reviews', festivalId],
-    queryFn: () => getReview({ festivalId: festivalId }),
-    select: (data) => data.data,
-  });
-
-  if (!data) return null;
-
-  if (data.content.length === 0) {
+const FestivalContentReviewSection = ({ reviewsData }: FestivalContentReviewSectionProps) => {
+  if (!reviewsData) return null;
+  if (reviewsData.length === 0) {
     return (
       <div className="w-full h-full flex flex-col gap-2">
         <h3 className="text-sm text-gray-900 font-bold">리뷰</h3>
-        <p className="text-sm text-gray-700">리뷰가 없습니다.</p>
+        <p className="text-sm text-gray-700">첫 번째 리뷰의 주인공이 되어보세요!</p>
       </div>
     );
   }
   return (
     <div className="w-full h-full flex flex-col gap-2">
-      <h3 className="text-sm text-gray-900 font-bold">리뷰 ({data?.content.length})</h3>
-      {data.content.map((review) => (
+      <h3 className="text-sm text-gray-900 font-bold">리뷰 ({reviewsData.length})</h3>
+      {reviewsData.map((review) => (
         <div key={review.reviewId} className="p-3 border border-gray-200 rounded-lg">
           <div className="flex items-center justify-between mb-2">
             <p className="font-medium text-gray-900">{review.reviwerName}</p>

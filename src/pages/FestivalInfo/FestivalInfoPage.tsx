@@ -11,6 +11,7 @@ import FestivalContentInfoSection from '@/pages/FestivalInfo/components/Festival
 import FestivalContentOverviewSection from '@/pages/FestivalInfo/components/FestivalContentOverviewSection';
 import FestivalContentReviewSection from '@/pages/FestivalInfo/components/FestivalContentReviewSection';
 import Footer from '@/components/common/Footer';
+import getReview from '@/apis/review/getReview';
 
 const FestivalInfoPage = () => {
   const { festivalId } = useParams();
@@ -19,6 +20,12 @@ const FestivalInfoPage = () => {
     queryFn: () => getFestivalInfo({ festivalId: festivalId || '' }),
     select: (data) => data.data,
     enabled: !!festivalId,
+  });
+
+  const { data: reviewsData } = useQuery({
+    queryKey: ['reviews', festivalId],
+    queryFn: () => getReview({ festivalId: festivalId || '' }),
+    select: (data) => data.data,
   });
   // Todo:
   // 로딩,에러 페이지 통일하기
@@ -56,11 +63,11 @@ const FestivalInfoPage = () => {
         <div className="w-full h-full p-4 gap-4 flex flex-col">
           <FestivalBannerSection url={data.content.homePage} />
           <Divider height="1px" />
-          <FestivalContentInfoSection content={data.content} />
+          <FestivalContentInfoSection content={data.content} reviewsData={reviewsData?.content} />
           <Divider height="1px" />
           <FestivalContentOverviewSection overview={data.content.overView} />
           <Divider height="1px" />
-          <FestivalContentReviewSection festivalId={festivalId} />
+          <FestivalContentReviewSection reviewsData={reviewsData?.content} />
         </div>
       </div>
       <FestivalInfoFooter />
