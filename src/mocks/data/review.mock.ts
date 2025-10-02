@@ -2,7 +2,7 @@ export const reviewMockData = {
   content: [
     {
       reviewId: '1',
-      reviwerName: '홍길동',
+      reviewerName: '홍길동',
       festivalTitle: '가평 양떼목장 수국축제',
       content: '꽃이 예뻐요.',
       score: 5,
@@ -17,7 +17,7 @@ export const reviewMockData = {
     },
     {
       reviewId: '2',
-      reviwerName: '이영희',
+      reviewerName: '이영희',
       festivalTitle: '가평 양떼목장 수국축제',
       content: '행사가 재밌었어요.',
       score: 4,
@@ -32,7 +32,7 @@ export const reviewMockData = {
     },
     {
       reviewId: '3',
-      reviwerName: '박철수',
+      reviewerName: '박철수',
       festivalTitle: '가평 양떼목장 수국축제',
       content: '볼거리가 많았고 식사도 맛있었어요.',
       score: 4,

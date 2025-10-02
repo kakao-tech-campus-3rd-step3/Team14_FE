@@ -373,7 +373,7 @@ describe('리뷰 섹션 컴포넌트', () => {
 
     // Then: 리뷰 섹션 헤더와 첫 리뷰 작성자 노출
     expect(screen.getByText(/리뷰 \(\d+\)/)).toBeInTheDocument();
-    const firstReviewer = reviewMockData.content[0].reviwerName;
+    const firstReviewer = reviewMockData.content[0].reviewerName;
     expect(screen.getByText(firstReviewer)).toBeInTheDocument();
   });
 
@@ -383,7 +383,7 @@ describe('리뷰 섹션 컴포넌트', () => {
     await screen.findByText('가평 양떼목장 수국축제');
 
     // When: 첫 번째 리뷰 카드 내의 첫 이미지 썸네일을 클릭
-    const firstReviewer = reviewMockData.content[0].reviwerName;
+    const firstReviewer = reviewMockData.content[0].reviewerName;
     const reviewer = screen.getByText(firstReviewer);
     const reviewCard = reviewer.closest('div')?.parentElement; // 카드 컨테이너
     const firstImage = reviewCard?.querySelector('img');
@@ -412,7 +412,7 @@ describe('리뷰 섹션 컴포넌트', () => {
     await screen.findByText('가평 양떼목장 수국축제');
 
     // When: 두 번째 리뷰 카드 내의 비디오 썸네일(비디오 요소)을 클릭
-    const secondReviewer = reviewMockData.content[1].reviwerName;
+    const secondReviewer = reviewMockData.content[1].reviewerName;
     const reviewer = screen.getByText(secondReviewer);
     const reviewCard = reviewer.closest('div')?.parentElement; // 카드 컨테이너
     const videoEl = reviewCard?.querySelector('video') as HTMLVideoElement | null;

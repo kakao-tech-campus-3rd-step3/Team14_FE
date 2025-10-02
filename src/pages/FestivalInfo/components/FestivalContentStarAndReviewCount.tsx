@@ -1,7 +1,7 @@
 import StarRating from '@/components/common/StarRating';
 import type { Review } from '@/apis/review/getReview';
 
-const FestivalContentStarAndReveiwCount = ({
+const FestivalContentStarAndReviewCount = ({
   reviewsData,
 }: {
   reviewsData: Review[] | undefined;
@@ -21,4 +21,4 @@ const FestivalContentStarAndReveiwCount = ({
   );
 };
 
-export default FestivalContentStarAndReveiwCount;
+export default FestivalContentStarAndReviewCount;

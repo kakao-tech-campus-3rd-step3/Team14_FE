@@ -29,7 +29,7 @@ const FestivalContentReviewSection = ({
           className="p-3 border border-gray-200 rounded-lg flex flex-col gap-2"
         >
           <div className="flex items-center justify-between">
-            <p className="font-medium text-gray-900">{review.reviwerName}</p>
+            <p className="font-medium text-gray-900">{review.reviewerName}</p>
             <StarRating rating={review.score} />
           </div>
 

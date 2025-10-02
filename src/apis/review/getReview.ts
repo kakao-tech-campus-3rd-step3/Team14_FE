@@ -7,7 +7,7 @@ import { generatePath } from 'react-router-dom';
 
 export interface Review {
   reviewId: string;
-  reviwerName: string;
+  reviewerName: string;
   festivalTitle: string;
   content: string;
   score: number;
