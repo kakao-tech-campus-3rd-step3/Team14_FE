@@ -9,7 +9,9 @@ import FestivalBannerSection from '@/pages/FestivalInfo/components/FestivalBanne
 import Divider from '@/components/common/Divider';
 import FestivalContentInfoSection from '@/pages/FestivalInfo/components/FestivalContentInfoSection';
 import FestivalContentOverviewSection from '@/pages/FestivalInfo/components/FestivalContentOverviewSection';
+import FestivalContentReviewSection from '@/pages/FestivalInfo/components/FestivalContentReviewSection';
 import Footer from '@/components/common/Footer';
+import getReview from '@/apis/review/getReview';
 
 const FestivalInfoPage = () => {
   const { festivalId } = useParams();
@@ -20,6 +22,14 @@ const FestivalInfoPage = () => {
     enabled: !!festivalId,
   });
 
+  const { data: reviewsData } = useQuery({
+    queryKey: ['reviews', festivalId],
+    queryFn: () => getReview({ festivalId: festivalId || '' }),
+    select: (data) => data.data,
+  });
+  // Todo:
+  // 로딩,에러 페이지 통일하기
+
   if (isPending) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen">
@@ -29,7 +39,7 @@ const FestivalInfoPage = () => {
     );
   }
 
-  if (isError) {
+  if (isError || !festivalId) {
     return (
       <Container>
         <Header variant="page" />
@@ -45,13 +55,22 @@ const FestivalInfoPage = () => {
     <Container>
       <Header variant="all" />
       <div className="flex flex-col items-center w-full h-full">
-        <FestivalPoster imageUrl={data.content.posterInfo} title={data.content.title} />
+        <FestivalPoster
+          posterUrl={data.content.posterInfo}
+          imageUrls={data.content.imageInfos}
+          title={data.content.title}
+        />
         <div className="w-full h-full p-4 gap-4 flex flex-col">
           <FestivalBannerSection url={data.content.homePage} />
           <Divider height="1px" />
-          <FestivalContentInfoSection content={data.content} />
+          <FestivalContentInfoSection content={data.content} reviewsData={reviewsData?.content} />
           <Divider height="1px" />
           <FestivalContentOverviewSection overview={data.content.overView} />
+          <Divider height="1px" />
+          <FestivalContentReviewSection
+            reviewsData={reviewsData?.content}
+            festivalTitle={data.content.title}
+          />
         </div>
       </div>
       <FestivalInfoFooter />

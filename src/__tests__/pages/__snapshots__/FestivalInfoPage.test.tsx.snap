@@ -104,11 +104,120 @@ exports[`FestivalInfoPage 테스트 > 스냅샷 테스트 > 로딩 완료 스냅
     <div
       class="flex flex-col items-center w-full h-full"
     >
-      <img
-        alt="가평 양떼목장 수국축제"
-        class="w-full h-full object-cover"
-        src="http://tong.visitkorea.or.kr/cms/resource/88/3503888_image2_1.png"
-      />
+      <div
+        class="w-full relative"
+      >
+        <div
+          class="relative w-full h-[500px] overflow-hidden"
+        >
+          <div
+            class="flex transition-transform duration-300 ease-out h-full"
+            style="transform: translateX(0%);"
+          >
+            <div
+              class="w-full h-full flex-shrink-0"
+            >
+              <img
+                alt="가평 양떼목장 수국축제 - 1"
+                class="w-full h-full object-contain select-none bg-gray-50"
+                draggable="false"
+                src="http://tong.visitkorea.or.kr/cms/resource/88/3503888_image2_1.png"
+              />
+            </div>
+            <div
+              class="w-full h-full flex-shrink-0"
+            >
+              <img
+                alt="가평 양떼목장 수국축제 - 2"
+                class="w-full h-full object-contain select-none bg-gray-50"
+                draggable="false"
+                src="http://tong.visitkorea.or.kr/cms/resource/82/3503882_image2_1.jpg"
+              />
+            </div>
+            <div
+              class="w-full h-full flex-shrink-0"
+            >
+              <img
+                alt="가평 양떼목장 수국축제 - 3"
+                class="w-full h-full object-contain select-none bg-gray-50"
+                draggable="false"
+                src="http://tong.visitkorea.or.kr/cms/resource/83/3503883_image2_1.jpg"
+              />
+            </div>
+            <div
+              class="w-full h-full flex-shrink-0"
+            >
+              <img
+                alt="가평 양떼목장 수국축제 - 4"
+                class="w-full h-full object-contain select-none bg-gray-50"
+                draggable="false"
+                src="http://tong.visitkorea.or.kr/cms/resource/84/3503884_image2_1.jpg"
+              />
+            </div>
+            <div
+              class="w-full h-full flex-shrink-0"
+            >
+              <img
+                alt="가평 양떼목장 수국축제 - 5"
+                class="w-full h-full object-contain select-none bg-gray-50"
+                draggable="false"
+                src="http://tong.visitkorea.or.kr/cms/resource/85/3503885_image2_1.jpg"
+              />
+            </div>
+            <div
+              class="w-full h-full flex-shrink-0"
+            >
+              <img
+                alt="가평 양떼목장 수국축제 - 6"
+                class="w-full h-full object-contain select-none bg-gray-50"
+                draggable="false"
+                src="http://tong.visitkorea.or.kr/cms/resource/86/3503886_image2_1.jpg"
+              />
+            </div>
+          </div>
+          <button
+            aria-label="다음 이미지"
+            class="absolute top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hidden md:flex right-4"
+          >
+            <svg
+              class="stroke-white"
+              fill="none"
+              height="28"
+              stroke="black"
+              stroke-width="3"
+              viewBox="0 0 24 24"
+              width="28"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8 4 L16 12 L8 20"
+              />
+            </svg>
+          </button>
+        </div>
+        <div
+          class="flex justify-center mt-2 gap-1"
+        >
+          <button
+            class="w-2 h-2 rounded-full transition-colors bg-primary-300"
+          />
+          <button
+            class="w-2 h-2 rounded-full transition-colors bg-gray-300"
+          />
+          <button
+            class="w-2 h-2 rounded-full transition-colors bg-gray-300"
+          />
+          <button
+            class="w-2 h-2 rounded-full transition-colors bg-gray-300"
+          />
+          <button
+            class="w-2 h-2 rounded-full transition-colors bg-gray-300"
+          />
+          <button
+            class="w-2 h-2 rounded-full transition-colors bg-gray-300"
+          />
+        </div>
+      </div>
       <div
         class="w-full h-full p-4 gap-4 flex flex-col"
       >
@@ -119,7 +228,9 @@ exports[`FestivalInfoPage 테스트 > 스냅샷 테스트 > 로딩 완료 스냅
             class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-400 text-sm !p-0 !rounded-none text-md rounded-xl px-5 py-3 text-gray-900 "
             type="button"
           />
-          <div>
+          <div
+            class="cursor-pointer"
+          >
             <svg
               aria-hidden="true"
               class="lucide lucide-heart"
@@ -151,6 +262,159 @@ exports[`FestivalInfoPage 테스트 > 스냅샷 테스트 > 로딩 완료 스냅
           >
             가평 양떼목장 수국축제
           </h1>
+          <div
+            class="flex items-center gap-2 text-sm text-gray-700"
+          >
+            <div
+              class="flex items-center gap-1"
+            >
+              <div
+                class="flex items-center"
+              >
+                <div
+                  class="relative"
+                >
+                  <svg
+                    class="w-4 h-4 text-gray-300"
+                    fill="currentColor"
+                    stroke="none"
+                    stroke-width="0"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    />
+                  </svg>
+                  <svg
+                    class="w-4 h-4 text-yellow-400 absolute top-0 left-0 "
+                    fill="currentColor"
+                    stroke="none"
+                    stroke-width="0"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="relative"
+                >
+                  <svg
+                    class="w-4 h-4 text-gray-300"
+                    fill="currentColor"
+                    stroke="none"
+                    stroke-width="0"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    />
+                  </svg>
+                  <svg
+                    class="w-4 h-4 text-yellow-400 absolute top-0 left-0 "
+                    fill="currentColor"
+                    stroke="none"
+                    stroke-width="0"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="relative"
+                >
+                  <svg
+                    class="w-4 h-4 text-gray-300"
+                    fill="currentColor"
+                    stroke="none"
+                    stroke-width="0"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    />
+                  </svg>
+                  <svg
+                    class="w-4 h-4 text-yellow-400 absolute top-0 left-0 "
+                    fill="currentColor"
+                    stroke="none"
+                    stroke-width="0"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="relative"
+                >
+                  <svg
+                    class="w-4 h-4 text-gray-300"
+                    fill="currentColor"
+                    stroke="none"
+                    stroke-width="0"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    />
+                  </svg>
+                  <svg
+                    class="w-4 h-4 text-yellow-400 absolute top-0 left-0 "
+                    fill="currentColor"
+                    stroke="none"
+                    stroke-width="0"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="relative"
+                >
+                  <svg
+                    class="w-4 h-4 text-gray-300"
+                    fill="currentColor"
+                    stroke="none"
+                    stroke-width="0"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <span
+                class="text-sm text-gray-600 ml-1"
+              >
+                4.3
+              </span>
+            </div>
+            <div
+              class="w-px h-3 bg-gray-500"
+            />
+            <p>
+              리뷰 
+              3
+              건
+            </p>
+          </div>
           <div
             class="w-full h-full flex items-center gap-2"
           >
@@ -214,6 +478,633 @@ exports[`FestivalInfoPage 테스트 > 스냅샷 테스트 > 로딩 완료 스냅
             </button>
           </div>
         </div>
+        <div
+          class="w-full bg-gray-400"
+          style="height: 1px;"
+        />
+        <div
+          class="w-full h-full flex flex-col gap-2"
+        >
+          <h3
+            class="text-sm text-gray-900 font-bold"
+          >
+            리뷰 (
+            3
+            )
+          </h3>
+          <div
+            class="p-3 border border-gray-200 rounded-lg flex flex-col gap-2"
+          >
+            <div
+              class="flex items-center justify-between"
+            >
+              <p
+                class="font-medium text-gray-900"
+              >
+                홍길동
+              </p>
+              <div
+                class="flex items-center gap-1"
+              >
+                <div
+                  class="flex items-center"
+                >
+                  <div
+                    class="relative"
+                  >
+                    <svg
+                      class="w-4 h-4 text-gray-300"
+                      fill="currentColor"
+                      stroke="none"
+                      stroke-width="0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                    <svg
+                      class="w-4 h-4 text-yellow-400 absolute top-0 left-0 "
+                      fill="currentColor"
+                      stroke="none"
+                      stroke-width="0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    class="relative"
+                  >
+                    <svg
+                      class="w-4 h-4 text-gray-300"
+                      fill="currentColor"
+                      stroke="none"
+                      stroke-width="0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                    <svg
+                      class="w-4 h-4 text-yellow-400 absolute top-0 left-0 "
+                      fill="currentColor"
+                      stroke="none"
+                      stroke-width="0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    class="relative"
+                  >
+                    <svg
+                      class="w-4 h-4 text-gray-300"
+                      fill="currentColor"
+                      stroke="none"
+                      stroke-width="0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                    <svg
+                      class="w-4 h-4 text-yellow-400 absolute top-0 left-0 "
+                      fill="currentColor"
+                      stroke="none"
+                      stroke-width="0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    class="relative"
+                  >
+                    <svg
+                      class="w-4 h-4 text-gray-300"
+                      fill="currentColor"
+                      stroke="none"
+                      stroke-width="0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                    <svg
+                      class="w-4 h-4 text-yellow-400 absolute top-0 left-0 "
+                      fill="currentColor"
+                      stroke="none"
+                      stroke-width="0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    class="relative"
+                  >
+                    <svg
+                      class="w-4 h-4 text-gray-300"
+                      fill="currentColor"
+                      stroke="none"
+                      stroke-width="0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                    <svg
+                      class="w-4 h-4 text-yellow-400 absolute top-0 left-0 "
+                      fill="currentColor"
+                      stroke="none"
+                      stroke-width="0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="relative w-full h-full"
+            >
+              <div
+                class="flex overflow-x-scroll gap-2 pb-2 h-full md:pb-4"
+              >
+                <div
+                  class="relative flex-shrink-0 size-32 rounded-lg overflow-hidden"
+                >
+                  <img
+                    alt="리뷰 이미지"
+                    class="w-full h-full object-cover cursor-pointer transition-transform"
+                    src="http://tong.visitkorea.or.kr/cms/resource/82/3503882_image2_1.jpg"
+                  />
+                </div>
+                <div
+                  class="relative flex-shrink-0 size-32 rounded-lg overflow-hidden"
+                >
+                  <img
+                    alt="리뷰 이미지"
+                    class="w-full h-full object-cover cursor-pointer transition-transform"
+                    src="http://tong.visitkorea.or.kr/cms/resource/83/3503883_image2_1.jpg"
+                  />
+                </div>
+                <div
+                  class="relative flex-shrink-0 size-32 rounded-lg overflow-hidden"
+                >
+                  <img
+                    alt="리뷰 이미지"
+                    class="w-full h-full object-cover cursor-pointer transition-transform"
+                    src="http://tong.visitkorea.or.kr/cms/resource/84/3503884_image2_1.jpg"
+                  />
+                </div>
+                <div
+                  class="relative flex-shrink-0 size-32 rounded-lg overflow-hidden"
+                >
+                  <img
+                    alt="리뷰 이미지"
+                    class="w-full h-full object-cover cursor-pointer transition-transform"
+                    src="http://tong.visitkorea.or.kr/cms/resource/85/3503885_image2_1.jpg"
+                  />
+                </div>
+                <div
+                  class="relative flex-shrink-0 size-32 rounded-lg overflow-hidden"
+                >
+                  <img
+                    alt="리뷰 이미지"
+                    class="w-full h-full object-cover cursor-pointer transition-transform"
+                    src="http://tong.visitkorea.or.kr/cms/resource/86/3503886_image2_1.jpg"
+                  />
+                </div>
+              </div>
+            </div>
+            <p
+              class="text-sm text-gray-700"
+            >
+              꽃이 예뻐요.
+            </p>
+          </div>
+          <div
+            class="p-3 border border-gray-200 rounded-lg flex flex-col gap-2"
+          >
+            <div
+              class="flex items-center justify-between"
+            >
+              <p
+                class="font-medium text-gray-900"
+              >
+                이영희
+              </p>
+              <div
+                class="flex items-center gap-1"
+              >
+                <div
+                  class="flex items-center"
+                >
+                  <div
+                    class="relative"
+                  >
+                    <svg
+                      class="w-4 h-4 text-gray-300"
+                      fill="currentColor"
+                      stroke="none"
+                      stroke-width="0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                    <svg
+                      class="w-4 h-4 text-yellow-400 absolute top-0 left-0 "
+                      fill="currentColor"
+                      stroke="none"
+                      stroke-width="0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    class="relative"
+                  >
+                    <svg
+                      class="w-4 h-4 text-gray-300"
+                      fill="currentColor"
+                      stroke="none"
+                      stroke-width="0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                    <svg
+                      class="w-4 h-4 text-yellow-400 absolute top-0 left-0 "
+                      fill="currentColor"
+                      stroke="none"
+                      stroke-width="0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    class="relative"
+                  >
+                    <svg
+                      class="w-4 h-4 text-gray-300"
+                      fill="currentColor"
+                      stroke="none"
+                      stroke-width="0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                    <svg
+                      class="w-4 h-4 text-yellow-400 absolute top-0 left-0 "
+                      fill="currentColor"
+                      stroke="none"
+                      stroke-width="0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    class="relative"
+                  >
+                    <svg
+                      class="w-4 h-4 text-gray-300"
+                      fill="currentColor"
+                      stroke="none"
+                      stroke-width="0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                    <svg
+                      class="w-4 h-4 text-yellow-400 absolute top-0 left-0 "
+                      fill="currentColor"
+                      stroke="none"
+                      stroke-width="0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    class="relative"
+                  >
+                    <svg
+                      class="w-4 h-4 text-gray-300"
+                      fill="currentColor"
+                      stroke="none"
+                      stroke-width="0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="relative w-full h-full"
+            >
+              <div
+                class="flex overflow-x-scroll gap-2 pb-2 h-full md:pb-4"
+              >
+                <div
+                  class="relative flex-shrink-0 size-32 rounded-lg overflow-hidden"
+                >
+                  <div
+                    class="relative w-full h-full"
+                  >
+                    <video
+                      class="w-full h-full object-cover"
+                      src="https://video.com/2.mp4"
+                    />
+                    <div
+                      class="absolute inset-0 flex items-center justify-center bg-black/30 transition-all cursor-pointer"
+                    >
+                      <div
+                        class="size-10 bg-black/60 rounded-full flex items-center justify-center"
+                      >
+                        <svg
+                          class="text-white"
+                          fill="none"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          width="16"
+                        >
+                          <path
+                            d="M8 5v14l11-7z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="relative flex-shrink-0 size-32 rounded-lg overflow-hidden"
+                >
+                  <img
+                    alt="리뷰 이미지"
+                    class="w-full h-full object-cover cursor-pointer transition-transform"
+                    src="http://tong.visitkorea.or.kr/cms/resource/82/3503882_image2_1.jpg"
+                  />
+                </div>
+                <div
+                  class="relative flex-shrink-0 size-32 rounded-lg overflow-hidden"
+                >
+                  <img
+                    alt="리뷰 이미지"
+                    class="w-full h-full object-cover cursor-pointer transition-transform"
+                    src="http://tong.visitkorea.or.kr/cms/resource/83/3503883_image2_1.jpg"
+                  />
+                </div>
+                <div
+                  class="relative flex-shrink-0 size-32 rounded-lg overflow-hidden"
+                >
+                  <img
+                    alt="리뷰 이미지"
+                    class="w-full h-full object-cover cursor-pointer transition-transform"
+                    src="http://tong.visitkorea.or.kr/cms/resource/84/3503884_image2_1.jpg"
+                  />
+                </div>
+                <div
+                  class="relative flex-shrink-0 size-32 rounded-lg overflow-hidden"
+                >
+                  <img
+                    alt="리뷰 이미지"
+                    class="w-full h-full object-cover cursor-pointer transition-transform"
+                    src="http://tong.visitkorea.or.kr/cms/resource/85/3503885_image2_1.jpg"
+                  />
+                </div>
+                <div
+                  class="relative flex-shrink-0 size-32 rounded-lg overflow-hidden"
+                >
+                  <img
+                    alt="리뷰 이미지"
+                    class="w-full h-full object-cover cursor-pointer transition-transform"
+                    src="http://tong.visitkorea.or.kr/cms/resource/86/3503886_image2_1.jpg"
+                  />
+                </div>
+              </div>
+            </div>
+            <p
+              class="text-sm text-gray-700"
+            >
+              행사가 재밌었어요.
+            </p>
+          </div>
+          <div
+            class="p-3 border border-gray-200 rounded-lg flex flex-col gap-2"
+          >
+            <div
+              class="flex items-center justify-between"
+            >
+              <p
+                class="font-medium text-gray-900"
+              >
+                박철수
+              </p>
+              <div
+                class="flex items-center gap-1"
+              >
+                <div
+                  class="flex items-center"
+                >
+                  <div
+                    class="relative"
+                  >
+                    <svg
+                      class="w-4 h-4 text-gray-300"
+                      fill="currentColor"
+                      stroke="none"
+                      stroke-width="0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                    <svg
+                      class="w-4 h-4 text-yellow-400 absolute top-0 left-0 "
+                      fill="currentColor"
+                      stroke="none"
+                      stroke-width="0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    class="relative"
+                  >
+                    <svg
+                      class="w-4 h-4 text-gray-300"
+                      fill="currentColor"
+                      stroke="none"
+                      stroke-width="0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                    <svg
+                      class="w-4 h-4 text-yellow-400 absolute top-0 left-0 "
+                      fill="currentColor"
+                      stroke="none"
+                      stroke-width="0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    class="relative"
+                  >
+                    <svg
+                      class="w-4 h-4 text-gray-300"
+                      fill="currentColor"
+                      stroke="none"
+                      stroke-width="0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                    <svg
+                      class="w-4 h-4 text-yellow-400 absolute top-0 left-0 "
+                      fill="currentColor"
+                      stroke="none"
+                      stroke-width="0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    class="relative"
+                  >
+                    <svg
+                      class="w-4 h-4 text-gray-300"
+                      fill="currentColor"
+                      stroke="none"
+                      stroke-width="0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                    <svg
+                      class="w-4 h-4 text-yellow-400 absolute top-0 left-0 "
+                      fill="currentColor"
+                      stroke="none"
+                      stroke-width="0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    class="relative"
+                  >
+                    <svg
+                      class="w-4 h-4 text-gray-300"
+                      fill="currentColor"
+                      stroke="none"
+                      stroke-width="0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p
+              class="text-sm text-gray-700"
+            >
+              볼거리가 많았고 식사도 맛있었어요.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
     <div
@@ -248,6 +1139,253 @@ exports[`FestivalInfoPage 테스트 > 스냅샷 테스트 > 로딩 완료 스냅
         </a>
       </div>
     </div>
+  </div>
+</div>
+`;
+
+exports[`FestivalPoster 컴포넌트 > 스냅샷 테스트 > 기본 FestivalPoster 컴포넌트 스냅샷 1`] = `
+<div
+  class="w-full relative"
+>
+  <div
+    class="relative w-full h-[500px] overflow-hidden"
+  >
+    <div
+      class="flex transition-transform duration-300 ease-out h-full"
+      style="transform: translateX(0%);"
+    >
+      <div
+        class="w-full h-full flex-shrink-0"
+      >
+        <img
+          alt="가평 양떼목장 수국축제 - 1"
+          class="w-full h-full object-contain select-none bg-gray-50"
+          draggable="false"
+          src="http://tong.visitkorea.or.kr/cms/resource/88/3503888_image2_1.png"
+        />
+      </div>
+      <div
+        class="w-full h-full flex-shrink-0"
+      >
+        <img
+          alt="가평 양떼목장 수국축제 - 2"
+          class="w-full h-full object-contain select-none bg-gray-50"
+          draggable="false"
+          src="http://tong.visitkorea.or.kr/cms/resource/82/3503882_image2_1.jpg"
+        />
+      </div>
+      <div
+        class="w-full h-full flex-shrink-0"
+      >
+        <img
+          alt="가평 양떼목장 수국축제 - 3"
+          class="w-full h-full object-contain select-none bg-gray-50"
+          draggable="false"
+          src="http://tong.visitkorea.or.kr/cms/resource/83/3503883_image2_1.jpg"
+        />
+      </div>
+      <div
+        class="w-full h-full flex-shrink-0"
+      >
+        <img
+          alt="가평 양떼목장 수국축제 - 4"
+          class="w-full h-full object-contain select-none bg-gray-50"
+          draggable="false"
+          src="http://tong.visitkorea.or.kr/cms/resource/84/3503884_image2_1.jpg"
+        />
+      </div>
+      <div
+        class="w-full h-full flex-shrink-0"
+      >
+        <img
+          alt="가평 양떼목장 수국축제 - 5"
+          class="w-full h-full object-contain select-none bg-gray-50"
+          draggable="false"
+          src="http://tong.visitkorea.or.kr/cms/resource/85/3503885_image2_1.jpg"
+        />
+      </div>
+      <div
+        class="w-full h-full flex-shrink-0"
+      >
+        <img
+          alt="가평 양떼목장 수국축제 - 6"
+          class="w-full h-full object-contain select-none bg-gray-50"
+          draggable="false"
+          src="http://tong.visitkorea.or.kr/cms/resource/86/3503886_image2_1.jpg"
+        />
+      </div>
+    </div>
+    <button
+      aria-label="다음 이미지"
+      class="absolute top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hidden md:flex right-4"
+    >
+      <svg
+        class="stroke-white"
+        fill="none"
+        height="28"
+        stroke="black"
+        stroke-width="3"
+        viewBox="0 0 24 24"
+        width="28"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M8 4 L16 12 L8 20"
+        />
+      </svg>
+    </button>
+  </div>
+  <div
+    class="flex justify-center mt-2 gap-1"
+  >
+    <button
+      class="w-2 h-2 rounded-full transition-colors bg-primary-300"
+    />
+    <button
+      class="w-2 h-2 rounded-full transition-colors bg-gray-300"
+    />
+    <button
+      class="w-2 h-2 rounded-full transition-colors bg-gray-300"
+    />
+    <button
+      class="w-2 h-2 rounded-full transition-colors bg-gray-300"
+    />
+    <button
+      class="w-2 h-2 rounded-full transition-colors bg-gray-300"
+    />
+    <button
+      class="w-2 h-2 rounded-full transition-colors bg-gray-300"
+    />
+  </div>
+</div>
+`;
+
+exports[`FestivalPoster 컴포넌트 > 스냅샷 테스트 > 단일 이미지 FestivalPoster 스냅샷 1`] = `
+<div
+  class="w-full relative"
+>
+  <div
+    class="relative w-full h-[500px] overflow-hidden"
+  >
+    <div
+      class="flex transition-transform duration-300 ease-out h-full"
+      style="transform: translateX(0%);"
+    >
+      <div
+        class="w-full h-full flex-shrink-0"
+      >
+        <img
+          alt="단일 이미지 축제 - 1"
+          class="w-full h-full object-contain select-none bg-gray-50"
+          draggable="false"
+          src="http://tong.visitkorea.or.kr/cms/resource/88/3503888_image2_1.png"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`FestivalPoster 컴포넌트 > 스냅샷 테스트 > 많은 이미지가 있는 FestivalPoster 스냅샷 1`] = `
+<div
+  class="w-full relative"
+>
+  <div
+    class="relative w-full h-[500px] overflow-hidden"
+  >
+    <div
+      class="flex transition-transform duration-300 ease-out h-full"
+      style="transform: translateX(0%);"
+    >
+      <div
+        class="w-full h-full flex-shrink-0"
+      >
+        <img
+          alt="가평 양떼목장 수국축제 - 1"
+          class="w-full h-full object-contain select-none bg-gray-50"
+          draggable="false"
+          src="http://tong.visitkorea.or.kr/cms/resource/88/3503888_image2_1.png"
+        />
+      </div>
+      <div
+        class="w-full h-full flex-shrink-0"
+      >
+        <img
+          alt="가평 양떼목장 수국축제 - 2"
+          class="w-full h-full object-contain select-none bg-gray-50"
+          draggable="false"
+          src="https://example.com/image1.jpg"
+        />
+      </div>
+      <div
+        class="w-full h-full flex-shrink-0"
+      >
+        <img
+          alt="가평 양떼목장 수국축제 - 3"
+          class="w-full h-full object-contain select-none bg-gray-50"
+          draggable="false"
+          src="https://example.com/image2.jpg"
+        />
+      </div>
+      <div
+        class="w-full h-full flex-shrink-0"
+      >
+        <img
+          alt="가평 양떼목장 수국축제 - 4"
+          class="w-full h-full object-contain select-none bg-gray-50"
+          draggable="false"
+          src="https://example.com/image3.jpg"
+        />
+      </div>
+      <div
+        class="w-full h-full flex-shrink-0"
+      >
+        <img
+          alt="가평 양떼목장 수국축제 - 5"
+          class="w-full h-full object-contain select-none bg-gray-50"
+          draggable="false"
+          src="https://example.com/image4.jpg"
+        />
+      </div>
+    </div>
+    <button
+      aria-label="다음 이미지"
+      class="absolute top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hidden md:flex right-4"
+    >
+      <svg
+        class="stroke-white"
+        fill="none"
+        height="28"
+        stroke="black"
+        stroke-width="3"
+        viewBox="0 0 24 24"
+        width="28"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M8 4 L16 12 L8 20"
+        />
+      </svg>
+    </button>
+  </div>
+  <div
+    class="flex justify-center mt-2 gap-1"
+  >
+    <button
+      class="w-2 h-2 rounded-full transition-colors bg-primary-300"
+    />
+    <button
+      class="w-2 h-2 rounded-full transition-colors bg-gray-300"
+    />
+    <button
+      class="w-2 h-2 rounded-full transition-colors bg-gray-300"
+    />
+    <button
+      class="w-2 h-2 rounded-full transition-colors bg-gray-300"
+    />
+    <button
+      class="w-2 h-2 rounded-full transition-colors bg-gray-300"
+    />
   </div>
 </div>
 `;

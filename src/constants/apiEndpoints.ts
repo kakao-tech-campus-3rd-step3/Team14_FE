@@ -1,6 +1,9 @@
 const API_ENDPOINTS = {
   FESTIVALS: '/api/festivals/area/:areaId',
   FESTIVAL_INFO: '/api/festivals/:festivalId',
+  FESTIVAL_WISH: '/api/festivals/:festivalId/wishes',
+  FESTIVAL_WISH_DELETE: '/api/wishes/:wishId',
+  FESTIVAL_REVIEWS: '/api/festivals/:festivalId/reviews',
   // OAuth 로그인
   GOOGLE_LOGIN: '/oauth2/authorization/google',
   KAKAO_LOGIN: '/oauth2/authorization/kakao',

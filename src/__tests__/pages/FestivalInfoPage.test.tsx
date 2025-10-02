@@ -3,6 +3,10 @@ import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import FestivalInfoPage from '@/pages/FestivalInfo/FestivalInfoPage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ROUTE_PATH } from '@/constants/routes';
+import FestivalPoster from '@/pages/FestivalInfo/components/FestivalPoster';
+import { festivalInfoMockData } from '@/mocks/data/festivalInfo.mock';
+import { waitFor } from '@testing-library/react';
+import { reviewMockData } from '@/mocks/data/review.mock';
 
 const createTestClient = () =>
   new QueryClient({
@@ -113,6 +117,317 @@ describe('FestivalInfoPage 테스트', () => {
       // Then: 더보기 버튼으로 돌아가고, 말줄임표가 다시 보인다
       expect(await screen.findByRole('button', { name: '더보기' })).toBeInTheDocument();
       expect(screen.getByText(/\.\.\.$/)).toBeInTheDocument();
+    });
+  });
+});
+
+describe('FestivalPoster 컴포넌트', () => {
+  const mockProps = {
+    posterUrl: festivalInfoMockData.content.posterInfo,
+    imageUrls: festivalInfoMockData.content.imageInfos,
+    title: festivalInfoMockData.content.title,
+  };
+
+  const singleImageProps = {
+    posterUrl: festivalInfoMockData.content.posterInfo,
+    imageUrls: [],
+    title: '단일 이미지 축제',
+  };
+
+  describe('스냅샷 테스트', () => {
+    test('기본 FestivalPoster 컴포넌트 스냅샷', () => {
+      const { container } = render(<FestivalPoster {...mockProps} />);
+      expect(container.firstChild).toMatchSnapshot();
+    });
+
+    test('단일 이미지 FestivalPoster 스냅샷', () => {
+      const { container } = render(<FestivalPoster {...singleImageProps} />);
+      expect(container.firstChild).toMatchSnapshot();
+    });
+
+    test('많은 이미지가 있는 FestivalPoster 스냅샷', () => {
+      const manyImagesProps = {
+        ...mockProps,
+        imageUrls: [
+          'https://example.com/image1.jpg',
+          'https://example.com/image2.jpg',
+          'https://example.com/image3.jpg',
+          'https://example.com/image4.jpg',
+        ],
+      };
+      const { container } = render(<FestivalPoster {...manyImagesProps} />);
+      expect(container.firstChild).toMatchSnapshot();
+    });
+  });
+
+  describe('조건부 렌더링', () => {
+    test('단일 이미지일 때 화살표 버튼과 인디케이터가 표시되지 않는다', () => {
+      render(<FestivalPoster {...singleImageProps} />);
+
+      // 화살표 버튼 없음
+      expect(screen.queryByLabelText('이전 이미지')).not.toBeInTheDocument();
+      expect(screen.queryByLabelText('다음 이미지')).not.toBeInTheDocument();
+
+      // 인디케이터 없음
+      const indicators = screen
+        .queryAllByRole('button')
+        .filter((button) => !button.getAttribute('aria-label'));
+      expect(indicators).toHaveLength(0);
+    });
+
+    test('여러 이미지가 있을 때 화살표 버튼과 인디케이터가 표시된다', () => {
+      render(<FestivalPoster {...mockProps} />);
+
+      // 첫 번째 이미지에서는 다음 버튼만 표시
+      expect(screen.queryByLabelText('이전 이미지')).not.toBeInTheDocument();
+      expect(screen.getByLabelText('다음 이미지')).toBeInTheDocument();
+
+      // 6개의 인디케이터 표시 (포스터 + 5개 추가 이미지)
+      const indicators = screen
+        .getAllByRole('button')
+        .filter((button) => !button.getAttribute('aria-label'));
+      expect(indicators).toHaveLength(6);
+    });
+  });
+
+  describe('화살표 버튼 상호작용', () => {
+    test('다음 버튼 클릭 시 이미지가 변경되고 이전 버튼이 나타난다', () => {
+      render(<FestivalPoster {...mockProps} />);
+
+      // 초기 상태: 다음 버튼만 있음
+      expect(screen.queryByLabelText('이전 이미지')).not.toBeInTheDocument();
+      expect(screen.getByLabelText('다음 이미지')).toBeInTheDocument();
+
+      // 다음 버튼 클릭
+      const nextButton = screen.getByLabelText('다음 이미지');
+      fireEvent.click(nextButton);
+
+      // 이미지 변경 후: 이전 버튼이 나타남
+      expect(screen.getByLabelText('이전 이미지')).toBeInTheDocument();
+      expect(screen.getByLabelText('다음 이미지')).toBeInTheDocument();
+    });
+
+    test('이전 버튼 클릭 시 첫 번째 이미지로 돌아가고 이전 버튼이 사라진다', () => {
+      render(<FestivalPoster {...mockProps} />);
+
+      // 먼저 다음 이미지로 이동
+      fireEvent.click(screen.getByLabelText('다음 이미지'));
+
+      // 이전 버튼이 나타났는지 확인
+      expect(screen.getByLabelText('이전 이미지')).toBeInTheDocument();
+
+      // 이전 버튼 클릭
+      const prevButton = screen.getByLabelText('이전 이미지');
+      fireEvent.click(prevButton);
+
+      // 첫 번째 이미지로 돌아감: 이전 버튼 사라짐
+      expect(screen.queryByLabelText('이전 이미지')).not.toBeInTheDocument();
+      expect(screen.getByLabelText('다음 이미지')).toBeInTheDocument();
+    });
+
+    test('마지막 이미지에서 다음 버튼이 사라진다', () => {
+      render(<FestivalPoster {...mockProps} />);
+
+      // 마지막 이미지까지 이동 (총 6개 이미지)
+      for (let i = 0; i < 5; i++) {
+        fireEvent.click(screen.getByLabelText('다음 이미지'));
+      }
+
+      // 마지막 이미지: 다음 버튼 사라짐, 이전 버튼만 있음
+      expect(screen.queryByLabelText('다음 이미지')).not.toBeInTheDocument();
+      expect(screen.getByLabelText('이전 이미지')).toBeInTheDocument();
+    });
+
+    test('연속 클릭으로 처음과 마지막 이미지를 확인할 수 있다', () => {
+      render(<FestivalPoster {...mockProps} />);
+
+      // 1번째 → 2번째 이미지
+      fireEvent.click(screen.getByLabelText('다음 이미지'));
+      expect(screen.getByLabelText('이전 이미지')).toBeInTheDocument();
+      expect(screen.getByLabelText('다음 이미지')).toBeInTheDocument();
+
+      // 마지막 이미지까지 이동
+      for (let i = 0; i < 4; i++) {
+        fireEvent.click(screen.getByLabelText('다음 이미지'));
+      }
+      expect(screen.getByLabelText('이전 이미지')).toBeInTheDocument();
+      expect(screen.queryByLabelText('다음 이미지')).not.toBeInTheDocument();
+
+      // 마지막 → 첫 번째 이미지로 돌아가기
+      for (let i = 0; i < 5; i++) {
+        fireEvent.click(screen.getByLabelText('이전 이미지'));
+      }
+      expect(screen.queryByLabelText('이전 이미지')).not.toBeInTheDocument();
+      expect(screen.getByLabelText('다음 이미지')).toBeInTheDocument();
+    });
+  });
+
+  describe('인디케이터 상호작용', () => {
+    test('인디케이터 클릭 시 해당 이미지로 이동한다', () => {
+      render(<FestivalPoster {...mockProps} />);
+
+      const indicators = screen
+        .getAllByRole('button')
+        .filter((button) => !button.getAttribute('aria-label'));
+
+      // 마지막 인디케이터 클릭 (마지막 이미지)
+      fireEvent.click(indicators[5]);
+
+      // 이전 버튼만 표시되어야 함
+      expect(screen.getByLabelText('이전 이미지')).toBeInTheDocument();
+      expect(screen.queryByLabelText('다음 이미지')).not.toBeInTheDocument();
+    });
+
+    test('현재 활성 인디케이터가 올바른 스타일을 가진다', () => {
+      render(<FestivalPoster {...mockProps} />);
+
+      const indicators = screen
+        .getAllByRole('button')
+        .filter((button) => !button.getAttribute('aria-label'));
+
+      // 첫 번째 인디케이터가 활성 상태여야 함
+      expect(indicators[0]).toHaveClass('bg-primary-300');
+      // 나머지 인디케이터들은 비활성 상태
+      for (let i = 1; i < indicators.length; i++) {
+        expect(indicators[i]).toHaveClass('bg-gray-300');
+      }
+    });
+  });
+
+  describe('터치 스와이프 기능', () => {
+    test('충분한 거리 스와이프 시 이미지가 변경된다', async () => {
+      const { container } = render(<FestivalPoster {...mockProps} />);
+      const posterContainer = container.querySelector('.h-\\[500px\\]');
+
+      // 왼쪽으로 스와이프 (다음 이미지로)
+      fireEvent.touchStart(posterContainer!, {
+        touches: [{ clientX: 200 }],
+      });
+      fireEvent.touchMove(posterContainer!, {
+        touches: [{ clientX: 100 }],
+      });
+      fireEvent.touchEnd(posterContainer!);
+
+      // 이미지 변경 확인
+      await waitFor(() => {
+        expect(screen.getByLabelText('이전 이미지')).toBeInTheDocument();
+      });
+    });
+
+    test('임계값 미만 스와이프 시 이미지가 변경되지 않는다', () => {
+      const { container } = render(<FestivalPoster {...mockProps} />);
+      const posterContainer = container.querySelector('.h-\\[500px\\]');
+
+      // 작은 거리 스와이프
+      fireEvent.touchStart(posterContainer!, {
+        touches: [{ clientX: 100 }],
+      });
+      fireEvent.touchMove(posterContainer!, {
+        touches: [{ clientX: 80 }],
+      });
+      fireEvent.touchEnd(posterContainer!);
+
+      // 이미지 변경되지 않음 확인
+      expect(screen.queryByLabelText('이전 이미지')).not.toBeInTheDocument();
+      expect(screen.getByLabelText('다음 이미지')).toBeInTheDocument();
+    });
+  });
+
+  describe('접근성 및 스타일링', () => {
+    test('이미지와 버튼이 적절한 접근성 속성을 가진다', () => {
+      render(<FestivalPoster {...mockProps} />);
+
+      // 이미지 alt 텍스트 확인
+      const images = screen.getAllByRole('img');
+      images.forEach((img, index) => {
+        expect(img).toHaveAttribute('alt', `${mockProps.title} - ${index + 1}`);
+        expect(img).toHaveAttribute('draggable', 'false');
+      });
+
+      // 네비게이션 버튼 aria-label 확인
+      expect(screen.getByLabelText('다음 이미지')).toBeInTheDocument();
+    });
+
+    test('화살표 버튼이 데스크톱에서만 표시되는 클래스를 가진다', () => {
+      render(<FestivalPoster {...mockProps} />);
+
+      // 다음 버튼으로 이동해서 이전 버튼도 표시되게 함
+      fireEvent.click(screen.getByLabelText('다음 이미지'));
+
+      const prevButton = screen.getByLabelText('이전 이미지');
+      const nextButton = screen.getByLabelText('다음 이미지');
+
+      expect(prevButton).toHaveClass('hidden', 'md:flex');
+      expect(nextButton).toHaveClass('hidden', 'md:flex');
+    });
+  });
+});
+
+describe('리뷰 섹션 컴포넌트', () => {
+  test('리뷰 섹션이 로드되고 첫 리뷰의 작성자와 별점이 보인다', async () => {
+    // Given: 축제 상세 페이지 렌더링
+    render(<TestWrapper />);
+
+    // When: 데이터가 로드될 때까지 대기
+    await screen.findByText('가평 양떼목장 수국축제');
+
+    // Then: 리뷰 섹션 헤더와 첫 리뷰 작성자 노출
+    expect(screen.getByText(/리뷰 \(\d+\)/)).toBeInTheDocument();
+    const firstReviewer = reviewMockData.content[0].reviewerName;
+    expect(screen.getByText(firstReviewer)).toBeInTheDocument();
+  });
+
+  test('이미지 리뷰 썸네일 클릭 시 모달이 열리고 카운터가 표시된다 (이미지 전용)', async () => {
+    // Given: 페이지 렌더링 및 데이터 로드
+    render(<TestWrapper />);
+    await screen.findByText('가평 양떼목장 수국축제');
+
+    // When: 첫 번째 리뷰 카드 내의 첫 이미지 썸네일을 클릭
+    const firstReviewer = reviewMockData.content[0].reviewerName;
+    const reviewer = screen.getByText(firstReviewer);
+    const reviewCard = reviewer.closest('div')?.parentElement; // 카드 컨테이너
+    const firstImage = reviewCard?.querySelector('img');
+    expect(firstImage).toBeTruthy();
+    firstImage && fireEvent.click(firstImage);
+
+    // Then: 모달 닫기 버튼, 미디어 카운터, 다음 화살표가 보인다
+    expect(await screen.findByRole('button', { name: '모달 닫기' })).toBeInTheDocument();
+    expect(screen.getByText(/\d+ \/ \d+/)).toBeInTheDocument();
+    expect(screen.getByLabelText('다음 미디어')).toBeInTheDocument();
+
+    // And: 다음으로 이동하면 카운터가 증가한다
+    fireEvent.click(screen.getByLabelText('다음 미디어'));
+    expect(screen.getByText(/2 \/ \d+/)).toBeInTheDocument();
+
+    // And: 모달을 닫을 수 있다
+    fireEvent.click(screen.getByRole('button', { name: '모달 닫기' }));
+    await waitFor(() => {
+      expect(screen.queryByRole('button', { name: '모달 닫기' })).not.toBeInTheDocument();
+    });
+  });
+
+  test('비디오가 포함된 리뷰에서 비디오 썸네일 클릭 시 모달 오픈 및 화살표 표시', async () => {
+    // Given: 페이지 렌더링 및 데이터 로드
+    render(<TestWrapper />);
+    await screen.findByText('가평 양떼목장 수국축제');
+
+    // When: 두 번째 리뷰 카드 내의 비디오 썸네일(비디오 요소)을 클릭
+    const secondReviewer = reviewMockData.content[1].reviewerName;
+    const reviewer = screen.getByText(secondReviewer);
+    const reviewCard = reviewer.closest('div')?.parentElement; // 카드 컨테이너
+    const videoEl = reviewCard?.querySelector('video') as HTMLVideoElement | null;
+    expect(videoEl).toBeTruthy();
+    videoEl && fireEvent.click(videoEl);
+
+    // Then: 모달이 열리고 화살표는 hidden md:flex 클래스를 가진다
+    const nextBtn = await screen.findByLabelText('다음 미디어');
+    expect(nextBtn).toHaveClass('hidden', 'md:flex');
+    expect(screen.getByText(/\d+ \/ \d+/)).toBeInTheDocument();
+
+    // And: 모달 닫기 가능
+    fireEvent.click(screen.getByRole('button', { name: '모달 닫기' }));
+    await waitFor(() => {
+      expect(screen.queryByRole('button', { name: '모달 닫기' })).not.toBeInTheDocument();
     });
   });
 });
