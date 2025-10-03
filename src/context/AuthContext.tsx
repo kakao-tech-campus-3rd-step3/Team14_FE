@@ -7,7 +7,7 @@ import type { AuthToken } from '@/types/Auth/AuthToken';
 import type { UserInfoResponse } from '@/types/UserType';
 import { getUserInfo } from '@/apis/user/getUserInfo';
 /**
- * AuthContext 
+ * AuthContext
  * 인증 관련 상태와 메서드를 제공합니다.
  * 토큰 관리, 사용자 정보 관리, 인증 상태 확인 등을 담당합니다.
  * login된 상태의 사용자 정보도 이 컨텍스트에서 사용하도록 리팩토링하였습니다.

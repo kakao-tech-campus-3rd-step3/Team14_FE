@@ -5,12 +5,8 @@ const StarRating = () => {
 
   return (
     <div className="flex gap-2 justify-center">
-      {[1,2,3,4,5].map(star => (
-        <button
-          key={star}
-          onClick={() => setRating(star)}
-          className="text-2xl"
-        >
+      {[1, 2, 3, 4, 5].map((star) => (
+        <button key={star} onClick={() => setRating(star)} className="text-2xl">
           {star <= rating ? '⭐' : '☆'}
         </button>
       ))}

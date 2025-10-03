@@ -20,7 +20,7 @@ const ReviewForm = ({ festivalId, userInfo }: ReviewFormProps) => {
   return (
     <div className="bg-white rounded-lg p-4 shadow-sm">
       <h3 className="font-semibold mb-3">축제 후기를 남겨주세요.</h3>
-      
+
       {/* 첨부 버튼들 */}
       <div className="flex gap-2 mb-3">
         <Button variant="secondary" className="flex-1" onClick={() => setImages([...images, ''])}>
@@ -30,15 +30,15 @@ const ReviewForm = ({ festivalId, userInfo }: ReviewFormProps) => {
           🎥 동영상 첨부
         </Button>
       </div>
-      
+
       {/* 텍스트 입력 */}
-      <textarea 
+      <textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}
         placeholder="이번 축제의 소중한 후기를 남겨주세요. 남겨주신 후기는 다른 분들이 축제를 선택할 때 큰 도움이 됩니다."
         className="w-full h-32 p-3 bg-gray-50 rounded-lg border-0 resize-none"
       />
-      
+
       {/* 하단 버튼 */}
       <div className="flex gap-3 mt-4">
         <Button variant="secondary" className="flex-1" onClick={() => navigate(-1)}>

@@ -18,8 +18,8 @@ const FestivalInfoFooter = () => {
   return (
     <div className={containerClasses}>
       <div className={baseClasses}>
-      <Link 
-          to={`/review/${festivalId}`} 
+        <Link
+          to={`/review/${festivalId}`}
           state={{ festivalInfo: festivalData?.content }}
           className={buttonClasses}
         >

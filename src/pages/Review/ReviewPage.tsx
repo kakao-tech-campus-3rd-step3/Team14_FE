@@ -11,6 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import Button from "@/components/common/Button";
 import { ROUTE_PATH } from "@/constants/routes";
 import useNav from "@/hooks/useNav";
+import ErrorComponent from "@/components/common/ErrorComponent";
 /**
  * 리뷰작성페이지
  * 기본적으로 앞선 상세페이지에서 넘어오는 축제 상세정보를 기반으로 리뷰를 작성하도록 구현하였습니다.
@@ -22,7 +23,7 @@ const ReviewPage = () => {
     const { festivalId } = useParams();
     const {userInfo} = useAuth();
     const {festivalInfo} = useLocation().state || {};
-    const {goBack,goTo} = useNav();
+    const {goTo} = useNav();
     // festivalId가 없으면 에러 처리
     if (!festivalId) {
       return (
@@ -36,7 +37,7 @@ const ReviewPage = () => {
                 variant="primary" 
                 onClick={() => goTo(generatePath(ROUTE_PATH.HOME))}
               >
-                홈으로 돌아가기
+                홈으로 돌아가
               </Button>
             </div>
           </div>
@@ -72,18 +73,7 @@ const ReviewPage = () => {
       return (
         <Container>
           <Header variant="page" title="축제 리뷰 작성" />
-          <div className="flex flex-col items-center justify-center min-h-screen">
-            <div className="text-red-500 text-center">
-              <h2 className="text-xl font-semibold mb-2">존재하지 않는 축제입니다</h2>
-              <p className="mb-4">요청하신 축제를 찾을 수 없습니다.</p>
-              <Button 
-                variant="primary" 
-                onClick={() => goBack()}
-              >
-                이전 페이지로 돌아가기
-              </Button>
-            </div>
-          </div>
+          <ErrorComponent title="존재하지 않는 축제입니다" message="요청하신 축제를 찾을 수 없습니다." />
           <Footer />
         </Container>
       );
@@ -93,18 +83,7 @@ const ReviewPage = () => {
       return (
         <Container>
           <Header variant="page" title="축제 리뷰 작성" />
-          <div className="flex flex-col items-center justify-center min-h-screen">
-            <div className="text-red-500 text-center">
-              <h2 className="text-xl font-semibold mb-2">잘못된 접근입니다</h2>
-              <p className="mb-4">축제 상세페이지에서 접근해주세요.</p>
-              <Button 
-                variant="primary" 
-                onClick={() => goBack()}
-              >
-                이전 페이지로 돌아가기
-              </Button>
-            </div>
-          </div>
+          <ErrorComponent title="잘못된 접근입니다" message="축제 상세페이지에서 접근해주세요." />
           <Footer />
         </Container>
       );
