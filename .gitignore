@@ -19,7 +19,8 @@ coverage/
 .env.local
 .env.*.local
 *.local
-
+.env.development
+.env.production
 #  Editors / OS 
 .DS_Store
 Thumbs.db
