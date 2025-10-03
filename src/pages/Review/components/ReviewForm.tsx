@@ -1,37 +1,53 @@
 import { useState } from 'react';
 import Button from '@/components/common/Button';
 import type { UserInfoResponse } from '@/types/UserType';
-import { useNavigate } from 'react-router-dom';
+import { postReview, type PostReviewBody } from '@/apis/review/postReview';
+import useNav from '@/hooks/useNav';
+import { useMutation } from '@tanstack/react-query';
 
 interface ReviewFormProps {
   festivalId: string;
   userInfo: UserInfoResponse['content'];
+  score: number;
 }
 
-const ReviewForm = ({ festivalId, userInfo }: ReviewFormProps) => {
+const ReviewForm = ({ festivalId, userInfo, score }: ReviewFormProps) => {
   const [content, setContent] = useState('');
   const [images, setImages] = useState<string[]>([]);
-  const navigate = useNavigate();
+  const { goBack } = useNav();
+  const [videoUrl, setVideoUrl] = useState<string | null>(null);
+  const { mutate: mutateReview, isPending } = useMutation({
+    mutationFn: (body: PostReviewBody) => postReview({ festivalId, body }),
+  });
+
   const handleSubmit = () => {
-    // 리뷰 제출 로직
-    console.log('리뷰 제출:', { festivalId, userInfo, content, images });
+    const trimmed = content.trim();
+    if (score < 1 || score > 5) return alert('별점을 선택해주세요. (1~5점)');
+    if (trimmed.length < 10 || trimmed.length > 500) return alert('내용은 10자 이상 500자 이하여야 합니다.');
+
+    mutateReview({
+      content: trimmed,
+      score,
+      imageUrls: images.filter(Boolean),
+      videoUrl: videoUrl ? videoUrl : undefined,
+    });
+    goBack();
   };
 
   return (
     <div className="bg-white rounded-lg p-4 shadow-sm">
       <h3 className="font-semibold mb-3">축제 후기를 남겨주세요.</h3>
 
-      {/* 첨부 버튼들 */}
       <div className="flex gap-2 mb-3">
         <Button variant="secondary" className="flex-1" onClick={() => setImages([...images, ''])}>
           📷 사진 첨부
         </Button>
-        <Button variant="secondary" className="flex-1" onClick={() => setImages([...images, ''])}>
+        <Button variant="secondary" className="flex-1" onClick={() => setVideoUrl('')}>
           🎥 동영상 첨부
         </Button>
       </div>
 
-      {/* 텍스트 입력 */}
+      
       <textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}
@@ -39,9 +55,8 @@ const ReviewForm = ({ festivalId, userInfo }: ReviewFormProps) => {
         className="w-full h-32 p-3 bg-gray-50 rounded-lg border-0 resize-none"
       />
 
-      {/* 하단 버튼 */}
       <div className="flex gap-3 mt-4">
-        <Button variant="secondary" className="flex-1" onClick={() => navigate(-1)}>
+        <Button variant="secondary" className="flex-1" onClick={goBack}>
           취소
         </Button>
         <Button variant="primary" className="flex-1" onClick={handleSubmit}>

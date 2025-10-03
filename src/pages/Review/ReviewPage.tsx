@@ -12,6 +12,7 @@ import Button from "@/components/common/Button";
 import { ROUTE_PATH } from "@/constants/routes";
 import useNav from "@/hooks/useNav";
 import ErrorComponent from "@/components/common/ErrorComponent";
+import { useState } from "react";
 /**
  * 리뷰작성페이지
  * 기본적으로 앞선 상세페이지에서 넘어오는 축제 상세정보를 기반으로 리뷰를 작성하도록 구현하였습니다.
@@ -24,6 +25,8 @@ const ReviewPage = () => {
     const {userInfo} = useAuth();
     const {festivalInfo} = useLocation().state || {};
     const {goTo} = useNav();
+    const [score, setScore] = useState(0);
+    
     // festivalId가 없으면 에러 처리
     if (!festivalId) {
       return (
@@ -98,12 +101,13 @@ const ReviewPage = () => {
           
           <div className="bg-white rounded-lg p-4 shadow-sm">
             <h3 className="font-semibold mb-3 text-center">이번 축제는 어떠셨나요?</h3>
-            <StarRating />
+            <StarRating value={score} onChange={setScore} />
           </div>
           
           <ReviewForm 
             festivalId={festivalId || ''}
             userInfo={userInfo || {email: '', username: '', profileImageUrl: ''}}
+            score={score}
           />
         </div>
         <Footer />
