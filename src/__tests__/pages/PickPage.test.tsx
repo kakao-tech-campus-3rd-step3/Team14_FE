@@ -15,9 +15,107 @@ const TestWrapper = ({ initialEntries = ['/pick'] }: { initialEntries?: string[]
 
 describe('PickPage 테스트', () => {
   describe('스냅샷 테스트', () => {
-    test('기본 스냅샷 테스트', () => {
-      const { container } = render(<TestWrapper />);
-      expect(container.firstChild).toMatchSnapshot();
+    test('스타일 선택 화면 - 초기 상태 스냅샷', () => {
+      render(<TestWrapper />);
+
+      // 스타일 선택 제목 영역 스냅샷 (부제목 + 메인 제목)
+      const styleTitleSection =
+        screen.getByText(/축제의 스타일/).closest('div.flex-col') ||
+        screen.getByText(/축제의 스타일/).parentElement?.parentElement;
+      expect(styleTitleSection).toMatchSnapshot('style-title-section-initial');
+
+      // 각 스타일 카드별 개별 스냅샷 (초기 상태)
+      PICK_STYLES.forEach((style, index) => {
+        const styleCard = screen.getByText(style.name).closest('div');
+        expect(styleCard).toMatchSnapshot(`style-card-${index + 1}-${style.name}-initial`);
+      });
+
+      // 다음 버튼 영역 스냅샷 (비활성화 상태)
+      const nextButtonSection = screen.getByRole('button', { name: '다음' });
+      expect(nextButtonSection).toMatchSnapshot('style-button-section-initial');
+    });
+
+    test('스타일 선택 화면 - 3개 선택 후 상태 스냅샷', () => {
+      render(<TestWrapper />);
+
+      // 3개 스타일 선택
+      fireEvent.click(screen.getByText(PICK_STYLES[0].name).closest('div') as HTMLElement);
+      fireEvent.click(screen.getByText(PICK_STYLES[1].name).closest('div') as HTMLElement);
+      fireEvent.click(screen.getByText(PICK_STYLES[2].name).closest('div') as HTMLElement);
+
+      // 각 스타일 카드별 개별 스냅샷 (선택된 상태)
+      PICK_STYLES.forEach((style, index) => {
+        const styleCard = screen.getByText(style.name).closest('div');
+        const isSelected = index < 3; // 처음 3개만 선택된 상태
+        expect(styleCard).toMatchSnapshot(
+          `style-card-${index + 1}-${style.name}-${isSelected ? 'selected' : 'unselected'}`,
+        );
+      });
+
+      // 다음 버튼 영역 스냅샷 (활성화 상태)
+      const nextButtonSection = screen.getByRole('button', { name: '다음' });
+      expect(nextButtonSection).toMatchSnapshot('style-button-section-completed');
+    });
+
+    // MBTI 선택 섹션 스냅샷
+    test('MBTI 선택 화면 - 초기 상태 스냅샷', () => {
+      render(<TestWrapper initialEntries={['/pick?step=mbti']} />);
+
+      // MBTI 선택 문구 영역 스냅샷 (제목 + 부제목 포함)
+      const mbtiTitleSection = screen.getByText(/여행 MBTI/).parentElement?.parentElement;
+      expect(mbtiTitleSection).toMatchSnapshot('mbti-title-section-initial');
+
+      // 각 MBTI 질문별 개별 스냅샷 (초기 상태)
+      // 첫 번째 질문: PICK_MBTI[0].title
+      const question1 = screen.getByText(PICK_MBTI[0].title).parentElement;
+      expect(question1).toMatchSnapshot('mbti-question1-initial');
+
+      // 두 번째 질문: PICK_MBTI[1].title
+      const question2 = screen.getByText(PICK_MBTI[1].title).parentElement;
+      expect(question2).toMatchSnapshot('mbti-question2-initial');
+
+      // 세 번째 질문: PICK_MBTI[2].title
+      const question3 = screen.getByText(PICK_MBTI[2].title).parentElement;
+      expect(question3).toMatchSnapshot('mbti-question3-initial');
+
+      // 네 번째 질문: PICK_MBTI[3].title
+      const question4 = screen.getByText(PICK_MBTI[3].title).parentElement;
+      expect(question4).toMatchSnapshot('mbti-question4-initial');
+
+      // 하단 입력 및 버튼 영역 스냅샷 (placeholder로 찾기)
+      const bottomSection = screen.getByPlaceholderText('캠핑, 불멍, 서핑').closest('div.flex-col');
+      expect(bottomSection).toMatchSnapshot('mbti-bottom-section-initial');
+    });
+
+    test('MBTI 선택 화면 - 4개 선택 후 상태 스냅샷', () => {
+      render(<TestWrapper initialEntries={['/pick?step=mbti']} />);
+
+      // 4개 MBTI 옵션 선택
+      fireEvent.click(screen.getByRole('button', { name: PICK_MBTI[0].option1 }));
+      fireEvent.click(screen.getByRole('button', { name: PICK_MBTI[1].option1 }));
+      fireEvent.click(screen.getByRole('button', { name: PICK_MBTI[2].option1 }));
+      fireEvent.click(screen.getByRole('button', { name: PICK_MBTI[3].option1 }));
+
+      // 각 MBTI 질문별 개별 스냅샷 (선택된 상태)
+      // 첫 번째 질문: PICK_MBTI[0].title
+      const question1 = screen.getByText(PICK_MBTI[0].title).parentElement;
+      expect(question1).toMatchSnapshot('mbti-question1-completed');
+
+      // 두 번째 질문: PICK_MBTI[1].title
+      const question2 = screen.getByText(PICK_MBTI[1].title).parentElement;
+      expect(question2).toMatchSnapshot('mbti-question2-completed');
+
+      // 세 번째 질문: PICK_MBTI[2].title
+      const question3 = screen.getByText(PICK_MBTI[2].title).parentElement;
+      expect(question3).toMatchSnapshot('mbti-question3-completed');
+
+      // 네 번째 질문: PICK_MBTI[3].title
+      const question4 = screen.getByText(PICK_MBTI[3].title).parentElement;
+      expect(question4).toMatchSnapshot('mbti-question4-completed');
+
+      // 하단 입력 및 버튼 영역 스냅샷 (활성화된 버튼 상태)
+      const bottomSection = screen.getByPlaceholderText('캠핑, 불멍, 서핑').closest('div.flex-col');
+      expect(bottomSection).toMatchSnapshot('mbti-bottom-section-completed');
     });
   });
 
