@@ -10,7 +10,6 @@ interface ErrorComponentProps {
 const ErrorComponent = ({
   title,
   message,
-
   showBackButton = true,
 }: ErrorComponentProps) => {
   const { goBack } = useNav();
