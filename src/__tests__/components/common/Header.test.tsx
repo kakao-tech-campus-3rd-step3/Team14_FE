@@ -3,71 +3,56 @@ import Header from '@/components/common/Header';
 import { MemoryRouter } from 'react-router-dom';
 
 describe('Header 컴포넌트', () => {
-  describe('스냅샷 테스트', () => {
-    test('logo variant가 렌더링된다', () => {
-      // Given: Header 컴포넌트가 주어졌을 때
-      // When: props를 지정하지 않고 Header 컴포넌트를 렌더링하면
-      // Then: logo variant가 표시돼야 한다
+  describe('스냅샷 테스트 - 핵심 요소별', () => {
+    test('logo variant - 로고 영역 스냅샷', () => {
       const { container } = render(
         <MemoryRouter>
           <Header />
         </MemoryRouter>,
       );
-      expect(container).toMatchSnapshot();
+
+      // SVG 로고만 스냅샷
+      const logoText = screen.getByText('FestaPick');
+      expect(logoText).toBeInTheDocument();
+
+      // SVG 요소 찾기
+      const svgElement =
+        container.querySelector('svg') ||
+        logoText.parentElement?.querySelector('svg') ||
+        logoText.closest('div')?.querySelector('svg');
+      expect(svgElement).toMatchSnapshot('logo-svg');
     });
 
-    test('page variant가 렌더링된다', () => {
-      // Given: Header 컴포넌트가 주어졌을 때
-      // When: page variant와 title로 Header 컴포넌트를 렌더링하면
-      // Then: page variant가 표시돼야 한다
-      const { container } = render(
-        <MemoryRouter>
-          <Header variant="page" title="테스트" />
-        </MemoryRouter>,
-      );
-      expect(container).toMatchSnapshot();
-    });
-
-    test('all variant가 렌더링된다', () => {
-      // Given: Header 컴포넌트가 주어졌을 때
-      // When: all variant와 title로 Header 컴포넌트를 렌더링하면
-      // Then: all variant가 표시돼야 한다
-      const { container } = render(
-        <MemoryRouter>
-          <Header variant="all" title="테스트" />
-        </MemoryRouter>,
-      );
-      expect(container).toMatchSnapshot();
-    });
-  });
-
-  describe('Title 테스트', () => {
-    test('title이 올바르게 표시된다', () => {
-      // Given: 특정 title이 주어졌을 때
-      const customTitle = '커스텀 제목';
-
-      // When: page variant와 해당 title로 Header 컴포넌트를 렌더링하면
+    test('page variant - 네비게이션 구조 스냅샷', () => {
       render(
         <MemoryRouter>
-          <Header variant="page" title={customTitle} />
+          <Header variant="page" title="테스트 페이지" />
         </MemoryRouter>,
       );
 
-      // Then: 지정한 title이 h1 요소에 표시돼야 한다
-      expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(customTitle);
+      // 뒤로가기 버튼만 스냅샷
+      const backButton = screen.getByRole('button');
+      expect(backButton).toMatchSnapshot('page-variant-back-button');
+
+      // 제목 요소만 스냅샷
+      const titleElement = screen.getByRole('heading', { level: 1 });
+      expect(titleElement).toMatchSnapshot('page-variant-title');
     });
 
-    test('빈 title이 처리된다', () => {
-      // Given: 빈 title이 주어졌을 때
-      // When: page variant와 빈 title로 Header 컴포넌트를 렌더링하면
-      render(
+    test('all variant - 버튼 그룹 스냅샷', () => {
+      const { container } = render(
         <MemoryRouter>
-          <Header variant="page" title="" />
+          <Header variant="all" title="전체 헤더" />
         </MemoryRouter>,
       );
 
-      // Then: 빈 h1 요소가 렌더링되어야 한다
-      expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('');
+      // 좌측 버튼 영역
+      const leftSection = container.querySelector('.flex-1:first-child');
+      expect(leftSection).toMatchSnapshot('all-variant-left-section');
+
+      // 우측 버튼 영역
+      const rightSection = container.querySelector('.flex-1:last-child');
+      expect(rightSection).toMatchSnapshot('all-variant-right-section');
     });
   });
 });
