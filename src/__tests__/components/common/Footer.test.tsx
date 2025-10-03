@@ -4,15 +4,45 @@ import Footer from '@/components/common/Footer';
 
 describe('Footer 컴포넌트', () => {
   describe('기본 렌더링', () => {
-    test('Footer가 렌더링된다', () => {
-      // Given: Footer 컴포넌트가 주어졌을 때
-      // When: Footer 컴포넌트를 렌더링하면
+    test('Footer 구조가 올바르게 렌더링된다', () => {
+      render(
+        <MemoryRouter>
+          <Footer />
+        </MemoryRouter>,
+      );
+
+      // 각 버튼이 존재하는지 확인
+      expect(screen.getByText('홈')).toBeInTheDocument();
+      expect(screen.getByText('검색')).toBeInTheDocument();
+      expect(screen.getByText('AI 추천')).toBeInTheDocument();
+      expect(screen.getByText('My')).toBeInTheDocument();
+    });
+
+    test('기본 상태 스냅샷 - 선택된 버튼 없음', () => {
       const { container } = render(
         <MemoryRouter>
           <Footer />
         </MemoryRouter>,
       );
-      expect(container).toMatchSnapshot();
+
+      // 첫 번째 버튼만 스냅샷으로 확인 (구조 변경 감지용)
+      const firstButton = container.querySelector('button');
+      expect(firstButton).toMatchSnapshot('footer-button-structure');
+    });
+
+    test('선택된 상태 스냅샷 - home 선택', () => {
+      render(
+        <MemoryRouter>
+          <Footer initialSelected="home" />
+        </MemoryRouter>,
+      );
+
+      // 선택된 버튼과 선택되지 않은 버튼의 차이를 스냅샷으로 확인
+      const homeButton = screen.getByText('홈').closest('button');
+      const searchButton = screen.getByText('검색').closest('button');
+
+      expect(homeButton).toMatchSnapshot('selected-button');
+      expect(searchButton).toMatchSnapshot('unselected-button');
     });
   });
 
@@ -71,6 +101,9 @@ describe('Footer 컴포넌트', () => {
 
       // Then: 홈 버튼의 텍스트가 볼드로 변경되어야 한다
       expect(homeButton).toHaveClass('font-bold');
+
+      // 클릭 후 버튼 상태를 작은 스냅샷으로 확인
+      expect(homeButton.closest('button')).toMatchSnapshot('clicked-home-button');
     });
 
     test('다른 버튼 클릭 시 이전 선택이 해제되고 새 버튼이 선택된다', () => {

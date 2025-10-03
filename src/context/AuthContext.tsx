@@ -82,6 +82,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           // 비로그인 상태에서 토큰 교환 실패는 예상된 동작임.
           // 콘솔에 에러를 출력하지 않고 분기 처리로 넘어감.
         } else if (error instanceof Error && error.message === 'Token refresh 실패') {
+          // eslint: Empty block statement
+          // 이 부분에서 토큰 갱신 실패는 예상된 동작
         } else {
           // 401이 아닌 다른 에러(네트워크 문제, 서버 500 에러 등)는
           // 여전히 개발자가 인지해야 하므로 콘솔에 출력함.
