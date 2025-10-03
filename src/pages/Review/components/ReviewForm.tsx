@@ -20,7 +20,7 @@ async function ensureToken() {
   } catch {}
 }
 const ReviewForm = ({ festivalId,  score }: ReviewFormProps) => {
-  const { imageInfos,  videoInfo,  isUploading, pickAndUploadImages, pickAndUploadVideo } = useMediaUpload();
+  const { imageInfos, setImageInfos, videoInfo, setVideoInfo, isUploading, pickAndUploadImages, pickAndUploadVideo } = useMediaUpload();
   const [content, setContent] = useState('');
   const { goBack } = useNav();
   const queryClient = useQueryClient();
@@ -77,7 +77,45 @@ const ReviewForm = ({ festivalId,  score }: ReviewFormProps) => {
         </Button>
       </div>
 
-      
+      {(imageInfos.length > 0 || videoInfo) && (
+        <div className="mb-3">
+          <h4 className="text-sm font-medium text-gray-700 mb-2">업로드된 미디어</h4>
+          <div className="flex flex-wrap gap-2">
+            {imageInfos.map((image, index) => (
+              <div key={index} className="relative">
+                <img
+                  src={image.presignedUrl}
+                  alt={`업로드된 이미지 ${index + 1}`}
+                  className="w-16 h-16 object-cover rounded-lg border border-gray-200"
+                />
+                <button
+                  onClick={() => setImageInfos(prev => prev.filter((_, i) => i !== index))}
+                  className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600"
+                >
+                  ×
+                </button>
+              </div>
+            ))}
+            
+            {videoInfo && (
+              <div className="relative">
+                <video
+                  src={videoInfo.presignedUrl}
+                  className="w-16 h-16 object-cover rounded-lg border border-gray-200"
+                  controls={false}
+                />
+                <button
+                  onClick={() => setVideoInfo(null)}
+                  className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600"
+                >
+                  ×
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
       <textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}
@@ -90,7 +128,7 @@ const ReviewForm = ({ festivalId,  score }: ReviewFormProps) => {
           취소
         </Button>
         <Button variant="primary" className="flex-1" onClick={handleSubmit} disabled={isPending || isUploading}>
-          리뷰 작성
+          {isPending || isUploading ? '미디어 업로드중' : '리뷰 작성'}
         </Button>
       </div>
     </div>
