@@ -16,15 +16,23 @@ interface ReviewFormProps {
 async function ensureToken() {
   if (getCurrentToken()) return;
   try {
-    await jwtExchange(); 
+    await jwtExchange();
   } catch {}
 }
-const ReviewForm = ({ festivalId,  score }: ReviewFormProps) => {
-  const { imageInfos, setImageInfos, videoInfo, setVideoInfo, isUploading, pickAndUploadImages, pickAndUploadVideo } = useMediaUpload();
+const ReviewForm = ({ festivalId, score }: ReviewFormProps) => {
+  const {
+    imageInfos,
+    setImageInfos,
+    videoInfo,
+    setVideoInfo,
+    isUploading,
+    pickAndUploadImages,
+    pickAndUploadVideo,
+  } = useMediaUpload();
   const [content, setContent] = useState('');
   const { goBack } = useNav();
   const queryClient = useQueryClient();
-  
+
   const { mutate: mutateReview, isPending } = useMutation({
     mutationFn: (body: PostReviewBody) => postReview({ festivalId, body }),
     onSuccess: () => {
@@ -41,7 +49,8 @@ const ReviewForm = ({ festivalId,  score }: ReviewFormProps) => {
   const handleSubmit = async () => {
     const trimmed = content.trim();
     if (score < 1 || score > 5) return alert('별점을 선택해주세요. (1~5점)');
-    if (trimmed.length < 10 || trimmed.length > 500) return alert('내용은 10자 이상 500자 이하여야 합니다.');
+    if (trimmed.length < 10 || trimmed.length > 500)
+      return alert('내용은 10자 이상 500자 이하여야 합니다.');
 
     await ensureToken(); // 제출 직전 토큰 확인
     mutateReview({
@@ -89,14 +98,14 @@ const ReviewForm = ({ festivalId,  score }: ReviewFormProps) => {
                   className="w-16 h-16 object-cover rounded-lg border border-gray-200"
                 />
                 <button
-                  onClick={() => setImageInfos(prev => prev.filter((_, i) => i !== index))}
+                  onClick={() => setImageInfos((prev) => prev.filter((_, i) => i !== index))}
                   className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600"
                 >
                   ×
                 </button>
               </div>
             ))}
-            
+
             {videoInfo && (
               <div className="relative">
                 <video
@@ -127,7 +136,12 @@ const ReviewForm = ({ festivalId,  score }: ReviewFormProps) => {
         <Button variant="secondary" className="flex-1" onClick={goBack}>
           취소
         </Button>
-        <Button variant="primary" className="flex-1" onClick={handleSubmit} disabled={isPending || isUploading}>
+        <Button
+          variant="primary"
+          className="flex-1"
+          onClick={handleSubmit}
+          disabled={isPending || isUploading}
+        >
           {isPending || isUploading ? '미디어 업로드중' : '리뷰 작성'}
         </Button>
       </div>

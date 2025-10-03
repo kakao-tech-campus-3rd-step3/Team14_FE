@@ -10,7 +10,7 @@ export interface ApiErrorResponse {
   message: string;
 }
 
-export const apiBaseUrl = import.meta.env.DEV ? '' : (import.meta.env.VITE_API_BASE_URL || '');
+export const apiBaseUrl = import.meta.env.DEV ? '' : import.meta.env.VITE_API_BASE_URL || '';
 
 // 토큰 관리
 let currentAccessToken: AuthToken = null;

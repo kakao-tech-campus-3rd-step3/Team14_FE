@@ -9,13 +9,13 @@ export function useMediaUpload() {
   const pickAndUploadImages = createImagePicker(
     (uploaded) => setImageInfos((prev) => [...prev, ...uploaded]),
     setIsUploading,
-    (error) => alert(error)
+    (error) => alert(error),
   );
 
   const pickAndUploadVideo = createVideoPicker(
     (uploaded) => setVideoInfo(uploaded),
     setIsUploading,
-    (error) => alert(error)
+    (error) => alert(error),
   );
 
   return {

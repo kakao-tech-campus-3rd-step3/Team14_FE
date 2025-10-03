@@ -7,11 +7,7 @@ interface ErrorComponentProps {
   showBackButton?: boolean;
 }
 
-const ErrorComponent = ({
-  title,
-  message,
-  showBackButton = true,
-}: ErrorComponentProps) => {
+const ErrorComponent = ({ title, message, showBackButton = true }: ErrorComponentProps) => {
   const { goBack } = useNav();
 
   return (

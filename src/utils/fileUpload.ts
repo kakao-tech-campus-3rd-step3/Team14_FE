@@ -16,7 +16,7 @@ export const createFilePicker = <T>(options: FileUploadOptions<T>) => {
 
     try {
       onUploadingChange?.(true);
-      
+
       if (multiple) {
         const fileArray = Array.from(files);
         const uploaded = await uploadImageFiles(fileArray);
@@ -27,7 +27,9 @@ export const createFilePicker = <T>(options: FileUploadOptions<T>) => {
         onUpload(uploaded as T);
       }
     } catch (error) {
-      const errorMessage = multiple ? '이미지 업로드에 실패했습니다.' : '동영상 업로드에 실패했습니다.';
+      const errorMessage = multiple
+        ? '이미지 업로드에 실패했습니다.'
+        : '동영상 업로드에 실패했습니다.';
       onError?.(errorMessage);
     } finally {
       onUploadingChange?.(false);
@@ -39,14 +41,14 @@ export const createFilePicker = <T>(options: FileUploadOptions<T>) => {
     input.type = 'file';
     input.accept = accept;
     input.multiple = multiple;
-    
+
     input.onchange = () => {
       handleFileSelect(input.files);
       // input 정리
       input.value = '';
       input.remove();
     };
-    
+
     input.click();
   };
 
@@ -57,7 +59,7 @@ export const createFilePicker = <T>(options: FileUploadOptions<T>) => {
 export const createImagePicker = (
   onUpload: (result: { id: number; presignedUrl: string }[]) => void,
   onUploadingChange?: (isUploading: boolean) => void,
-  onError?: (error: string) => void
+  onError?: (error: string) => void,
 ) => {
   return createFilePicker({
     accept: 'image/*',
@@ -71,7 +73,7 @@ export const createImagePicker = (
 export const createVideoPicker = (
   onUpload: (result: { id: number; presignedUrl: string }) => void,
   onUploadingChange?: (isUploading: boolean) => void,
-  onError?: (error: string) => void
+  onError?: (error: string) => void,
 ) => {
   return createFilePicker({
     accept: 'video/*',
