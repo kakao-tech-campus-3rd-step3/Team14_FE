@@ -16,11 +16,11 @@ interface ReviewFormProps {
 async function ensureToken() {
   if (getCurrentToken()) return;
   try {
-    await jwtExchange(); // withCredentials 포함되어 있음
+    await jwtExchange(); 
   } catch {}
 }
-const ReviewForm = ({ festivalId, userInfo, score }: ReviewFormProps) => {
-  const { imageInfos, setImageInfos, videoInfo, setVideoInfo, isUploading, pickAndUploadImages, pickAndUploadVideo } = useMediaUpload();
+const ReviewForm = ({ festivalId,  score }: ReviewFormProps) => {
+  const { imageInfos,  videoInfo,  isUploading, pickAndUploadImages, pickAndUploadVideo } = useMediaUpload();
   const [content, setContent] = useState('');
   const { goBack } = useNav();
   const queryClient = useQueryClient();
@@ -43,7 +43,7 @@ const ReviewForm = ({ festivalId, userInfo, score }: ReviewFormProps) => {
     if (score < 1 || score > 5) return alert('별점을 선택해주세요. (1~5점)');
     if (trimmed.length < 10 || trimmed.length > 500) return alert('내용은 10자 이상 500자 이하여야 합니다.');
 
-    await ensureToken(); // 제출 직전 선교화 요청
+    await ensureToken(); // 제출 직전 토큰 확인
     mutateReview({
       content: trimmed,
       score,
