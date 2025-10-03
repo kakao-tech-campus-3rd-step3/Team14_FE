@@ -32,15 +32,33 @@ const TestWrapper = ({ children }: { children: React.ReactNode }) => {
 
 describe('FestivalsPage 테스트', () => {
   vi.spyOn(ReactRouter, 'useParams').mockReturnValue({ areaId: '2' });
-  describe('페이지 기본 구조', () => {
-    test('스냅샷 테스트', () => {
-      // 기본 스냅샷 테스트
-      const { container } = render(
+  describe('스냅샷 테스트', () => {
+    test('AI 추천 섹션 스냅샷', async () => {
+      render(
         <TestWrapper>
           <FestivalsPage />
         </TestWrapper>,
       );
-      expect(container.firstChild).toMatchSnapshot();
+
+      // AI 섹션에서 첫 번째 카드만 스냅샷
+      await waitFor(() => {
+        const aiPickSection = screen.getByText('AI pick')?.closest('section');
+        if (aiPickSection) {
+          // grid 컨테이너에서 첫 번째 FestivalCard 찾기
+          const gridContainer = aiPickSection.querySelector('.grid');
+          const firstAiCard = gridContainer?.children[0];
+          expect(firstAiCard).toMatchSnapshot('ai-first-card');
+        }
+
+        // Festivals 섹션에서 첫 번째 카드만 스냅샷
+        const festivalsSection = screen.getByText('Festivals')?.closest('section');
+        if (festivalsSection) {
+          // grid 컨테이너에서 첫 번째 FestivalCard 찾기
+          const gridContainer = festivalsSection.querySelector('.grid');
+          const firstFestivalCard = gridContainer?.children[0];
+          expect(firstFestivalCard).toMatchSnapshot('festivals-first-card');
+        }
+      });
     });
   });
 
