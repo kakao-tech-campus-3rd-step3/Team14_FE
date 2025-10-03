@@ -37,7 +37,7 @@ const Routes = () => {
           </ProtectedRoute>
         }
       />
-            <Route
+      <Route
         path={ROUTE_PATH.REVIEW}
         element={
           <ProtectedRoute>
