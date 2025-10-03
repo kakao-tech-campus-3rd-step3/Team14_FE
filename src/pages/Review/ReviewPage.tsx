@@ -1,5 +1,5 @@
 import Header from "@/components/common/Header";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { generatePath, useLocation, useParams } from "react-router-dom";
 import FestivalCard from "../Festivals/components/FestivalCard";
 import Container from "@/components/common/Container";
 import ReviewForm from "@/pages/Review/components/ReviewForm";
@@ -9,6 +9,8 @@ import { useAuth } from "@/context/AuthContext";
 import { getFestivalInfo } from "@/apis/festivals/getFestivalInfo";
 import { useQuery } from "@tanstack/react-query";
 import Button from "@/components/common/Button";
+import { ROUTE_PATH } from "@/constants/routes";
+import useNav from "@/hooks/useNav";
 /**
  * 리뷰작성페이지
  * 기본적으로 앞선 상세페이지에서 넘어오는 축제 상세정보를 기반으로 리뷰를 작성하도록 구현하였습니다.
@@ -20,7 +22,7 @@ const ReviewPage = () => {
     const { festivalId } = useParams();
     const {userInfo} = useAuth();
     const {festivalInfo} = useLocation().state || {};
-    const navigate = useNavigate();
+    const {goBack,goTo} = useNav();
     // festivalId가 없으면 에러 처리
     if (!festivalId) {
       return (
@@ -32,7 +34,7 @@ const ReviewPage = () => {
               <p className="mb-4">올바른 축제 ID가 필요합니다.</p>
               <Button 
                 variant="primary" 
-                onClick={() => navigate('/')}
+                onClick={() => goTo(generatePath(ROUTE_PATH.HOME))}
               >
                 홈으로 돌아가기
               </Button>
@@ -76,7 +78,7 @@ const ReviewPage = () => {
               <p className="mb-4">요청하신 축제를 찾을 수 없습니다.</p>
               <Button 
                 variant="primary" 
-                onClick={() => window.history.back()}
+                onClick={() => goBack()}
               >
                 이전 페이지로 돌아가기
               </Button>
@@ -97,7 +99,7 @@ const ReviewPage = () => {
               <p className="mb-4">축제 상세페이지에서 접근해주세요.</p>
               <Button 
                 variant="primary" 
-                onClick={() => window.history.back()}
+                onClick={() => goBack()}
               >
                 이전 페이지로 돌아가기
               </Button>
