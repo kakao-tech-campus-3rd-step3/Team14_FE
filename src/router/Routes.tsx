@@ -9,6 +9,7 @@ import FestivalsPage from '@/pages/Festivals/FestivalsPage';
 import FestivalInfoPage from '@/pages/FestivalInfo/FestivalInfoPage';
 import ProtectedRoute from './ProtectedRoute';
 import SearchPage from '@/pages/Search/SearchPage';
+import ReviewPage from '@/pages/Review/ReviewPage';
 /**
  * 라우터 컴포넌트
  * 로그인 필요 여부에 따라 ProtectedRoute 컴포넌트로 감싸져 있음
@@ -33,6 +34,14 @@ const Routes = () => {
         element={
           <ProtectedRoute>
             <PickPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={ROUTE_PATH.REVIEW}
+        element={
+          <ProtectedRoute>
+            <ReviewPage />
           </ProtectedRoute>
         }
       />

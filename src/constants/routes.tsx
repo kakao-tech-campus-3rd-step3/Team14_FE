@@ -6,7 +6,7 @@ export const ROUTE_PATH = {
   PICK: '/pick/:areaId',
   FESTIVALS: '/festivals/:areaId',
   FESTIVAL_INFO: '/festival/:festivalId',
-
+  REVIEW: '/review/:festivalId',
   LOGIN_CHECK: '/login/check',
 
   SEARCH: '/search', // 검색 추가 예정

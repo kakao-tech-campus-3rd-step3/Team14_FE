@@ -1116,7 +1116,7 @@ exports[`FestivalInfoPage 테스트 > 스냅샷 테스트 > 로딩 완료 스냅
         <a
           class="flex-1 flex items-center justify-center h-full"
           data-discover="true"
-          href="/festival/1"
+          href="/review/1"
         >
           <button
             class="flex items-center justify-center w-full cursor-pointer bg-primary-50 text-primary-300 text-sm rounded-lg px-4 py-2 h-full "
