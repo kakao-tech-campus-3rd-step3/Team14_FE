@@ -1,0 +1,112 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`FestivalInfoPage 테스트 > 스냅샷 테스트 > 로딩 상태 스냅샷 1`] = `
+<div
+  class="flex flex-col items-center justify-center min-h-screen"
+>
+  <div
+    class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-300"
+  />
+  <p
+    class="mt-4 text-lg text-gray-600"
+  >
+    축제 정보를 불러오는 중
+  </p>
+</div>
+`;
+
+exports[`FestivalPoster 컴포넌트 > 스냅샷 테스트 > 네비게이션 버튼 스냅샷 > next-button 1`] = `
+<button
+  aria-label="다음 이미지"
+  class="absolute top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hidden md:flex right-4"
+>
+  <svg
+    class="stroke-white"
+    fill="none"
+    height="28"
+    stroke="black"
+    stroke-width="3"
+    viewBox="0 0 24 24"
+    width="28"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M8 4 L16 12 L8 20"
+    />
+  </svg>
+</button>
+`;
+
+exports[`FestivalPoster 컴포넌트 > 스냅샷 테스트 > 네비게이션 버튼 스냅샷 > prev-button 1`] = `
+<button
+  aria-label="이전 이미지"
+  class="absolute top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hidden md:flex left-4"
+>
+  <svg
+    class="stroke-white"
+    fill="none"
+    height="28"
+    stroke="black"
+    stroke-width="3"
+    viewBox="0 0 24 24"
+    width="28"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M16 4 L8 12 L16 20"
+    />
+  </svg>
+</button>
+`;
+
+exports[`FestivalPoster 컴포넌트 > 스냅샷 테스트 > 메인 포스터 이미지 스냅샷 > main-poster-image 1`] = `
+<img
+  alt="가평 양떼목장 수국축제 - 1"
+  class="w-full h-full object-contain select-none bg-gray-50"
+  draggable="false"
+  src="http://tong.visitkorea.or.kr/cms/resource/88/3503888_image2_1.png"
+/>
+`;
+
+exports[`FestivalPoster 컴포넌트 > 스냅샷 테스트 > 인디케이터 영역 스냅샷 > indicator-container 1`] = `null`;
+
+exports[`리뷰 섹션 컴포넌트 > 기본 렌더링 > 리뷰 섹션 스냅샷 > review-section 1`] = `null`;
+
+exports[`리뷰 섹션 컴포넌트 > 기본 렌더링 > 첫 번째 리뷰 카드 구성 요소별 스냅샷 > first-review-content 1`] = `
+<p
+  class="text-sm text-gray-700"
+>
+  꽃이 예뻐요.
+</p>
+`;
+
+exports[`리뷰 섹션 컴포넌트 > 기본 렌더링 > 첫 번째 리뷰 카드 구성 요소별 스냅샷 > first-review-first-image 1`] = `
+<img
+  alt="리뷰 이미지"
+  class="w-full h-full object-cover cursor-pointer transition-transform"
+  src="http://tong.visitkorea.or.kr/cms/resource/82/3503882_image2_1.jpg"
+/>
+`;
+
+exports[`리뷰 섹션 컴포넌트 > 기본 렌더링 > 첫 번째 리뷰 카드 구성 요소별 스냅샷 > first-review-reviewer-name 1`] = `
+<p
+  class="font-medium text-gray-900"
+>
+  홍길동
+</p>
+`;
+
+exports[`리뷰 섹션 컴포넌트 > 기본 렌더링 > 첫 번째 리뷰 카드 구성 요소별 스냅샷 > first-review-star-rating 1`] = `
+<svg
+  class="w-4 h-4 text-gray-300"
+  fill="currentColor"
+  stroke="none"
+  stroke-width="0"
+  viewBox="0 0 20 20"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+  />
+</svg>
+`;
