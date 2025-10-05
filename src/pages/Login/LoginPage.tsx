@@ -22,7 +22,6 @@ const LoginPage = () => {
   const location = useLocation();
 
   useEffect(() => {
-    console.log(isInitialized, isLoggedIn, location.search);
     if (isInitialized && isLoggedIn) {
       const params = new URLSearchParams(location.search);
       const cont = safePath(params.get('continue'));

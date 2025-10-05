@@ -6,12 +6,13 @@ import { apiBaseUrl } from '@/apis/apiInstance';
 const LoginContent = () => {
   /**
    * 구글 OAuth 로그인 페이지로 리다이렉트
+   * 리다이렉트하는 의도를 명확히 하기 위해 assign 메서드로 수정하였습니다.
    * @returns 구글 OAuth 로그인 페이지로 리다이렉트
    */
   const handleGoogleLogin = () => {
     const loginUrl = `${apiBaseUrl}${API_ENDPOINTS.GOOGLE_LOGIN}`;
 
-    window.location.href = loginUrl;
+    window.location.assign(loginUrl);
   };
   /**
    * 카카오 OAuth 로그인 페이지로 리다이렉트
@@ -21,7 +22,7 @@ const LoginContent = () => {
     const timestamp = Date.now();
     const loginUrl = `${apiBaseUrl}${API_ENDPOINTS.KAKAO_LOGIN}?t=${timestamp}`;
 
-    window.location.href = loginUrl;
+    window.location.assign(loginUrl);
   };
 
   return (
