@@ -1,3 +1,4 @@
+import MAX_MEDIA_SIZE from '@/constants/maxMediaSize';
 import { uploadImageFiles, uploadVideoFile } from './getPresigned';
 
 export interface FileUploadOptions<T> {
@@ -19,10 +20,27 @@ export const createFilePicker = <T>(options: FileUploadOptions<T>) => {
 
       if (multiple) {
         const fileArray = Array.from(files);
+
+        const invalids = fileArray.filter((f) => !f.type.startsWith('image/') || f.size > MAX_MEDIA_SIZE.IMAGE,
+      );
+      if (invalids.length) {
+        onError?.(
+          `이미지는 파일당 최대 10MB만 허용됩니다. 문제 파일: ${invalids
+            .map((f) => f.name)
+            .join(', ')}`,
+        );
+        onUploadingChange?.(false);
+        return;
+      }
         const uploaded = await uploadImageFiles(fileArray);
-        onUpload(uploaded as T);
+        onUpload(uploaded as T);``
       } else {
         const file = files[0];
+        if (file.size > MAX_MEDIA_SIZE.VIDEO) {
+          onError?.(`동영상은 최대 250MB만 허용됩니다.`);
+          onUploadingChange?.(false);
+          return;
+        }
         const uploaded = await uploadVideoFile(file);
         onUpload(uploaded as T);
       }
