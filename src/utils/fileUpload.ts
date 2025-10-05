@@ -31,6 +31,8 @@ export const createFilePicker = <T>(options: FileUploadOptions<T>) => {
         ? '이미지 업로드에 실패했습니다.'
         : '동영상 업로드에 실패했습니다.';
       onError?.(errorMessage);
+      // eslint로 error를 throw하였습니다. 추후에 변경하시면 됩니다!
+      throw error;
     } finally {
       onUploadingChange?.(false);
     }

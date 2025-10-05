@@ -17,7 +17,11 @@ async function ensureToken() {
   if (getCurrentToken()) return;
   try {
     await jwtExchange();
-  } catch {}
+  } catch (error) {
+    // 이 부분은 추후에 토스트 메시지로 변경할 예정입니다.
+    alert('로그인이 필요합니다.');
+    throw error;
+  }
 }
 const ReviewForm = ({ festivalId, score }: ReviewFormProps) => {
   const {

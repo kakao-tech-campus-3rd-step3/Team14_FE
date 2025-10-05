@@ -4,9 +4,6 @@ import Container from '@/components/common/Container';
 describe('Container 컴포넌트', () => {
   describe('스냅샷 테스트', () => {
     test('Container가 렌더링된다', () => {
-      // Given: Container 컴포넌트가 주어졌을 때
-      // When: Container 컴포넌트를 렌더링하면
-      // Then: Container가 렌더링된다
       const { container } = render(<Container>테스트</Container>);
       expect(container).toMatchSnapshot();
     });

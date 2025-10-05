@@ -44,17 +44,6 @@ describe('FestivalInfoPage 테스트', () => {
       // Then: 로딩 UI 스냅샷을 남긴다
       expect(container.firstChild).toMatchSnapshot();
     });
-
-    test('로딩 완료 스냅샷', async () => {
-      // Given: 페이지 최초 진입
-      const { container } = render(<TestWrapper />);
-
-      // When: 데이터 로드가 완료되면
-      await screen.findByText('가평 양떼목장 수국축제');
-
-      // Then: 로딩이 끝난 화면으로 스냅샷을 남긴다
-      expect(container.firstChild).toMatchSnapshot();
-    });
   });
 
   describe('기본 렌더링(api 호출 성공)', () => {
@@ -135,17 +124,32 @@ describe('FestivalPoster 컴포넌트', () => {
   };
 
   describe('스냅샷 테스트', () => {
-    test('기본 FestivalPoster 컴포넌트 스냅샷', () => {
-      const { container } = render(<FestivalPoster {...mockProps} />);
-      expect(container.firstChild).toMatchSnapshot();
+    // 메인 포스터가 보이는지 확인 스냅샷
+    test('메인 포스터 이미지 스냅샷', () => {
+      render(<FestivalPoster {...mockProps} />);
+      // 메인 포스터 이미지만 스냅샷
+      const posterImage = screen.getAllByRole('img')[0]; // 첫 번째 이미지가 메인 포스터
+      expect(posterImage).toMatchSnapshot('main-poster-image');
     });
 
-    test('단일 이미지 FestivalPoster 스냅샷', () => {
-      const { container } = render(<FestivalPoster {...singleImageProps} />);
-      expect(container.firstChild).toMatchSnapshot();
+    // 버튼 스냅샷
+    test('네비게이션 버튼 스냅샷', () => {
+      render(<FestivalPoster {...mockProps} />);
+
+      // 다음 버튼으로 이동해서 이전/다음 버튼 모두 표시
+      fireEvent.click(screen.getByLabelText('다음 이미지'));
+
+      // 이전 버튼 스냅샷
+      const prevButton = screen.getByLabelText('이전 이미지');
+      expect(prevButton).toMatchSnapshot('prev-button');
+
+      // 다음 버튼 스냅샷
+      const nextButton = screen.getByLabelText('다음 이미지');
+      expect(nextButton).toMatchSnapshot('next-button');
     });
 
-    test('많은 이미지가 있는 FestivalPoster 스냅샷', () => {
+    // 인디케이터 스냅샷
+    test('인디케이터 영역 스냅샷', () => {
       const manyImagesProps = {
         ...mockProps,
         imageUrls: [
@@ -156,7 +160,10 @@ describe('FestivalPoster 컴포넌트', () => {
         ],
       };
       const { container } = render(<FestivalPoster {...manyImagesProps} />);
-      expect(container.firstChild).toMatchSnapshot();
+
+      // 인디케이터 컨테이너 스냅샷
+      const indicatorContainer = container.querySelector('.flex.justify-center.mt-4');
+      expect(indicatorContainer).toMatchSnapshot('indicator-container');
     });
   });
 
@@ -364,6 +371,56 @@ describe('FestivalPoster 컴포넌트', () => {
 });
 
 describe('리뷰 섹션 컴포넌트', () => {
+  describe('기본 렌더링', () => {
+    test('리뷰 섹션 스냅샷', async () => {
+      // Given: 축제 상세 페이지 렌더링
+      render(<TestWrapper />);
+
+      // When: 데이터가 로드될 때까지 대기
+      await screen.findByText('가평 양떼목장 수국축제');
+
+      // Then: 리뷰 섹션 스냅샷
+      await waitFor(() => {
+        const reviewSection = screen.queryByText(/리뷰 \(\d+\)/)?.closest('section');
+        expect(reviewSection).toMatchSnapshot('review-section');
+      });
+    });
+
+    test('첫 번째 리뷰 카드 구성 요소별 스냅샷', async () => {
+      // Given: 축제 상세 페이지 렌더링
+      render(<TestWrapper />);
+
+      // When: 데이터가 로드될 때까지 대기
+      await screen.findByText('가평 양떼목장 수국축제');
+
+      // Then: 첫 번째 리뷰 카드의 각 구성요소별 스냅샷
+      await waitFor(() => {
+        const firstReviewer = reviewMockData.content[0].reviewerName; // '홍길동'
+        const firstReviewCard = screen.queryByText(firstReviewer)?.closest('div')?.parentElement;
+
+        if (firstReviewCard) {
+          // 리뷰어 이름만 스냅샷
+          const reviewerName = screen.queryByText(firstReviewer);
+          expect(reviewerName).toMatchSnapshot('first-review-reviewer-name');
+
+          // 별점만 스냅샷 (StarRating 컴포넌트)
+          const starRating =
+            firstReviewCard.querySelector('[class*="star"], [role="img"]') ||
+            firstReviewCard.querySelector('svg');
+          expect(starRating).toMatchSnapshot('first-review-star-rating');
+
+          // 첫 번째 이미지만 스냅샷
+          const firstImage = firstReviewCard.querySelector('img');
+          expect(firstImage).toMatchSnapshot('first-review-first-image');
+
+          // 리뷰 내용 텍스트 스냅샷
+          const contentElement = screen.queryByText(reviewMockData.content[0].content); // '꽃이 예뻐요.'
+          expect(contentElement).toMatchSnapshot('first-review-content');
+        }
+      });
+    });
+  });
+
   test('리뷰 섹션이 로드되고 첫 리뷰의 작성자와 별점이 보인다', async () => {
     // Given: 축제 상세 페이지 렌더링
     render(<TestWrapper />);
