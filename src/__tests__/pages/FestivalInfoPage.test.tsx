@@ -1,3 +1,28 @@
+// 모듈 목킹은 import 이전에 선언 (hoisted)
+vi.mock('react-router-dom', async () => {
+  const actual = await vi.importActual<typeof import('react-router-dom')>('react-router-dom');
+  return {
+    ...actual,
+    useParams: vi.fn(() => ({ festivalId: '225' })),
+  };
+});
+
+vi.mock('@/apis/festivals/getFestivalInfo', async () => {
+  const { festivalInfoMockData } = await import('@/mocks/data/festivalInfo.mock');
+  return {
+    __esModule: true,
+    default: vi.fn().mockResolvedValue({ data: festivalInfoMockData }),
+  };
+});
+
+vi.mock('@/apis/review/getReview', async () => {
+  const { reviewMockData } = await import('@/mocks/data/review.mock');
+  return {
+    __esModule: true,
+    default: vi.fn().mockResolvedValue({ data: reviewMockData }),
+  };
+});
+
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import FestivalInfoPage from '@/pages/FestivalInfo/FestivalInfoPage';
@@ -16,7 +41,7 @@ const createTestClient = () =>
   });
 
 const TestWrapper = ({
-  initialEntries = [ROUTE_PATH.FESTIVAL_INFO.replace(':festivalId', '1')],
+  initialEntries = [ROUTE_PATH.FESTIVAL_INFO.replace(':festivalId', '225')],
 }: {
   initialEntries?: string[];
 }) => {
