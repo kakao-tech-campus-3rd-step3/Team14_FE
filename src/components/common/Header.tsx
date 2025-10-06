@@ -4,7 +4,8 @@ import LeftArrow from '@/components/icon/LeftArrowIcon';
 import Profile from '@/components/icon/ProfileIcon';
 import Logo from '../icon/LogoIcon';
 import useNav from '@/hooks/useNav';
-
+import { ROUTE_PATH } from '@/constants/routes';
+import { useNavigate } from 'react-router-dom';
 interface HeaderProps {
   variant?: 'logo' | 'page' | 'all';
   title?: string;
@@ -25,7 +26,7 @@ const Header = ({ variant = 'logo', title = '' }: HeaderProps) => {
     'w-full max-w-[480px] h-12 border-b border-gray-300 flex items-center bg-white';
 
   const { goBack } = useNav();
-
+  const navigate = useNavigate();
   if (variant === 'logo') {
     return (
       <div className={containerClasses}>
@@ -50,10 +51,23 @@ const Header = ({ variant = 'logo', title = '' }: HeaderProps) => {
         </div>
         <div className="flex-1 flex justify-end">
           {variant === 'all' ? (
-            <Button variant="icon">
-              <Home className="size-8" />
-              <Profile className="size-8" />
-            </Button>
+            <div className="flex-1 flex justify-end items-center ">
+              <Button
+                variant="icon"
+                className="h-8 w-8 !p-0 rounded-lg flex items-center justify-center"
+                onClick={() => navigate(ROUTE_PATH.HOME)}
+              >
+                <Home className="size-8" />
+              </Button>
+
+              <Button
+                variant="icon"
+                className="h-8 w-8 !p-0 rounded-lg flex items-center justify-center mr-5"
+                onClick={() => navigate(ROUTE_PATH.MY)}
+              >
+                <Profile className="size-8" />
+              </Button>
+            </div>
           ) : null}
         </div>
       </div>

@@ -17,7 +17,7 @@ const PickPage = () => {
     if (!step || !isValidStep) {
       const newParams = new URLSearchParams(searchParams);
       newParams.set('step', 'style');
-      setSearchParams(newParams);
+      setSearchParams(newParams, { replace: true });
     }
   }, [step, searchParams, isValidStep, setSearchParams]);
 
