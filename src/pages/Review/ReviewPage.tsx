@@ -113,7 +113,7 @@ const ReviewPage = () => {
 
         <ReviewForm
           festivalId={festivalId || ''}
-          userInfo={userInfo || { email: '', username: '', profileImageUrl: '' }}
+          userInfo={userInfo || { email: '', username: '', profileImageUrl: '', userId: 0 }}
           score={score}
         />
       </div>

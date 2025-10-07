@@ -3,5 +3,6 @@ export interface UserInfoResponse {
     email: string;
     username: string;
     profileImageUrl: string;
+    userId: number;
   };
 }

@@ -43,29 +43,29 @@ const Header = ({ variant = 'logo', title = '' }: HeaderProps) => {
       <div className={`${baseClasses} justify-between`}>
         <div className="flex-1 flex justify-start">
           <Button variant="icon" onClick={goBack}>
-            <LeftArrow className="size-8" />
+            <LeftArrow className="size-6" />
           </Button>
         </div>
-        <div className="flex-1 flex justify-center">
-          <h1 className="text-xl font-bold">{title}</h1>
+        <div className="flex-2 flex justify-center">
+          <h1 className="text-md font-bold text-center">{title}</h1>
         </div>
         <div className="flex-1 flex justify-end">
           {variant === 'all' ? (
             <div className="flex-1 flex justify-end items-center ">
               <Button
                 variant="icon"
-                className="h-8 w-8 !p-0 rounded-lg flex items-center justify-center"
+                className="h-6 w-6 !p-0 rounded-lg flex items-center justify-center"
                 onClick={() => navigate(ROUTE_PATH.HOME)}
               >
-                <Home className="size-8" />
+                <Home className="size-6" />
               </Button>
 
               <Button
                 variant="icon"
-                className="h-8 w-8 !p-0 rounded-lg flex items-center justify-center mr-5"
+                className="h-6 w-6 !p-0 rounded-lg flex items-center justify-center mr-5"
                 onClick={() => navigate(ROUTE_PATH.MY)}
               >
-                <Profile className="size-8" />
+                <Profile className="size-6" />
               </Button>
             </div>
           ) : null}

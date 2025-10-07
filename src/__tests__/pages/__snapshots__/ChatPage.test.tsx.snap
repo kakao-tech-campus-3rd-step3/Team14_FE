@@ -1,0 +1,75 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ChatPage > 스냅샷 - 상대 메시지 컴포넌트 > chat-message-item-other 1`] = `
+<div
+  class="flex w-full items-start gap-2"
+>
+  <div
+    class="size-9 shrink-0"
+  >
+    <img
+      alt="Other"
+      class="h-full w-full rounded-full object-cover"
+      src="/other.png"
+    />
+  </div>
+  <div
+    class="flex min-w-0 flex-col gap-1"
+  >
+    <div
+      class="text-sm font-semibold text-gray-900"
+    >
+      Other
+    </div>
+    <div
+      class="inline-block max-w-[80vw] rounded-lg px-3 py-2 text-sm whitespace-pre-wrap break-words bg-gray-100 text-gray-900"
+    >
+      상대 메시지 내용
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ChatPage > 스냅샷 - 자신 메시지 컴포넌트 > chat-message-item-self 1`] = `
+<div
+  class="flex w-full items-start gap-2 justify-end"
+>
+  <div
+    class="flex min-w-0 flex-col gap-1"
+  >
+    <div
+      class="inline-block max-w-[80vw] rounded-lg px-3 py-2 text-sm whitespace-pre-wrap break-words bg-primary-100 text-gray-900"
+    >
+      내 메시지 내용
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ChatPage > 스냅샷 - 전송 컴포넌트 > chat-send-section 1`] = `
+<div
+  class="pt-1 bg-white w-full"
+>
+  <div
+    class="flex w-full items-center justify-between rounded-2xl border border-gray-300 pl-4 pr-1 py-1"
+  >
+    <textarea
+      class="w-full py-2 bg-transparent text-sm outline-none placeholder:text-gray-400 resize-none overflow-hidden whitespace-pre-wrap leading-5"
+      placeholder="메시지 입력..."
+      rows="1"
+      style="height: 0px;"
+    />
+    <button
+      aria-label="image"
+      class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-900 text-sm rounded-lg px-4 py-2 shrink-0 rounded-full text-sm "
+      type="button"
+    >
+      <img
+        alt="image"
+        class="size-5"
+        src="/image.svg"
+      />
+    </button>
+  </div>
+</div>
+`;
