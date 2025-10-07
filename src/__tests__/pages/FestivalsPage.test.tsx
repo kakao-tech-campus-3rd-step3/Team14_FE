@@ -158,7 +158,7 @@ describe('축제 목록 섹션', () => {
   });
 });
 
-test('로딩 상태가 올바르게 표시된다', () => {
+test('로딩 상태가 올바르게 표시된다', async () => {
   // Given: API 호출이 진행 중일 때
   // When: FestivalsPage를 렌더링하면
   render(
@@ -170,10 +170,16 @@ test('로딩 상태가 올바르게 표시된다', () => {
   // Then: 스켈레톤 UI가 표시되어야 한다
   const skeletons = document.querySelectorAll('.animate-pulse');
   expect(skeletons.length).toBeGreaterThan(0);
+
+  await waitFor(() => {
+    expect(document.querySelectorAll('.animate-pulse').length).toBe(0);
+  });
 });
 
 test('API 에러 상태가 올바르게 처리된다 (ErrorBoundary가 null을 렌더링)', async () => {
   // Given: API 호출이 실패할 때
+  const getFestivalsMock = await import('@/apis/festivals/getFestivals');
+  vi.mocked(getFestivalsMock.default).mockRejectedValueOnce(new Error('API Error'));
   // When: FestivalsPage를 렌더링하면
   render(
     <TestWrapper>
