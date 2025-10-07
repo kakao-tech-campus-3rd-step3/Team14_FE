@@ -1,6 +1,8 @@
-import ChatMessageItem from '@/pages/Chat/components/ChatMessageItem';
+import ChatMessageItemOther from '@/pages/Chat/components/ChatMessageItemOther';
+import ChatMessageItemSelf from '@/pages/Chat/components/ChatMessageItemSelf';
 import type { MessageResponse } from '@/hooks/useChatRoom';
 import { useEffect, useRef } from 'react';
+import { useAuth } from '@/context/AuthContext';
 
 interface ChatMessageSectionProps {
   messages: MessageResponse[];
@@ -9,6 +11,8 @@ interface ChatMessageSectionProps {
 const ChatMessageSection = ({ messages }: ChatMessageSectionProps) => {
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const didInitRef = useRef<boolean>(false);
+
+  const { userInfo } = useAuth();
 
   useEffect(() => {
     if (!bottomRef.current) return;
@@ -20,9 +24,14 @@ const ChatMessageSection = ({ messages }: ChatMessageSectionProps) => {
 
   return (
     <div className="flex flex-col gap-3 overflow-y-auto pr-1 flex-1">
-      {messages.map((message) => (
-        <ChatMessageItem key={message.id} message={message} />
-      ))}
+      {messages.map((message) => {
+        const isSelf = userInfo?.userId === Number(message.userId);
+        return isSelf ? (
+          <ChatMessageItemSelf key={message.id} message={message} />
+        ) : (
+          <ChatMessageItemOther key={message.id} message={message} />
+        );
+      })}
       <div ref={bottomRef} />
     </div>
   );

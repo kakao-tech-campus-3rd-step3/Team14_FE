@@ -94,10 +94,13 @@ const useChatRoom = () => {
       onConnect: () => {
         // 채팅 토픽 구독
         const callback = (message: Message) => {
-          if (message.body) {
-            const newMessage: MessageResponse = JSON.parse(message.body);
-            setMessages((prevMessages) => [...prevMessages, newMessage]);
-          }
+          if (!message.body) return;
+          const newMessage: MessageResponse = JSON.parse(message.body);
+          setMessages((prevMessages) => {
+            // 동일 message ID가 이미 있으면 중복 추가 방지
+            if (prevMessages.some((m) => m.id === newMessage.id)) return prevMessages;
+            return [...prevMessages, newMessage];
+          });
         };
 
         subscriptionRef.current = stompClient.subscribe(subscribeTopic(chatRoom.roomId), callback);
