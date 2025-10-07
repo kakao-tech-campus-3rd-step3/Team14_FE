@@ -25,7 +25,12 @@ const ChatPage = () => {
 
   return (
     <Container>
-      <Header variant="page" title={chatRoom.roomName} />
+      <Header
+        variant="page"
+        title={
+          chatRoom.roomName.length > 16 ? `${chatRoom.roomName.slice(0, 16)}...` : chatRoom.roomName
+        }
+      />
       <div className="flex flex-col px-4 py-2 gap-1 h-[calc(100dvh-110px)]">
         <ChatMessageSection messages={messages} />
         <ChatSendSection
