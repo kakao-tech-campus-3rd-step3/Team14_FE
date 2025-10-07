@@ -21,7 +21,7 @@ const EMPTY_MESSAGE: MessageResponse = {
   userId: 0,
   senderName: 'Pick',
   profileImgUrl: '/logo.svg',
-  content: '처음 채팅방에 오신 것을 환영합니다! 🎉\n하단의 입력창을 통해 채팅을 시작해보세요.',
+  content: '채팅방에 처음 오신 것을 환영합니다! 🎉\n하단의 입력창을 통해 채팅을 시작해보세요.',
   imageUrl: '',
 };
 export interface MessageRequest {
@@ -65,12 +65,10 @@ const useChatRoom = () => {
     select: (data) => data.data.content,
   });
 
-  if (previousMessages.length === 0) {
-    previousMessages.push(EMPTY_MESSAGE);
-  }
+  const initialMessages = previousMessages.length > 0 ? previousMessages : [EMPTY_MESSAGE];
 
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState<MessageResponse[]>(previousMessages || []);
+  const [messages, setMessages] = useState<MessageResponse[]>(initialMessages);
   const stompClientRef = useRef<Client | null>(null);
   const subscriptionRef = useRef<StompSubscription | null>(null);
 

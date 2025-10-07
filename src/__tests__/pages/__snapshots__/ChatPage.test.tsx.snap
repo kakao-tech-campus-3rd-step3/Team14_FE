@@ -38,7 +38,7 @@ exports[`ChatPage > 스냅샷 - 자신 메시지 컴포넌트 > chat-message-ite
     class="flex min-w-0 flex-col gap-1"
   >
     <div
-      class="inline-block max-w-[80vw] rounded-lg px-3 py-2 text-sm whitespace-pre-wrap break-words bg-primary-100 text-gra-900"
+      class="inline-block max-w-[80vw] rounded-lg px-3 py-2 text-sm whitespace-pre-wrap break-words bg-primary-100 text-gray-900"
     >
       내 메시지 내용
     </div>
