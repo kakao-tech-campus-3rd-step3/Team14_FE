@@ -16,6 +16,14 @@ const STOMP_HEARTBEAT_INCOMING_MS = 1000 * 4;
 // 하트비트 송신 딜레이(송신이 없을 때 연결 이상으로 판단)
 const STOMP_HEARTBEAT_OUTGOING_MS = 1000 * 4;
 
+const EMPTY_MESSAGE: MessageResponse = {
+  id: 0,
+  userId: 0,
+  senderName: 'Pick',
+  profileImgUrl: '/logo.svg',
+  content: '처음 채팅방에 오신 것을 환영합니다! 🎉\n하단의 입력창을 통해 채팅을 시작해보세요.',
+  imageUrl: '',
+};
 export interface MessageRequest {
   content: string;
   imageInfo?: {
@@ -56,6 +64,10 @@ const useChatRoom = () => {
     queryFn: () => getChatRoomMessage({ chatRoomId: chatRoom.roomId.toString() }),
     select: (data) => data.data.content,
   });
+
+  if (previousMessages.length === 0) {
+    previousMessages.push(EMPTY_MESSAGE);
+  }
 
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState<MessageResponse[]>(previousMessages || []);
