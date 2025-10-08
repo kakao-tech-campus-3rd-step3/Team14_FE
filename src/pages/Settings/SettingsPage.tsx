@@ -6,7 +6,7 @@ import SettingsContent from './components/SettingsContent';
 const SettingsPage = () => {
   return (
     <Container>
-      <Header variant="page" title='설정'/>
+      <Header variant="page" title="설정" />
       <div className="flex flex-col items-center px-8 py-4 gap-12">
         <SettingsContent />
       </div>

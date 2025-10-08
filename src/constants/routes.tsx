@@ -10,10 +10,8 @@ export const ROUTE_PATH = {
   CHAT: '/chat/:festivalId',
   LOGIN_CHECK: '/login/check',
   SETTINGS: '/settings',
-  MY_FESTIVALS: '/settings/my-festivals',
-  FESTIVAL_MANAGER: '/settings/festival-manager',
-  FESTIVAL_ADMIN: '/settings/festival-admin',
+  //세팅 페이지 내 마이리뷰 보기 기능 추가 - 중첩라우팅으로 변경 여지 있음
   MY_REVIEWS: '/settings/my-reviews',
-  PROFILE_IMAGE: '/settings/profile-image',
+
   SEARCH: '/search', // 검색 추가 예정
 } as const;

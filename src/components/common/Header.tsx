@@ -5,7 +5,7 @@ import Profile from '@/components/icon/ProfileIcon';
 import Logo from '../icon/LogoIcon';
 import useNav from '@/hooks/useNav';
 import { ROUTE_PATH } from '@/constants/routes';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Settings from '@/components/icon/SettingIcon';
 
 interface HeaderProps {
@@ -53,13 +53,14 @@ const Header = ({ variant = 'logo', title = '' }: HeaderProps) => {
             <h1 className="text-md font-bold text-center">{'마이페이지'}</h1>
           </div>
           <div className="flex-1 flex justify-end">
-            <Button
-              variant="icon"
-              className="h-6 w-6 !p-0 rounded-lg flex items-center justify-center mr-5"
-              onClick={() => navigate(ROUTE_PATH.SETTINGS)} 
-            >
-              <Settings className="size-6" />
-            </Button>
+            <Link to={ROUTE_PATH.SETTINGS}>
+              <Button
+                variant="icon"
+                className="h-6 w-6 !p-0 rounded-lg flex items-center justify-center mr-5"
+              >
+                <Settings className="size-6" />
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
