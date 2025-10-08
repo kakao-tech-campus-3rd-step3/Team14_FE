@@ -11,6 +11,8 @@ import ProtectedRoute from './ProtectedRoute';
 import SearchPage from '@/pages/Search/SearchPage';
 import ReviewPage from '@/pages/Review/ReviewPage';
 import ChatPage from '@/pages/Chat/ChatPage';
+import SettingsPage from '@/pages/Settings/SettingsPage';
+
 /**
  * 라우터 컴포넌트
  * 로그인 필요 여부에 따라 ProtectedRoute 컴포넌트로 감싸져 있음
@@ -51,6 +53,14 @@ const Routes = () => {
         element={
           <ProtectedRoute>
             <ChatPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={ROUTE_PATH.SETTINGS}
+        element={
+          <ProtectedRoute>
+            <SettingsPage />
           </ProtectedRoute>
         }
       />
