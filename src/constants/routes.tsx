@@ -9,6 +9,6 @@ export const ROUTE_PATH = {
   REVIEW: '/review/:festivalId',
   CHAT: '/chat/:festivalId',
   LOGIN_CHECK: '/login/check',
-
+  SETTINGS: '/settings',
   SEARCH: '/search', // 검색 추가 예정
 } as const;

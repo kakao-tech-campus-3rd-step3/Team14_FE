@@ -56,7 +56,7 @@ const Header = ({ variant = 'logo', title = '' }: HeaderProps) => {
             <Button
               variant="icon"
               className="h-6 w-6 !p-0 rounded-lg flex items-center justify-center mr-5"
-              onClick={() => navigate('/settings')} 
+              onClick={() => navigate(ROUTE_PATH.SETTINGS)} 
             >
               <Settings className="size-6" />
             </Button>
