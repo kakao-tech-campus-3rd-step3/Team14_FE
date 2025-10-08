@@ -8,7 +8,7 @@ import API_ENDPOINTS from '@/constants/apiEndpoints';
  */
 export const deleteReview = async (reviewId: number) => {
   const response = await apiInstance.delete(
-    API_ENDPOINTS.REVIEW_DELETE.replace(':reviewId', reviewId.toString())
+    API_ENDPOINTS.REVIEW_DELETE.replace(':reviewId', reviewId.toString()),
   );
   return response.data;
 };
