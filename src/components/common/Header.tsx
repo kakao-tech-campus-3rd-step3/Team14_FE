@@ -5,9 +5,11 @@ import Profile from '@/components/icon/ProfileIcon';
 import Logo from '../icon/LogoIcon';
 import useNav from '@/hooks/useNav';
 import { ROUTE_PATH } from '@/constants/routes';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Settings from '@/components/icon/SettingIcon';
+
 interface HeaderProps {
-  variant?: 'logo' | 'page' | 'all';
+  variant?: 'logo' | 'page' | 'all' | 'mypage';
   title?: string;
 }
 
@@ -17,6 +19,7 @@ interface HeaderProps {
  *   - logo: 로고와 앱 이름을 표시하는 메인 헤더
  *   - page: 뒤로가기 버튼과 페이지 제목을 표시하는 서브 헤더
  *   - all: 뒤로가기, 제목, 홈/프로필 버튼을 모두 표시
+ *   - mypage: 뒤로가기, 제목, 설정 버튼을 표시
  * @param title - 페이지 제목 (variant가 'page' 또는 'all'일 때 사용)
  */
 const Header = ({ variant = 'logo', title = '' }: HeaderProps) => {
@@ -37,7 +40,32 @@ const Header = ({ variant = 'logo', title = '' }: HeaderProps) => {
       </div>
     );
   }
-
+  if (variant === 'mypage') {
+    return (
+      <div className={containerClasses}>
+        <div className={`${baseClasses} justify-between`}>
+          <div className="flex-1 flex justify-start">
+            <Button variant="icon" onClick={goBack}>
+              <LeftArrow className="size-6" />
+            </Button>
+          </div>
+          <div className="flex-2 flex justify-center">
+            <h1 className="text-md font-bold text-center">{'마이페이지'}</h1>
+          </div>
+          <div className="flex-1 flex justify-end">
+            <Link to={ROUTE_PATH.SETTINGS}>
+              <Button
+                variant="icon"
+                className="h-6 w-6 !p-0 rounded-lg flex items-center justify-center mr-5"
+              >
+                <Settings className="size-6" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className={containerClasses}>
       <div className={`${baseClasses} justify-between`}>

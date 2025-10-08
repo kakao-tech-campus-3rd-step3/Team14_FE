@@ -16,6 +16,12 @@ const API_ENDPOINTS = {
   USER_INFO: '/api/users/my',
   // 로그아웃
   LOGOUT: '/api/users/logout',
+  // 내가 작성한 리뷰
+  MY_REVIEWS: '/api/reviews/my',
+  // 리뷰 삭제
+  REVIEW_DELETE: '/api/reviews/:reviewId',
+  // 리뷰 수정
+  REVIEW_UPDATE: '/api/reviews/:reviewId',
 } as const;
 
 export default API_ENDPOINTS;
