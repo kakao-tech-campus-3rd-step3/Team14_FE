@@ -7,7 +7,7 @@ const MyReviewsPage = () => {
   return (
     <Container>
       <Header variant="page" title="내가 작성한 리뷰" />
-        <MyReviewsContent />
+      <MyReviewsContent />
       <Footer initialSelected="my" />
     </Container>
   );

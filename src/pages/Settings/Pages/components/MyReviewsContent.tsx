@@ -24,7 +24,7 @@ const MyReviewsContent = () => {
     setViewer({ type: 'image', srcList, index });
   const openVideo = (src: string) => setViewer({ type: 'video', src });
   const closeViewer = () => setViewer(null);
-  
+
   const handleDeleteReview = async (reviewId: number) => {
     if (!confirm('정말로 이 리뷰를 삭제하시겠습니까?')) return;
 
