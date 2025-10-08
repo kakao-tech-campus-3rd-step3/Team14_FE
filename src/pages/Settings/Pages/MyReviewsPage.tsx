@@ -7,6 +7,7 @@ import Footer from '@/components/common/Footer';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorComponent from '@/components/common/ErrorComponent';
 import LeftArrow from '@/components/icon/LeftArrowIcon';
+import { deleteReview } from '@/apis/review/deleteReview';
 
 type Viewer =
   | { type: 'image'; srcList: string[]; index: number }
@@ -26,7 +27,19 @@ const MyReviewsPage = () => {
     setViewer({ type: 'image', srcList, index });
   const openVideo = (src: string) => setViewer({ type: 'video', src });
   const closeViewer = () => setViewer(null);
+  const handleDeleteReview = async (reviewId: number) => {
+    if (!confirm('정말로 이 리뷰를 삭제하시겠습니까?')) return;
 
+    try {
+      await deleteReview(reviewId);
+      // 삭제된 리뷰를 목록에서 제거
+      setReviews((prev) => prev.filter((review) => review.reviewId !== reviewId));
+      alert('리뷰가 삭제되었습니다.');
+    } catch (error) {
+      console.error('리뷰 삭제 실패:', error);
+      alert('리뷰 삭제에 실패했습니다.');
+    }
+  };
   const onKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (!viewer) return;
@@ -153,8 +166,6 @@ const MyReviewsPage = () => {
                   <StarRating rating={review.score} showScore />
                 </div>
 
-                <p className="text-gray-700 mb-3 whitespace-pre-wrap">{review.content}</p>
-
                 {review.imageUrls && review.imageUrls.length > 0 && (
                   <div className="flex gap-2 mb-3">
                     {review.imageUrls.map((url, index) => (
@@ -183,8 +194,17 @@ const MyReviewsPage = () => {
                     />
                   </div>
                 )}
-
-                <div className="text-sm text-gray-500">작성자: {review.reviewerName}</div>
+                <p className="text-gray-700 mb-3 whitespace-pre-wrap">{review.content}</p>
+                <div className="flex justify-between items-center">
+                  <div className="text-sm text-gray-500">작성자: {review.reviewerName}</div>
+                  <button
+                    onClick={() => handleDeleteReview(review.reviewId)}
+                    className="text-red-500 p-1 rounded-full"
+                    aria-label="리뷰 삭제"
+                  >
+                    🗑️
+                  </button>
+                </div>
               </div>
             ))}
           </div>
@@ -207,10 +227,10 @@ const MyReviewsPage = () => {
             role="dialog"
             aria-modal="true"
             className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/75"
-            onClick={closeViewer}
+            
           >
             <div
-              className="relative max-w-[92vw] max-h-[88vh] flex items-center justify-center"
+              className="relative max-w-[480px] w-full mx-4 flex items-center justify-center"
               onClick={(e) => e.stopPropagation()}
             >
               <button
@@ -245,7 +265,7 @@ const MyReviewsPage = () => {
                   <img
                     src={viewer.srcList[viewer.index]}
                     alt="리뷰 이미지 확대"
-                    className="max-w-[92vw] max-h-[88vh] object-contain rounded"
+                    className="max-w-full p-4 max-h-[88vh] object-contain rounded"
                   />
 
                   {viewer.srcList.length > 1 && (
@@ -269,7 +289,7 @@ const MyReviewsPage = () => {
                   src={viewer.src}
                   controls
                   autoPlay
-                  className="max-w-[92vw] max-h-[88vh] rounded"
+                  className="max-w-full p-4 max-h-[88vh] rounded"
                 />
               )}
             </div>
