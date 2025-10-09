@@ -6,7 +6,7 @@ import SearchContent from './components/SearchContent';
 const SearchPage = () => {
   return (
     <Container>
-      <Header variant="page" />
+      <Header variant="page" title='검색'/>
         <SearchContent />
       <Footer initialSelected="search" />
     </Container>

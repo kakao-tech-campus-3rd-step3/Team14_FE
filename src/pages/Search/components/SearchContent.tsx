@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { searchFestivals } from '@/apis/search/searchFestivals';
 import type { Festival } from '@/types/FestivalType';
-import { Link } from 'react-router-dom';
-import FestivalCard from '@/pages/Festivals/components/FestivalCard';
+import SearchIcon from '@/components/icon/SearchIcon';
+import FestivalsSection from '@/pages/Festivals/components/FestivalsSection';
 
 const SearchContent = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -42,15 +42,15 @@ const SearchContent = () => {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           onKeyPress={handleKeyPress}
-          placeholder="축제명을 입력하세요..."
-          className="w-full p-3 pr-20 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+          placeholder="찾으시는 축제가 있으신가요?"
+          className="w-full p-3 pr-20 border border-gray-300 rounded-md focus:outline-none focus:ring-0 focus:border-gray-300"
         />
         <button
           onClick={handleSearch}
           disabled={loading || !searchQuery.trim()}
-          className="absolute right-2 top-1/2 transform -translate-y-1/2 px-4 py-2 bg-primary-500 text-white rounded-md hover:bg-primary-600 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+          className="absolute right-2 top-1/2 transform -translate-y-1/2 px-4 py-2 text-primary-500 rounded-md hover:text-primary-600 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
         >
-          {loading ? '검색중...' : '검색'}
+          <SearchIcon />
         </button>
       </div>
 
@@ -65,15 +65,9 @@ const SearchContent = () => {
               검색 결과가 없습니다.
             </div>
           ) : (
-            <div className="grid grid-cols-2 ">
-              {searchResults.map((festival) => (
-                <Link key={festival.id} to={`/festival/${festival.id}`} className="block">
-                  <div className="transform  origin-top-left">
-                    <FestivalCard data={festival} />
-                  </div>
-                </Link>
-              ))}
-            </div>
+
+              <FestivalsSection title="" data={searchResults} />
+ 
           )}
         </div>
       )}
