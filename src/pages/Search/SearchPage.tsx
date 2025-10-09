@@ -7,10 +7,8 @@ const SearchPage = () => {
   return (
     <Container>
       <Header variant="page" />
-      <div className="flex flex-col items-center px-8 py-4 gap-12">
         <SearchContent />
-      </div>
-      <Footer initialSelected="none" />
+      <Footer initialSelected="search" />
     </Container>
   );
 };
