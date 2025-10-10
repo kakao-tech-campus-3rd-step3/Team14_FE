@@ -12,7 +12,7 @@ import SearchPage from '@/pages/Search/SearchPage';
 import ReviewPage from '@/pages/Review/ReviewPage';
 import ChatPage from '@/pages/Chat/ChatPage';
 import SettingsPage from '@/pages/Settings/SettingsPage';
-import MyReviewsPage from '@/pages/Settings/Pages/MyReviewsPage';
+import MyReviewsPage from '@/pages/SettingsMyReview/MyReviewsPage';
 
 /**
  * 라우터 컴포넌트

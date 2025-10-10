@@ -21,17 +21,13 @@ export interface SearchParams {
 }
 
 export const searchFestivals = async (
-  params: SearchParams
+  params: SearchParams,
 ): Promise<AxiosResponse<ApiResponseList<Festival>, ApiErrorResponse>> => {
-  return await apiInstance.get<ApiResponseList<Festival>>(
-    API_ENDPOINTS.FESTIVAL_SEARCH, 
-    {
-      params: {
-        keyword: params.keyword,    
-        page: params.page ?? 0,
-        size: params.size ?? 5,
-      },
-    }
-  );
+  return await apiInstance.get<ApiResponseList<Festival>>(API_ENDPOINTS.FESTIVAL_SEARCH, {
+    params: {
+      keyword: params.keyword,
+      page: params.page ?? 0,
+      size: params.size ?? 5,
+    },
+  });
 };
-
