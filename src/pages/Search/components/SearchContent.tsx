@@ -5,6 +5,7 @@ import SearchIcon from '@/components/icon/SearchIcon';
 import FestivalCard from '@/pages/Festivals/components/FestivalCard';
 
 const DEBOUNCE_TIME = 250;
+const MIN_LENGTH = 0;
 
 const SearchContent = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -42,9 +43,11 @@ const SearchContent = () => {
   useEffect(() => {
     const q = searchQuery.trim();
     // 현재는 검색어의 길이가 0이면 검색 안 하고 그 이외의 경우에는 검색하게 구현하였는데,
-    // 이는 참고한 레퍼런스처럼 초성만 검색해도 나오게 하기 위해서 입니다.
-    // 하지만 이 부분은 백엔드와 협의가 필요한 부분이기에 일단은 요청은 보내게 해두었습니다.
-    if (q.length === 0) {
+    // 이는 참고한 레퍼런스처럼 초성만 검색해도 나오게 검색 결과가 나오도록 수정할 여지를 남겨두기 위해서 입니다.(올리브영 등)
+    // 하지만 이렇게 초성만으로도 검색이 되는 것은 백엔드와 협의가 필요한 부분이기에 일단은 0이 아니면 요청을 보내게 해두었습니다.
+    // 의도한 결과 : 'ㄴ' 초성 검색 -> 결과에 '남동' 나옴
+    // 현재 구현 : 'ㄴ' 초성 검색 -> 결과에 아무것도 안나오고 '검색결과 (0개)'로 렌더링됨.
+    if (q.length === MIN_LENGTH) {
       return; // 검색 안 함
     }
     // 직전 타이머를 초기화시킵니다.
@@ -100,7 +103,6 @@ const SearchContent = () => {
       {canShowResults && (
         <div>
           <h2 className="text-lg font-semibold mb-4">검색 결과 ({searchResults.length}개)</h2>
-
           {searchResults.length === 0 ? (
             <div className="text-center py-8 text-gray-500">검색 결과가 없습니다.</div>
           ) : (
