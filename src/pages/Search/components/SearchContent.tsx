@@ -27,6 +27,8 @@ const SearchContent = () => {
       setHasSearched(true);
     } catch (error) {
       // 에러바운더리 / 토스트 등 적용을 위해 일단 alert만 처리하였습니다.
+      // lint 오류 제거를 위해 console.error 추가
+      console.error('검색에 실패했습니다.', error);
       alert('검색에 실패했습니다.');
     } finally {
       setLoading(false);
@@ -63,8 +65,10 @@ const SearchContent = () => {
         if (mySeq !== mySeqRef.current) return;
         setSearchResults(res.data.content);
         setHasSearched(true);
-      } catch (err) {
+      } catch (error) {
         // 에러바운더리 / 토스트 등 적용을 위해 일단 alert만 처리하였습니다.
+        // lint 오류 제거를 위해 console.error 추가
+        console.error('검색에 실패했습니다.', error);
         alert('검색에 실패했습니다.');
       } finally {
         setLoading(false);
