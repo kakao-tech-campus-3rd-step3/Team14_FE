@@ -1,16 +1,16 @@
 import Container from '@/components/common/Container';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
-import MyReviewsContent from './components/MyReviewsContent';
+import SettingsMyReviewsContent from './components/SettingsMyReviewsContent';
 
-const MyReviewsPage = () => {
+const SettingsMyReviewsPage = () => {
   return (
     <Container>
       <Header variant="page" title="내가 작성한 리뷰" />
-      <MyReviewsContent />
+      <SettingsMyReviewsContent />
       <Footer initialSelected="my" />
     </Container>
   );
 };
 
-export default MyReviewsPage;
+export default SettingsMyReviewsPage;

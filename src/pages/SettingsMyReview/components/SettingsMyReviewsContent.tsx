@@ -11,7 +11,7 @@ type Viewer =
   | { type: 'video'; src: string }
   | null;
 
-const MyReviewsContent = () => {
+const SettingsMyReviewsContent = () => {
   const [reviews, setReviews] = useState<MyReview[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -288,4 +288,4 @@ const MyReviewsContent = () => {
   );
 };
 
-export default MyReviewsContent;
+export default SettingsMyReviewsContent;
