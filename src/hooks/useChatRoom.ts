@@ -39,6 +39,19 @@ export interface MessageResponse {
 
 const webSocketUrl = apiBaseUrl + API_ENDPOINTS.CHAT;
 
+/**
+ * 채팅방 사용 훅
+ * 채팅방 생성, 채팅방 메시지 조회, STOMP 연결, 메시지 전송, 이미지 메시지 전송, 메시지 변경 이벤트 핸들러, 키 누르기 이벤트 핸들러를 포함합니다.
+ * 단일 STOMP 연결, 단일 구독을 보장하기 위해 하나의 페이지에서 하나의 훅으로 사용하는 것을 권장합니다.
+ * @returns {Object}
+ * - chatRoom: 채팅방 정보
+ * - sendMessage: 메시지 전송 함수
+ * - sendImageMessage: 이미지 메시지 전송 함수
+ * - messages: 메시지 목록
+ * - message: 메시지 입력 필드
+ * - handleMessageChange: 메시지 변경 이벤트 핸들러
+ * - handleKeyPress: 키 누르기 이벤트 핸들러
+ */
 const useChatRoom = () => {
   const { festivalId } = useParams();
   const { data: chatRoom } = useSuspenseQuery({
