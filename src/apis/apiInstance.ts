@@ -9,8 +9,17 @@ export interface ApiErrorResponse {
   status: number;
   message: string;
 }
-
-export const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost';
+/**
+ * env 파일은 2개의 파일로 구성되어 있습니다.
+ *  .env.development 파일과 .env.production 파일이 있습니다.
+ *  .env.development 파일은 로컬에서 실행할 때 사용되고,
+ *  .env.production 파일은 배포할 때 사용됩니다.
+ *  기존에는 import.meta.env.DEV ? '' : import.meta.env.VITE_API_BASE_URL || '' 로 사용되었습니다.
+ *  이는 로컬에서 실행할 때 사용되고, 배포할 때는 .env.production 파일에서 가져오게 함을 의도한 것이었으나 계속 자기자신에게
+ *  리다이렉트되는 현상이 존재하였었습니다.
+ *  이를 개선하기 위해 각 개발,배포용 env파일에 명시적으로 작성하고 import.meta.env.VITE_API_BASE_URL 로 사용하는 것으로 수정하였습니다.
+ */
+export const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
 // 토큰 관리
 let currentAccessToken: AuthToken = null;

@@ -4,10 +4,19 @@ import { setAuthCallbacks } from '@/apis/apiInstance';
 import jwtExchange from '@/apis/auth/jwtExchange';
 import axios from 'axios';
 import type { AuthToken } from '@/types/Auth/AuthToken';
-
+import type { UserInfoResponse } from '@/types/UserType';
+import { getUserInfo } from '@/apis/user/getUserInfo';
+/**
+ * AuthContext
+ * 인증 관련 상태와 메서드를 제공합니다.
+ * 토큰 관리, 사용자 정보 관리, 인증 상태 확인 등을 담당합니다.
+ * login된 상태의 사용자 정보도 이 컨텍스트에서 사용하도록 리팩토링하였습니다.
+ */
 interface AuthContextType {
   accessToken: AuthToken;
   setAccessToken: (token: AuthToken) => void;
+  userInfo: UserInfoResponse['content'] | null;
+  setUserInfo: (userInfo: UserInfoResponse['content']) => void;
   isLoggedIn: boolean;
   isInitialized: boolean;
   clearAuth: () => void;
@@ -29,8 +38,13 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [accessToken, setAccessTokenState] = useState<AuthToken>(null);
+  const [userInfo, setUserInfoState] = useState<UserInfoResponse['content'] | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
   const tokenRef = useRef<AuthToken>(null);
+
+  const setUserInfo = (userInfo: UserInfoResponse['content'] | null) => {
+    setUserInfoState(userInfo);
+  };
 
   const setAccessToken = (token: AuthToken) => {
     tokenRef.current = token;
@@ -43,6 +57,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const clearAuth = () => {
     setAccessToken(null);
+    setUserInfoState(null);
   };
 
   // 새로고침 시 자동 토큰 복구
@@ -59,12 +74,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         if (authHeader && authHeader.startsWith('Bearer ')) {
           const token = authHeader.substring(7);
           setAccessToken(token);
+          const userInfoResponse = await getUserInfo();
+          setUserInfo(userInfoResponse.data.content);
         }
       } catch (error) {
         if (axios.isAxiosError(error) && error.response?.status === 401) {
           // 비로그인 상태에서 토큰 교환 실패는 예상된 동작임.
           // 콘솔에 에러를 출력하지 않고 분기 처리로 넘어감.
         } else if (error instanceof Error && error.message === 'Token refresh 실패') {
+          // eslint: Empty block statement
+          // 이 부분에서 토큰 갱신 실패는 예상된 동작
         } else {
           // 401이 아닌 다른 에러(네트워크 문제, 서버 500 에러 등)는
           // 여전히 개발자가 인지해야 하므로 콘솔에 출력함.
@@ -91,6 +110,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     isLoggedIn,
     isInitialized,
     clearAuth,
+    userInfo,
+    setUserInfo,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

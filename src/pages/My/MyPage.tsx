@@ -46,7 +46,7 @@ const MyPage = () => {
   if (error) {
     return (
       <Container>
-        <Header variant="page" />
+        <Header variant="mypage" />
         <div className="flex items-center justify-center h-64">
           <div className="text-red-500">{error}</div>
         </div>
@@ -57,7 +57,7 @@ const MyPage = () => {
 
   return (
     <Container>
-      <Header variant="page" />
+      <Header variant="mypage" />
       <div className="p-4">
         <div className="bg-white rounded-lg p-6 shadow-sm">
           <div className="flex items-center space-x-4">
