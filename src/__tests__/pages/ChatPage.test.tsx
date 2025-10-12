@@ -1,11 +1,10 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { MemoryRouter } from 'react-router-dom';
 import ChatPage from '@/pages/Chat/ChatPage';
 import ChatMessageItemOther from '@/pages/Chat/components/ChatMessageItemOther';
 import ChatMessageItemSelf from '@/pages/Chat/components/ChatMessageItemSelf';
 import ChatSendSection from '@/pages/Chat/components/ChatSendSection';
+import TestWrapper from '@/__tests__/TestWrapper';
 
 // jsdom에는 scrollIntoView가 없으므로 목킹
 Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', {
@@ -93,20 +92,6 @@ vi.mock('@/hooks/useMediaUpload', () => ({
     setImageInfos: vi.fn(),
   }),
 }));
-
-const createTestQueryClient = () =>
-  new QueryClient({
-    defaultOptions: { queries: { retry: false, gcTime: 0 } },
-  });
-
-const TestWrapper = ({ children }: { children: React.ReactNode }) => {
-  const queryClient = createTestQueryClient();
-  return (
-    <MemoryRouter>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-    </MemoryRouter>
-  );
-};
 
 describe('ChatPage', () => {
   beforeEach(() => {

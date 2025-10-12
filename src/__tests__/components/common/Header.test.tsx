@@ -15,11 +15,8 @@ describe('Header 컴포넌트', () => {
       const logoText = screen.getByText('FestaPick');
       expect(logoText).toBeInTheDocument();
 
-      // SVG 요소 찾기
-      const svgElement =
-        container.querySelector('svg') ||
-        logoText.parentElement?.querySelector('svg') ||
-        logoText.closest('div')?.querySelector('svg');
+      // SVG logo 찾기
+      const svgElement = container.querySelector('svg');
       expect(svgElement).toMatchSnapshot('logo-svg');
     });
 

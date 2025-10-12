@@ -6,11 +6,12 @@ vi.mock('@/apis/festivals/getFestivals', async () => {
   };
 });
 import { render, screen, waitFor, within } from '@testing-library/react';
-import React from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import FestivalsPage from '@/pages/Festivals/FestivalsPage';
 import { festivalsMockData } from '@/mocks/data/festivals.mock';
-import * as ReactRouter from 'react-router-dom';
+import TestWrapper from '@/__tests__/TestWrapper';
+import API_ENDPOINTS from '@/constants/apiEndpoints';
+
+const initialEntries = [API_ENDPOINTS.FESTIVALS.replace(':areaId', '2')];
 
 /*
 -jsdom이 콜론 포함 URL을 처리하다 HTMLBaseElement.href 접근 중 예외를 던짐. 
@@ -20,36 +21,11 @@ vi.mock('@/components/common/Footer', () => ({
   default: () => <div data-testid="footer" />, // 링크 없는 더미
 }));
 
-vi.mock('react-router-dom', async () => ({
-  ...(await vi.importActual('react-router-dom')),
-}));
-// QueryClient 설정
-const createTestQueryClient = () =>
-  new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: false,
-        gcTime: 0,
-      },
-    },
-  });
-
-// 테스트용 래퍼 컴포넌트
-const TestWrapper = ({ children }: { children: React.ReactNode }) => {
-  const queryClient = createTestQueryClient();
-  return (
-    <ReactRouter.MemoryRouter>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-    </ReactRouter.MemoryRouter>
-  );
-};
-
 describe('FestivalsPage 테스트', () => {
-  vi.spyOn(ReactRouter, 'useParams').mockReturnValue({ areaId: '2' });
   describe('스냅샷 테스트', () => {
     test('AI 추천 섹션 스냅샷', async () => {
       const { container } = render(
-        <TestWrapper>
+        <TestWrapper initialEntries={initialEntries}>
           <FestivalsPage />
         </TestWrapper>,
       );
@@ -59,12 +35,8 @@ describe('FestivalsPage 테스트', () => {
         const sections = container.querySelectorAll('section');
         expect(sections.length).toBeGreaterThanOrEqual(2);
       });
-
       const sections = container.querySelectorAll('section');
-
-      // 0번: AI, 1번: Festivals 라는 현재 구조에 의존
-      const aiPickSection = sections[0];
-      const festivalsSection = sections[1];
+      const [aiPickSection, festivalsSection] = sections;
 
       // AI 첫 카드 스냅샷
       const aiGrid = aiPickSection.querySelector('.grid');
@@ -82,7 +54,7 @@ describe('FestivalsPage 테스트', () => {
       // Given: API 호출이 성공적으로 데이터를 반환할 때
       // When: FestivalsPage를 렌더링하면
       const { container } = render(
-        <TestWrapper>
+        <TestWrapper initialEntries={initialEntries}>
           <FestivalsPage />
         </TestWrapper>,
       );
@@ -106,7 +78,7 @@ describe('축제 목록 섹션', () => {
 
     // When: FestivalsPage를 렌더링하면
     const { container } = render(
-      <TestWrapper>
+      <TestWrapper initialEntries={initialEntries}>
         <FestivalsPage />
       </TestWrapper>,
     );
@@ -122,39 +94,44 @@ describe('축제 목록 섹션', () => {
     const festivalsSection = festivalsHeading.closest('section');
     expect(festivalsSection).toBeTruthy();
 
-    const scope = within(festivalsSection!);
+    if (!festivalsSection) return;
+
+    const scope = within(festivalsSection);
 
     // 각 카드의 타이틀로 카드 컨테이너(anchor)를 찾고, 그 내부에서 날짜/주소를 검증한다
     const titleEl0 = scope.getByText(festivalsMockData.content[0].title);
     const card0 = titleEl0.closest('a') ?? titleEl0.closest('div');
     expect(card0).toBeTruthy();
+    if (!card0) return;
 
     const titleEl1 = scope.getByText(festivalsMockData.content[1].title);
     const card1 = titleEl1.closest('a') ?? titleEl1.closest('div');
     expect(card1).toBeTruthy();
+    if (!card1) return;
 
     const titleEl2 = scope.getByText(festivalsMockData.content[2].title);
     const card2 = titleEl2.closest('a') ?? titleEl2.closest('div');
     expect(card2).toBeTruthy();
+    if (!card2) return;
 
     // 시작일
     expect(
-      within(card0!).getByText(festivalsMockData.content[0].startDate, { exact: false }),
+      within(card0).getByText(festivalsMockData.content[0].startDate, { exact: false }),
     ).toBeInTheDocument();
     expect(
-      within(card1!).getByText(festivalsMockData.content[1].startDate, { exact: false }),
+      within(card1).getByText(festivalsMockData.content[1].startDate, { exact: false }),
     ).toBeInTheDocument();
     expect(
-      within(card2!).getByText(festivalsMockData.content[2].startDate, { exact: false }),
+      within(card2).getByText(festivalsMockData.content[2].startDate, { exact: false }),
     ).toBeInTheDocument();
 
     // 주소 앞 두 단어
     const area0 = festivalsMockData.content[0].addr1.split(' ').slice(0, 2).join(' ');
     const area1 = festivalsMockData.content[1].addr1.split(' ').slice(0, 2).join(' ');
     const area2 = festivalsMockData.content[2].addr1.split(' ').slice(0, 2).join(' ');
-    expect(within(card0!).getByText(area0, { exact: false })).toBeInTheDocument();
-    expect(within(card1!).getByText(area1, { exact: false })).toBeInTheDocument();
-    expect(within(card2!).getByText(area2, { exact: false })).toBeInTheDocument();
+    expect(within(card0).getByText(area0, { exact: false })).toBeInTheDocument();
+    expect(within(card1).getByText(area1, { exact: false })).toBeInTheDocument();
+    expect(within(card2).getByText(area2, { exact: false })).toBeInTheDocument();
   });
 });
 
@@ -162,7 +139,7 @@ test('로딩 상태가 올바르게 표시된다', async () => {
   // Given: API 호출이 진행 중일 때
   // When: FestivalsPage를 렌더링하면
   render(
-    <TestWrapper>
+    <TestWrapper initialEntries={initialEntries}>
       <FestivalsPage />
     </TestWrapper>,
   );
@@ -182,7 +159,7 @@ test('API 에러 상태가 올바르게 처리된다 (ErrorBoundary가 null을 �
   vi.mocked(getFestivalsMock.default).mockRejectedValueOnce(new Error('API Error'));
   // When: FestivalsPage를 렌더링하면
   render(
-    <TestWrapper>
+    <TestWrapper initialEntries={initialEntries}>
       <FestivalsPage />
     </TestWrapper>,
   );
