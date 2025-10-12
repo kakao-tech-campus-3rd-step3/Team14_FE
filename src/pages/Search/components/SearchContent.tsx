@@ -1,31 +1,17 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { searchFestivals } from '@/apis/search/searchFestivals';
 import { useQuery } from '@tanstack/react-query';
 import SearchIcon from '@/components/icon/SearchIcon';
 import FestivalCard from '@/pages/Festivals/components/FestivalCard';
 import type { Festival } from '@/types/FestivalType';
+import useDebounce from '@/hooks/useDebounce';
 
 const DEBOUNCE_TIME = 250;
 const MIN_LENGTH = 1; 
 
 const SearchContent = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [debouncedQuery, setDebouncedQuery] = useState('');
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  // 디바운스 로직
-  useEffect(() => {
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
-    }
-
-    timerRef.current = setTimeout(() => {
-      setDebouncedQuery(searchQuery.trim());
-    }, DEBOUNCE_TIME);
-
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, [searchQuery]);
+  const debouncedQuery = useDebounce(searchQuery, DEBOUNCE_TIME);
 
   // 리팩토링하여서 React Query로 검색하는걸로 수정
   const { 
@@ -44,7 +30,6 @@ const SearchContent = () => {
 
   const handleSearch = () => {
     if (!searchQuery.trim()) return;
-    setDebouncedQuery(searchQuery.trim()); 
   };
 
   //사용자는 엔터키를 눌렀을때도 검색할 수 있음
