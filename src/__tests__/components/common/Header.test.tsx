@@ -16,7 +16,7 @@ describe('Header 컴포넌트', () => {
       expect(logoText).toBeInTheDocument();
 
       // SVG logo 찾기
-      const svgElement = container.closest('svg');
+      const svgElement = container.querySelector('svg');
       expect(svgElement).toMatchSnapshot('logo-svg');
     });
 
