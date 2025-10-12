@@ -5,13 +5,14 @@ import PICK_STYLES from '@/constants/pickStyles';
 import TestWrapper from '@/__tests__/TestWrapper';
 
 // 테스트용 래퍼 컴포넌트
-const initialEntries = ['/pick'];
+const initialEntriesStyle = ['/pick?step=style'];
+const initialEntriesMBTI = ['/pick?step=mbti'];
 
 describe('PickPage 테스트', () => {
   describe('스냅샷 테스트', () => {
     test('스타일 선택 화면 - 초기 상태 스냅샷', () => {
       render(
-        <TestWrapper initialEntries={initialEntries}>
+        <TestWrapper initialEntries={initialEntriesStyle}>
           <PickPage />
         </TestWrapper>,
       );
@@ -33,7 +34,7 @@ describe('PickPage 테스트', () => {
 
     test('스타일 선택 화면 - 3개 선택 후 상태 스냅샷', () => {
       render(
-        <TestWrapper initialEntries={initialEntries}>
+        <TestWrapper initialEntries={initialEntriesStyle}>
           <PickPage />
         </TestWrapper>,
       );
@@ -60,7 +61,7 @@ describe('PickPage 테스트', () => {
     // MBTI 선택 섹션 스냅샷
     test('MBTI 선택 화면 - 초기 상태 스냅샷', () => {
       render(
-        <TestWrapper initialEntries={[...initialEntries, '?step=mbti']}>
+        <TestWrapper initialEntries={initialEntriesMBTI}>
           <PickPage />
         </TestWrapper>,
       );
@@ -93,7 +94,7 @@ describe('PickPage 테스트', () => {
 
     test('MBTI 선택 화면 - 4개 선택 후 상태 스냅샷', () => {
       render(
-        <TestWrapper initialEntries={[...initialEntries, '?step=mbti']}>
+        <TestWrapper initialEntries={initialEntriesMBTI}>
           <PickPage />
         </TestWrapper>,
       );
@@ -132,7 +133,7 @@ describe('PickPage 테스트', () => {
       // Given: 쿼리 파라미터가 없는 상태
       // When: PickPage를 렌더링하면
       render(
-        <TestWrapper initialEntries={initialEntries}>
+        <TestWrapper initialEntries={initialEntriesStyle}>
           <PickPage />
         </TestWrapper>,
       );
@@ -146,7 +147,7 @@ describe('PickPage 테스트', () => {
       // Given: 쿼리 파라미터가 없는 상태
       // When: PickPage를 렌더링하면
       render(
-        <TestWrapper initialEntries={initialEntries}>
+        <TestWrapper initialEntries={initialEntriesStyle}>
           <PickPage />
         </TestWrapper>,
       );
@@ -160,7 +161,7 @@ describe('PickPage 테스트', () => {
       // Given: 쿼리 파라미터가 없는 상태
       // When: PickPage를 렌더링하면
       render(
-        <TestWrapper initialEntries={initialEntries}>
+        <TestWrapper initialEntries={initialEntriesStyle}>
           <PickPage />
         </TestWrapper>,
       );
@@ -173,7 +174,7 @@ describe('PickPage 테스트', () => {
     test('스타일 선택 전에는 다음 버튼이 비활성화이고, 스타일 3개 선택 시 활성화된다', () => {
       // Given: 스타일 선택 화면이 렌더링된 상태
       render(
-        <TestWrapper initialEntries={initialEntries}>
+        <TestWrapper initialEntries={initialEntriesStyle}>
           <PickPage />
         </TestWrapper>,
       );
@@ -197,7 +198,7 @@ describe('PickPage 테스트', () => {
       // Given: 유효한 style 파라미터가 있는 상태
       // When: PickPage를 렌더링하면
       render(
-        <TestWrapper initialEntries={[...initialEntries, '?step=mbti']}>
+        <TestWrapper initialEntries={initialEntriesMBTI}>
           <PickPage />
         </TestWrapper>,
       );
@@ -211,7 +212,7 @@ describe('PickPage 테스트', () => {
       // Given: 유효한 style 파라미터가 있는 상태
       // When: PickPage를 렌더링하면
       render(
-        <TestWrapper initialEntries={[...initialEntries, '?step=mbti']}>
+        <TestWrapper initialEntries={initialEntriesMBTI}>
           <PickPage />
         </TestWrapper>,
       );
@@ -225,7 +226,7 @@ describe('PickPage 테스트', () => {
       // Given: 유효한 style 파라미터가 있는 상태
       // When: PickPage를 렌더링하면
       render(
-        <TestWrapper initialEntries={[...initialEntries, '?step=mbti']}>
+        <TestWrapper initialEntries={initialEntriesMBTI}>
           <PickPage />
         </TestWrapper>,
       );
@@ -237,7 +238,7 @@ describe('PickPage 테스트', () => {
     test('MBTI 4개 선택 전에는 추천 받기 버튼이 비활성화이고, MBTI 4개 선택 시 활성화된다', () => {
       // Given: MBTI 선택 화면이 렌더링된 상태
       render(
-        <TestWrapper initialEntries={[...initialEntries, '?step=mbti']}>
+        <TestWrapper initialEntries={initialEntriesMBTI}>
           <PickPage />
         </TestWrapper>,
       );
@@ -261,7 +262,7 @@ describe('PickPage 테스트', () => {
       // Given: 잘못된 style 파라미터가 있는 상태
       // When: PickPage를 렌더링하면
       render(
-        <TestWrapper initialEntries={[...initialEntries, '?step=hello']}>
+        <TestWrapper initialEntries={initialEntriesStyle}>
           <PickPage />
         </TestWrapper>,
       );
@@ -275,7 +276,7 @@ describe('PickPage 테스트', () => {
       // Given: 빈 style 파라미터가 있는 상태
       // When: PickPage를 렌더링하면
       render(
-        <TestWrapper initialEntries={[...initialEntries, '?step=']}>
+        <TestWrapper initialEntries={initialEntriesStyle}>
           <PickPage />
         </TestWrapper>,
       );
@@ -289,7 +290,7 @@ describe('PickPage 테스트', () => {
       // Given: 숫자 style 파라미터가 있는 상태
       // When: PickPage를 렌더링하면
       render(
-        <TestWrapper initialEntries={[...initialEntries, '?step=123']}>
+        <TestWrapper initialEntries={initialEntriesStyle}>
           <PickPage />
         </TestWrapper>,
       );

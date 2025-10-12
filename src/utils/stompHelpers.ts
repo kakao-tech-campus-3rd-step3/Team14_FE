@@ -97,7 +97,7 @@ export const cleanupStompConnection = (
   }
 
   try {
-    if (client?.connected) {
+    if (client && client.connected) {
       client.deactivate();
     }
   } catch (error) {
@@ -109,7 +109,7 @@ export const cleanupStompConnection = (
  * 메시지를 발행합니다.
  */
 export const publishMessage = (client: Client, chatRoomId: number, messageBody: string): void => {
-  if (!client.connected) {
+  if (!client || !client.connected) {
     console.warn('[STOMP] 연결되지 않은 상태에서 메시지 발행 시도');
     return;
   }
