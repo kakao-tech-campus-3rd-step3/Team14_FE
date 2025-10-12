@@ -2,7 +2,7 @@ import { apiInstance, type ApiErrorResponse } from '@/apis/apiInstance';
 import type { ApiResponseList } from '@/apis/apiResponse';
 import API_ENDPOINTS from '@/constants/apiEndpoints';
 import type { Festival } from '@/types/FestivalType';
-import type { AxiosResponse } from 'node_modules/axios/index.d.cts';
+import type { AxiosResponse } from 'axios';
 
 /**
  * 페스티벌 검색

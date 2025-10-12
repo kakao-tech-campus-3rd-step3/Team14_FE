@@ -1,7 +1,7 @@
 import Container from '@/components/common/Container';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
-import SearchContent from './components/SearchContent';
+import SearchContent from '@/pages/Search/components/SearchContent';
 
 const SearchPage = () => {
   return (

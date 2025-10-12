@@ -110,7 +110,7 @@ const SearchContent = () => {
           {searchResults.length === 0 ? (
             <div className="text-center py-8 text-gray-500">검색 결과가 없습니다.</div>
           ) : (
-            <div className="grid grid-cols-2  gap-6">
+            <div className="grid grid-cols-2 gap-6">
               {searchResults.map((result) => {
                 return <FestivalCard key={result.id} data={result} />;
               })}
