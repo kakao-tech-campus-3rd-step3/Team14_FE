@@ -10,16 +10,16 @@ const SearchContent = () => {
     searchResults,
     isLoading,
     error,
-    handleSearch,
+    //handleSearch,
     canShowResults,
   } = useSearch();
-
+/*
   //사용자는 엔터키를 눌렀을때도 검색할 수 있음
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       handleSearch();
     }
-  };
+  };*/
 
   return (
     <div className="p-4">
@@ -28,12 +28,12 @@ const SearchContent = () => {
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          onKeyPress={handleKeyPress}
+          //onKeyPress={handleKeyPress}
           placeholder="찾으시는 축제가 있으신가요?"
           className="w-full p-3 pr-20 border border-gray-300 rounded-md focus:outline-none focus:ring-0 focus:border-gray-300"
         />
         <button
-          onClick={handleSearch}
+          //onClick={handleSearch}
           disabled={isLoading || !searchQuery.trim()}
           className="absolute right-2 top-1/2 transform -translate-y-1/2 px-4 py-2 text-primary-500 rounded-md hover:text-primary-600 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
         >
