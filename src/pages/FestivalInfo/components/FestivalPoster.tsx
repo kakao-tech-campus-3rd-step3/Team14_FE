@@ -1,9 +1,6 @@
 import LeftArrow from '@/components/icon/LeftArrowIcon';
 import RightArrow from '@/components/icon/RightArrowIcon';
-import { useState, useRef } from 'react';
-
-// 슬라이드 전환 임계값
-const SWIPE_THRESHOLD = 50;
+import { useSlider } from '@/hooks/useSlider';
 
 const FestivalPoster = ({
   posterUrl,
@@ -15,41 +12,17 @@ const FestivalPoster = ({
   title: string;
 }) => {
   const allImages = [posterUrl, ...imageUrls];
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [translateX, setTranslateX] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setIsDragging(true);
-    setStartX(e.touches[0].clientX);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!isDragging) return;
-
-    const currentX = e.touches[0].clientX;
-    const diff = currentX - startX;
-    setTranslateX(diff);
-  };
-
-  const handleDragEnd = () => {
-    if (!isDragging) return;
-
-    const threshold = SWIPE_THRESHOLD;
-
-    if (Math.abs(translateX) > threshold) {
-      if (translateX > 0 && currentIndex > 0) {
-        setCurrentIndex(currentIndex - 1);
-      } else if (translateX < 0 && currentIndex < allImages.length - 1) {
-        setCurrentIndex(currentIndex + 1);
-      }
-    }
-
-    setIsDragging(false);
-    setTranslateX(0);
-  };
+  const {
+    currentIndex,
+    setCurrentIndex,
+    containerRef,
+    goToPrevious,
+    goToNext,
+    canGoPrevious,
+    canGoNext,
+    touchHandlers,
+    getTransformStyle,
+  } = useSlider({ itemCount: allImages.length });
 
   const arrowButtonClasses =
     'absolute top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hidden md:flex';
@@ -59,14 +32,12 @@ const FestivalPoster = ({
       <div
         ref={containerRef}
         className="relative w-full h-[500px] overflow-hidden"
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleDragEnd}
+        {...touchHandlers}
       >
         <div
           className="flex transition-transform duration-300 ease-out h-full"
           style={{
-            transform: `translateX(${-currentIndex * 100 + (isDragging ? (translateX / (containerRef.current?.offsetWidth || 1)) * 100 : 0)}%)`,
+            transform: getTransformStyle(),
           }}
         >
           {allImages.map((imageUrl, index) => (
@@ -84,9 +55,9 @@ const FestivalPoster = ({
         {/* 데스크탑 화면일 때만 보입니다. */}
         {allImages.length > 1 && (
           <>
-            {currentIndex > 0 && (
+            {canGoPrevious && (
               <button
-                onClick={() => setCurrentIndex(currentIndex - 1)}
+                onClick={goToPrevious}
                 className={`${arrowButtonClasses} left-4`}
                 aria-label="이전 이미지"
               >
@@ -94,9 +65,9 @@ const FestivalPoster = ({
               </button>
             )}
 
-            {currentIndex < allImages.length - 1 && (
+            {canGoNext && (
               <button
-                onClick={() => setCurrentIndex(currentIndex + 1)}
+                onClick={goToNext}
                 className={`${arrowButtonClasses} right-4`}
                 aria-label="다음 이미지"
               >

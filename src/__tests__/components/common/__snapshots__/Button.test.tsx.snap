@@ -82,12 +82,30 @@ exports[`Button 컴포넌트 > 스냅샷 테스트 > sm size 스냅샷 1`] = `
 </button>
 `;
 
+exports[`Button 컴포넌트 > 스냅샷 테스트 > socialLogin variant 스냅샷 1`] = `
+<button
+  class="flex items-center justify-center w-fit cursor-pointer border transition-colors duration-200 text-md rounded-xl px-5 py-3 undefined "
+  type="button"
+>
+  소셜 로그인 버튼
+</button>
+`;
+
 exports[`Button 컴포넌트 > 스냅샷 테스트 > tertiary variant 스냅샷 1`] = `
 <button
   class="flex items-center justify-center w-fit cursor-pointer bg-gray-100 text-gray-600 text-md rounded-xl px-5 py-3 undefined "
   type="button"
 >
   3차 버튼
+</button>
+`;
+
+exports[`Button 컴포넌트 > 스냅샷 테스트 > text variant 스냅샷 1`] = `
+<button
+  class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-900 text-md !p-0 !rounded-none text-md rounded-xl px-5 py-3 undefined "
+  type="button"
+>
+  텍스트 버튼
 </button>
 `;
 
