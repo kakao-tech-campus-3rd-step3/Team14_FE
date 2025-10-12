@@ -4,17 +4,11 @@ import type { Festival } from '@/types/FestivalType';
 import useSearch from '@/hooks/useSearch';
 
 const SearchContent = () => {
-  const {
-    searchQuery,
-    setSearchQuery,
-    searchResults,
-    isLoading,
-    error,
-    //handleSearch,
-    canShowResults,
-  } = useSearch();
-/*
-  //사용자는 엔터키를 눌렀을때도 검색할 수 있음
+  const { searchQuery, setSearchQuery, searchResults, isLoading, error, canShowResults } =
+    useSearch();
+  /*
+  // 즉시검색 기능: 사용자는 엔터키를 눌렀을때도 검색할 수 있도록 함
+  - handleSearch함수를 useSearch훅에 추가하여 사용하여야 함
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       handleSearch();
