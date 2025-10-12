@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Review } from '@/apis/review/getReview';
-import FestivalContentReviewMediaModal from './FestivalContentReviewMediaModal';
+import ImageModal from '@/components/modal/ImageModal';
 
 const FestivalContentReviewMediaSlider = ({
   review,
@@ -70,12 +70,11 @@ const FestivalContentReviewMediaSlider = ({
       </div>
 
       {isImageModalOpen && (
-        <FestivalContentReviewMediaModal
+        <ImageModal
           mediaItems={mediaItems}
           selectedMediaIndex={selectedImageIndex}
-          setSelectedMediaIndex={setSelectedImageIndex}
           onClose={() => setIsImageModalOpen(false)}
-          festivalTitle={festivalTitle}
+          title={festivalTitle}
         />
       )}
     </>

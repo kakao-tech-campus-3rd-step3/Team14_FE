@@ -6,6 +6,7 @@ const SWIPE_THRESHOLD = 50;
 export interface UseSliderOptions {
   itemCount: number;
   swipeThreshold?: number;
+  initialIndex?: number;
 }
 
 export interface UseSliderReturn {
@@ -33,8 +34,9 @@ export interface UseSliderReturn {
 export const useSlider = ({
   itemCount,
   swipeThreshold = SWIPE_THRESHOLD,
+  initialIndex = 0,
 }: UseSliderOptions): UseSliderReturn => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [translateX, setTranslateX] = useState(0);
