@@ -1,36 +1,18 @@
-import { useState } from 'react';
-import { searchFestivals } from '@/apis/search/searchFestivals';
-import { useQuery } from '@tanstack/react-query';
 import SearchIcon from '@/components/icon/SearchIcon';
 import FestivalCard from '@/pages/Festivals/components/FestivalCard';
 import type { Festival } from '@/types/FestivalType';
-import useDebounce from '@/hooks/useDebounce';
-
-const DEBOUNCE_TIME = 250;
-const MIN_LENGTH = 1; 
+import useSearch from '@/hooks/useSearch';
 
 const SearchContent = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const debouncedQuery = useDebounce(searchQuery, DEBOUNCE_TIME);
-
-  // 리팩토링하여서 React Query로 검색하는걸로 수정
-  const { 
-    data: searchResults = [], 
+  const {
+    searchQuery,
+    setSearchQuery,
+    searchResults,
     isLoading,
     error,
-  } = useQuery({
-    queryKey: ['search', debouncedQuery],
-    queryFn: () => searchFestivals({ keyword: debouncedQuery }),
-    select: (data) => data.data.content,
-    enabled: debouncedQuery.length >= MIN_LENGTH,
-    staleTime: 5 * 60 * 1000,
-    gcTime: 10 * 60 * 1000,
-    //throwOnError: true, // TODO: 차후 에러 바운더리 리팩토링을 위해 해당 설정을 추가해놓았습니다.
-  });
-
-  const handleSearch = () => {
-    if (!searchQuery.trim()) return;
-  };
+    handleSearch,
+    canShowResults,
+  } = useSearch();
 
   //사용자는 엔터키를 눌렀을때도 검색할 수 있음
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -38,8 +20,6 @@ const SearchContent = () => {
       handleSearch();
     }
   };
-
-  const canShowResults = debouncedQuery.length >= MIN_LENGTH;
 
   return (
     <div className="p-4">
@@ -62,20 +42,14 @@ const SearchContent = () => {
       </div>
 
       {error && (
-        <div className="text-center py-8 text-red-500">
-          검색에 실패했습니다. 다시 시도해주세요.
-        </div>
+        <div className="text-center py-8 text-red-500">검색에 실패했습니다. 다시 시도해주세요.</div>
       )}
 
       {canShowResults && !isLoading && !error && (
         <div>
-          <h2 className="text-lg font-semibold mb-4">
-            검색 결과 ({searchResults.length}개)
-          </h2>
+          <h2 className="text-lg font-semibold mb-4">검색 결과 ({searchResults.length}개)</h2>
           {searchResults.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
-              검색 결과가 없습니다.
-            </div>
+            <div className="text-center py-8 text-gray-500">검색 결과가 없습니다.</div>
           ) : (
             <div className="grid grid-cols-2 gap-6">
               {searchResults.map((result: Festival) => (
