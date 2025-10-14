@@ -8,9 +8,9 @@ export const STOMP_CONFIG = {
   // 재연결 시도 딜레이
   RECONNECT_DELAY_MS: 1000 * 5,
   // 하트비트 수신 딜레이(수신이 없을 때 연결 이상으로 판단)
-  HEARTBEAT_INCOMING_MS: 1000 * 4,
+  HEARTBEAT_INCOMING_MS: 1000 * 15,
   // 하트비트 송신 딜레이(송신이 없을 때 연결 이상으로 판단)
-  HEARTBEAT_OUTGOING_MS: 1000 * 4,
+  HEARTBEAT_OUTGOING_MS: 1000 * 15,
 } as const;
 
 const subscribeTopic = (chatRoomId: number) => {
@@ -62,7 +62,10 @@ export const createStompConnection = ({
             onMessageReceived(newMessage);
           };
 
-          const subscription = stompClient.subscribe(subscribeTopic(chatRoomId), callback);
+          const subscription = stompClient.subscribe(subscribeTopic(chatRoomId), callback,{
+            id: `sub-${chatRoomId}`,
+            ack: 'auto',
+        });
 
           resolve({ client: stompClient, subscription });
         } catch (error) {

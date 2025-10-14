@@ -1,44 +1,31 @@
 import { useState, useEffect } from 'react';
-import { getMyReviews, type MyReview } from '@/apis/review/getMyReviews';
-import StarRating from '@/components/common/StarRating';
 import { ErrorBoundary } from 'react-error-boundary';
+import { getMyReviews, type MyReview } from '@/apis/review/getMyReviews';
 import ErrorComponent from '@/components/common/ErrorComponent';
 import { deleteReview } from '@/apis/review/deleteReview';
 import ImageModal, { type MediaItem } from '@/components/modal/ImageModal';
+import SettingsMyReviewsCard from '@/pages/SettingsMyReview/components/SettingsMyReviewsCard';
 
 const SettingsMyReviewsContent = () => {
   const [reviews, setReviews] = useState<MyReview[]>([]);
   const [loading, setLoading] = useState(true);
-
   const [currentPage, setCurrentPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
 
   const [modal, setModal] = useState<{ items: MediaItem[]; index: number } | null>(null);
-
   const openImage = (srcList: string[], index: number) =>
-    setModal({
-      items: srcList.map((url) => ({ type: 'image', url })),
-      index,
-    });
-
-  const openVideo = (src: string) =>
-    setModal({
-      items: [{ type: 'video', url: src }],
-      index: 0,
-    });
-
+    setModal({ items: srcList.map((url) => ({ type: 'image', url })), index });
+  const openVideo = (src: string) => setModal({ items: [{ type: 'video', url: src }], index: 0 });
   const closeModal = () => setModal(null);
 
   const handleDeleteReview = async (reviewId: number) => {
     if (!confirm('정말로 이 리뷰를 삭제하시겠습니까?')) return;
-
     try {
       await deleteReview(reviewId);
-      // 삭제된 리뷰를 목록에서 제거
-      setReviews((prev) => prev.filter((review) => review.reviewId !== reviewId));
+      setReviews((prev) => prev.filter((r) => r.reviewId !== reviewId));
       alert('리뷰가 삭제되었습니다.');
-    } catch (error) {
-      console.error('리뷰 삭제 실패:', error);
+    } catch (e) {
+      console.error('리뷰 삭제 실패:', e);
       alert('리뷰 삭제에 실패했습니다.');
     }
   };
@@ -110,55 +97,13 @@ const SettingsMyReviewsContent = () => {
       <div className="p-4">
         <div className="space-y-4">
           {reviews.map((review) => (
-            <div
+            <SettingsMyReviewsCard
               key={review.reviewId}
-              className="bg-white rounded-lg p-4 shadow-sm border border-gray-200"
-            >
-              <div className="flex justify-between items-start mb-2">
-                <h3 className="text-lg font-semibold text-gray-900">{review.festivalTitle}</h3>
-                <StarRating rating={review.score} showScore />
-              </div>
-
-              {review.imageUrls && review.imageUrls.length > 0 && (
-                <div className="flex gap-2 mb-3">
-                  {review.imageUrls.map((url, index) => (
-                    <button
-                      key={index}
-                      onClick={() => openImage(review.imageUrls, index)}
-                      className="focus:outline-none"
-                      aria-label={`리뷰 이미지 ${index + 1} 크게 보기`}
-                    >
-                      <img
-                        src={url}
-                        alt={`리뷰 이미지 ${index + 1}`}
-                        className="w-16 h-16 object-cover rounded"
-                      />
-                    </button>
-                  ))}
-                </div>
-              )}
-              {review.videoUrl && (
-                <div className="mb-3">
-                  <video
-                    src={review.videoUrl}
-                    controls
-                    className="w-full max-w-xs rounded cursor-pointer"
-                    onClick={() => openVideo(review.videoUrl!)}
-                  />
-                </div>
-              )}
-              <p className="text-gray-700 mb-3 whitespace-pre-wrap">{review.content}</p>
-              <div className="flex justify-between items-center">
-                <div className="text-sm text-gray-500">작성자: {review.reviewerName}</div>
-                <button
-                  onClick={() => handleDeleteReview(review.reviewId)}
-                  className="text-red-500 p-1 rounded-full"
-                  aria-label="리뷰 삭제"
-                >
-                  🗑️
-                </button>
-              </div>
-            </div>
+              review={review}
+              onDelete={handleDeleteReview}
+              onOpenImage={openImage}
+              onOpenVideo={openVideo}
+            />
           ))}
         </div>
 
