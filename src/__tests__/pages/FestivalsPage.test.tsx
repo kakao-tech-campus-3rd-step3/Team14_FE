@@ -5,13 +5,41 @@ vi.mock('@/apis/festivals/getFestivals', async () => {
     default: vi.fn().mockResolvedValue({ data: festivalsMockData }),
   };
 });
+
+vi.mock('@/apis/festivals/postFestivalsPick', async () => {
+  const { festivalsPickMockData } = await import('@/mocks/data/festivalsPick.mock');
+  return {
+    __esModule: true,
+    default: vi.fn().mockResolvedValue({
+      data: { content: festivalsPickMockData },
+    }),
+  };
+});
+
 import { render, screen, waitFor, within } from '@testing-library/react';
 import FestivalsPage from '@/pages/Festivals/FestivalsPage';
 import { festivalsMockData } from '@/mocks/data/festivals.mock';
+import { festivalsPickMockData } from '@/mocks/data/festivalsPick.mock';
 import TestWrapper from '@/__tests__/TestWrapper';
 import API_ENDPOINTS from '@/constants/apiEndpoints';
+import { type PostFestivalsPickBody } from '@/apis/festivals/postFestivalsPick';
+import { type PickStyleId } from '@/constants/pickStyles';
 
 const initialEntries = [API_ENDPOINTS.FESTIVALS.replace(':areaId', '2')];
+
+// AI 추천 테스트를 위한 mock request data
+const mockRequestData = {
+  areaCode: 2,
+  styles: ['TRADITIONAL', 'FOOD'] as PickStyleId[],
+  isNewPlace: true,
+  isSolo: false,
+  prefersEnjoyment: true,
+  isSpontaneous: false,
+  additionalInfo: '전통 음식 축제를 좋아해요',
+};
+
+// AI 추천이 있는 경우의 초기 entries (문자열로 변경)
+const initialEntriesWithAI = [API_ENDPOINTS.FESTIVALS.replace(':areaId', '2')];
 
 /*
 -jsdom이 콜론 포함 URL을 처리하다 HTMLBaseElement.href 접근 중 예외를 던짐. 
@@ -21,11 +49,30 @@ vi.mock('@/components/common/Footer', () => ({
   default: () => <div data-testid="footer" />, // 링크 없는 더미
 }));
 
+// useLocation 모킹을 위한 변수
+let mockLocationState: { requestData: PostFestivalsPickBody } | undefined;
+
+vi.mock('react-router-dom', async () => {
+  const actual = await vi.importActual('react-router-dom');
+  return {
+    ...actual,
+    useLocation: () => ({
+      pathname: '/festivals/2',
+      search: '',
+      state: mockLocationState,
+    }),
+    useNavigate: () => vi.fn(),
+  };
+});
+
 describe('FestivalsPage 테스트', () => {
   describe('스냅샷 테스트', () => {
-    test('AI 추천 섹션 스냅샷', async () => {
+    test('AI 추천 섹션과 일반 섹션 스냅샷', async () => {
+      // Given: AI 추천 데이터가 있을 때
+      mockLocationState = { requestData: mockRequestData };
+
       const { container } = render(
-        <TestWrapper initialEntries={initialEntries}>
+        <TestWrapper initialEntries={initialEntriesWithAI}>
           <FestivalsPage />
         </TestWrapper>,
       );
@@ -35,39 +82,130 @@ describe('FestivalsPage 테스트', () => {
         const sections = container.querySelectorAll('section');
         expect(sections.length).toBeGreaterThanOrEqual(2);
       });
+
       const sections = container.querySelectorAll('section');
       const [aiPickSection, festivalsSection] = sections;
 
-      // AI 첫 카드 스냅샷
+      // AI Pick 첫 카드 스냅샷
       const aiGrid = aiPickSection.querySelector('.grid');
-      expect(aiGrid?.children[0]).toMatchSnapshot('ai-first-card');
+      expect(aiGrid?.children[0]).toMatchSnapshot('ai-pick-first-card');
 
       // Festivals 첫 카드 스냅샷
       const festivalsGrid = festivalsSection.querySelector('.grid');
       expect(festivalsGrid?.children[0]).toMatchSnapshot('festivals-first-card');
     });
-  });
 
-  describe('AI 추천 섹션', () => {
-    // AI 추천 섹션 백엔드 완성 후 테스트 코드 작성 필요
-    test('AI 추천 섹션이 표시된다', async () => {
-      // Given: API 호출이 성공적으로 데이터를 반환할 때
-      // When: FestivalsPage를 렌더링하면
+    test('AI 추천이 없을 때 일반 섹션만 스냅샷', async () => {
+      // Given: AI 추천 데이터가 없을 때
+      mockLocationState = undefined;
+
       const { container } = render(
         <TestWrapper initialEntries={initialEntries}>
           <FestivalsPage />
         </TestWrapper>,
       );
 
-      // Then: AI pick 섹션 제목이 표시되어야 한다 (ErrorBoundary로 인해 없을 수도 있음)
+      // Suspense가 끝나고 섹션이 나타날 때까지 기다림
       await waitFor(() => {
         const sections = container.querySelectorAll('section');
         expect(sections.length).toBeGreaterThanOrEqual(1);
       });
 
-      // 첫 섹션이 존재하면 OK (타이틀 카피가 바뀌어도 안 깨짐)
-      const firstSection = container.querySelectorAll('section')[0];
-      expect(firstSection).toBeTruthy();
+      const sections = container.querySelectorAll('section');
+      const [festivalsSection] = sections;
+
+      // Festivals 첫 카드 스냅샷
+      const festivalsGrid = festivalsSection.querySelector('.grid');
+      expect(festivalsGrid?.children[0]).toMatchSnapshot('festivals-only-first-card');
+    });
+  });
+
+  describe('AI 추천 섹션', () => {
+    beforeEach(() => {
+      // 각 테스트 전에 mock state 초기화
+      mockLocationState = undefined;
+    });
+
+    test('AI 추천 데이터가 있을 때 AI Pick 섹션이 표시된다', async () => {
+      // Given: Pick 페이지에서 전달된 requestData가 있을 때
+      mockLocationState = { requestData: mockRequestData };
+
+      // When: FestivalsPage를 렌더링하면
+      render(
+        <TestWrapper initialEntries={initialEntriesWithAI}>
+          <FestivalsPage />
+        </TestWrapper>,
+      );
+
+      // Then: AI Pick 섹션이 표시되어야 한다
+      await waitFor(() => {
+        expect(screen.getByRole('heading', { name: '맞춤 AI Pick 축제' })).toBeInTheDocument();
+      });
+
+      // AI Pick 섹션에서 mock 데이터의 축제들이 표시되는지 확인
+      const aiPickHeading = screen.getByRole('heading', { name: '맞춤 AI Pick 축제' });
+      const aiPickSection = aiPickHeading.closest('section');
+      expect(aiPickSection).toBeTruthy();
+
+      if (!aiPickSection) return;
+
+      const aiScope = within(aiPickSection);
+
+      // 첫 번째 축제 확인
+      expect(aiScope.getByText(festivalsPickMockData[0].title)).toBeInTheDocument();
+      expect(
+        aiScope.getByText(festivalsPickMockData[0].startDate, { exact: false }),
+      ).toBeInTheDocument();
+
+      // 두 번째 축제 확인
+      expect(aiScope.getByText(festivalsPickMockData[1].title)).toBeInTheDocument();
+      expect(
+        aiScope.getByText(festivalsPickMockData[1].startDate, { exact: false }),
+      ).toBeInTheDocument();
+    });
+
+    test('AI 추천 데이터가 없을 때 AI Pick 섹션이 표시되지 않는다', async () => {
+      // Given: requestData가 없을 때 (mockLocationState는 null)
+      // When: FestivalsPage를 렌더링하면
+      render(
+        <TestWrapper initialEntries={initialEntries}>
+          <FestivalsPage />
+        </TestWrapper>,
+      );
+
+      // Then: 일반 Festivals 섹션이 로드될 때까지 기다림
+      await waitFor(() => {
+        expect(screen.getByRole('heading', { name: 'Festivals' })).toBeInTheDocument();
+      });
+
+      // AI Pick 제목이 없어야 함
+      expect(screen.queryByRole('heading', { name: '맞춤 AI Pick 축제' })).not.toBeInTheDocument();
+
+      // 일반 축제 데이터가 표시되는지 확인
+      expect(screen.getByText(festivalsMockData.content[0].title)).toBeInTheDocument();
+    });
+
+    test('AI 추천 API 호출이 실패해도 에러가 발생하지 않는다', async () => {
+      // Given: AI 추천 API가 실패할 때
+      const postFestivalsPickMock = await import('@/apis/festivals/postFestivalsPick');
+      vi.mocked(postFestivalsPickMock.default).mockRejectedValueOnce(new Error('AI API Error'));
+
+      mockLocationState = { requestData: mockRequestData };
+
+      // When: requestData와 함께 FestivalsPage를 렌더링하면
+      render(
+        <TestWrapper initialEntries={initialEntriesWithAI}>
+          <FestivalsPage />
+        </TestWrapper>,
+      );
+
+      // Then: 에러가 발생하지 않고 일반 Festivals 섹션은 표시되어야 한다
+      await waitFor(() => {
+        expect(screen.getByRole('heading', { name: 'Festivals' })).toBeInTheDocument();
+      });
+
+      // AI Pick 섹션은 표시되지 않아야 함
+      expect(screen.queryByRole('heading', { name: '맞춤 AI Pick 축제' })).not.toBeInTheDocument();
     });
   });
 });

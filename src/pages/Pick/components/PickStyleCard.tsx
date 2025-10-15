@@ -1,9 +1,10 @@
 import { usePick } from '@/context/PickContext';
+import type { PickStyleId } from '@/constants/pickStyles';
 
 interface PickStyleCardProps {
   image: string;
   title: string;
-  id: string;
+  id: PickStyleId;
 }
 
 const PickStyleCard = ({ image, title, id }: PickStyleCardProps) => {
