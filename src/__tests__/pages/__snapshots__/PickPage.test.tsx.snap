@@ -24,17 +24,12 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > MBTI 선택 화면 - 4개 �
       value=""
     />
   </div>
-  <a
-    data-discover="true"
-    href="/festivals"
+  <button
+    class="flex items-center justify-center w-full cursor-pointer bg-primary-300 text-gray-50 text-md rounded-xl px-5 py-3 text-lg "
+    type="button"
   >
-    <button
-      class="flex items-center justify-center w-full cursor-pointer bg-primary-300 text-gray-50 text-md rounded-xl px-5 py-3 text-lg "
-      type="button"
-    >
-      추천 받기
-    </button>
-  </a>
+    추천 받기
+  </button>
 </div>
 `;
 
@@ -174,18 +169,13 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > MBTI 선택 화면 - 초기 
       value=""
     />
   </div>
-  <a
-    data-discover="true"
-    href="/festivals"
+  <button
+    class="flex items-center justify-center w-full cursor-not-allowed bg-primary-300 text-gray-50 text-md rounded-xl px-5 py-3 text-lg opacity-50"
+    disabled=""
+    type="button"
   >
-    <button
-      class="flex items-center justify-center w-full cursor-not-allowed bg-primary-300 text-gray-50 text-md rounded-xl px-5 py-3 text-lg opacity-50"
-      disabled=""
-      type="button"
-    >
-      추천 받기
-    </button>
-  </a>
+    추천 받기
+  </button>
 </div>
 `;
 
