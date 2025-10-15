@@ -1,31 +1,37 @@
 import { createContext, useContext, useState, type ReactNode, type ChangeEvent } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useParams, useSearchParams, useNavigate, generatePath } from 'react-router-dom';
+import type { PickStyleId } from '@/constants/pickStyles';
+import type { PostFestivalsPickBody } from '@/apis/festivals/postFestivalsPick';
+import { ROUTE_PATH } from '@/constants/routes';
 
 // 최대 선택 가능한 스타일 수
 const MAX_SELECTED_STYLES = 3;
 
 interface PickContextType {
-  selectedStyles: string[];
+  selectedStyles: PickStyleId[];
   mbtiAnswers: Record<string, boolean>;
   additionalInfo: string;
   canProceedToMbti: boolean;
   canProceedToRecommendation: boolean;
-  handleStyleSelect: (styleId: string) => void;
+  handleStyleSelect: (styleId: PickStyleId) => void;
   handleMbtiAnswer: (questionId: string, answer: boolean) => void;
   handleAdditionalInfo: (e: ChangeEvent<HTMLInputElement>) => void;
   goToNextStep: () => void;
   onSubmitRecommendation: () => void;
+  getRequestData: () => PostFestivalsPickBody;
 }
 
 const PickContext = createContext<PickContextType | undefined>(undefined);
 
 export const PickProvider = ({ children }: { children: ReactNode }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [selectedStyles, setSelectedStyles] = useState<string[]>([]);
+  const navigate = useNavigate();
+  const [selectedStyles, setSelectedStyles] = useState<PickStyleId[]>([]);
   const [mbtiAnswers, setMbtiAnswers] = useState<Record<string, boolean>>({});
   const [additionalInfo, setAdditionalInfo] = useState<string>('');
+  const { areaId } = useParams();
 
-  const handleStyleSelect = (styleId: string) => {
+  const handleStyleSelect = (styleId: PickStyleId) => {
     setSelectedStyles((prev) => {
       if (prev.includes(styleId)) {
         return prev.filter((id) => id !== styleId);
@@ -58,16 +64,25 @@ export const PickProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const onSubmitRecommendation = () => {
-    const requestData = {
+  const getRequestData = (): PostFestivalsPickBody => {
+    return {
       styles: selectedStyles,
-      mbti: mbtiAnswers,
-      additionalInfo: additionalInfo || undefined,
+      areaCode: Number(areaId),
+      isNewPlace: mbtiAnswers['isNewPlace'] || false,
+      isSolo: mbtiAnswers['isSolo'] || false,
+      prefersEnjoyment: mbtiAnswers['prefersEnjoyment'] || false,
+      isSpontaneous: mbtiAnswers['isSpontaneous'] || false,
+      additionalInfo: additionalInfo,
     };
+  };
 
-    // TODO: API 호출
-    console.log(requestData);
-    // lint 때문에 추가하였고 추후에 api 호출 시 삭제 예정
+  const onSubmitRecommendation = () => {
+    const requestData = getRequestData();
+
+    // Festivals 페이지로 이동하면서 요청 데이터를 전달
+    navigate(generatePath(ROUTE_PATH.FESTIVALS, { areaId: areaId || '' }), {
+      state: { requestData },
+    });
   };
 
   const value: PickContextType = {
@@ -81,6 +96,7 @@ export const PickProvider = ({ children }: { children: ReactNode }) => {
     handleAdditionalInfo,
     goToNextStep,
     onSubmitRecommendation,
+    getRequestData,
   };
 
   return <PickContext.Provider value={value}>{children}</PickContext.Provider>;

@@ -10,4 +10,7 @@ const PICK_STYLES = [
   { id: 'INTERNATIONAL', name: '국제', image: '/pickStyle/international.svg' },
 ] as const;
 
+// PICK_STYLES의 id 값들만 허용하는 타입
+export type PickStyleId = (typeof PICK_STYLES)[number]['id'];
+
 export default PICK_STYLES;

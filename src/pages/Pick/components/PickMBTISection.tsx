@@ -2,12 +2,9 @@ import PickSubTitle from '@/pages/Pick/components/PickSubTitle';
 import PickMBTIList from '@/pages/Pick/components/PickMBTIList';
 import OutlineInputField from '@/components/form/OutlineInputField';
 import Button from '@/components/common/Button';
-import { generatePath, Link, useParams } from 'react-router-dom';
-import { ROUTE_PATH } from '@/constants/routes';
 import { usePick } from '@/context/PickContext';
 
 const PickMBTISection = () => {
-  const { areaId } = useParams();
   const {
     additionalInfo,
     handleAdditionalInfo,
@@ -37,14 +34,14 @@ const PickMBTISection = () => {
           value={additionalInfo}
           onChange={handleAdditionalInfo}
         />
-        <Link
-          to={generatePath(ROUTE_PATH.FESTIVALS, { areaId: areaId || '' })}
+        <Button
+          className="text-lg"
+          fullWidth
+          disabled={!canProceedToRecommendation}
           onClick={() => onSubmitRecommendation()}
         >
-          <Button className="text-lg" fullWidth disabled={!canProceedToRecommendation}>
-            추천 받기
-          </Button>
-        </Link>
+          추천 받기
+        </Button>
       </div>
     </section>
   );
