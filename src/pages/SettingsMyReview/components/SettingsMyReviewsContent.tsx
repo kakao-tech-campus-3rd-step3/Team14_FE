@@ -1,29 +1,22 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect} from 'react';
 import { getMyReviews, type MyReview } from '@/apis/review/getMyReviews';
 import StarRating from '@/components/common/StarRating';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorComponent from '@/components/common/ErrorComponent';
-import LeftArrow from '@/components/icon/LeftArrowIcon';
 import { deleteReview } from '@/apis/review/deleteReview';
-
-type Viewer =
-  | { type: 'image'; srcList: string[]; index: number }
-  | { type: 'video'; src: string }
-  | null;
+import ImageModal,{type MediaItem} from '@/components/modal/ImageModal';
 
 const SettingsMyReviewsContent = () => {
   const [reviews, setReviews] = useState<MyReview[]>([]);
   const [loading, setLoading] = useState(true);
-
   const [currentPage, setCurrentPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
 
-  const [viewer, setViewer] = useState<Viewer>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMediaItems, setModalMediaItems] = useState<MediaItem[]>([]);
+  const [selectedMediaIndex, setSelectedMediaIndex] = useState(0);
 
-  const openImage = (srcList: string[], index: number) =>
-    setViewer({ type: 'image', srcList, index });
-  const openVideo = (src: string) => setViewer({ type: 'video', src });
-  const closeViewer = () => setViewer(null);
+
 
   const handleDeleteReview = async (reviewId: number) => {
     if (!confirm('정말로 이 리뷰를 삭제하시겠습니까?')) return;
@@ -39,45 +32,19 @@ const SettingsMyReviewsContent = () => {
     }
   };
 
-  const onKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      if (!viewer) return;
-      if (e.key === 'Escape') closeViewer();
-      if (viewer.type === 'image') {
-        if (e.key === 'ArrowRight') {
-          setViewer((v) =>
-            v && v.type === 'image'
-              ? {
-                  ...v,
-                  index: (v.index + 1) % v.srcList.length,
-                }
-              : v,
-          );
-        }
-        if (e.key === 'ArrowLeft') {
-          setViewer((v) =>
-            v && v.type === 'image'
-              ? {
-                  ...v,
-                  index: (v.index - 1 + v.srcList.length) % v.srcList.length,
-                }
-              : v,
-          );
-        }
-      }
-    },
-    [viewer],
-  );
+  const handleMediaClick = (review: MyReview, clickedIndex: number) => {
+    const mediaItems: MediaItem[] = [
+      ...(review.imageUrls?.map((url) => ({ type: 'image' as const, url })) || []),
+      ...(review.videoUrl ? [{ type: 'video' as const, url: review.videoUrl }] : []),
 
-  useEffect(() => {
-    if (!viewer) return;
-    window.addEventListener('keydown', onKeyDown);
-    document.body.style.overflow = 'hidden';
-    return () => {
-      window.removeEventListener('keydown', onKeyDown);
-      document.body.style.overflow = '';
-    };
-  }, [viewer, onKeyDown]);
+    ];
+
+    setModalMediaItems(mediaItems);
+    setSelectedMediaIndex(clickedIndex);
+    setIsModalOpen(true);
+  };
+
+
 
   const loadReviews = async (page: number) => {
     try {
@@ -160,7 +127,7 @@ const SettingsMyReviewsContent = () => {
                   {review.imageUrls.map((url, index) => (
                     <button
                       key={index}
-                      onClick={() => openImage(review.imageUrls, index)}
+                      onClick={() => handleMediaClick(review, index)}
                       className="focus:outline-none"
                       aria-label={`리뷰 이미지 ${index + 1} 크게 보기`}
                     >
@@ -179,7 +146,7 @@ const SettingsMyReviewsContent = () => {
                     src={review.videoUrl}
                     controls
                     className="w-full max-w-xs rounded cursor-pointer"
-                    onClick={() => openVideo(review.videoUrl!)}
+                    onClick={() => handleMediaClick(review, (review.imageUrls?.length || 0))}
                   />
                 </div>
               )}
@@ -211,78 +178,12 @@ const SettingsMyReviewsContent = () => {
         )}
       </div>
 
-      {viewer && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="w-full h-full fixed inset-0 z-[9999] flex items-center justify-center bg-black/75"
-          onClick={closeViewer}
-        >
-          <div
-            className="relative max-w-[480px] w-full mx-4 flex items-center justify-center"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={closeViewer}
-              className="absolute -top-10 right-0 text-white text-2xl"
-              aria-label="닫기"
-            >
-              ✕
-            </button>
-
-            {viewer.type === 'image' ? (
-              <>
-                {viewer.srcList.length > 1 && (
-                  <button
-                    className="absolute left-0 p-3 text-white text-2xl"
-                    onClick={() =>
-                      setViewer((v) =>
-                        v && v.type === 'image'
-                          ? {
-                              ...v,
-                              index: (v.index - 1 + v.srcList.length) % v.srcList.length,
-                            }
-                          : v,
-                      )
-                    }
-                    aria-label="이전 이미지"
-                  >
-                    <LeftArrow className="stroke-white" />
-                  </button>
-                )}
-
-                <img
-                  src={viewer.srcList[viewer.index]}
-                  alt="리뷰 이미지 확대"
-                  className="max-w-full max-h-[80vh] object-contain rounded"
-                />
-
-                {viewer.srcList.length > 1 && (
-                  <button
-                    className="absolute right-0 p-3 text-white text-2xl"
-                    onClick={() =>
-                      setViewer((v) =>
-                        v && v.type === 'image'
-                          ? { ...v, index: (v.index + 1) % v.srcList.length }
-                          : v,
-                      )
-                    }
-                    aria-label="다음 이미지"
-                  >
-                    <LeftArrow className="stroke-white rotate-180" />
-                  </button>
-                )}
-              </>
-            ) : (
-              <video
-                src={viewer.src}
-                controls
-                autoPlay
-                className="max-w-full max-h-[80vh] rounded"
-              />
-            )}
-          </div>
-        </div>
+      {isModalOpen && (
+        <ImageModal
+          mediaItems={modalMediaItems}
+          selectedMediaIndex={selectedMediaIndex}
+          onClose={() => setIsModalOpen(false)}
+        />
       )}
     </ErrorBoundary>
   );
