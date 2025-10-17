@@ -26,6 +26,8 @@ const API_ENDPOINTS = {
   REVIEW_UPDATE: '/api/reviews/:reviewId',
   // 미디어 업로드
   PRESIGNED_URL: '/api/presigned-url',
+  // 축제 관리자 신청
+  FM_PERMISSION: '/api/fm-permissions',
 } as const;
 
 export default API_ENDPOINTS;
