@@ -24,6 +24,8 @@ const API_ENDPOINTS = {
   REVIEW_DELETE: '/api/reviews/:reviewId',
   // 리뷰 수정
   REVIEW_UPDATE: '/api/reviews/:reviewId',
+  // 미디어 업로드
+  PRESIGNED_URL: '/api/presigned-url',
 } as const;
 
 export default API_ENDPOINTS;

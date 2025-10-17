@@ -1,5 +1,5 @@
 import MAX_MEDIA_SIZE from '@/constants/maxMediaSize';
-import { uploadImageFiles,uploadVideoFile } from '@/utils/getPresigned';
+import { uploadImageFiles,uploadVideoFile } from '@/utils/s3Upload';
 
 export interface FileUploadOptions<T> {
   accept: string;

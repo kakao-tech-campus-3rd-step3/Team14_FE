@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { createImagePicker, createVideoPicker } from '@/utils/fileUpload';
+import { createImagePicker, createVideoPicker } from '@/utils/filePicker';
 
 export function useMediaUpload() {
   const [imageInfos, setImageInfos] = useState<{ id: number; presignedUrl: string }[]>([]);

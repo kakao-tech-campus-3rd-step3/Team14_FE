@@ -1,4 +1,3 @@
-
 import { getPresignedUrl } from '@/apis/media/getPresignedUrl';
 
 async function putToS3(presignedUrl: string, file: File) {
