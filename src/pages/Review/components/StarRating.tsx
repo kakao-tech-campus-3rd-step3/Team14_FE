@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import StarIcon from '@/components/icon/StarIcon';
 
 const StarRating = ({ value, onChange }: { value: number; onChange: (v: number) => void }) => {
   const [hover, setHover] = useState<number | null>(null);
@@ -17,7 +18,9 @@ const StarRating = ({ value, onChange }: { value: number; onChange: (v: number) 
             className="text-2xl"
             aria-label={`${star}점`}
           >
-            {filled ? '⭐' : '☆'}
+            <StarIcon 
+            className={`x-8 h-8 ${filled ? 'text-yellow-400' : 'text-gray-300'}`}
+            filled={filled} />
           </button>
         );
       })}
