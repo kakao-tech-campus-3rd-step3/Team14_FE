@@ -1,7 +1,6 @@
 import type { UserInfoResponse } from '@/types/UserType';
 const SettingsProfileCard = ({ userInfo }: { userInfo: UserInfoResponse['content'] }) => {
   return (
-
     <div className="bg-white rounded-lg p-6 shadow-sm">
       <div className="flex items-center space-x-4">
         {userInfo?.profileImageUrl ? (

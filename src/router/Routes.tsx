@@ -14,7 +14,6 @@ import ChatPage from '@/pages/Chat/ChatPage';
 import SettingsPage from '@/pages/Settings/SettingsPage';
 import SettingsFestivalMyReviewsPage from '@/pages/SettingsFestivalMyReview/SettingsFestivalMyReviewsPage';
 
-
 /**
  * 라우터 컴포넌트
  * 로그인 필요 여부에 따라 ProtectedRoute 컴포넌트로 감싸져 있음

@@ -16,7 +16,7 @@ export function useMediaUpload() {
         alert(`이미지는 최대 10개까지만 업로드할 수 있습니다. (현재: ${currentLength}개)`);
         return;
       }
-      
+
       setImageInfos((prev) => [...prev, ...uploaded]);
     },
     setIsUploading,

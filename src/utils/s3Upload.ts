@@ -12,7 +12,7 @@ export async function uploadImageFiles(files: File[]) {
   for (const f of files) {
     const { id, presignedUrl } = await getPresignedUrl();
     await putToS3(presignedUrl, f);
-    results.push({ id, presignedUrl: cleanUrl(presignedUrl)});
+    results.push({ id, presignedUrl: cleanUrl(presignedUrl) });
   }
   return results;
 }
