@@ -1,11 +1,11 @@
 import { useState, useEffect} from 'react';
 import { getMyReviews, type MyReview } from '@/apis/review/getMyReviews';
-import StarRating from '@/components/common/StarRating';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorComponent from '@/components/common/ErrorComponent';
 import { deleteReview } from '@/apis/review/deleteReview';
 import ImageModal,{type MediaItem} from '@/components/modal/ImageModal';
 import SettingsMyReviewsCard from './SettingsMyReviewsCard';
+import EmptyComponent from '@/components/common/EmptyComponent';
 
 const SettingsMyReviewsContent = () => {
   const [reviews, setReviews] = useState<MyReview[]>([]);
@@ -74,7 +74,7 @@ const SettingsMyReviewsContent = () => {
       loadReviews(nextPage);
     }
   };
-
+//TODO: 로딩 중 빈 컴포넌트 추가
   if (loading && reviews.length === 0) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -85,12 +85,7 @@ const SettingsMyReviewsContent = () => {
   }
 
   if (reviews.length === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center h-64">
-        <p className="text-gray-500 text-lg">작성한 리뷰가 없습니다.</p>
-        <p className="text-gray-400 text-sm mt-1">축제를 방문하고 첫 리뷰를 작성해보세요!</p>
-      </div>
-    );
+    return <EmptyComponent title="작성한 리뷰가 없습니다." description="축제를 방문하고 첫 리뷰를 작성해보세요!" />;
   }
 
   return (
