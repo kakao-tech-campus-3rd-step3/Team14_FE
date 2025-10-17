@@ -9,6 +9,7 @@ const SettingsContent = () => {
     <>
       <SettingsSection title="축제">
         <div className="flex flex-col gap-2">
+          {/* TODO: 내가 등록한 축제 버튼 추가 */}
           <Button
             variant="text"
             onClick={() => {
@@ -17,6 +18,7 @@ const SettingsContent = () => {
           >
             내가 등록한 축제
           </Button>
+          {/* TODO: 축제 관리자 되기 버튼 추가 */}
           <Button
             variant="text"
             onClick={() => {
@@ -25,6 +27,7 @@ const SettingsContent = () => {
           >
             축제 관리자 되기
           </Button>
+          {/* TODO: 내가 작성한 리뷰 보기 버튼 추가 */}
           <Button
             variant="text"
             onClick={() => {
@@ -37,6 +40,7 @@ const SettingsContent = () => {
       </SettingsSection>
       <SettingsSection title="계정">
         <div className="flex flex-col gap-2">
+          {/* TODO: 프로필 이미지 수정 버튼 추가 */}
           <Button
             variant="text"
             onClick={() => {
@@ -45,6 +49,7 @@ const SettingsContent = () => {
           >
             프로필 이미지 수정
           </Button>
+          {/* TODO: 로그아웃 버튼 추가 */}
           <Button
             variant="text"
             onClick={() => {
@@ -53,6 +58,7 @@ const SettingsContent = () => {
           >
             로그아웃
           </Button>
+          {/* TODO: 회원탈퇴 버튼 추가 */}
           <Button
             variant="text"
             onClick={() => {
@@ -65,6 +71,7 @@ const SettingsContent = () => {
       </SettingsSection>
       <SettingsSection title="고객센터">
         <div className="flex flex-col gap-2">
+          {/* TODO: 자주 묻는 질문 버튼 추가 */}
           <Button
             variant="text"
             onClick={() => {
