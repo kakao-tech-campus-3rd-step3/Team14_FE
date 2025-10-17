@@ -4,7 +4,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import ErrorComponent from '@/components/common/ErrorComponent';
 import { deleteReview } from '@/apis/review/deleteReview';
 import ImageModal, { type MediaItem } from '@/components/modal/ImageModal';
-import SettingsMyReviewsCard from './SettingsMyReviewsCard';
+import SettingsMyReviewsCard from './SettingsFestivalMyReviewsCard';
 import EmptyComponent from '@/components/common/EmptyComponent';
 
 const SettingsMyReviewsContent = () => {

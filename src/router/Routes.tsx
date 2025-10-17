@@ -12,7 +12,8 @@ import SearchPage from '@/pages/Search/SearchPage';
 import ReviewPage from '@/pages/Review/ReviewPage';
 import ChatPage from '@/pages/Chat/ChatPage';
 import SettingsPage from '@/pages/Settings/SettingsPage';
-import SettingsMyReviewsPage from '@/pages/SettingsFestivalMyReview/SettingsMyReviewsPage';
+import SettingsFestivalMyReviewsPage from '@/pages/SettingsFestivalMyReview/SettingsFestivalMyReviewsPage';
+
 
 /**
  * 라우터 컴포넌트
@@ -69,7 +70,7 @@ const Routes = () => {
         path={ROUTE_PATH.MY_REVIEWS}
         element={
           <ProtectedRoute>
-            <SettingsMyReviewsPage />
+            <SettingsFestivalMyReviewsPage />
           </ProtectedRoute>
         }
       />

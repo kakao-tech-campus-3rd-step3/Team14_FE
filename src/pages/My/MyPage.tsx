@@ -4,6 +4,7 @@ import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
 import { getUserInfo } from '@/apis/user/getUserInfo';
 import type { UserInfoResponse } from '@/types/UserType';
+
 /**
  * 마이페이지
  * 피어리뷰를 위해 우선적으로 UI위주로 구현하였습니다.
@@ -59,28 +60,6 @@ const MyPage = () => {
     <Container>
       <Header variant="mypage" />
       <div className="p-4">
-        <div className="bg-white rounded-lg p-6 shadow-sm">
-          <div className="flex items-center space-x-4">
-            {userInfo?.profileImageUrl ? (
-              <img
-                src={userInfo.profileImageUrl}
-                alt="프로필"
-                className="w-16 h-16 rounded-full object-cover"
-              />
-            ) : (
-              <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
-                <span className="text-gray-500 text-xl">👤</span>
-              </div>
-            )}
-            <div>
-              <h2 className="text-xl font-semibold text-gray-900">
-                {userInfo?.username}님 안녕하세요!
-              </h2>
-              <p className="text-sm text-gray-500">{userInfo?.email}</p>
-            </div>
-          </div>
-        </div>
-
         {/* 방문 예정과 방문 완료 버튼 기능은 이후 추가적으로 구현할 예정입니다. */}
         <div className="mt-6">
           <div className="flex border-b border-gray-200">

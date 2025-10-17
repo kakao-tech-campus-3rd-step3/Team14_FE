@@ -1,7 +1,7 @@
 import Container from '@/components/common/Container';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
-import SettingsMyReviewsContent from '@/pages/SettingsFestivalMyReview/components/SettingsMyReviewsContent';
+import SettingsMyReviewsContent from '@/pages/SettingsFestivalMyReview/components/SettingsFestivalMyReviewsContent';
 
 const SettingsFestivalMyReviewsPage = () => {
   return (
