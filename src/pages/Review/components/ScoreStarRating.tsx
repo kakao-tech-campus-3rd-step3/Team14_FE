@@ -18,9 +18,10 @@ const ScoreStarRating = ({ value, onChange }: { value: number; onChange: (v: num
             className="text-2xl"
             aria-label={`${star}점`}
           >
-            <StarIcon 
-            className={`x-8 h-8 ${filled ? 'text-yellow-400' : 'text-gray-300'}`}
-            filled={filled} />
+            <StarIcon
+              className={`x-8 h-8 ${filled ? 'text-yellow-400' : 'text-gray-300'}`}
+              filled={filled}
+            />
           </button>
         );
       })}

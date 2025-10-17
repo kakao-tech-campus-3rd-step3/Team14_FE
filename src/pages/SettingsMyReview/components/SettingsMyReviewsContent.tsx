@@ -1,9 +1,9 @@
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { getMyReviews, type MyReview } from '@/apis/review/getMyReviews';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorComponent from '@/components/common/ErrorComponent';
 import { deleteReview } from '@/apis/review/deleteReview';
-import ImageModal,{type MediaItem} from '@/components/modal/ImageModal';
+import ImageModal, { type MediaItem } from '@/components/modal/ImageModal';
 import SettingsMyReviewsCard from './SettingsMyReviewsCard';
 import EmptyComponent from '@/components/common/EmptyComponent';
 
@@ -35,7 +35,6 @@ const SettingsMyReviewsContent = () => {
     const mediaItems: MediaItem[] = [
       ...(review.imageUrls?.map((url) => ({ type: 'image' as const, url })) || []),
       ...(review.videoUrl ? [{ type: 'video' as const, url: review.videoUrl }] : []),
-
     ];
     setModalMediaItems(mediaItems);
     setSelectedMediaIndex(clickedIndex);
@@ -74,7 +73,7 @@ const SettingsMyReviewsContent = () => {
       loadReviews(nextPage);
     }
   };
-//TODO: 로딩 중 빈 컴포넌트 추가
+  //TODO: 로딩 중 빈 컴포넌트 추가
   if (loading && reviews.length === 0) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -85,7 +84,12 @@ const SettingsMyReviewsContent = () => {
   }
 
   if (reviews.length === 0) {
-    return <EmptyComponent title="작성한 리뷰가 없습니다." description="축제를 방문하고 첫 리뷰를 작성해보세요!" />;
+    return (
+      <EmptyComponent
+        title="작성한 리뷰가 없습니다."
+        description="축제를 방문하고 첫 리뷰를 작성해보세요!"
+      />
+    );
   }
 
   return (
@@ -104,7 +108,12 @@ const SettingsMyReviewsContent = () => {
       <div className="p-4">
         <div className="space-y-4">
           {reviews.map((review) => (
-            <SettingsMyReviewsCard key={review.reviewId} review={review} handleDeleteReview={handleDeleteReview} handleMediaClick={handleMediaClick} />
+            <SettingsMyReviewsCard
+              key={review.reviewId}
+              review={review}
+              handleDeleteReview={handleDeleteReview}
+              handleMediaClick={handleMediaClick}
+            />
           ))}
         </div>
 
