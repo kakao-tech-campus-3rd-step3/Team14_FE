@@ -7,7 +7,7 @@ const SettingsContent = () => {
   const { goTo } = useNav();
   return (
     <>
-      <SettingsSection title="축제">
+      <SettingsSection title="등업하기">
         <div className="flex flex-col gap-2">
           {/* TODO: 내가 등록한 축제 버튼 추가 */}
           <Button
@@ -16,7 +16,7 @@ const SettingsContent = () => {
               goTo('#');
             }}
           >
-            내가 등록한 축제
+            축제 관리자 되기
           </Button>
           {/* TODO: 축제 관리자 되기 버튼 추가 */}
           <Button
@@ -25,8 +25,12 @@ const SettingsContent = () => {
               goTo('#');
             }}
           >
-            축제 관리자 되기
+            신청서 조회하기
           </Button>
+        </div>
+      </SettingsSection>
+      <SettingsSection title="축제 관리하기 ">
+        <div className="flex flex-col gap-2">
           {/* TODO: 내가 작성한 리뷰 보기 버튼 추가 */}
           <Button
             variant="text"
@@ -34,12 +38,37 @@ const SettingsContent = () => {
               goTo(ROUTE_PATH.MY_REVIEWS);
             }}
           >
-            내가 작성한 리뷰 보기
+            내가 축제 등록하기
+          </Button>
+          <Button
+            variant="text"
+            onClick={() => {
+              goTo(ROUTE_PATH.MY_REVIEWS);
+            }}
+          >
+            내가 등록한 축제
+          </Button>
+          <Button
+            variant="text"
+            onClick={() => {
+              goTo(ROUTE_PATH.MY_REVIEWS);
+            }}
+          >
+            내가 관리하는 축제
           </Button>
         </div>
       </SettingsSection>
       <SettingsSection title="계정">
         <div className="flex flex-col gap-2">
+                    {/* TODO: 내가 작성한 리뷰 보기 버튼 추가 */}
+                    <Button
+            variant="text"
+            onClick={() => {
+              goTo(ROUTE_PATH.MY_REVIEWS);
+            }}
+          >
+            내가 작성한 리뷰 보기
+          </Button>
           {/* TODO: 프로필 이미지 수정 버튼 추가 */}
           <Button
             variant="text"
