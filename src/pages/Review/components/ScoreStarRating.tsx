@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import StarIcon from '@/components/icon/StarIcon';
 
-const StarRating = ({ value, onChange }: { value: number; onChange: (v: number) => void }) => {
+const ScoreStarRating = ({ value, onChange }: { value: number; onChange: (v: number) => void }) => {
   const [hover, setHover] = useState<number | null>(null);
 
   return (
@@ -28,4 +28,4 @@ const StarRating = ({ value, onChange }: { value: number; onChange: (v: number) 
   );
 };
 
-export default StarRating;
+export default ScoreStarRating;

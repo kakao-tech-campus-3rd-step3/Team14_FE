@@ -3,7 +3,7 @@ import { generatePath, useLocation, useParams } from 'react-router-dom';
 import FestivalCard from '../Festivals/components/FestivalCard';
 import Container from '@/components/common/Container';
 import ReviewForm from '@/pages/Review/components/ReviewForm';
-import StarRating from '@/pages/Review/components/StarRating';
+import ScoreStarRating from '@/pages/Review/components/ScoreStarRating';
 import Footer from '@/components/common/Footer';
 import { useAuth } from '@/context/AuthContext';
 import { getFestivalInfo } from '@/apis/festivals/getFestivalInfo';
@@ -108,7 +108,7 @@ const ReviewPage = () => {
 
         <div className="bg-white rounded-lg p-4 shadow-sm">
           <h3 className="font-semibold mb-3 text-center">이번 축제는 어떠셨나요?</h3>
-          <StarRating value={score} onChange={setScore} />
+          <ScoreStarRating value={score} onChange={setScore} />
         </div>
 
         <ReviewForm
