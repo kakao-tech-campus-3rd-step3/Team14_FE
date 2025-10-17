@@ -28,6 +28,8 @@ const API_ENDPOINTS = {
   PRESIGNED_URL: '/api/presigned-url',
   // 축제 관리자 신청
   FM_PERMISSION: '/api/fm-permissions',
+  // 내가 축제 관리자 신청 조회
+  FM_PERMISSION_MY: '/api/fm-permissions/my',
 } as const;
 
 export default API_ENDPOINTS;
