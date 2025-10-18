@@ -3,7 +3,6 @@ import useNav from '@/hooks/useNav';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   postFMPermission,
-  type PostFMPermissionBody,
 } from '@/apis/festivalManager/postFMPermission';
 import { MAX_DOCUMENT_COUNT } from '@/constants/maxMediaSize';
 import ApplicationDepartmentCard from '@/pages/SettingsFMPermissionApplication/components/ApplicationDepartmentCard';
@@ -11,19 +10,31 @@ import ApplicaitonInfoCard from '@/pages/SettingsFMPermissionApplication/compone
 import FormSubmitButtons from '@/components/common/FormSubmitButtons';
 import ApplicationDocumentCard from '@/pages/SettingsFMPermissionApplication/components/ApplicationDocumentCard';
 import { createDocumentPicker } from '@/utils/filePicker';
+import type { FMPermissionResponse } from '@/types/FMPermissionsResponse';
 
-const SettingsFMPermissionApplicationForm = () => {
-  const [department, setDepartment] = useState('');
+interface SettingsFMPermissionApplicationFormProps {
+  initialData?: {
+    department: string;
+    documents: Array<{ id: number; presignedUrl: string; fileName: string }>;
+  };
+  isEdit?: boolean;
+}
+
+const SettingsFMPermissionApplicationForm = ({
+  initialData,
+  isEdit = false,
+}: SettingsFMPermissionApplicationFormProps) => {
+  const [department, setDepartment] = useState(initialData?.department || '');
   const [documents, setDocuments] = useState<
     Array<{ id: number; presignedUrl: string; fileName: string }>
-  >([]);
+  >(initialData?.documents || []);
   const [isUploading, setIsUploading] = useState(false);
 
   const { goBack } = useNav();
   const queryClient = useQueryClient();
 
   const { mutate: submitApplication, isPending } = useMutation({
-    mutationFn: (body: PostFMPermissionBody) => postFMPermission(body),
+    mutationFn: (body: FMPermissionResponse) => postFMPermission(body),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['fmPermission'] });
       alert('축제 관리자 신청이 완료되었습니다.');
