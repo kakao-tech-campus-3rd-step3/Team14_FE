@@ -14,7 +14,5 @@ export interface FMPermissionResponse {
 }
 
 export const getMyFMPermission = async (): Promise<AxiosResponse<FMPermissionResponse>> => {
-  return await apiInstance.get<FMPermissionResponse>(
-    generatePath(API_ENDPOINTS.FM_PERMISSION_MY),
-  );
-}
+  return await apiInstance.get<FMPermissionResponse>(generatePath(API_ENDPOINTS.FM_PERMISSION_MY));
+};

@@ -5,6 +5,8 @@ import Button from '@/components/common/Button';
 import useNav from '@/hooks/useNav';
 import { ROUTE_PATH } from '@/constants/routes';
 import axios from 'axios';
+import EmptyComponent from '@/components/common/EmptyComponent';
+import ErrorComponent from '@/components/common/ErrorComponent';
 
 const SettingsFMPermissionStatusContent = () => {
   const { goTo, goBack } = useNav();
@@ -52,15 +54,13 @@ const SettingsFMPermissionStatusContent = () => {
   // 404 에러 (신청서가 없음)
   if (isError && axios.isAxiosError(error) && error.response?.status === 404) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[400px] p-4">
-        <div className="text-center">
-          <div className="text-6xl mb-4">📋</div>
-          <h2 className="text-xl font-semibold mb-2">신청서가 없습니다</h2>
-          <p className="text-gray-600 mb-6">아직 축제 관리자 신청을 하지 않으셨습니다.</p>
-          <Button
-            variant="primary"
-            onClick={() => goTo(ROUTE_PATH.FM_PERMISSION_APPLICATION)}
-          >
+      <div className="p-4">
+        <EmptyComponent
+          title="신청서가 없습니다"
+          description="아직 축제 관리자 신청을 하지 않으셨습니다."
+        />
+        <div className="flex justify-center mt-4">
+          <Button variant="primary" onClick={() => goTo(ROUTE_PATH.FM_PERMISSION_APPLICATION)}>
             신청서 작성하기
           </Button>
         </div>
@@ -68,19 +68,14 @@ const SettingsFMPermissionStatusContent = () => {
     );
   }
 
-  // 기타 에러
+  // TODO: 에러 처리 수정
   if (isError) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[400px] p-4">
-        <div className="text-center">
-          <div className="text-6xl mb-4">⚠️</div>
-          <h2 className="text-xl font-semibold mb-2">오류가 발생했습니다</h2>
-          <p className="text-gray-600 mb-6">신청서를 불러오는 중 문제가 발생했습니다.</p>
-          <Button variant="secondary" onClick={() => goBack()}>
-            돌아가기
-          </Button>
-        </div>
-      </div>
+      <ErrorComponent
+        title="오류가 발생했습니다"
+        message="신청서를 불러오는 중 문제가 발생했습니다."
+        showBackButton={true}
+      />
     );
   }
 
@@ -139,7 +134,7 @@ const SettingsFMPermissionStatusContent = () => {
       {/* 신청 정보 */}
       <div className="bg-white rounded-lg p-4 shadow-sm">
         <h3 className="font-semibold mb-3">신청 정보</h3>
-        
+
         <div className="space-y-3">
           <div>
             <label className="text-sm text-gray-600">소속 부서</label>
@@ -193,14 +188,10 @@ const SettingsFMPermissionStatusContent = () => {
         <Button variant="secondary" className="flex-1" onClick={goBack}>
           돌아가기
         </Button>
-        
+
         {permission.state === 'PENDING' && (
           <>
-            <Button
-              variant="secondary"
-              className="flex-1"
-              onClick={handleEdit}
-            >
+            <Button variant="secondary" className="flex-1" onClick={handleEdit}>
               수정
             </Button>
             <Button

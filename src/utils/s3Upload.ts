@@ -23,17 +23,16 @@ export async function uploadVideoFile(file: File) {
   return { id, presignedUrl: cleanUrl(presignedUrl) };
 }
 
-
 // 축제 관리자 신청 용 문서 업로드 함수
 export async function uploadDocumentFiles(files: File[]) {
   const results: { id: number; presignedUrl: string; fileName: string }[] = [];
   for (const file of files) {
     const { id, presignedUrl } = await getPresignedUrl();
     await putToS3(presignedUrl, file);
-    results.push({ 
-      id, 
+    results.push({
+      id,
       presignedUrl: cleanUrl(presignedUrl),
-      fileName: file.name 
+      fileName: file.name,
     });
   }
   return results;

@@ -14,5 +14,5 @@ export const ROUTE_PATH = {
   MY_REVIEWS: '/settings/my-reviews',
   FM_PERMISSION_APPLICATION: '/settings/fm-permission-application',
   FM_PERMISSION_STATUS: '/settings/fm-permission-status',
-  SEARCH: '/search', 
+  SEARCH: '/search',
 } as const;

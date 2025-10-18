@@ -8,20 +8,22 @@ import { getMyFMPermission } from '@/apis/festivalManager/getMyFMPermission';
 const SettingsContent = () => {
   const { goTo } = useNav();
   const [checkingPermission, setCheckingPermission] = useState(false);
-  
+
   const handleFestivalManagerClick = async () => {
     if (checkingPermission) return;
-  
+
     try {
       setCheckingPermission(true);
+      // 축제에 대한 신청서 조회
       const response = await getMyFMPermission();
-      if (response.status ===200) {
-      alert('축제 관리자 신청이 완료되었습니다.');}
+
+      if (response.status === 200) {
+        alert('축제 관리자 신청이 된 상태입니다.');
+      }
     } catch (error: any) {
       if (error.response?.status === 404) {
         // 404: 신청서 없음
-          goTo(ROUTE_PATH.FM_PERMISSION_APPLICATION);
-        
+        goTo(ROUTE_PATH.FM_PERMISSION_APPLICATION);
       } else if (error.response?.status === 409) {
         goTo(ROUTE_PATH.FM_PERMISSION_STATUS);
       } else {
@@ -36,11 +38,7 @@ const SettingsContent = () => {
       <SettingsSection title="등업하기">
         <div className="flex flex-col gap-2">
           {/* TODO: 내가 등록한 축제 버튼 추가 */}
-          <Button
-            variant="text"
-            onClick={handleFestivalManagerClick}
-            disabled={checkingPermission}
-          >
+          <Button variant="text" onClick={handleFestivalManagerClick} disabled={checkingPermission}>
             축제 관리자 되기
           </Button>
           {/* TODO: 축제 관리자 되기 버튼 추가 */}
@@ -85,8 +83,8 @@ const SettingsContent = () => {
       </SettingsSection>
       <SettingsSection title="계정">
         <div className="flex flex-col gap-2">
-                    {/* TODO: 내가 작성한 리뷰 보기 버튼 추가 */}
-                    <Button
+          {/* TODO: 내가 작성한 리뷰 보기 버튼 추가 */}
+          <Button
             variant="text"
             onClick={() => {
               goTo(ROUTE_PATH.MY_REVIEWS);
