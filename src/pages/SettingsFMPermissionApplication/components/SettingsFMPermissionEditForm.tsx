@@ -29,23 +29,18 @@ const SettingsFMPermissionEditForm = () => {
   }
 
   const permission = data.data.content;
-  
+
   // 기존 데이터를 폼 형식으로 변환
   const initialData = {
     department: permission.department,
     documents: permission.docsUrls.map((url, index) => ({
       id: index + 1,
       presignedUrl: url,
-      fileName: `문서_${index + 1}.pdf`, 
+      fileName: `문서_${index + 1}.pdf`,
     })),
   };
 
-  return (
-    <SettingsFMPermissionApplicationForm 
-      initialData={initialData}
-      isEdit={true}
-    />
-  );
+  return <SettingsFMPermissionApplicationForm initialData={initialData} isEdit={true} />;
 };
 
 export default SettingsFMPermissionEditForm;

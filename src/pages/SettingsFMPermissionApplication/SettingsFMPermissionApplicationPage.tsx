@@ -10,7 +10,7 @@ const SettingsFMPermissionApplicationPage = () => {
   const isEdit = searchParams.get('mode') === 'edit';
   return (
     <Container>
-      <Header variant="page" title={isEdit ? "신청서 수정" : "축제 관리자 신청"} />
+      <Header variant="page" title={isEdit ? '신청서 수정' : '축제 관리자 신청'} />
       {isEdit ? <SettingsFMPermissionEditForm /> : <SettingsFMPermissionApplicationForm />}
       <Footer initialSelected="my" />
     </Container>

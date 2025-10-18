@@ -44,7 +44,7 @@ const SettingsFMPermissionStatusContent = () => {
   const handleEdit = () => {
     goTo(`${ROUTE_PATH.FM_PERMISSION_APPLICATION}?mode=edit`);
   };
-  
+
   // 로딩 중
   if (isLoading) {
     return <LoadingSpinner size="lg" className="min-h-[400px]" message="신청서를 불러오는 중..." />;

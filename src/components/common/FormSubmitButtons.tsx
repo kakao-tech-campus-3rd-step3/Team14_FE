@@ -25,7 +25,7 @@ const FormSubmitButtons = ({
   onCancel,
   onSubmit,
   onPatch,
-  isEdit=false,
+  isEdit = false,
   isDisabled,
   isLoading,
   submitLabel = isEdit ? '수정하기' : '제출하기',
@@ -36,7 +36,12 @@ const FormSubmitButtons = ({
       <Button variant="secondary" className="flex-1" onClick={onCancel}>
         {cancelLabel}
       </Button>
-      <Button variant="primary" className="flex-1" onClick={isEdit ? onPatch : onSubmit} disabled={isDisabled}>
+      <Button
+        variant="primary"
+        className="flex-1"
+        onClick={isEdit ? onPatch : onSubmit}
+        disabled={isDisabled}
+      >
         {isLoading ? (isEdit ? '수정 중...' : '제출 중...') : submitLabel}
       </Button>
     </div>

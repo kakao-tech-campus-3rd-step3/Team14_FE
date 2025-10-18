@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import useNav from '@/hooks/useNav';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import {
-  postFMPermission,
-} from '@/apis/festivalManager/postFMPermission';
+import { postFMPermission } from '@/apis/festivalManager/postFMPermission';
 import { MAX_DOCUMENT_COUNT } from '@/constants/maxMediaSize';
 import ApplicationDepartmentCard from '@/pages/SettingsFMPermissionApplication/components/ApplicationDepartmentCard';
 import ApplicaitonInfoCard from '@/pages/SettingsFMPermissionApplication/components/ApplicaitonInfoCard';
@@ -11,7 +9,7 @@ import FormSubmitButtons from '@/components/common/FormSubmitButtons';
 import ApplicationDocumentCard from '@/pages/SettingsFMPermissionApplication/components/ApplicationDocumentCard';
 import { createDocumentPicker } from '@/utils/filePicker';
 import type { FMPermissionRequest } from '@/types/FMPermissionsRequest';
-import { patchFMPermission } from '@/apis/festivalManager/patchFMPermission';
+import { putFMPermission } from '@/apis/festivalManager/putFMPermission';
 
 interface SettingsFMPermissionApplicationFormProps {
   initialData?: {
@@ -51,7 +49,26 @@ const SettingsFMPermissionApplicationForm = ({
       }
     },
   });
-
+  // 수정용 mutation
+  const { mutate: updateApplication, isPending: isUpdating } = useMutation({
+    mutationFn: (body: FMPermissionRequest) => putFMPermission(body),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['fmPermission'] });
+      alert('신청서 수정이 완료되었습니다.');
+      goBack();
+    },
+    onError: (error: any) => {
+      if (error.response?.status === 403) {
+        alert('수정 권한이 없습니다.');
+      } else if (error.response?.status === 404) {
+        alert('신청서를 찾을 수 없습니다.');
+      } else if (error.response?.status === 400) {
+        alert('잘못된 요청입니다. 입력값을 확인해주세요.');
+      } else {
+        alert('신청서 수정에 실패했습니다. 다시 시도해주세요.');
+      }
+    },
+  });
   const pickAndUploadDocuments = createDocumentPicker(
     (uploaded) => {
       const totalAfterUpload = documents.length + uploaded.length;
@@ -96,9 +113,24 @@ const SettingsFMPermissionApplicationForm = ({
     });
   };
 
+  // handlePatch 함수 수정
   const handlePatch = async () => {
-    patchFMPermission({
-      department: department.trim(),
+    const trimmedDepartment = department.trim();
+
+    if (!trimmedDepartment) {
+      return alert('부서명을 입력해주세요.');
+    }
+
+    if (trimmedDepartment.length < 2 || trimmedDepartment.length > 50) {
+      return alert('부서명은 2자 이상 50자 이하여야 합니다.');
+    }
+
+    if (documents.length === 0) {
+      return alert('최소 1개 이상의 증빙 서류를 업로드해주세요.');
+    }
+
+    updateApplication({
+      department: trimmedDepartment,
       documents: documents.map((doc) => ({
         id: doc.id,
         presignedUrl: doc.presignedUrl,
@@ -126,8 +158,8 @@ const SettingsFMPermissionApplicationForm = ({
         onCancel={goBack}
         onSubmit={handleSubmit}
         isDisabled={isPending || isUploading || documents.length === 0 || !department.trim()}
-        isLoading={isPending || isUploading}
-        submitLabel={isEdit ? "수정하기" : "신청하기"} 
+        isLoading={isPending || isUploading || isUpdating}
+        submitLabel={isEdit ? '수정하기' : '신청하기'}
       />
     </div>
   );
