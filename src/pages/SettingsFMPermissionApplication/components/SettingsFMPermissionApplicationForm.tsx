@@ -6,10 +6,10 @@ import {
   type PostFMPermissionBody,
 } from '@/apis/festivalManager/postFMPermission';
 import { MAX_DOCUMENT_COUNT } from '@/constants/maxMediaSize';
-import ApplicationDepartmentCard from './ApplicationDepartmentCard';
-import ApplicaitonInfoCard from './ApplicaitonInfoCard';
+import ApplicationDepartmentCard from '@/pages/SettingsFMPermissionApplication/components/ApplicationDepartmentCard';
+import ApplicaitonInfoCard from '@/pages/SettingsFMPermissionApplication/components/ApplicaitonInfoCard';
 import FormSubmitButtons from '@/components/common/FormSubmitButtons';
-import ApplicationDocumentCard from './ApplicationDocumentCard';
+import ApplicationDocumentCard from '@/pages/SettingsFMPermissionApplication/components/ApplicationDocumentCard';
 import { createDocumentPicker } from '@/utils/filePicker';
 
 const SettingsFMPermissionApplicationForm = () => {

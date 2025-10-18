@@ -1,8 +1,8 @@
 import Container from '@/components/common/Container';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
-import SettingsContent from './components/SettingsContent';
-import SettingsProfileCard from './components/SettingsProfileCard';
+import SettingsContent from '@/pages/Settings/components/SettingsContent';
+import SettingsProfileCard from '@/pages/Settings/components/SettingsProfileCard';
 import { useAuth } from '@/context/AuthContext';
 
 const SettingsPage = () => {

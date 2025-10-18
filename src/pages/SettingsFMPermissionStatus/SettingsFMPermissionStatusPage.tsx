@@ -1,7 +1,7 @@
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
 import Container from '@/components/common/Container';
-import SettingsFMPermissionStatusContent from './components/SettingsFMPermissionStatusContent';
+import SettingsFMPermissionStatusContent from '@/pages/SettingsFMPermissionStatus/components/SettingsFMPermissionStatusContent';
 
 const SettingsFMPermissionStatusPage = () => {
   return (

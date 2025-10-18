@@ -1,5 +1,5 @@
 import Button from '@/components/common/Button';
-import SettingsSection from './SettingsSection';
+import SettingsSection from '@/pages/Settings/components/SettingsSection';
 import { ROUTE_PATH } from '@/constants/routes';
 import useNav from '@/hooks/useNav';
 import { useState } from 'react';

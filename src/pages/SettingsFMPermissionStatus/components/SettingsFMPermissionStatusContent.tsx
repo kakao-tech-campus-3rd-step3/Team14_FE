@@ -8,10 +8,10 @@ import axios from 'axios';
 import EmptyComponent from '@/components/common/EmptyComponent';
 import ErrorComponent from '@/components/common/ErrorComponent';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
-import SettingsFMPermissionStatusCard from './SettingsFMPermissionStatusCard';
-import SettingsFMPermissionInfoCard from './SettingsFMPermissionInfoCard';
-import SettingsFMPermissionDocumentCard from './SettingsFMPermissionDocumentCard';
-import SettingsFMPermissionButton from './SettingsFMPermissionButton';
+import SettingsFMPermissionStatusCard from '@/pages/SettingsFMPermissionStatus/components/SettingsFMPermissionStatusCard';
+import SettingsFMPermissionInfoCard from '@/pages/SettingsFMPermissionStatus/components/SettingsFMPermissionInfoCard';
+import SettingsFMPermissionDocumentCard from '@/pages/SettingsFMPermissionStatus/components/SettingsFMPermissionDocumentCard';
+import SettingsFMPermissionButton from '@/pages/SettingsFMPermissionStatus/components/SettingsFMPermissionButton';
 
 const SettingsFMPermissionStatusContent = () => {
   const { goTo, goBack } = useNav();
@@ -81,7 +81,7 @@ const SettingsFMPermissionStatusContent = () => {
 
   const permission = data?.data.content;
   if (!permission) return null;
-  
+
   return (
     <div className="p-4 space-y-4">
       {/* 상태 카드 */}
