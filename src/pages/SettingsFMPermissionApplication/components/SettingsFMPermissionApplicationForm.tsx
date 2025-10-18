@@ -10,6 +10,7 @@ import { uploadDocumentFiles } from '@/utils/s3Upload';
 import MAX_MEDIA_SIZE, { MAX_DOCUMENT_COUNT } from '@/constants/maxMediaSize';
 import ApplicationDepartmentCard from './ApplicationDepartmentCard';
 import ApplicaitonInfoCard from './ApplicaitonInfoCard';
+import FormSubmitButtons from '@/components/common/FormSubmitButtons';
 
 const SettingsFMPermissionApplicationForm = () => {
   const [department, setDepartment] = useState('');
@@ -197,24 +198,19 @@ const SettingsFMPermissionApplicationForm = () => {
         </div>
       )}
 
-      {/* 안내사항 */}
-<ApplicaitonInfoCard />
+      {/* 축제 관리자 승급 신청자를 위한 안내사항 */}
+    <ApplicaitonInfoCard />
 
-      {/* 제출 버튼 */}
-      <div className="flex gap-3">
-        <Button variant="secondary" className="flex-1" onClick={goBack}>
-          취소
-        </Button>
-        <Button
-          variant="primary"
-          className="flex-1"
-          onClick={handleSubmit}
-          disabled={isPending || isUploading || documents.length === 0 || !department.trim()}
-        >
-          {isPending || isUploading ? '제출 중...' : '신청하기'}
-        </Button>
-      </div>
-    </div>
+      {/* 폼 제출 버튼 */}
+      <FormSubmitButtons
+  onCancel={goBack}
+  onSubmit={handleSubmit}
+  isDisabled={isPending || isUploading || documents.length === 0 || !department.trim()}
+  isLoading={isPending || isUploading}
+  submitLabel="신청하기"
+  loadingLabel="제출 중..."
+/> 
+</div>
   );
 };
 

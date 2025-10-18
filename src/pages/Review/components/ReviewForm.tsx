@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useMediaUpload } from '@/hooks/useMediaUpload';
 import { jwtExchange } from '@/apis/auth/jwtExchange';
 import { getCurrentToken } from '@/apis/apiInstance';
+import FormSubmitButtons from '@/components/common/FormSubmitButtons';
 
 interface ReviewFormProps {
   festivalId: string;
@@ -136,19 +137,14 @@ const ReviewForm = ({ festivalId, score }: ReviewFormProps) => {
         className="w-full h-32 p-3 bg-gray-50 rounded-lg border-0 resize-none"
       />
 
-      <div className="flex gap-3 mt-4">
-        <Button variant="secondary" className="flex-1" onClick={goBack}>
-          취소
-        </Button>
-        <Button
-          variant="primary"
-          className="flex-1"
-          onClick={handleSubmit}
-          disabled={isPending || isUploading}
-        >
-          {isPending || isUploading ? '미디어 업로드중' : '리뷰 작성'}
-        </Button>
-      </div>
+      <FormSubmitButtons
+        onCancel={goBack}
+        onSubmit={handleSubmit}
+        isDisabled={isPending || isUploading}
+        isLoading={isPending || isUploading}
+        submitLabel="리뷰 작성"
+        loadingLabel="미디어 업로드중"
+      />
     </div>
   );
 };
