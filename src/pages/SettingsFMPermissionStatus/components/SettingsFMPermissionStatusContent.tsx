@@ -9,6 +9,9 @@ import EmptyComponent from '@/components/common/EmptyComponent';
 import ErrorComponent from '@/components/common/ErrorComponent';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
 import SettingsFMPermissionStatusCard from './SettingsFMPermissionStatusCard';
+import SettingsFMPermissionInfoCard from './SettingsFMPermissionInfoCard';
+import SettingsFMPermissionDocumentCard from './SettingsFMPermissionDocumentCard';
+import SettingsFMPermissionButton from './SettingsFMPermissionButton';
 
 const SettingsFMPermissionStatusContent = () => {
   const { goTo, goBack } = useNav();
@@ -78,84 +81,23 @@ const SettingsFMPermissionStatusContent = () => {
 
   const permission = data?.data.content;
   if (!permission) return null;
+  
   return (
     <div className="p-4 space-y-4">
       {/* 상태 카드 */}
       <SettingsFMPermissionStatusCard permission={permission} />
       {/* 신청 정보 */}
-      <div className="bg-white rounded-lg p-4 shadow-sm">
-        <h3 className="font-semibold mb-3">신청 정보</h3>
-
-        <div className="space-y-3">
-          <div>
-            <label className="text-sm text-gray-600">소속 부서</label>
-            <p className="font-medium">{permission.department}</p>
-          </div>
-
-          <div>
-            <label className="text-sm text-gray-600">신청 ID</label>
-            <p className="font-medium text-gray-500">#{permission.id}</p>
-          </div>
-
-          <div>
-            <label className="text-sm text-gray-600">최종 수정일</label>
-            <p className="font-medium text-gray-500">
-              {new Date(permission.updatedDate).toLocaleDateString('ko-KR', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-              })}
-            </p>
-          </div>
-        </div>
-      </div>
-
+      <SettingsFMPermissionInfoCard permission={permission} />
       {/* 제출한 서류 */}
-      <div className="bg-white rounded-lg p-4 shadow-sm">
-        <h3 className="font-semibold mb-3">제출한 증빙 서류</h3>
-        <div className="space-y-2">
-          {permission.docsUrls.map((url, index) => (
-            <a
-              key={index}
-              href={url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-between p-2 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors"
-            >
-              <div className="flex items-center gap-2">
-                <span className="text-xl">📎</span>
-                <span className="text-sm text-gray-700">서류 {index + 1}</span>
-              </div>
-              <span className="text-sm text-blue-600">보기 →</span>
-            </a>
-          ))}
-        </div>
-      </div>
-
+      <SettingsFMPermissionDocumentCard permission={permission} />
       {/* 버튼 */}
-      <div className="flex gap-3">
-        <Button variant="secondary" className="flex-1" onClick={goBack}>
-          돌아가기
-        </Button>
-
-        {permission.state === 'PENDING' && (
-          <>
-            <Button variant="secondary" className="flex-1" onClick={handleEdit}>
-              수정
-            </Button>
-            <Button
-              variant="secondary"
-              className="flex-1 text-red-600 border-red-300 hover:bg-red-50"
-              onClick={handleDelete}
-              disabled={isDeleting}
-            >
-              {isDeleting ? '삭제 중...' : '삭제'}
-            </Button>
-          </>
-        )}
-      </div>
+      <SettingsFMPermissionButton
+        permission={permission}
+        goBack={goBack}
+        handleEdit={handleEdit}
+        handleDelete={handleDelete}
+        isDeleting={isDeleting}
+      />
     </div>
   );
 };

@@ -8,7 +8,7 @@ export interface FMPermissionResponse {
     id: number;
     department: string;
     updatedDate: string;
-    state: 'PENDING' | 'ACCEPTED' | 'REJECTED';
+    state: 'PENDING' | 'ACCEPTED' | 'DENIED';
     docsUrls: string[];
   };
 }
