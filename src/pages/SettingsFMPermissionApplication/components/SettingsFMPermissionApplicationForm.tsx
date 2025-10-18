@@ -125,21 +125,26 @@ const SettingsFMPermissionApplicationForm = () => {
     <div className="bg-white rounded-lg p-4 shadow-sm">
       <ApplicationDepartmentCard department={department} setDepartment={setDepartment} />
 
-    <ApplicationDocumentCard documents={documents} setDocuments={setDocuments} handleFileUpload={handleFileUpload} isUploading={isUploading} />
+      <ApplicationDocumentCard
+        documents={documents}
+        setDocuments={setDocuments}
+        handleFileUpload={handleFileUpload}
+        isUploading={isUploading}
+      />
 
       {/* 축제 관리자 승급 신청자를 위한 안내사항 */}
-    <ApplicaitonInfoCard />
+      <ApplicaitonInfoCard />
 
       {/* 폼 제출 버튼 */}
       <FormSubmitButtons
-  onCancel={goBack}
-  onSubmit={handleSubmit}
-  isDisabled={isPending || isUploading || documents.length === 0 || !department.trim()}
-  isLoading={isPending || isUploading}
-  submitLabel="신청하기"
-  loadingLabel="제출 중..."
-/> 
-</div>
+        onCancel={goBack}
+        onSubmit={handleSubmit}
+        isDisabled={isPending || isUploading || documents.length === 0 || !department.trim()}
+        isLoading={isPending || isUploading}
+        submitLabel="신청하기"
+        loadingLabel="제출 중..."
+      />
+    </div>
   );
 };
 

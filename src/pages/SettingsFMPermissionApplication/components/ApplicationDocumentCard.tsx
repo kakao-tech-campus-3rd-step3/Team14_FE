@@ -1,4 +1,4 @@
-import Button from "@/components/common/Button";
+import Button from '@/components/common/Button';
 
 interface ApplicationDocumentCardProps {
   documents: { id: number; presignedUrl: string; fileName: string }[];
@@ -14,13 +14,12 @@ interface ApplicationDocumentCardProps {
  * @param isUploading - 서류 업로드 상태
  * @returns 카드 컴포넌트
  */
-const ApplicationDocumentCard = ({ 
-  documents, 
-  setDocuments, 
-  handleFileUpload, 
-  isUploading 
+const ApplicationDocumentCard = ({
+  documents,
+  setDocuments,
+  handleFileUpload,
+  isUploading,
 }: ApplicationDocumentCardProps) => {
-  
   const getFileIcon = (fileName: string) => {
     const ext = fileName.split('.').pop()?.toLowerCase();
     switch (ext) {
