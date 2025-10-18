@@ -11,7 +11,7 @@ const SettingsFMPermissionInfoCard = ({ permission }: SettingsFMPermissionInfoCa
 
       <div className="space-y-3">
         <div>
-          <label className="text-sm text-gray-600">소속 부서</label>
+          <label className="text-sm text-gray-600">소속</label>
           <p className="font-medium">{permission.department}</p>
         </div>
 

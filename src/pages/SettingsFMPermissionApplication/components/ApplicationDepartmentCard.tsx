@@ -15,7 +15,7 @@ const ApplicationDepartmentCard = ({
   return (
     <div className="mb-4">
       <label htmlFor="department" className="block font-semibold mb-2">
-        소속 부서 <span className="text-red-500">*</span>
+        소속 <span className="text-red-500">*</span>
       </label>
       <input
         id="department"
