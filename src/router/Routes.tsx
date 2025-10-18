@@ -13,6 +13,8 @@ import ReviewPage from '@/pages/Review/ReviewPage';
 import ChatPage from '@/pages/Chat/ChatPage';
 import SettingsPage from '@/pages/Settings/SettingsPage';
 import SettingsFestivalMyReviewsPage from '@/pages/SettingsFestivalMyReview/SettingsFestivalMyReviewsPage';
+import SettingsFMPermissionApplicationPage from '@/pages/SettingsFMPermissionApplication/SettingsFMPermissionApplicationPage';
+import SettingsFMPermissionStatusPage from '@/pages/SettingsFMPermissionStatus/SettingsFMPermissionStatusPage';
 
 /**
  * 라우터 컴포넌트
@@ -62,6 +64,22 @@ const Routes = () => {
         element={
           <ProtectedRoute>
             <SettingsPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={ROUTE_PATH.FM_PERMISSION_APPLICATION}
+        element={
+          <ProtectedRoute>
+            <SettingsFMPermissionApplicationPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={ROUTE_PATH.FM_PERMISSION_STATUS}
+        element={
+          <ProtectedRoute>
+            <SettingsFMPermissionStatusPage />
           </ProtectedRoute>
         }
       />

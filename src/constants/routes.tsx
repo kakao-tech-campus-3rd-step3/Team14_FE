@@ -10,8 +10,9 @@ export const ROUTE_PATH = {
   CHAT: '/chat/:festivalId',
   LOGIN_CHECK: '/login/check',
   SETTINGS: '/settings',
-  //세팅 페이지 내 마이리뷰 보기 기능 추가 - 중첩라우팅으로 변경 여지 있음
-  MY_REVIEWS: '/settings/my-reviews',
 
-  SEARCH: '/search', // 검색 추가 예정
+  MY_REVIEWS: '/settings/my-reviews',
+  FM_PERMISSION_APPLICATION: '/settings/fm-permission-application',
+  FM_PERMISSION_STATUS: '/settings/fm-permission-status',
+  SEARCH: '/search', 
 } as const;

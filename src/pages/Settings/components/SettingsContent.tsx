@@ -2,9 +2,35 @@ import Button from '@/components/common/Button';
 import SettingsSection from './SettingsSection';
 import { ROUTE_PATH } from '@/constants/routes';
 import useNav from '@/hooks/useNav';
+import { useState } from 'react';
+import { getMyFMPermission } from '@/apis/festivalManager/getMyFMPermission';
 
 const SettingsContent = () => {
   const { goTo } = useNav();
+  const [checkingPermission, setCheckingPermission] = useState(false);
+  
+  const handleFestivalManagerClick = async () => {
+    if (checkingPermission) return;
+  
+    try {
+      setCheckingPermission(true);
+      const response = await getMyFMPermission();
+      if (response.status ===200) {
+      console.log(response.data);}
+    } catch (error: any) {
+      if (error.response?.status === 404) {
+        // 404: 신청서 없음
+          goTo(ROUTE_PATH.FM_PERMISSION_APPLICATION);
+        
+      } else if (error.response?.data?.message === 'duplicated') {
+        goTo(ROUTE_PATH.FM_PERMISSION_STATUS);
+      } else {
+        alert('오류가 발생했습니다. 다시 시도해주세요.');
+      }
+    } finally {
+      setCheckingPermission(false);
+    }
+  };
   return (
     <>
       <SettingsSection title="등업하기">
@@ -12,9 +38,8 @@ const SettingsContent = () => {
           {/* TODO: 내가 등록한 축제 버튼 추가 */}
           <Button
             variant="text"
-            onClick={() => {
-              goTo('#');
-            }}
+            onClick={handleFestivalManagerClick}
+            disabled={checkingPermission}
           >
             축제 관리자 되기
           </Button>
@@ -35,7 +60,7 @@ const SettingsContent = () => {
           <Button
             variant="text"
             onClick={() => {
-              goTo(ROUTE_PATH.MY_REVIEWS);
+              goTo('#');
             }}
           >
             내가 축제 등록하기
@@ -43,7 +68,7 @@ const SettingsContent = () => {
           <Button
             variant="text"
             onClick={() => {
-              goTo(ROUTE_PATH.MY_REVIEWS);
+              goTo('#');
             }}
           >
             내가 등록한 축제
@@ -51,7 +76,7 @@ const SettingsContent = () => {
           <Button
             variant="text"
             onClick={() => {
-              goTo(ROUTE_PATH.MY_REVIEWS);
+              goTo('#');
             }}
           >
             내가 관리하는 축제
