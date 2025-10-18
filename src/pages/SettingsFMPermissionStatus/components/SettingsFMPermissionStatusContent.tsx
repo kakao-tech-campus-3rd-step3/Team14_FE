@@ -99,7 +99,7 @@ const SettingsFMPermissionStatusContent = () => {
           label: '승인됨',
           message: '축제 관리자로 승인되었습니다!',
         };
-      case 'REJECTED':
+      case 'DENIED':
         return {
           color: 'bg-red-100 text-red-800 border-red-300',
           icon: '❌',
