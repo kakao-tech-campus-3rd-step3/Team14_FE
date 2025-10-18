@@ -7,6 +7,7 @@ import { ROUTE_PATH } from '@/constants/routes';
 import axios from 'axios';
 import EmptyComponent from '@/components/common/EmptyComponent';
 import ErrorComponent from '@/components/common/ErrorComponent';
+import LoadingSpinner from '@/components/common/LoadingSpinner';
 
 const SettingsFMPermissionStatusContent = () => {
   const { goTo, goBack } = useNav();
@@ -43,12 +44,7 @@ const SettingsFMPermissionStatusContent = () => {
 
   // 로딩 중
   if (isLoading) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-300"></div>
-        <p className="mt-4 text-lg text-gray-600">신청서를 불러오는 중...</p>
-      </div>
-    );
+    return <LoadingSpinner size="lg" className="min-h-[400px]" message="신청서를 불러오는 중..." />;
   }
 
   // 404 에러 (신청서가 없음)

@@ -15,7 +15,7 @@ import { createDocumentPicker } from '@/utils/filePicker';
 const SettingsFMPermissionApplicationForm = () => {
   const [department, setDepartment] = useState('');
   const [documents, setDocuments] = useState<
-Array<{ id: number; presignedUrl: string; fileName: string }>
+    Array<{ id: number; presignedUrl: string; fileName: string }>
   >([]);
   const [isUploading, setIsUploading] = useState(false);
 
