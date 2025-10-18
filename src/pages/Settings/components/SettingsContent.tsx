@@ -16,13 +16,13 @@ const SettingsContent = () => {
       setCheckingPermission(true);
       const response = await getMyFMPermission();
       if (response.status ===200) {
-      console.log(response.data);}
+      alert('축제 관리자 신청이 완료되었습니다.');}
     } catch (error: any) {
       if (error.response?.status === 404) {
         // 404: 신청서 없음
           goTo(ROUTE_PATH.FM_PERMISSION_APPLICATION);
         
-      } else if (error.response?.data?.message === 'duplicated') {
+      } else if (error.response?.status === 409) {
         goTo(ROUTE_PATH.FM_PERMISSION_STATUS);
       } else {
         alert('오류가 발생했습니다. 다시 시도해주세요.');
@@ -47,7 +47,7 @@ const SettingsContent = () => {
           <Button
             variant="text"
             onClick={() => {
-              goTo('#');
+              goTo(ROUTE_PATH.FM_PERMISSION_STATUS);
             }}
           >
             신청서 조회하기
