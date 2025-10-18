@@ -8,6 +8,7 @@ import axios from 'axios';
 import EmptyComponent from '@/components/common/EmptyComponent';
 import ErrorComponent from '@/components/common/ErrorComponent';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
+import SettingsFMPermissionStatusCard from './SettingsFMPermissionStatusCard';
 
 const SettingsFMPermissionStatusContent = () => {
   const { goTo, goBack } = useNav();
@@ -77,56 +78,10 @@ const SettingsFMPermissionStatusContent = () => {
 
   const permission = data?.data.content;
   if (!permission) return null;
-
-  // 상태에 따른 스타일과 메시지
-  const getStatusInfo = (state: string) => {
-    switch (state) {
-      case 'PENDING':
-        return {
-          color: 'bg-yellow-100 text-yellow-800 border-yellow-300',
-          icon: '⏳',
-          label: '심사 중',
-          message: '신청서가 검토 중입니다. 영업일 기준 3~5일이 소요됩니다.',
-        };
-      case 'ACCEPTED':
-        return {
-          color: 'bg-green-100 text-green-800 border-green-300',
-          icon: '✅',
-          label: '승인됨',
-          message: '축제 관리자로 승인되었습니다!',
-        };
-      case 'DENIED':
-        return {
-          color: 'bg-red-100 text-red-800 border-red-300',
-          icon: '❌',
-          label: '거절됨',
-          message: '신청이 거절되었습니다. 다시 신청하실 수 있습니다.',
-        };
-      default:
-        return {
-          color: 'bg-gray-100 text-gray-800 border-gray-300',
-          icon: '📄',
-          label: '알 수 없음',
-          message: '',
-        };
-    }
-  };
-
-  const statusInfo = getStatusInfo(permission.state);
-
   return (
     <div className="p-4 space-y-4">
       {/* 상태 카드 */}
-      <div className={`rounded-lg p-4 border-2 ${statusInfo.color}`}>
-        <div className="flex items-center gap-3 mb-2">
-          <span className="text-3xl">{statusInfo.icon}</span>
-          <div>
-            <h3 className="font-bold text-lg">{statusInfo.label}</h3>
-            <p className="text-sm">{statusInfo.message}</p>
-          </div>
-        </div>
-      </div>
-
+      <SettingsFMPermissionStatusCard permission={permission} />
       {/* 신청 정보 */}
       <div className="bg-white rounded-lg p-4 shadow-sm">
         <h3 className="font-semibold mb-3">신청 정보</h3>
