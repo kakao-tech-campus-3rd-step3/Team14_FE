@@ -3,10 +3,11 @@ import Button from './Button';
 interface FormSubmitButtonsProps {
   onCancel: () => void;
   onSubmit: () => void;
+  onPatch: () => void;
+  isEdit?: boolean;
   isDisabled: boolean;
   isLoading: boolean;
   submitLabel?: string;
-  loadingLabel?: string;
   cancelLabel?: string;
 }
 /**
@@ -23,10 +24,11 @@ interface FormSubmitButtonsProps {
 const FormSubmitButtons = ({
   onCancel,
   onSubmit,
+  onPatch,
+  isEdit=false,
   isDisabled,
   isLoading,
-  submitLabel = '제출',
-  loadingLabel = '제출 중...',
+  submitLabel = isEdit ? '수정하기' : '제출하기',
   cancelLabel = '취소',
 }: FormSubmitButtonsProps) => {
   return (
@@ -34,8 +36,8 @@ const FormSubmitButtons = ({
       <Button variant="secondary" className="flex-1" onClick={onCancel}>
         {cancelLabel}
       </Button>
-      <Button variant="primary" className="flex-1" onClick={onSubmit} disabled={isDisabled}>
-        {isLoading ? loadingLabel : submitLabel}
+      <Button variant="primary" className="flex-1" onClick={isEdit ? onPatch : onSubmit} disabled={isDisabled}>
+        {isLoading ? (isEdit ? '수정 중...' : '제출 중...') : submitLabel}
       </Button>
     </div>
   );

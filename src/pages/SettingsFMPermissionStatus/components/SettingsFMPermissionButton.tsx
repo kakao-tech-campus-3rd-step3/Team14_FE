@@ -1,8 +1,8 @@
 import Button from '@/components/common/Button';
-import type { FMPermissionResponse } from '@/apis/festivalManager/getMyFMPermission';
+import type { FMPermissionStatusResponse } from '@/apis/festivalManager/getMyFMPermission';
 
 interface SettingsFMPermissionButtonProps {
-  permission: FMPermissionResponse['content'];
+  permission: FMPermissionStatusResponse['content'];
   goBack: () => void;
   handleEdit: () => void;
   handleDelete: () => void;

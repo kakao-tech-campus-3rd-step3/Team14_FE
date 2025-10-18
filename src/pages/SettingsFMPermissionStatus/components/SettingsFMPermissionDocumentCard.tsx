@@ -1,7 +1,7 @@
-import type { FMPermissionResponse } from '@/apis/festivalManager/getMyFMPermission';
+import type { FMPermissionStatusResponse } from '@/apis/festivalManager/getMyFMPermission';
 
 interface SettingsFMPermissionDocumentCardProps {
-  permission: FMPermissionResponse['content'];
+  permission: FMPermissionStatusResponse['content'];
 }
 const SettingsFMPermissionDocumentCard = ({
   permission,

@@ -3,7 +3,7 @@ import API_ENDPOINTS from '@/constants/apiEndpoints';
 import type { AxiosResponse } from 'axios';
 import { generatePath } from 'react-router-dom';
 
-export interface FMPermissionResponse {
+export interface FMPermissionStatusResponse {
   content: {
     id: number;
     department: string;
@@ -13,6 +13,6 @@ export interface FMPermissionResponse {
   };
 }
 
-export const getMyFMPermission = async (): Promise<AxiosResponse<FMPermissionResponse>> => {
-  return await apiInstance.get<FMPermissionResponse>(generatePath(API_ENDPOINTS.FM_PERMISSION_MY));
+export const getMyFMPermission = async (): Promise<AxiosResponse<FMPermissionStatusResponse>> => {
+  return await apiInstance.get<FMPermissionStatusResponse>(generatePath(API_ENDPOINTS.FM_PERMISSION_MY));
 };

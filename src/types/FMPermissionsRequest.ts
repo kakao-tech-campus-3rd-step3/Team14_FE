@@ -1,4 +1,4 @@
-export interface FMPermissionResponse {
+export interface FMPermissionRequest {
     department: string;
     documents: Array<{
       id: number;

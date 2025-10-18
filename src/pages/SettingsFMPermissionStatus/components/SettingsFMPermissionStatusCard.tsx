@@ -1,7 +1,7 @@
-import type { FMPermissionResponse } from '@/apis/festivalManager/getMyFMPermission';
+import type { FMPermissionStatusResponse } from '@/apis/festivalManager/getMyFMPermission';
 
 interface SettingsFMPermissionStatusCardProps {
-  permission: FMPermissionResponse['content'];
+  permission: FMPermissionStatusResponse['content'];
 }
 /**
  * 축제 관리자 신청 상태 카드

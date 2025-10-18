@@ -10,7 +10,8 @@ import ApplicaitonInfoCard from '@/pages/SettingsFMPermissionApplication/compone
 import FormSubmitButtons from '@/components/common/FormSubmitButtons';
 import ApplicationDocumentCard from '@/pages/SettingsFMPermissionApplication/components/ApplicationDocumentCard';
 import { createDocumentPicker } from '@/utils/filePicker';
-import type { FMPermissionResponse } from '@/types/FMPermissionsResponse';
+import type { FMPermissionRequest } from '@/types/FMPermissionsRequest';
+import { patchFMPermission } from '@/apis/festivalManager/patchFMPermission';
 
 interface SettingsFMPermissionApplicationFormProps {
   initialData?: {
@@ -34,7 +35,7 @@ const SettingsFMPermissionApplicationForm = ({
   const queryClient = useQueryClient();
 
   const { mutate: submitApplication, isPending } = useMutation({
-    mutationFn: (body: FMPermissionResponse) => postFMPermission(body),
+    mutationFn: (body: FMPermissionRequest) => postFMPermission(body),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['fmPermission'] });
       alert('축제 관리자 신청이 완료되었습니다.');
@@ -95,6 +96,15 @@ const SettingsFMPermissionApplicationForm = ({
     });
   };
 
+  const handlePatch = async () => {
+    patchFMPermission({
+      department: department.trim(),
+      documents: documents.map((doc) => ({
+        id: doc.id,
+        presignedUrl: doc.presignedUrl,
+      })),
+    });
+  };
   return (
     <div className="bg-white rounded-lg p-4 m-4 shadow-sm">
       <ApplicationDepartmentCard department={department} setDepartment={setDepartment} />
@@ -111,12 +121,13 @@ const SettingsFMPermissionApplicationForm = ({
 
       {/* 폼 제출 버튼 */}
       <FormSubmitButtons
+        onPatch={handlePatch}
+        isEdit={isEdit}
         onCancel={goBack}
         onSubmit={handleSubmit}
         isDisabled={isPending || isUploading || documents.length === 0 || !department.trim()}
         isLoading={isPending || isUploading}
-        submitLabel="신청하기"
-        loadingLabel="제출 중..."
+        submitLabel={isEdit ? "수정하기" : "신청하기"} 
       />
     </div>
   );
