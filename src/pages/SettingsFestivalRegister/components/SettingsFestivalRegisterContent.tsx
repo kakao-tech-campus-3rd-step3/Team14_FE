@@ -12,6 +12,8 @@ import FormSubmitButtons from '@/components/common/FormSubmitButtons';
 import { useImageUploadWithPreview } from '@/hooks/useImageUploadWithPreview';
 import { validateFestivalForm } from '@/utils/festivalValidation';
 import { isAxiosError } from 'axios';
+import { postFestival } from '@/apis/festivals/postFestival';
+import type { PostFestivalRequest } from '@/apis/festivals/postFestival';
 
 /**
  * 축제 등록 내용 컴포넌트
@@ -61,6 +63,22 @@ const SettingsFestivalRegisterContent = () => {
 
     try {
       setIsSubmitting(true);
+
+      // 축제 등록 API 호출
+      const requestBody: PostFestivalRequest = {
+        title: formData.title,
+        areaCode: Number(formData.areaCode),
+        addr1: formData.addr1,
+        addr2: formData.addr2,
+        posterInfo: posterInfo!,
+        imageInfos: imageInfos,
+        startDate: formData.startDate,
+        endDate: formData.endDate,
+        homePage: formData.homePage,
+        overView: formData.overView,
+      };
+
+      await postFestival(requestBody);
 
       alert('축제가 성공적으로 등록되었습니다!');
       goBack();
