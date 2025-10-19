@@ -14,5 +14,8 @@ export const ROUTE_PATH = {
   MY_REVIEWS: '/settings/my-reviews',
   FM_PERMISSION_APPLICATION: '/settings/fm-permission-application',
   FM_PERMISSION_STATUS: '/settings/fm-permission-status',
+  FESTIVAL_REGISTER: '/settings/festival-register',
+  FESTIVAL_MY_REGISTERED: '/settings/festival-my-registered',
+  FESTIVAL_MY_MANAGE: '/settings/festival-my-manage',
   SEARCH: '/search',
 } as const;
