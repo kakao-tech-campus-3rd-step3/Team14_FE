@@ -12,6 +12,7 @@ import FestivalContentOverviewSection from '@/pages/FestivalInfo/components/Fest
 import FestivalContentReviewSection from '@/pages/FestivalInfo/components/FestivalContentReviewSection';
 import Footer from '@/components/common/Footer';
 import getReview from '@/apis/review/getReview';
+import FestivalContentManagerSection from './components/FestivalContentManagerSection';
 
 const FestivalInfoPage = () => {
   const { festivalId } = useParams();
@@ -66,6 +67,8 @@ const FestivalInfoPage = () => {
           <FestivalContentInfoSection content={data.content} reviewsData={reviewsData?.content} />
           <Divider height="1px" />
           <FestivalContentOverviewSection overview={data.content.overView} />
+          <Divider height="1px" />
+          <FestivalContentManagerSection />
           <Divider height="1px" />
           <FestivalContentReviewSection
             reviewsData={reviewsData?.content}
