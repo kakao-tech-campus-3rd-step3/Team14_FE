@@ -36,38 +36,37 @@ const SettingsContent = () => {
     }
   };
 
-    // 축제 관리 권한 체크 및 페이지 이동 핸들러
-    const handleFestivalManagementClick = async (targetPath: string) => {
-      if (checkingRole) return;
-  
-      try {
-        setCheckingRole(true);
-        const response = await getUserRole();
-        
-        if (response.data.content.isFestivalManagerOrAdmin) {
-          // 축제 매니저이거나 관리자인 경우 해당 페이지로 이동
-          goTo(targetPath);
-        } else {
-          // 권한이 없는 경우 승급 신청 알림
-          alert('축제 관리자 권한이 없습니다. 승급 신청을 해주세요.');
-        }
-      } catch (error) {
-        console.error('권한 확인 중 오류 발생:', error);
-        alert('권한 확인 중 오류가 발생했습니다. 다시 시도해주세요.');
-      } finally {
-        setCheckingRole(false);
+  // 축제 관리 권한 체크 및 페이지 이동 핸들러
+  const handleFestivalManagementClick = async (targetPath: string) => {
+    if (checkingRole) return;
+
+    try {
+      setCheckingRole(true);
+      const response = await getUserRole();
+
+      if (response.data.content.isFestivalManagerOrAdmin) {
+        // 축제 매니저이거나 관리자인 경우 해당 페이지로 이동
+        goTo(targetPath);
+      } else {
+        // 권한이 없는 경우 승급 신청 알림
+        alert('축제 관리자 권한이 없습니다. 승급 신청을 해주세요.');
       }
-    };
-    
+    } catch (error) {
+      console.error('권한 확인 중 오류 발생:', error);
+      alert('권한 확인 중 오류가 발생했습니다. 다시 시도해주세요.');
+    } finally {
+      setCheckingRole(false);
+    }
+  };
+
   return (
     <>
       <SettingsSection title="등업하기">
         <div className="flex flex-col gap-2">
-          
           <Button variant="text" onClick={handleFestivalManagerClick} disabled={checkingPermission}>
             축제 관리자 되기
           </Button>
-          
+
           <Button
             variant="text"
             onClick={() => {
@@ -80,7 +79,6 @@ const SettingsContent = () => {
       </SettingsSection>
       <SettingsSection title="축제 관리하기 ">
         <div className="flex flex-col gap-2">
-          
           <Button
             variant="text"
             onClick={() => handleFestivalManagementClick(ROUTE_PATH.FESTIVAL_REGISTER)}

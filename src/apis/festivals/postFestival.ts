@@ -16,14 +16,14 @@ export interface PostFestivalRequest {
     id: number;
     presignedUrl: string;
   }>;
-  startDate: string; 
-  endDate: string; 
+  startDate: string;
+  endDate: string;
   homePage: string;
   overView: string;
 }
 
 export const postFestival = async (
-  festivalData: PostFestivalRequest
+  festivalData: PostFestivalRequest,
 ): Promise<AxiosResponse<void, ApiErrorResponse>> => {
   return await apiInstance.post(API_ENDPOINTS.FESTIVAL_REGISTER, festivalData);
 };
