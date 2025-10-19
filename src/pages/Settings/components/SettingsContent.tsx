@@ -175,11 +175,10 @@ const SettingsContent = () => {
       </SettingsSection>
       <SettingsSection title="고객센터">
         <div className="flex flex-col gap-2">
-          {/* TODO: 자주 묻는 질문 버튼 추가 */}
           <Button
             variant="text"
             onClick={() => {
-              goTo('#');
+              goTo(ROUTE_PATH.FAQ);
             }}
           >
             자주 묻는 질문

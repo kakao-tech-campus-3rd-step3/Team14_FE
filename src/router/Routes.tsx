@@ -21,6 +21,7 @@ import SettingsFestivalRegisterPage from '@/pages/SettingsFestivalRegister/Setti
 import FestivalManagerApplyPage from '@/pages/FestivalInfoManagerApply/FestivalInfoManagerApplyPage';
 import SettingsFestivalMyManageDetailPage from '@/pages/SettingsFestivalMyManageDetail/SettingsFestivalMyManageDetailPage';
 import SettingsFestivalMyManageEditPage from '@/pages/SettingsFestivalMyManageEdit/SettingsFestivalMyManageEditPage';
+import SettingsFAQPage from '@/pages/SettingsFAQ/SettingsFAQPage';
 
 /**
  * 라우터 컴포넌트
@@ -134,6 +135,14 @@ const Routes = () => {
         element={
           <ProtectedRoute>
             <SettingsFestivalMyManageEditPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={ROUTE_PATH.FAQ}
+        element={
+          <ProtectedRoute>
+            <SettingsFAQPage />
           </ProtectedRoute>
         }
       />
