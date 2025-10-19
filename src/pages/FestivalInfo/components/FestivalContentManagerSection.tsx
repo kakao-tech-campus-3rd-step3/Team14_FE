@@ -28,6 +28,8 @@ const FestivalContentManagerSection = ({
   const [modalContent, setModalContent] = useState({
     title: '',
     message: '',
+    confirmText: '확인',
+    cancelText: '취소',
     onConfirm: () => {},
   });
 
@@ -55,6 +57,8 @@ const FestivalContentManagerSection = ({
         setModalContent({
           title: '권한이 필요해요',
           message: '축제 관리자만 축제를 관리할 수 있습니다.\n축제 관리자 권한을 신청해주세요.',
+          confirmText: '신청하러 가기',
+          cancelText: '취소',
           onConfirm: () => {
             setShowModal(false);
             navigate(ROUTE_PATH.FM_PERMISSION_APPLICATION);
@@ -73,8 +77,11 @@ const FestivalContentManagerSection = ({
         setModalContent({
           title: '신청 내역이 있습니다',
           message: '이미 이 축제에 관리자 신청을 하셨습니다.\n승인을 기다려주세요.',
+          confirmText: '신청내역보러가기',
+          cancelText: '취소',
           onConfirm: () => {
             setShowModal(false);
+            navigate(ROUTE_PATH.FESTIVAL_MY_MANAGE);
           },
         });
         setShowModal(true);
@@ -106,7 +113,8 @@ const FestivalContentManagerSection = ({
         onConfirm={modalContent.onConfirm}
         title={modalContent.title}
         message={modalContent.message}
-        confirmText={modalContent.title === '권한 필요' ? '신청하러 가기' : '신청하기'}
+        confirmText={modalContent.confirmText}
+        cancelText={modalContent.cancelText}
       />
     </>
   );
