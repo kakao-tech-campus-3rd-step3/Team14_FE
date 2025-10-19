@@ -18,7 +18,7 @@ import SettingsFMPermissionStatusPage from '@/pages/SettingsFMPermissionStatus/S
 import SettingsFestivalMyManagePage from '@/pages/SettingsFestivalMyManage/SettingsFestivalMyManagePage';
 import SettingsFestivalMyRegisteredPage from '@/pages/SettingsFestivalMyRegistered/SettingsFestivalMyRegisteredPage';
 import SettingsFestivalRegisterPage from '@/pages/SettingsFestivalRegister/SettingsFestivalRegisterPage';
-import FestivalManagerApplyPage from '@/pages/FestivalManagerApply/FestivalManagerApplyPage';
+import FestivalManagerApplyPage from '@/pages/FestivalInfoManagerApply/FestivalInfoManagerApplyPage';
 
 /**
  * 라우터 컴포넌트

@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { ROUTE_PATH } from '@/constants/routes';
 import { generatePath } from 'react-router-dom';
 
+import { checkFestivalManagerApply } from '@/apis/festivalManager/checkFestivalManagerApply';
+
 interface FestivalContentManagerSectionProps {
   festivalId: string;
   managerId: number | null;
@@ -29,23 +31,25 @@ const FestivalContentManagerSection = ({
     onConfirm: () => {},
   });
 
+  
   const handleApplyClick = async () => {
     if (!isLoggedIn) {
       alert('로그인이 필요합니다.');
       navigate(ROUTE_PATH.LOGIN);
       return;
     }
-
+  
     // 이미 이 축제의 관리자인 경우
     if (managerId === userInfo?.userId) {
       alert('이미 이 축제의 관리자입니다.');
       return;
     }
-
+  
     try {
-      const response = await getUserRole();
-      const isFestivalManager = response.data.content.isFestivalManagerOrAdmin;
-
+      // 1차: 축제 관리자 권한 확인
+      const roleResponse = await getUserRole();
+      const isFestivalManager = roleResponse.data.content.isFestivalManagerOrAdmin;
+  
       if (!isFestivalManager) {
         // 축제 관리자 권한이 없는 경우
         setModalContent({
@@ -57,13 +61,30 @@ const FestivalContentManagerSection = ({
           },
         });
         setShowModal(true);
+        return;
+      }
+  
+      // 2차: 중복 신청 확인
+      const checkResponse = await checkFestivalManagerApply(festivalId);
+      const hasAlreadyApplied = checkResponse.data.content;
+  
+      if (hasAlreadyApplied) {
+        // 이미 신청한 경우
+        setModalContent({
+          title: '신청 내역이 있습니다',
+          message: '이미 이 축제에 관리자 신청을 하셨습니다.\n승인을 기다려주세요.',
+          onConfirm: () => {
+            setShowModal(false);
+          },
+        });
+        setShowModal(true);
       } else {
-        // 축제별 관리자 신청 페이지로 이동
+        // 신청 안한 경우 - 신청 페이지로 이동
         navigate(generatePath(ROUTE_PATH.FESTIVAL_MANAGER_APPLY, { festivalId }));
       }
     } catch (error) {
-      console.error('역할 확인 실패:', error);
-      alert('권한 확인에 실패했습니다. 다시 시도해주세요.');
+      console.error('권한/중복 확인 실패:', error);
+      alert('확인 중 오류가 발생했습니다. 다시 시도해주세요.');
     }
   };
 
