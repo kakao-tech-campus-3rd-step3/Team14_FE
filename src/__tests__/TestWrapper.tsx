@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter } from 'react-router-dom';
+import { AuthProvider } from '@/context/AuthContext';
 
 const TestWrapper = ({
   children,
@@ -23,9 +24,11 @@ const TestWrapper = ({
     },
   });
   return (
-    <MemoryRouter initialEntries={initialEntries}>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-    </MemoryRouter>
+    <AuthProvider>
+      <MemoryRouter initialEntries={initialEntries}>
+        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      </MemoryRouter>
+    </AuthProvider>
   );
 };
 
