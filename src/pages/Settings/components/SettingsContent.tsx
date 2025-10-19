@@ -103,7 +103,6 @@ const SettingsContent = () => {
       </SettingsSection>
       <SettingsSection title="계정">
         <div className="flex flex-col gap-2">
-          {/* TODO: 내가 작성한 리뷰 보기 버튼 추가 */}
           <Button
             variant="text"
             onClick={() => {

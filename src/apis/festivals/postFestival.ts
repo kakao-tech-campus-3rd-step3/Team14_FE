@@ -2,15 +2,20 @@ import { apiInstance } from '@/apis/apiInstance';
 import API_ENDPOINTS from '@/constants/apiEndpoints';
 import type { ApiErrorResponse } from '@/apis/apiInstance';
 import type { AxiosResponse } from 'axios';
-import type { ImageInfo, PosterInfo } from '@/types/Media/MediaInfo';
 
 export interface PostFestivalRequest {
   title: string;
   areaCode: number;
   addr1: string;
   addr2: string;
-  posterInfo: PosterInfo;
-  imageInfos: ImageInfo[];
+  posterInfo: {
+    id: number;
+    presignedUrl: string;
+  };
+  imageInfos: Array<{
+    id: number;
+    presignedUrl: string;
+  }>;
   startDate: string; 
   endDate: string; 
   homePage: string;
