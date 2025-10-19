@@ -5,9 +5,9 @@ import getFestivalInfo from '@/apis/festivals/getFestivalInfo';
 import ApplicationDocumentCard from '@/pages/SettingsFMPermissionApplication/components/ApplicationDocumentCard';
 import FormSubmitButtons from '@/components/common/FormSubmitButtons';
 import type { FestivalManagerApplyRequest } from '@/apis/festivalManager/postFestivalManagerApply';
-import FestivalInfoManagerApplyInfoCard from './FestivalInfoManagerApplyInfoCard';
+import FestivalInfoManagerApplyInfoCard from '@/pages/FestivalInfoManagerApply/components/FestivalInfoManagerApplyInfoCard';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
-import FestivalInfoManagerApplyRuleCard from './FestivalInfoManagerApplyRuleCard';
+import FestivalInfoManagerApplyRuleCard from '@/pages/FestivalInfoManagerApply/components/FestivalInfoManagerApplyRuleCard';
 import useNav from '@/hooks/useNav';
 import { useDocumentUpload } from '@/hooks/useDocumentUpload';
 

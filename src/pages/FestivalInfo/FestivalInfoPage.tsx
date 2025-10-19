@@ -12,7 +12,7 @@ import FestivalContentOverviewSection from '@/pages/FestivalInfo/components/Fest
 import FestivalContentReviewSection from '@/pages/FestivalInfo/components/FestivalContentReviewSection';
 import Footer from '@/components/common/Footer';
 import getReview from '@/apis/review/getReview';
-import FestivalContentManagerSection from './components/FestivalContentManagerSection';
+import FestivalContentManagerSection from '@/pages/FestivalInfo/components/FestivalContentManagerSection';
 
 const FestivalInfoPage = () => {
   const { festivalId } = useParams();

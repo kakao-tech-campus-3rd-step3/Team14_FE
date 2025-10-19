@@ -1,7 +1,7 @@
 import Container from '@/components/common/Container';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
-import SettingsFestivalMyManageContent from './components/SettingsFestivalMyManageContent';
+import SettingsFestivalMyManageContent from '@/pages/SettingsFestivalMyManage/components/SettingsFestivalMyManageContent';
 
 const SettingsFestivalMyManagePage = () => {
   return (
