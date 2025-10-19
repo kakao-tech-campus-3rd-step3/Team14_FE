@@ -15,7 +15,7 @@ import type { UserInfoResponse } from '@/types/UserType';
 const MyPage = () => {
   // TODO: userInfo를 사용한 UI 구현 예정
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [userInfo, setUserInfo] = useState<UserInfoResponse['content'] | null>(null);
+  const [_userInfo, setUserInfo] = useState<UserInfoResponse['content'] | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

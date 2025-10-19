@@ -143,7 +143,6 @@ const ReviewForm = ({ festivalId, score }: ReviewFormProps) => {
         isDisabled={isPending || isUploading}
         isLoading={isPending || isUploading}
         submitLabel="리뷰 작성"
-        loadingLabel="미디어 업로드중"
       />
     </div>
   );
