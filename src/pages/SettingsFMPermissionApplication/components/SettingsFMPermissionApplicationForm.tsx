@@ -9,6 +9,7 @@ import ApplicationDocumentCard from '@/pages/SettingsFMPermissionApplication/com
 import { useDocumentUpload } from '@/hooks/useDocumentUpload';
 import type { FMPermissionRequest } from '@/types/FMPermissionsRequest';
 import { putFMPermission } from '@/apis/festivalManager/putFMPermission';
+import { isAxiosError } from 'axios';
 
 interface SettingsFMPermissionApplicationFormProps {
   initialData?: {
@@ -27,7 +28,7 @@ interface SettingsFMPermissionApplicationFormProps {
 const SettingsFMPermissionApplicationForm = ({
   initialData,
   isEdit = false,
-}: SettingsFMPermissionApplicationFormProps) => { 
+}: SettingsFMPermissionApplicationFormProps) => {
   const [department, setDepartment] = useState(initialData?.department || '');
   const { documents, setDocuments, isUploading, handleFileUpload } = useDocumentUpload(
     initialData?.documents || [],
@@ -43,11 +44,15 @@ const SettingsFMPermissionApplicationForm = ({
       alert('축제 관리자 신청이 완료되었습니다.');
       goBack();
     },
-    onError: (error: any) => {
-      if (error.response?.status === 409) {
-        alert('이미 신청서가 존재합니다.');
-      } else if (error.response?.status === 400) {
-        alert('신청할 수 없습니다. 관리자에게 문의해주세요.');
+    onError: (error: unknown) => {
+      if (isAxiosError(error)) {
+        if (error.response?.status === 409) {
+          alert('이미 신청서가 존재합니다.');
+        } else if (error.response?.status === 400) {
+          alert('신청할 수 없습니다. 관리자에게 문의해주세요.');
+        } else {
+          alert('신청서 제출에 실패했습니다. 다시 시도해주세요.');
+        }
       } else {
         alert('신청서 제출에 실패했습니다. 다시 시도해주세요.');
       }
@@ -60,13 +65,17 @@ const SettingsFMPermissionApplicationForm = ({
       alert('신청서 수정이 완료되었습니다.');
       goBack();
     },
-    onError: (error: any) => {
-      if (error.response?.status === 403) {
-        alert('수정 권한이 없습니다.');
-      } else if (error.response?.status === 404) {
-        alert('신청서를 찾을 수 없습니다.');
-      } else if (error.response?.status === 400) {
-        alert('잘못된 요청입니다. 입력값을 확인해주세요.');
+    onError: (error: unknown) => {
+      if (isAxiosError(error)) {
+        if (error.response?.status === 403) {
+          alert('수정 권한이 없습니다.');
+        } else if (error.response?.status === 404) {
+          alert('신청서를 찾을 수 없습니다.');
+        } else if (error.response?.status === 400) {
+          alert('잘못된 요청입니다. 입력값을 확인해주세요.');
+        } else {
+          alert('신청서 수정에 실패했습니다. 다시 시도해주세요.');
+        }
       } else {
         alert('신청서 수정에 실패했습니다. 다시 시도해주세요.');
       }
@@ -133,7 +142,6 @@ const SettingsFMPermissionApplicationForm = ({
         isUploading={isUploading}
       />
 
-      
       <ApplicaitonInfoCard />
 
       <FormSubmitButtons

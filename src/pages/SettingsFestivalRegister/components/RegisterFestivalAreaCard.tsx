@@ -1,5 +1,6 @@
 import BorderCardComponent from '@/components/common/BorderCardComponent';
 import AREA_OPTIONS from '@/constants/areaOptions';
+import type { FestivalCardProps } from '../types';
 
 /**
  * 축제 등록 지역 카드
@@ -13,11 +14,7 @@ const RegisterFestivalAreaCard = ({
   formData,
   handleInputChange,
   isSubmitting,
-}: {
-  formData: any;
-  handleInputChange: any;
-  isSubmitting: any;
-}) => {
+}: FestivalCardProps) => {
   // 사용자가 축제를 등록할때는 지역에서 전국은 선택할 수 없도록 제외하였습니다.
   const filteredAreaOptions = AREA_OPTIONS.filter((option) => option.value !== '0');
 

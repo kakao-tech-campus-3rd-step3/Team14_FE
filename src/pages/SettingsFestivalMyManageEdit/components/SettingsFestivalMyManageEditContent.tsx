@@ -10,6 +10,7 @@ import FestivalPermissionInfoCard from '@/pages/SettingsFestivalMyManageDetail/c
 import useNav from '@/hooks/useNav';
 import { useDocumentUpload } from '@/hooks/useDocumentUpload';
 import { ROUTE_PATH } from '@/constants/routes';
+import { isAxiosError } from 'axios';
 
 /**
  * 축제 관리 신청 수정 내용 컴포넌트
@@ -39,7 +40,7 @@ const SettingsFestivalMyManageEditContent = () => {
       }));
       setDocuments(existingDocs);
     }
-  }, [detailData]);
+  }, [detailData, setDocuments]);
 
   const { mutate: updateApplication, isPending } = useMutation({
     mutationFn: (body: { documents: Array<{ id: number; presignedUrl: string }> }) =>
@@ -51,8 +52,8 @@ const SettingsFestivalMyManageEditContent = () => {
       alert('축제 관리 신청이 수정되었습니다!');
       navigate(`${ROUTE_PATH.FESTIVAL_MY_MANAGE}/${id}`);
     },
-    onError: (error: any) => {
-      if (error.response?.status === 400) {
+    onError: (error: unknown) => {
+      if (isAxiosError(error) && error.response?.status === 400) {
         alert('수정할 수 없습니다. 입력값을 확인해주세요.');
       } else {
         alert('수정에 실패했습니다. 다시 시도해주세요.');

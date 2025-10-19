@@ -9,6 +9,7 @@ import ProfileImageUploadModal from '@/components/modal/ProfileImageUploadModal'
 import logout from '@/apis/auth/logout';
 import deleteUser from '@/apis/user/deleteUser';
 import { useAuth } from '@/context/AuthContext';
+import { isAxiosError } from 'axios';
 /**
  * 설정 내용 컴포넌트
  * 다양한 기능들의 버튼과 실질적인 핸들러들 담당 부분입니다.
@@ -33,12 +34,16 @@ const SettingsContent = () => {
       if (response.status === 200) {
         alert('축제 관리자 신청이 된 상태입니다.');
       }
-    } catch (error: any) {
-      if (error.response?.status === 404) {
-        // 404: 신청서 없음
-        goTo(ROUTE_PATH.FM_PERMISSION_APPLICATION);
-      } else if (error.response?.status === 409) {
-        goTo(ROUTE_PATH.FM_PERMISSION_STATUS);
+    } catch (error) {
+      if (isAxiosError(error)) {
+        if (error.response?.status === 404) {
+          // 404: 신청서 없음
+          goTo(ROUTE_PATH.FM_PERMISSION_APPLICATION);
+        } else if (error.response?.status === 409) {
+          goTo(ROUTE_PATH.FM_PERMISSION_STATUS);
+        } else {
+          alert('오류가 발생했습니다. 다시 시도해주세요.');
+        }
       } else {
         alert('오류가 발생했습니다. 다시 시도해주세요.');
       }
@@ -77,10 +82,10 @@ const SettingsContent = () => {
     try {
       // 로그아웃 API 호출 (서버에서 리프레시 토큰 쿠키 삭제)
       await logout();
-      
+
       // 로컬 인증 정보 삭제 (액세스 토큰, 사용자 정보)
       clearAuth();
-      
+
       // 로그인 페이지로 이동
       goTo(ROUTE_PATH.LOGIN);
     } catch (error) {
@@ -92,22 +97,30 @@ const SettingsContent = () => {
   // 회원탈퇴 핸들러
   const handleDeleteAccount = async () => {
     // 1차 확인
-    if (!confirm('정말로 회원탈퇴를 하시겠습니까?\n탈퇴 시 모든 데이터가 삭제되며 복구할 수 없습니다.')) {
+    if (
+      !confirm(
+        '정말로 회원탈퇴를 하시겠습니까?\n탈퇴 시 모든 데이터가 삭제되며 복구할 수 없습니다.',
+      )
+    ) {
       return;
     }
 
     // 2차 확인 (더 강력한 경고)
-    if (!confirm('최종 확인\n\n회원탈퇴를 진행하면:\n• 작성한 모든 리뷰가 삭제됩니다\n• 등록한 축제 정보가 삭제됩니다\n• 신청한 내역이 모두 삭제됩니다\n\n정말로 탈퇴하시겠습니까?')) {
+    if (
+      !confirm(
+        '최종 확인\n\n회원탈퇴를 진행하면:\n• 작성한 모든 리뷰가 삭제됩니다\n• 등록한 축제 정보가 삭제됩니다\n• 신청한 내역이 모두 삭제됩니다\n\n정말로 탈퇴하시겠습니까?',
+      )
+    ) {
       return;
     }
 
     try {
       // 회원탈퇴 API 호출
       await deleteUser();
-      
+
       // 로컬 인증 정보 삭제
       clearAuth();
-      
+
       // 완료 메시지 및 홈으로 이동
       alert('회원탈퇴가 완료되었습니다. 그동안 이용해주셔서 감사합니다.');
       goTo(ROUTE_PATH.HOME);

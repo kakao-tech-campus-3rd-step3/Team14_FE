@@ -8,4 +8,3 @@ export async function deleteUser(): Promise<AxiosResponse<void>> {
 }
 
 export default deleteUser;
-

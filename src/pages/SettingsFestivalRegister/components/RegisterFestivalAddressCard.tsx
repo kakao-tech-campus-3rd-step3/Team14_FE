@@ -1,4 +1,5 @@
 import BorderCardComponent from '@/components/common/BorderCardComponent';
+import type { FestivalCardProps } from '../types';
 
 /**
  * 축제 등록 주소 카드
@@ -12,11 +13,7 @@ const RegisterFestivalAddressCard = ({
   formData,
   handleInputChange,
   isSubmitting,
-}: {
-  formData: any;
-  handleInputChange: any;
-  isSubmitting: any;
-}) => {
+}: FestivalCardProps) => {
   return (
     <BorderCardComponent>
       <div className="flex flex-col gap-2">

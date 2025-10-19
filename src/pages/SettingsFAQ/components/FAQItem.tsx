@@ -47,4 +47,3 @@ const FAQItem = ({ question, answer, isOpen, onToggle }: FAQItemProps) => {
 };
 
 export default FAQItem;
-

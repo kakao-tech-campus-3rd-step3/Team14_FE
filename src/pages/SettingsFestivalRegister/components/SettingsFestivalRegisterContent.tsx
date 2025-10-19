@@ -11,6 +11,7 @@ import RegisterFestivalImageCard from '@/pages/SettingsFestivalRegister/componen
 import FormSubmitButtons from '@/components/common/FormSubmitButtons';
 import { useImageUploadWithPreview } from '@/hooks/useImageUploadWithPreview';
 import { validateFestivalForm } from '@/utils/festivalValidation';
+import { isAxiosError } from 'axios';
 
 /**
  * 축제 등록 내용 컴포넌트
@@ -22,7 +23,6 @@ const SettingsFestivalRegisterContent = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isUploadingPoster, setIsUploadingPoster] = useState(false);
 
-  // 폼 데이터
   const [formData, setFormData] = useState({
     title: '',
     areaCode: '0',
@@ -34,7 +34,6 @@ const SettingsFestivalRegisterContent = () => {
     overView: '',
   });
 
-  // 포스터 관련 state
   const [posterInfo, setPosterInfo] = useState<{ id: number; presignedUrl: string } | null>(null);
   const [posterPreview, setPosterPreview] = useState<string | null>(null);
 
@@ -46,7 +45,6 @@ const SettingsFestivalRegisterContent = () => {
     removeImage: handleRemoveImage,
   } = useImageUploadWithPreview(10);
 
-  // 폼 입력 핸들러
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
   ) => {
@@ -54,7 +52,6 @@ const SettingsFestivalRegisterContent = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // 폼 제출
   const handleSubmit = async () => {
     const validation = validateFestivalForm(formData, posterInfo, imageInfos);
     if (!validation.isValid) {
@@ -67,19 +64,19 @@ const SettingsFestivalRegisterContent = () => {
 
       alert('축제가 성공적으로 등록되었습니다!');
       goBack();
-    } catch (error: any) {
+    } catch (error) {
       console.error('축제 등록 실패:', error);
 
-      if (error.response?.data?.fieldErrors) {
-        const fieldErrors = error.response.data.fieldErrors;
+      if (isAxiosError(error) && error.response?.data?.fieldErrors) {
+        const fieldErrors = error.response.data.fieldErrors as Record<string, string>[];
         const errorMessages = fieldErrors
-          .map((error: any) => `${Object.keys(error)[0]}: ${Object.values(error)[0]}`)
+          .map((fieldError) => `${Object.keys(fieldError)[0]}: ${Object.values(fieldError)[0]}`)
           .join('\n');
         alert(`입력 오류:\n${errorMessages}`);
         return;
       }
 
-      if (error.response?.status === 403) {
+      if (isAxiosError(error) && error.response?.status === 403) {
         alert('축제 등록 권한이 없습니다. 축제 관리자 승인이 필요합니다.');
       } else {
         alert('축제 등록에 실패했습니다. 다시 시도해주세요.');

@@ -35,7 +35,7 @@ const ProfileImageUploadModal = ({ isOpen, onClose }: ProfileImageUploadModalPro
         console.error('사용자 정보 갱신 실패:', error);
       }
     },
-    onError: (error: any) => {
+    onError: (error: unknown) => {
       console.error('프로필 이미지 업데이트 실패:', error);
       alert('프로필 사진 변경에 실패했습니다. 다시 시도해주세요.');
       setIsUploading(false);

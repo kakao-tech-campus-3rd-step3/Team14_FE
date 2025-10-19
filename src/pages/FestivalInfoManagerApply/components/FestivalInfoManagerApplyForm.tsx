@@ -10,6 +10,7 @@ import LoadingSpinner from '@/components/common/LoadingSpinner';
 import FestivalInfoManagerApplyRuleCard from '@/pages/FestivalInfoManagerApply/components/FestivalInfoManagerApplyRuleCard';
 import useNav from '@/hooks/useNav';
 import { useDocumentUpload } from '@/hooks/useDocumentUpload';
+import { isAxiosError } from 'axios';
 
 /**
  * 축제 관리 신청 폼 컴포넌트
@@ -38,13 +39,17 @@ const FestivalInfoManagerApplyForm = () => {
       alert('축제 관리 신청이 완료되었습니다!');
       navigate(`/festival/${festivalId}`);
     },
-    onError: (error: any) => {
-      if (error.response?.status === 409) {
-        alert('이미 이 축제의 관리자 신청이 존재합니다.');
-      } else if (error.response?.status === 400) {
-        alert('신청할 수 없습니다. 입력값을 확인해주세요.');
-      } else if (error.response?.status === 403) {
-        alert('축제 관리자 권한이 필요합니다.');
+    onError: (error: unknown) => {
+      if (isAxiosError(error)) {
+        if (error.response?.status === 409) {
+          alert('이미 이 축제의 관리자 신청이 존재합니다.');
+        } else if (error.response?.status === 400) {
+          alert('신청할 수 없습니다. 입력값을 확인해주세요.');
+        } else if (error.response?.status === 403) {
+          alert('축제 관리자 권한이 필요합니다.');
+        } else {
+          alert('신청 제출에 실패했습니다. 다시 시도해주세요.');
+        }
       } else {
         alert('신청 제출에 실패했습니다. 다시 시도해주세요.');
       }

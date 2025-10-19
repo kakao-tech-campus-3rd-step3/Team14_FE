@@ -1,4 +1,3 @@
-
 import Container from '@/components/common/Container';
 import Header from '@/components/common/Header';
 import SettingsFAQContent from '@/pages/SettingsFAQ/components/SettingsFAQContent';
@@ -17,4 +16,3 @@ const SettingsFAQPage = () => {
 };
 
 export default SettingsFAQPage;
-

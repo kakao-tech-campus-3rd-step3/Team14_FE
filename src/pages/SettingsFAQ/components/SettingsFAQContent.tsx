@@ -32,4 +32,3 @@ const SettingsFAQContent = () => {
 };
 
 export default SettingsFAQContent;
-
