@@ -26,7 +26,7 @@ const ProfileImageUploadModal = ({ isOpen, onClose }: ProfileImageUploadModalPro
     onSuccess: async () => {
       setIsUploading(false);
       setIsSuccess(true);
-      
+
       // 최신 사용자 정보를 다시 가져와서 AuthContext 업데이트
       try {
         const userInfoResponse = await getUserInfo();
@@ -82,7 +82,7 @@ const ProfileImageUploadModal = ({ isOpen, onClose }: ProfileImageUploadModalPro
     fileInputRef.current?.click();
   };
 
-  // 확인 버튼 클릭 
+  // 확인 버튼 클릭
   const handleConfirm = async () => {
     if (!selectedFile) {
       alert('이미지를 선택해주세요.');
@@ -194,9 +194,7 @@ const ProfileImageUploadModal = ({ isOpen, onClose }: ProfileImageUploadModalPro
         {/* 성공 시 안내 메시지 */}
         {isSuccess && (
           <div className="mb-6 py-8 text-center">
-            <p className="text-gray-600">
-              프로필 사진이 성공적으로 변경되었습니다.
-            </p>
+            <p className="text-gray-600">프로필 사진이 성공적으로 변경되었습니다.</p>
           </div>
         )}
 
@@ -204,18 +202,10 @@ const ProfileImageUploadModal = ({ isOpen, onClose }: ProfileImageUploadModalPro
         <div className="flex gap-2">
           {isSuccess ? (
             <>
-              <Button
-                variant="secondary"
-                className="flex-1"
-                onClick={handleRetry}
-              >
+              <Button variant="secondary" className="flex-1" onClick={handleRetry}>
                 다시 수정
               </Button>
-              <Button
-                variant="primary"
-                className="flex-1"
-                onClick={handleClose}
-              >
+              <Button variant="primary" className="flex-1" onClick={handleClose}>
                 확인
               </Button>
             </>

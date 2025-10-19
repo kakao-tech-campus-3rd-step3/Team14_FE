@@ -112,10 +112,7 @@ const SettingsContent = () => {
             내가 작성한 리뷰 보기
           </Button>
           {/* TODO: 프로필 이미지 수정 버튼 추가 */}
-          <Button
-            variant="text"
-            onClick={() => setIsProfileImageModalOpen(true)}
-          >
+          <Button variant="text" onClick={() => setIsProfileImageModalOpen(true)}>
             프로필 이미지 수정
           </Button>
           {/* TODO: 로그아웃 버튼 추가 */}

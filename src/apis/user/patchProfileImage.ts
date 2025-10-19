@@ -2,8 +2,8 @@ import { apiInstance } from '@/apis/apiInstance';
 import API_ENDPOINTS from '@/constants/apiEndpoints';
 
 export interface UpdateProfileImageRequest {
-    id: number;
-    presignedUrl: string;
+  id: number;
+  presignedUrl: string;
 }
 
 export const patchProfileImage = async (body: UpdateProfileImageRequest) => {
