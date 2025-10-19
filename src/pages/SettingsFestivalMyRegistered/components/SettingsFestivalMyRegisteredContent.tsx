@@ -6,6 +6,11 @@ import FestivalCard from '@/pages/Festivals/components/FestivalCard';
 import useInfiniteScrolling from '@/hooks/useInfiniteScrolling';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
 
+/**
+ * 내가 등록한 축제 내용 컴포넌트
+ * @returns 내가 등록한 축제 내용 컴포넌트
+ * 내가 등록한 축제 목록을 표시합니다.
+ */
 const SettingsFestivalMyRegisteredContent = () => {
   const [festivals, setFestivals] = useState<Festival[]>([]);
   const [loading, setLoading] = useState(false);

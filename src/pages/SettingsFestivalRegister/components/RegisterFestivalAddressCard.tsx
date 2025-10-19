@@ -1,5 +1,13 @@
 import BorderCardComponent from '@/components/common/BorderCardComponent';
 
+/**
+ * 축제 등록 주소 카드
+ * @param formData - 폼 데이터
+ * @param handleInputChange - 입력 변경 핸들러
+ * @param isSubmitting - 제출 중 여부
+ * @returns 축제 등록 주소 카드 컴포넌트
+ * 축제 등록 주소를 표시합니다.
+ */
 const RegisterFestivalAddressCard = ({
   formData,
   handleInputChange,

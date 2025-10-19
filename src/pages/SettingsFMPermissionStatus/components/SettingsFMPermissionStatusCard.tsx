@@ -7,6 +7,7 @@ interface SettingsFMPermissionStatusCardProps {
  * 축제 관리자 신청 상태 카드
  * @param permission - 축제 관리자 신청 상태
  * @returns 축제 관리자 신청 상태 카드
+ * 축제 관리자 신청 상태를 표시합니다.
  */
 const getStatusInfo = (state: string) => {
   switch (state) {
@@ -40,6 +41,12 @@ const getStatusInfo = (state: string) => {
       };
   }
 };
+/**
+ * 축제 관리자 신청 상태 카드
+ * @param permission - 축제 관리자 신청 상태
+ * @returns 축제 관리자 신청 상태 카드 컴포넌트
+ * 축제 관리자 신청 상태를 표시합니다.
+ */
 const SettingsFMPermissionStatusCard = ({ permission }: SettingsFMPermissionStatusCardProps) => {
   const statusInfo = getStatusInfo(permission.state);
 

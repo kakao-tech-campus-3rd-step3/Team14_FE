@@ -8,6 +8,16 @@ interface SettingsFMPermissionButtonProps {
   handleDelete: () => void;
   isDeleting: boolean;
 }
+/**
+ * 축제 관리자 신청 버튼
+ * @param permission - 축제 관리자 신청 상태
+ * @param goBack - 뒤로가기 핸들러
+ * @param handleEdit - 수정 핸들러
+ * @param handleDelete - 삭제 핸들러
+ * @param isDeleting - 삭제 중 여부
+ * @returns 축제 관리자 신청 버튼 컴포넌트
+ * 축제 관리자 신청 버튼을 표시합니다.
+ */
 const SettingsFMPermissionButton = ({
   permission,
   goBack,

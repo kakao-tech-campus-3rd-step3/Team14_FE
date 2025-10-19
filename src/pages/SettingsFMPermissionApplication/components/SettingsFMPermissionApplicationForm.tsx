@@ -17,11 +17,17 @@ interface SettingsFMPermissionApplicationFormProps {
   };
   isEdit?: boolean;
 }
-
+/**
+ * 축제 관리자 신청 폼
+ * @param initialData - 초기 데이터
+ * @param isEdit - 수정 모드 여부
+ * @returns 축제 관리자 신청 폼 컴포넌트
+ * 축제 관리자 신청 폼을 표시합니다.
+ */
 const SettingsFMPermissionApplicationForm = ({
   initialData,
   isEdit = false,
-}: SettingsFMPermissionApplicationFormProps) => {
+}: SettingsFMPermissionApplicationFormProps) => { 
   const [department, setDepartment] = useState(initialData?.department || '');
   const { documents, setDocuments, isUploading, handleFileUpload } = useDocumentUpload(
     initialData?.documents || [],
@@ -47,7 +53,6 @@ const SettingsFMPermissionApplicationForm = ({
       }
     },
   });
-  // 수정용 mutation
   const { mutate: updateApplication, isPending: isUpdating } = useMutation({
     mutationFn: (body: FMPermissionRequest) => putFMPermission(body),
     onSuccess: () => {
@@ -128,10 +133,9 @@ const SettingsFMPermissionApplicationForm = ({
         isUploading={isUploading}
       />
 
-      {/* 축제 관리자 승급 신청자를 위한 안내사항 */}
+      
       <ApplicaitonInfoCard />
 
-      {/* 폼 제출 버튼 */}
       <FormSubmitButtons
         onPatch={handlePatch}
         isEdit={isEdit}

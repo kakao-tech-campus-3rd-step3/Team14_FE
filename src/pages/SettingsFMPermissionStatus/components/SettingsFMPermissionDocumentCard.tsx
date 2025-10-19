@@ -3,6 +3,12 @@ import type { FMPermissionStatusResponse } from '@/apis/festivalManager/getMyFMP
 interface SettingsFMPermissionDocumentCardProps {
   permission: FMPermissionStatusResponse['content'];
 }
+/**
+ * 축제 관리자 신청 서류 카드
+ * @param permission - 축제 관리자 신청 상태
+ * @returns 축제 관리자 신청 서류 카드 컴포넌트
+ * 축제 관리자 신청 서류를 표시합니다.
+ */
 const SettingsFMPermissionDocumentCard = ({
   permission,
 }: SettingsFMPermissionDocumentCardProps) => {

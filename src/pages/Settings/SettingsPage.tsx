@@ -4,7 +4,12 @@ import Footer from '@/components/common/Footer';
 import SettingsContent from '@/pages/Settings/components/SettingsContent';
 import SettingsProfileCard from '@/pages/Settings/components/SettingsProfileCard';
 import { useAuth } from '@/context/AuthContext';
-
+/**
+ * 설정 페이지
+ * 다양한 기능들을 제공합니다.
+ * @returns 설정 페이지 컴포넌트
+ * 설정 페이지 내용을 표시합니다.
+ */
 const SettingsPage = () => {
   const { userInfo } = useAuth();
   return (

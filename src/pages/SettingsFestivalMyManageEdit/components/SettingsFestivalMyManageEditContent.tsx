@@ -11,6 +11,11 @@ import useNav from '@/hooks/useNav';
 import { useDocumentUpload } from '@/hooks/useDocumentUpload';
 import { ROUTE_PATH } from '@/constants/routes';
 
+/**
+ * 축제 관리 신청 수정 내용 컴포넌트
+ * @returns 축제 관리 신청 수정 내용 컴포넌트
+ * 축제 관리 신청 수정 정보를 표시합니다.
+ */
 const SettingsFestivalMyManageEditContent = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -19,18 +24,16 @@ const SettingsFestivalMyManageEditContent = () => {
 
   const { documents, setDocuments, isUploading, handleFileUpload } = useDocumentUpload();
 
-  // 기존 데이터 가져오기
   const { data: detailData, isLoading: isDetailLoading } = useQuery({
     queryKey: ['festivalPermission', id],
     queryFn: () => getMyFestivalPermissionDetail(id!),
     enabled: !!id,
   });
 
-  // 기존 문서 로드
   useEffect(() => {
     if (detailData?.data.content.docs) {
       const existingDocs = detailData.data.content.docs.map((url, index) => ({
-        id: index, // 임시 ID
+        id: index,
         presignedUrl: url,
         fileName: `기존 서류 ${index + 1}`,
       }));
@@ -38,12 +41,10 @@ const SettingsFestivalMyManageEditContent = () => {
     }
   }, [detailData]);
 
-  // 수정 mutation
   const { mutate: updateApplication, isPending } = useMutation({
     mutationFn: (body: { documents: Array<{ id: number; presignedUrl: string }> }) =>
       putMyFestivalPermission(id!, body),
     onSuccess: () => {
-      // 캐시 무효화하여 최신 데이터 반영
       queryClient.invalidateQueries({ queryKey: ['festivalPermission', id] });
       queryClient.invalidateQueries({ queryKey: ['festivalPermissions'] });
 
@@ -88,10 +89,8 @@ const SettingsFestivalMyManageEditContent = () => {
 
   return (
     <div className="bg-white rounded-lg p-4 m-4 shadow-sm">
-      {/* 축제 정보 */}
       {permission && <FestivalPermissionInfoCard permission={permission} />}
 
-      {/* 안내 메시지 */}
       <div className="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
         <h4 className="font-semibold text-blue-900 mb-2">📌 수정 안내</h4>
         <ul className="text-sm text-blue-800 space-y-1">
@@ -100,7 +99,6 @@ const SettingsFestivalMyManageEditContent = () => {
         </ul>
       </div>
 
-      {/* 증빙 서류 업로드 */}
       <ApplicationDocumentCard
         documents={documents}
         setDocuments={setDocuments}
@@ -108,7 +106,6 @@ const SettingsFestivalMyManageEditContent = () => {
         isUploading={isUploading}
       />
 
-      {/* 제출 버튼 */}
       <FormSubmitButtons
         onCancel={handleCancel}
         onPatch={handleSubmit}

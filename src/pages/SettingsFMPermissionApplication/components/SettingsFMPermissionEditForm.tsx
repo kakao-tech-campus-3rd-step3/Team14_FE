@@ -4,6 +4,11 @@ import SettingsFMPermissionApplicationForm from '@/pages/SettingsFMPermissionApp
 import LoadingSpinner from '@/components/common/LoadingSpinner';
 import ErrorComponent from '@/components/common/ErrorComponent';
 
+/**
+ * 축제 관리자 신청 수정 폼
+ * @returns 축제 관리자 신청 수정 폼 컴포넌트
+ * 축제 관리자 신청 수정 폼을 표시합니다.
+ */
 const SettingsFMPermissionEditForm = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['fmPermission'],
@@ -30,7 +35,6 @@ const SettingsFMPermissionEditForm = () => {
 
   const permission = data.data.content;
 
-  // 기존 데이터를 폼 형식으로 변환
   const initialData = {
     department: permission.department,
     documents: permission.docsUrls.map((url, index) => ({

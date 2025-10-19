@@ -1,6 +1,12 @@
 interface FestivalPermissionDocumentCardProps {
   docs: string[];
 }
+/**
+ * 축제 관리자 신청 서류 카드
+ * @param docs - 서류 목록
+ * @returns 축제 관리자 신청 서류 카드 컴포넌트
+ * 축제 관리자 신청 서류를 표시합니다.
+ */
 const FestivalPermissionDocumentCard = ({ docs }: FestivalPermissionDocumentCardProps) => {
   return (
     <div className="bg-white rounded-lg p-4 shadow-sm">

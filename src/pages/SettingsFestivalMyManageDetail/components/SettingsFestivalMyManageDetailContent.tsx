@@ -13,6 +13,11 @@ import FestivalPermissionInfoCard from '@/pages/SettingsFestivalMyManageDetail/c
 import FestivalPermissionDocumentCard from '@/pages/SettingsFestivalMyManageDetail/components/FestivalPermissionDocumentCard';
 import FestivalPermissionButtons from '@/pages/SettingsFestivalMyManageDetail/components/FestivalPermissionButtons';
 
+/**
+ * 축제 관리자 신청 상세 내용 컴포넌트
+ * @returns 축제 관리자 신청 상세 내용 컴포넌트
+ * 축제 관리자 신청 상세 정보를 표시합니다.
+ */
 const SettingsFestivalMyManageDetailContent = () => {
   const { id } = useParams<{ id: string }>();
   const { goBack } = useNav();
@@ -81,16 +86,11 @@ const SettingsFestivalMyManageDetailContent = () => {
 
   return (
     <div className="p-4 space-y-4 pb-20">
-      {/* 상태 카드 */}
       <FestivalPermissionStatusCard state={permission.state} />
-
-      {/* 축제 정보 */}
       <FestivalPermissionInfoCard permission={permission} />
 
-      {/* 제출한 서류 */}
       <FestivalPermissionDocumentCard docs={permission.docs} />
 
-      {/* 버튼 */}
       <FestivalPermissionButtons
         state={permission.state}
         goBack={goBack}

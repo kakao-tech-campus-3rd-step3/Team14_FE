@@ -8,7 +8,11 @@ interface FestivalPermissionButtonsProps {
   handleDelete: () => void;
   isDeleting: boolean;
 }
-
+/**
+ * 축제 관리자 신청 버튼 컴포넌트
+ * @returns 축제 관리자 신청 버튼 컴포넌트
+ * 축제 관리자 신청 버튼을 표시합니다.
+ */
 const FestivalPermissionButtons = ({
   state,
   goBack,

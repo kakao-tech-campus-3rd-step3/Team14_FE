@@ -4,11 +4,16 @@ interface FAQItemProps {
   isOpen: boolean;
   onToggle: () => void;
 }
-
+/**
+ * 자주 묻는 질문 아이템 컴포넌트
+ * @param question - 질문
+ * @param answer - 답변
+ * @returns 자주 묻는 질문 아이템 컴포넌트
+ * 주로 축제 등록,관리 관한 사항들 적어두었습니다.
+ */
 const FAQItem = ({ question, answer, isOpen, onToggle }: FAQItemProps) => {
   return (
     <div className="border border-gray-200 rounded-lg overflow-hidden bg-white">
-      {/* 질문 (클릭 가능) */}
       <button
         onClick={onToggle}
         className="w-full px-4 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
@@ -29,7 +34,6 @@ const FAQItem = ({ question, answer, isOpen, onToggle }: FAQItemProps) => {
         </svg>
       </button>
 
-      {/* 답변 (펼쳐졌을 때만 표시) */}
       {isOpen && (
         <div className="px-4 py-4 bg-gray-50 border-t border-gray-200">
           <div className="flex items-start gap-3">

@@ -7,6 +7,11 @@ import ImageModal, { type MediaItem } from '@/components/modal/ImageModal';
 import SettingsMyReviewsCard from '@/pages/SettingsFestivalMyReview/components/SettingsFestivalMyReviewsCard';
 import EmptyComponent from '@/components/common/EmptyComponent';
 
+/**
+ * 내가 작성한 리뷰 내용 컴포넌트
+ * @returns 내가 작성한 리뷰 내용 컴포넌트
+ * 내가 작성한 리뷰 목록을 표시합니다.
+ */
 const SettingsMyReviewsContent = () => {
   const [reviews, setReviews] = useState<MyReview[]>([]);
   const [loading, setLoading] = useState(true);

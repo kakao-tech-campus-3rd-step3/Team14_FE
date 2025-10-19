@@ -9,7 +9,12 @@ import ProfileImageUploadModal from '@/components/modal/ProfileImageUploadModal'
 import logout from '@/apis/auth/logout';
 import deleteUser from '@/apis/user/deleteUser';
 import { useAuth } from '@/context/AuthContext';
-
+/**
+ * 설정 내용 컴포넌트
+ * 다양한 기능들의 버튼과 실질적인 핸들러들 담당 부분입니다.
+ * @returns 설정 내용 컴포넌트
+ * 설정 내용을 표시합니다.
+ */
 const SettingsContent = () => {
   const { goTo } = useNav();
   const { clearAuth } = useAuth();

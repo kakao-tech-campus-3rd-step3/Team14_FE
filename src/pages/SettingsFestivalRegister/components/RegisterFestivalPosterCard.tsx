@@ -2,7 +2,19 @@ import BorderCardComponent from '@/components/common/BorderCardComponent';
 import Button from '@/components/common/Button';
 import { uploadImageFiles } from '@/utils/s3Upload';
 import MAX_MEDIA_SIZE from '@/constants/maxMediaSize';
-
+/**
+ * 축제 등록 포스터 카드
+ * @param posterInfo - 포스터 정보
+ * @param setPosterInfo - 포스터 정보 설정 핸들러
+ * @param posterPreview - 포스터 미리보기
+ * @param setPosterPreview - 포스터 미리보기 설정 핸들러
+ * @param isUploadingPoster - 포스터 업로드 중 여부
+ * @param setIsUploadingPoster - 포스터 업로드 중 여부 설정 핸들러
+ * @param isSubmitting - 제출 중 여부
+ * @param isUploading - 업로드 중 여부
+ * @returns 축제 등록 포스터 카드 컴포넌트
+ * 축제 등록 포스터를 표시합니다.
+ */
 interface RegisterFestivalPosterCardProps {
   posterInfo: { id: number; presignedUrl: string } | null;
   setPosterInfo: (info: { id: number; presignedUrl: string } | null) => void;

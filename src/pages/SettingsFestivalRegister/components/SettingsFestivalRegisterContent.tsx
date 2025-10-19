@@ -12,6 +12,11 @@ import FormSubmitButtons from '@/components/common/FormSubmitButtons';
 import { useImageUploadWithPreview } from '@/hooks/useImageUploadWithPreview';
 import { validateFestivalForm } from '@/utils/festivalValidation';
 
+/**
+ * 축제 등록 내용 컴포넌트
+ * @returns 축제 등록 내용 컴포넌트
+ * 축제 등록 정보를 표시합니다.
+ */
 const SettingsFestivalRegisterContent = () => {
   const { goBack } = useNav();
   const [isSubmitting, setIsSubmitting] = useState(false);

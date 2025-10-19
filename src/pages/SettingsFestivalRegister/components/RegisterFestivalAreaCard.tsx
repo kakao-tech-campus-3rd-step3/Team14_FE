@@ -1,6 +1,14 @@
 import BorderCardComponent from '@/components/common/BorderCardComponent';
 import AREA_OPTIONS from '@/constants/areaOptions';
 
+/**
+ * 축제 등록 지역 카드
+ * @param formData - 폼 데이터
+ * @param handleInputChange - 입력 변경 핸들러
+ * @param isSubmitting - 제출 중 여부
+ * @returns 축제 등록 지역 카드 컴포넌트
+ * 축제 등록 지역을 표시합니다.
+ */
 const RegisterFestivalAreaCard = ({
   formData,
   handleInputChange,

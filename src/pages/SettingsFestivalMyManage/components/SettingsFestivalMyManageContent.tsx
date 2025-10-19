@@ -6,6 +6,11 @@ import LoadingSpinner from '@/components/common/LoadingSpinner';
 import useInfiniteScrolling from '@/hooks/useInfiniteScrolling';
 import FestivalPermissionCard from '@/pages/SettingsFestivalMyManage/components/FestivalPermissionCard';
 
+/**
+ * 축제 관리자 신청 내역 컴포넌트
+ * @returns 축제 관리자 신청 내역 컴포넌트
+ * 축제 관리자 신청 내역을 표시합니다.
+ */
 const SettingsFestivalMyManageContent = () => {
   const [permissions, setPermissions] = useState<FestivalPermissionItem[]>([]);
   const [loading, setLoading] = useState(false);

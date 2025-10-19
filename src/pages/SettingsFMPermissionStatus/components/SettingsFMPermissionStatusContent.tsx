@@ -13,6 +13,11 @@ import SettingsFMPermissionInfoCard from '@/pages/SettingsFMPermissionStatus/com
 import SettingsFMPermissionDocumentCard from '@/pages/SettingsFMPermissionStatus/components/SettingsFMPermissionDocumentCard';
 import SettingsFMPermissionButton from '@/pages/SettingsFMPermissionStatus/components/SettingsFMPermissionButton';
 
+/**
+ * 축제 관리자 신청 상태 내용
+ * @returns 축제 관리자 신청 상태 내용 컴포넌트
+ * 축제 관리자 신청 상태를 표시합니다.
+ */
 const SettingsFMPermissionStatusContent = () => {
   const { goTo, goBack } = useNav();
   const queryClient = useQueryClient();
@@ -20,7 +25,7 @@ const SettingsFMPermissionStatusContent = () => {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['fmPermission'],
     queryFn: getMyFMPermission,
-    retry: false, // 404 시 재시도하지 않음
+    retry: false,
   });
 
   const { mutate: deleteApplication, isPending: isDeleting } = useMutation({
@@ -45,7 +50,6 @@ const SettingsFMPermissionStatusContent = () => {
     goTo(`${ROUTE_PATH.FM_PERMISSION_APPLICATION}?mode=edit`);
   };
 
-  // 로딩 중
   if (isLoading) {
     return <LoadingSpinner size="lg" className="min-h-[400px]" message="신청서를 불러오는 중..." />;
   }
@@ -83,13 +87,13 @@ const SettingsFMPermissionStatusContent = () => {
 
   return (
     <div className="p-4 space-y-4">
-      {/* 상태 카드 */}
+
       <SettingsFMPermissionStatusCard permission={permission} />
-      {/* 신청 정보 */}
+
       <SettingsFMPermissionInfoCard permission={permission} />
-      {/* 제출한 서류 */}
+
       <SettingsFMPermissionDocumentCard permission={permission} />
-      {/* 버튼 */}
+
       <SettingsFMPermissionButton
         permission={permission}
         goBack={goBack}

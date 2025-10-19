@@ -1,5 +1,18 @@
 import BorderCardComponent from '@/components/common/BorderCardComponent';
 import Button from '@/components/common/Button';
+
+/**
+ * 축제 등록 이미지 카드
+ * @param imagePreviews - 이미지 미리보기
+ * @param handleRemoveImage - 이미지 삭제 핸들러
+ * @param isSubmitting - 제출 중 여부
+ * @param isUploading - 업로드 중 여부
+ * @param imageInfos - 이미지 정보
+ * @param handleImagesUpload - 이미지 업로드 핸들러
+ * @param isUploadingImages - 업로드 중 여부
+ * @returns 축제 등록 이미지 카드 컴포넌트
+ * 축제 등록 이미지를 표시합니다.
+ */
 const RegisterFestivalImageCard = ({
   imagePreviews,
   handleRemoveImage,

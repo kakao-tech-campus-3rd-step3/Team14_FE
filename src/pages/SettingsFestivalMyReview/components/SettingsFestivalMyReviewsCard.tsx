@@ -6,7 +6,14 @@ interface SettingsMyReviewsCardProps {
   handleDeleteReview: (reviewId: number) => void;
   handleMediaClick: (review: MyReview, index: number) => void;
 }
-
+/**
+ * 내가 작성한 리뷰 카드
+ * @param review - 리뷰 정보
+ * @param handleDeleteReview - 리뷰 삭제 핸들러
+ * @param handleMediaClick - 미디어 클릭 핸들러
+ * @returns 내가 작성한 리뷰 카드 컴포넌트
+ * 내가 작성한 리뷰 정보를 표시합니다.
+ */
 const SettingsMyReviewsCard = ({
   review,
   handleDeleteReview,

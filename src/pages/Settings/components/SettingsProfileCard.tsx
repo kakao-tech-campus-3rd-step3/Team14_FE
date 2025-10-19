@@ -1,5 +1,10 @@
 import type { UserInfoResponse } from '@/types/UserType';
-
+/**
+ * 사용자 프로필 카드
+ * @param userInfo - 사용자 정보
+ * @returns 사용자 프로필 카드 컴포넌트
+ * 사용자 프로필 이미지와 이름, 이메일을 표시합니다.
+ */
 const SettingsProfileCard = ({ userInfo }: { userInfo: UserInfoResponse['content'] }) => {
   return (
     <div className="bg-white rounded-lg p-6 shadow-sm">

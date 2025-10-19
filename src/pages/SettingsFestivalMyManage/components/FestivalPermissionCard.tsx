@@ -5,7 +5,12 @@ import { getFestivalPermissionStatusInfo } from '@/utils/festivalPermissionStatu
 interface FestivalPermissionCardProps {
   permission: FestivalPermissionItem;
 }
-
+/**
+ * 축제 관리자 신청 카드
+ * @param permission - 축제 관리자 신청 정보
+ * @returns 축제 관리자 신청 카드 컴포넌트
+ * 축제 관리자 신청 정보를 표시합니다.
+ */
 const FestivalPermissionCard = ({ permission }: FestivalPermissionCardProps) => {
   const navigate = useNavigate();
   const statusInfo = getFestivalPermissionStatusInfo(permission.state);
