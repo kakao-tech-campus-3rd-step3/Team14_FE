@@ -45,4 +45,3 @@ export const useDocumentUpload = (initialDocuments: DocumentInfo[] = []) => {
     handleFileUpload,
   };
 };
-

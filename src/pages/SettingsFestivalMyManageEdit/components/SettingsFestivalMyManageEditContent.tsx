@@ -16,7 +16,7 @@ const SettingsFestivalMyManageEditContent = () => {
   const navigate = useNavigate();
   const { goBack } = useNav();
   const queryClient = useQueryClient();
-  
+
   const { documents, setDocuments, isUploading, handleFileUpload } = useDocumentUpload();
 
   // 기존 데이터 가져오기
@@ -46,7 +46,7 @@ const SettingsFestivalMyManageEditContent = () => {
       // 캐시 무효화하여 최신 데이터 반영
       queryClient.invalidateQueries({ queryKey: ['festivalPermission', id] });
       queryClient.invalidateQueries({ queryKey: ['festivalPermissions'] });
-      
+
       alert('축제 관리 신청이 수정되었습니다!');
       navigate(`${ROUTE_PATH.FESTIVAL_MY_MANAGE}/${id}`);
     },

@@ -24,7 +24,7 @@ const SettingsFMPermissionApplicationForm = ({
 }: SettingsFMPermissionApplicationFormProps) => {
   const [department, setDepartment] = useState(initialData?.department || '');
   const { documents, setDocuments, isUploading, handleFileUpload } = useDocumentUpload(
-    initialData?.documents || []
+    initialData?.documents || [],
   );
 
   const { goBack } = useNav();

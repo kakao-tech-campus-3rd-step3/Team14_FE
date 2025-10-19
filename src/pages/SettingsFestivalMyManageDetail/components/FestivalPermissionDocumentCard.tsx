@@ -1,4 +1,3 @@
-
 interface FestivalPermissionDocumentCardProps {
   docs: string[];
 }
