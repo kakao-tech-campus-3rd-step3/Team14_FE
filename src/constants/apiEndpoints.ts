@@ -36,6 +36,8 @@ const API_ENDPOINTS = {
   FESTIVAL_REGISTER: '/api/festivals',
   // 내가 등록한 축제 조회
   MY_FESTIVALS: '/api/festivals/my',
+  // 축제 관리 신청
+  FESTIVAL_MANAGER_APPLY: '/api/festival-permissions/festival/:festivalId',
 } as const;
 
 export default API_ENDPOINTS;
