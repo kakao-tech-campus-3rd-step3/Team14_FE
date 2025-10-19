@@ -113,9 +113,7 @@ const FestivalContentManagerSection = ({
         onConfirm={modalContent.onConfirm}
         title={modalContent.title}
         message={modalContent.message}
-        confirmText={
-          modalContent.title === '권한 필요' ? '신청하러 가기' : '신청하기'
-        }
+        confirmText={modalContent.title === '권한 필요' ? '신청하러 가기' : '신청하기'}
       />
     </>
   );

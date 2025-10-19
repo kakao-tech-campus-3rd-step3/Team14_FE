@@ -74,7 +74,6 @@ const SettingsFestivalMyRegisteredContent = () => {
 
       {loading && <LoadingSpinner size="md" className="h-64" message="축제를 불러오는 중..." />}
       {hasMore && <div ref={observerRef} className="h-10" />}
-      
     </div>
   );
 };

@@ -68,7 +68,7 @@ const FestivalInfoPage = () => {
           <Divider height="1px" />
           <FestivalContentOverviewSection overview={data.content.overView} />
           <Divider height="1px" />
-          <FestivalContentManagerSection 
+          <FestivalContentManagerSection
             festivalId={festivalId}
             managerId={data.content.managerId}
           />
