@@ -71,7 +71,7 @@ const SettingsFestivalMyRegisteredContent = () => {
 
   return (
     <div className="p-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pb-20">
+      <div className="grid grid-cols-2 gap-6 pb-20">
         {festivals.map((festival) => (
           <FestivalCard key={festival.id} data={festival} />
         ))}
