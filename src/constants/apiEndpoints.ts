@@ -16,6 +16,8 @@ const API_ENDPOINTS = {
   JWT_EXCHANGE: '/api/jwt/exchange',
   // 사용자 정보
   USER_INFO: '/api/users/my',
+  // 사용자 역할 조회
+  USER_ROLE: '/api/users/role',
   // 로그아웃
   LOGOUT: '/api/users/logout',
   // 내가 작성한 리뷰
