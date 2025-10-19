@@ -1,4 +1,5 @@
 import { getPresignedUrl } from '@/apis/media/getPresignedUrl';
+import type { DocumentInfo, ImageInfo } from '@/types/Media/MediaInfo';
 
 async function putToS3(presignedUrl: string, file: File) {
   await fetch(presignedUrl, { method: 'PUT', body: file });
@@ -8,7 +9,7 @@ function cleanUrl(presignedUrl: string) {
   return presignedUrl.split('?')[0];
 }
 export async function uploadImageFiles(files: File[]) {
-  const results: { id: number; presignedUrl: string }[] = [];
+  const results: ImageInfo[] = [];
   for (const f of files) {
     const { id, presignedUrl } = await getPresignedUrl();
     await putToS3(presignedUrl, f);
@@ -25,7 +26,7 @@ export async function uploadVideoFile(file: File) {
 
 // 축제 관리자 신청 용 문서 업로드 함수
 export async function uploadDocumentFiles(files: File[]) {
-  const results: { id: number; presignedUrl: string; fileName: string }[] = [];
+  const results: DocumentInfo[] = [];
   for (const file of files) {
     const { id, presignedUrl } = await getPresignedUrl();
     await putToS3(presignedUrl, file);

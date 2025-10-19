@@ -1,11 +1,12 @@
 import { apiInstance } from '@/apis/apiInstance';
 import API_ENDPOINTS from '@/constants/apiEndpoints';
+import type { ImageInfo, VideoInfo } from '@/types/Media/MediaInfo';
 
 export interface PostReviewBody {
   content: string;
   score: number;
-  imageInfos: { id: number; presignedUrl: string }[];
-  videoInfo?: { id: number; presignedUrl: string };
+  imageInfos: ImageInfo[];
+  videoInfo?: VideoInfo;
 }
 
 export async function postReview(params: { festivalId: string; body: PostReviewBody }) {

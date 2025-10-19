@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { createImagePicker, createVideoPicker } from '@/utils/filePicker';
+import type { ImageInfo, VideoInfo } from '@/types/Media/MediaInfo';
 
 export function useMediaUpload() {
-  const [imageInfos, setImageInfos] = useState<{ id: number; presignedUrl: string }[]>([]);
-  const [videoInfo, setVideoInfo] = useState<{ id: number; presignedUrl: string } | null>(null);
+  const [imageInfos, setImageInfos] = useState<ImageInfo[]>([]);
+  const [videoInfo, setVideoInfo] = useState<VideoInfo | null>(null);
   const [isUploading, setIsUploading] = useState(false);
 
   const pickAndUploadImages = createImagePicker(
