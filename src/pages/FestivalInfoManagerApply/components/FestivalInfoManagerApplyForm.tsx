@@ -38,8 +38,7 @@ const FestivalInfoManagerApplyForm = () => {
 
   // 신청 mutation
   const { mutate: submitApplication, isPending } = useMutation({
-    mutationFn: (body: FestivalManagerApplyRequest) =>
-      postFestivalManagerApply(festivalId!, body),
+    mutationFn: (body: FestivalManagerApplyRequest) => postFestivalManagerApply(festivalId!, body),
     onSuccess: () => {
       alert('축제 관리 신청이 완료되었습니다!');
       navigate(`/festival/${festivalId}`);

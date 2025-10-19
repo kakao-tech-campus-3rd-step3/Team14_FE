@@ -1,9 +1,8 @@
 import { apiInstance } from '@/apis/apiInstance';
 import API_ENDPOINTS from '@/constants/apiEndpoints';
 import type { AxiosResponse } from 'axios';
-import type { ApiResponseList } from '@/apis/apiResponse'; 
+import type { ApiResponseList } from '@/apis/apiResponse';
 import type { ApplicationState } from '@/apis/apiResponse';
-
 
 export interface FestivalPermissionItem {
   id: number;
@@ -16,12 +15,12 @@ export type MyFestivalPermissionsResponse = ApiResponseList<FestivalPermissionIt
 
 export const getMyFestivalPermissions = async (
   page: number = 0,
-  size: number = 5
+  size: number = 5,
 ): Promise<AxiosResponse<MyFestivalPermissionsResponse>> => {
   return await apiInstance.get<MyFestivalPermissionsResponse>(
     API_ENDPOINTS.MY_FESTIVAL_PERMISSIONS,
     {
       params: { page, size },
-    }
+    },
   );
 };

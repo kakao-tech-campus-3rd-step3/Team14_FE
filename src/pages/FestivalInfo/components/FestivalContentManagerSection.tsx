@@ -33,25 +33,24 @@ const FestivalContentManagerSection = ({
     onConfirm: () => {},
   });
 
-  
   const handleApplyClick = async () => {
     if (!isLoggedIn) {
       alert('로그인이 필요합니다.');
       navigate(ROUTE_PATH.LOGIN);
       return;
     }
-  
+
     // 이미 이 축제의 관리자인 경우
     if (managerId === userInfo?.userId) {
       alert('이미 이 축제의 관리자입니다.');
       return;
     }
-  
+
     try {
       // 1차: 축제 관리자 권한 확인
       const roleResponse = await getUserRole();
       const isFestivalManager = roleResponse.data.content.isFestivalManagerOrAdmin;
-  
+
       if (!isFestivalManager) {
         // 축제 관리자 권한이 없는 경우
         setModalContent({
@@ -67,11 +66,11 @@ const FestivalContentManagerSection = ({
         setShowModal(true);
         return;
       }
-  
+
       // 2차: 중복 신청 확인
       const checkResponse = await checkFestivalManagerApply(festivalId);
       const hasAlreadyApplied = checkResponse.data.content;
-  
+
       if (hasAlreadyApplied) {
         // 이미 신청한 경우
         setModalContent({

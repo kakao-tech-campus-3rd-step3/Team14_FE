@@ -2,7 +2,7 @@ import Button from '@/components/common/Button';
 
 interface FormSubmitButtonsProps {
   onCancel: () => void;
-  onSubmit?: () => void; 
+  onSubmit?: () => void;
   onPatch?: () => void;
   isEdit?: boolean;
   isDisabled: boolean;
@@ -31,7 +31,7 @@ const FormSubmitButtons = ({
   isLoading,
   submitLabel = isEdit ? '수정하기' : '제출하기',
   cancelLabel = '취소',
-  submitType = 'button', 
+  submitType = 'button',
 }: FormSubmitButtonsProps) => {
   return (
     <div className="flex gap-3 mt-4 pb-4">
@@ -39,7 +39,7 @@ const FormSubmitButtons = ({
         {cancelLabel}
       </Button>
       <Button
-        type={submitType} 
+        type={submitType}
         variant="primary"
         className="flex-1"
         onClick={submitType === 'button' ? (isEdit ? onPatch : onSubmit) : undefined}

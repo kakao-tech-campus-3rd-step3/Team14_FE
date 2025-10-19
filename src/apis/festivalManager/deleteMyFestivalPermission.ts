@@ -1,22 +1,13 @@
 import { apiInstance } from '@/apis/apiInstance';
 import API_ENDPOINTS from '@/constants/apiEndpoints';
 import { generatePath } from 'react-router-dom';
-import type { AxiosResponse } from 'axios';
 import type { FestivalPermissionDetailResponse } from '@/apis/festivalManager/getMyFestivalPermissionDetail';
+import type { AxiosResponse } from 'axios';
 
-export interface UpdateFestivalPermissionRequest {
-  documents: Array<{
-    id: number;
-    presignedUrl: string;
-  }>;
-}
-
-export const putMyFestivalPermission = async (
+export const deleteMyFestivalPermission = async (
   id: string,
-  body: UpdateFestivalPermissionRequest,
 ): Promise<AxiosResponse<FestivalPermissionDetailResponse>> => {
-  return await apiInstance.put<FestivalPermissionDetailResponse>(
+  return await apiInstance.delete<FestivalPermissionDetailResponse>(
     generatePath(API_ENDPOINTS.FESTIVAL_PERMISSION_DETAIL, { id }),
-    body,
   );
 };
