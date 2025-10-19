@@ -14,7 +14,7 @@ export interface ValidationResult {
 export const validateFestivalForm = (
   formData: FestivalFormData,
   posterInfo: { id: number; presignedUrl: string } | null,
-  imageInfos: Array<{ id: number; presignedUrl: string }>
+  imageInfos: Array<{ id: number; presignedUrl: string }>,
 ): ValidationResult => {
   if (!formData.title.trim()) {
     return { isValid: false, errorMessage: '축제 제목을 입력해주세요.' };

@@ -24,7 +24,7 @@ export function useImageUploadWithPreview(maxCount: number = 10) {
     const oversizedFiles = fileArray.filter((f) => f.size > MAX_MEDIA_SIZE.IMAGE);
     if (oversizedFiles.length > 0) {
       alert(
-        `일부 파일의 크기가 ${MAX_MEDIA_SIZE.IMAGE / 1024 / 1024}MB를 초과합니다.\n문제 파일: ${oversizedFiles.map((f) => f.name).join(', ')}`
+        `일부 파일의 크기가 ${MAX_MEDIA_SIZE.IMAGE / 1024 / 1024}MB를 초과합니다.\n문제 파일: ${oversizedFiles.map((f) => f.name).join(', ')}`,
       );
       return;
     }

@@ -1,7 +1,7 @@
-import BorderCardComponent from "@/components/common/BorderCardComponent";
-import Button from "@/components/common/Button";
-import { uploadImageFiles } from "@/utils/s3Upload";
-import MAX_MEDIA_SIZE from "@/constants/maxMediaSize";
+import BorderCardComponent from '@/components/common/BorderCardComponent';
+import Button from '@/components/common/Button';
+import { uploadImageFiles } from '@/utils/s3Upload';
+import MAX_MEDIA_SIZE from '@/constants/maxMediaSize';
 
 interface RegisterFestivalPosterCardProps {
   posterInfo: { id: number; presignedUrl: string } | null;

@@ -29,7 +29,7 @@ const SettingsFestivalRegisterContent = () => {
     overView: '',
   });
 
-  // 포스터 관련 state 
+  // 포스터 관련 state
   const [posterInfo, setPosterInfo] = useState<{ id: number; presignedUrl: string } | null>(null);
   const [posterPreview, setPosterPreview] = useState<string | null>(null);
 
