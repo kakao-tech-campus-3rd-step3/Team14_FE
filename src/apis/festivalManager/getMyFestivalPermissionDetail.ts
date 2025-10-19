@@ -3,7 +3,7 @@ import API_ENDPOINTS from '@/constants/apiEndpoints';
 import { generatePath } from 'react-router-dom';
 import type { AxiosResponse } from 'axios';
 import type { ApiResponseItem } from '@/apis/apiResponse'; 
-import type { ApplicationState } from '@/apis/festivalManager/getMyFestivalPermissions';
+import type { ApplicationState } from '@/apis/apiResponse';
 
 export interface FestivalPermissionDetail {
   id: number;
@@ -16,7 +16,7 @@ export interface FestivalPermissionDetail {
 
 export type FestivalPermissionDetailResponse = ApiResponseItem<FestivalPermissionDetail>;
 
-export const getFestivalPermissionDetail = async (
+export const getMyFestivalPermissionDetail = async (
   id: string
 ): Promise<AxiosResponse<FestivalPermissionDetailResponse>> => {
   return await apiInstance.get<FestivalPermissionDetailResponse>(
