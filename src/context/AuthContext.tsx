@@ -62,6 +62,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   // 새로고침 시 자동 토큰 복구
   useEffect(() => {
+    let isMounted = true; // cleanup을 위한 플래그
+
     const initAuth = async () => {
       try {
         // 토큰 교환 로직이 제일 처음 서비스 사용자가 홈페이지에 접근했을떄도 실행됨.
@@ -71,11 +73,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const response = await jwtExchange();
         const authHeader = response.headers?.authorization || response.headers?.Authorization;
 
-        if (authHeader && authHeader.startsWith('Bearer ')) {
+        if (isMounted && authHeader && authHeader.startsWith('Bearer ')) {
           const token = authHeader.substring(7);
           setAccessToken(token);
           const userInfoResponse = await getUserInfo();
-          setUserInfo(userInfoResponse.data.content);
+          if (isMounted) {
+            setUserInfo(userInfoResponse.data.content);
+          }
         }
       } catch (error) {
         if (axios.isAxiosError(error) && error.response?.status === 401) {
@@ -90,11 +94,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           console.error('Authentication check failed:', error);
         }
       } finally {
-        setIsInitialized(true);
+        if (isMounted) {
+          setIsInitialized(true);
+        }
       }
     };
 
     initAuth();
+
+    // cleanup: 컴포넌트가 unmount되면 더 이상 state를 업데이트하지 않음
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   // apiInstance와 연결
