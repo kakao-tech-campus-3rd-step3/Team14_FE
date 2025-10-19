@@ -21,6 +21,8 @@ const API_ENDPOINTS = {
   USER_ROLE: '/api/users/role',
   // 로그아웃
   LOGOUT: '/api/users/logout',
+  // 회원탈퇴
+  DELETE_USER: '/api/users',
   // 내가 작성한 리뷰
   MY_REVIEWS: '/api/reviews/my',
   // 리뷰 삭제

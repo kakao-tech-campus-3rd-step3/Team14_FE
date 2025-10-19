@@ -7,6 +7,7 @@ import { getMyFMPermission } from '@/apis/festivalManager/getMyFMPermission';
 import getUserRole from '@/apis/user/getUserRole';
 import ProfileImageUploadModal from '@/components/modal/ProfileImageUploadModal';
 import logout from '@/apis/auth/logout';
+import deleteUser from '@/apis/user/deleteUser';
 import { useAuth } from '@/context/AuthContext';
 
 const SettingsContent = () => {
@@ -83,6 +84,34 @@ const SettingsContent = () => {
     }
   };
 
+  // 회원탈퇴 핸들러
+  const handleDeleteAccount = async () => {
+    // 1차 확인
+    if (!confirm('정말로 회원탈퇴를 하시겠습니까?\n탈퇴 시 모든 데이터가 삭제되며 복구할 수 없습니다.')) {
+      return;
+    }
+
+    // 2차 확인 (더 강력한 경고)
+    if (!confirm('최종 확인\n\n회원탈퇴를 진행하면:\n• 작성한 모든 리뷰가 삭제됩니다\n• 등록한 축제 정보가 삭제됩니다\n• 신청한 내역이 모두 삭제됩니다\n\n정말로 탈퇴하시겠습니까?')) {
+      return;
+    }
+
+    try {
+      // 회원탈퇴 API 호출
+      await deleteUser();
+      
+      // 로컬 인증 정보 삭제
+      clearAuth();
+      
+      // 완료 메시지 및 홈으로 이동
+      alert('회원탈퇴가 완료되었습니다. 그동안 이용해주셔서 감사합니다.');
+      goTo(ROUTE_PATH.HOME);
+    } catch (error) {
+      console.error('회원탈퇴 실패:', error);
+      alert('회원탈퇴에 실패했습니다. 다시 시도해주세요.');
+    }
+  };
+
   return (
     <>
       <SettingsSection title="등업하기">
@@ -139,13 +168,7 @@ const SettingsContent = () => {
           <Button variant="text" onClick={handleLogout}>
             로그아웃
           </Button>
-          {/* TODO: 회원탈퇴 버튼 추가 */}
-          <Button
-            variant="text"
-            onClick={() => {
-              goTo('#');
-            }}
-          >
+          <Button variant="text" onClick={handleDeleteAccount} className="text-red-500">
             회원탈퇴
           </Button>
         </div>
