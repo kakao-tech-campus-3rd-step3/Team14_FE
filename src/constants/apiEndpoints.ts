@@ -1,5 +1,5 @@
 const API_ENDPOINTS = {
-  USER_PROFILE_IMAGE: '/api/users/my/profile-image',
+  USER_PROFILE_IMAGE: '/api/users/profileImage',
   FESTIVALS: '/api/festivals/area/:areaId',
   FESTIVAL_INFO: '/api/festivals/:festivalId',
   FESTIVAL_WISH: '/api/festivals/:festivalId/wishes',

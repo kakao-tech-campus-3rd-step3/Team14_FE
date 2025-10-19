@@ -5,11 +5,13 @@ import useNav from '@/hooks/useNav';
 import { useState } from 'react';
 import { getMyFMPermission } from '@/apis/festivalManager/getMyFMPermission';
 import getUserRole from '@/apis/user/getUserRole';
+import ProfileImageUploadModal from '@/components/modal/ProfileImageUploadModal';
 
 const SettingsContent = () => {
   const { goTo } = useNav();
   const [checkingPermission, setCheckingPermission] = useState(false);
   const [checkingRole, setCheckingRole] = useState(false);
+  const [isProfileImageModalOpen, setIsProfileImageModalOpen] = useState(false); // ✅ 추가
 
   const handleFestivalManagerClick = async () => {
     if (checkingPermission) return;
@@ -112,9 +114,7 @@ const SettingsContent = () => {
           {/* TODO: 프로필 이미지 수정 버튼 추가 */}
           <Button
             variant="text"
-            onClick={() => {
-              goTo('#');
-            }}
+            onClick={() => setIsProfileImageModalOpen(true)}
           >
             프로필 이미지 수정
           </Button>
@@ -151,6 +151,10 @@ const SettingsContent = () => {
           </Button>
         </div>
       </SettingsSection>
+      <ProfileImageUploadModal
+        isOpen={isProfileImageModalOpen}
+        onClose={() => setIsProfileImageModalOpen(false)}
+      />
     </>
   );
 };
