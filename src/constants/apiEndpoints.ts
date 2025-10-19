@@ -32,6 +32,8 @@ const API_ENDPOINTS = {
   FM_PERMISSION: '/api/fm-permissions',
   // 내가 축제 관리자 신청 조회
   FM_PERMISSION_MY: '/api/fm-permissions/my',
+  // 축제 등록
+  FESTIVAL_REGISTER: '/api/festivals',
 } as const;
 
 export default API_ENDPOINTS;
