@@ -6,12 +6,15 @@ import { useState } from 'react';
 import { getMyFMPermission } from '@/apis/festivalManager/getMyFMPermission';
 import getUserRole from '@/apis/user/getUserRole';
 import ProfileImageUploadModal from '@/components/modal/ProfileImageUploadModal';
+import logout from '@/apis/auth/logout';
+import { useAuth } from '@/context/AuthContext';
 
 const SettingsContent = () => {
   const { goTo } = useNav();
+  const { clearAuth } = useAuth();
   const [checkingPermission, setCheckingPermission] = useState(false);
   const [checkingRole, setCheckingRole] = useState(false);
-  const [isProfileImageModalOpen, setIsProfileImageModalOpen] = useState(false); // ✅ 추가
+  const [isProfileImageModalOpen, setIsProfileImageModalOpen] = useState(false);
 
   const handleFestivalManagerClick = async () => {
     if (checkingPermission) return;
@@ -58,6 +61,25 @@ const SettingsContent = () => {
       alert('권한 확인 중 오류가 발생했습니다. 다시 시도해주세요.');
     } finally {
       setCheckingRole(false);
+    }
+  };
+
+  // 로그아웃 핸들러
+  const handleLogout = async () => {
+    if (!confirm('로그아웃 하시겠습니까?')) return;
+
+    try {
+      // 로그아웃 API 호출 (서버에서 리프레시 토큰 쿠키 삭제)
+      await logout();
+      
+      // 로컬 인증 정보 삭제 (액세스 토큰, 사용자 정보)
+      clearAuth();
+      
+      // 로그인 페이지로 이동
+      goTo(ROUTE_PATH.LOGIN);
+    } catch (error) {
+      console.error('로그아웃 실패:', error);
+      alert('로그아웃에 실패했습니다. 다시 시도해주세요.');
     }
   };
 
@@ -111,17 +133,10 @@ const SettingsContent = () => {
           >
             내가 작성한 리뷰 보기
           </Button>
-          {/* TODO: 프로필 이미지 수정 버튼 추가 */}
           <Button variant="text" onClick={() => setIsProfileImageModalOpen(true)}>
             프로필 이미지 수정
           </Button>
-          {/* TODO: 로그아웃 버튼 추가 */}
-          <Button
-            variant="text"
-            onClick={() => {
-              goTo('#');
-            }}
-          >
+          <Button variant="text" onClick={handleLogout}>
             로그아웃
           </Button>
           {/* TODO: 회원탈퇴 버튼 추가 */}
