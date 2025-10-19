@@ -2,12 +2,11 @@ import { useState } from 'react';
 import useNav from '@/hooks/useNav';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { postFMPermission } from '@/apis/festivalManager/postFMPermission';
-import { MAX_DOCUMENT_COUNT } from '@/constants/maxMediaSize';
 import ApplicationDepartmentCard from '@/pages/SettingsFMPermissionApplication/components/ApplicationDepartmentCard';
 import ApplicaitonInfoCard from '@/pages/SettingsFMPermissionApplication/components/ApplicaitonInfoCard';
 import FormSubmitButtons from '@/components/common/FormSubmitButtons';
 import ApplicationDocumentCard from '@/pages/SettingsFMPermissionApplication/components/ApplicationDocumentCard';
-import { createDocumentPicker } from '@/utils/filePicker';
+import { useDocumentUpload } from '@/hooks/useDocumentUpload';
 import type { FMPermissionRequest } from '@/types/FMPermissionsRequest';
 import { putFMPermission } from '@/apis/festivalManager/putFMPermission';
 
@@ -24,10 +23,9 @@ const SettingsFMPermissionApplicationForm = ({
   isEdit = false,
 }: SettingsFMPermissionApplicationFormProps) => {
   const [department, setDepartment] = useState(initialData?.department || '');
-  const [documents, setDocuments] = useState<
-    Array<{ id: number; presignedUrl: string; fileName: string }>
-  >(initialData?.documents || []);
-  const [isUploading, setIsUploading] = useState(false);
+  const { documents, setDocuments, isUploading, handleFileUpload } = useDocumentUpload(
+    initialData?.documents || []
+  );
 
   const { goBack } = useNav();
   const queryClient = useQueryClient();
@@ -69,25 +67,7 @@ const SettingsFMPermissionApplicationForm = ({
       }
     },
   });
-  const pickAndUploadDocuments = createDocumentPicker(
-    (uploaded) => {
-      const totalAfterUpload = documents.length + uploaded.length;
-      if (totalAfterUpload > MAX_DOCUMENT_COUNT) {
-        alert(
-          `최대 ${MAX_DOCUMENT_COUNT}개까지만 업로드할 수 있습니다.\n` +
-            `현재: ${documents.length}개, 선택: ${uploaded.length}개`,
-        );
-        return;
-      }
-      setDocuments((prev) => [...prev, ...uploaded]);
-    },
-    setIsUploading,
-    (error) => alert(error),
-  );
 
-  const handleFileUpload = () => {
-    pickAndUploadDocuments();
-  };
   //TODO: 리뷰 작성폼에 있는 함수와 함께 재활용할 수 있도록 분리할 예정
   const handleSubmit = async () => {
     const trimmedDepartment = department.trim();

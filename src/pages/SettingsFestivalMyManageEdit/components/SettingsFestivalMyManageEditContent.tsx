@@ -1,26 +1,23 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { putMyFestivalPermission } from '@/apis/festivalManager/putMyFestivalPermission';
 import { getMyFestivalPermissionDetail } from '@/apis/festivalManager/getMyFestivalPermissionDetail';
-import { MAX_DOCUMENT_COUNT } from '@/constants/maxMediaSize';
 import ApplicationDocumentCard from '@/pages/SettingsFMPermissionApplication/components/ApplicationDocumentCard';
 import FormSubmitButtons from '@/components/common/FormSubmitButtons';
-import { createDocumentPicker } from '@/utils/filePicker';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
 import FestivalPermissionInfoCard from '@/pages/SettingsFestivalMyManageDetail/components/FestivalPermissionInfoCard';
 import useNav from '@/hooks/useNav';
+import { useDocumentUpload } from '@/hooks/useDocumentUpload';
 import { ROUTE_PATH } from '@/constants/routes';
 
 const SettingsFestivalMyManageEditContent = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { goBack } = useNav();
+  const queryClient = useQueryClient();
   
-  const [documents, setDocuments] = useState<
-    Array<{ id: number; presignedUrl: string; fileName: string }>
-  >([]);
-  const [isUploading, setIsUploading] = useState(false);
+  const { documents, setDocuments, isUploading, handleFileUpload } = useDocumentUpload();
 
   // 기존 데이터 가져오기
   const { data: detailData, isLoading: isDetailLoading } = useQuery({
@@ -46,6 +43,10 @@ const SettingsFestivalMyManageEditContent = () => {
     mutationFn: (body: { documents: Array<{ id: number; presignedUrl: string }> }) =>
       putMyFestivalPermission(id!, body),
     onSuccess: () => {
+      // 캐시 무효화하여 최신 데이터 반영
+      queryClient.invalidateQueries({ queryKey: ['festivalPermission', id] });
+      queryClient.invalidateQueries({ queryKey: ['festivalPermissions'] });
+      
       alert('축제 관리 신청이 수정되었습니다!');
       navigate(`${ROUTE_PATH.FESTIVAL_MY_MANAGE}/${id}`);
     },
@@ -57,27 +58,6 @@ const SettingsFestivalMyManageEditContent = () => {
       }
     },
   });
-
-  // 파일 업로드
-  const pickAndUploadDocuments = createDocumentPicker(
-    (uploaded) => {
-      const totalAfterUpload = documents.length + uploaded.length;
-      if (totalAfterUpload > MAX_DOCUMENT_COUNT) {
-        alert(
-          `최대 ${MAX_DOCUMENT_COUNT}개까지만 업로드할 수 있습니다.\n` +
-            `현재: ${documents.length}개, 선택: ${uploaded.length}개`,
-        );
-        return;
-      }
-      setDocuments((prev) => [...prev, ...uploaded]);
-    },
-    setIsUploading,
-    (error) => alert(error),
-  );
-
-  const handleFileUpload = () => {
-    pickAndUploadDocuments();
-  };
 
   const handleSubmit = () => {
     if (documents.length === 0) {

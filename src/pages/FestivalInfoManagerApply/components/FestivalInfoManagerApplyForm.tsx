@@ -1,17 +1,15 @@
-import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { postFestivalManagerApply } from '@/apis/festivalManager/postFestivalManagerApply';
 import getFestivalInfo from '@/apis/festivals/getFestivalInfo';
-import { MAX_DOCUMENT_COUNT } from '@/constants/maxMediaSize';
 import ApplicationDocumentCard from '@/pages/SettingsFMPermissionApplication/components/ApplicationDocumentCard';
 import FormSubmitButtons from '@/components/common/FormSubmitButtons';
-import { createDocumentPicker } from '@/utils/filePicker';
 import type { FestivalManagerApplyRequest } from '@/apis/festivalManager/postFestivalManagerApply';
 import FestivalInfoManagerApplyInfoCard from './FestivalInfoManagerApplyInfoCard';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
 import FestivalInfoManagerApplyRuleCard from './FestivalInfoManagerApplyRuleCard';
 import useNav from '@/hooks/useNav';
+import { useDocumentUpload } from '@/hooks/useDocumentUpload';
 
 /**
  * 축제 관리 신청 폼 컴포넌트
@@ -23,10 +21,7 @@ const FestivalInfoManagerApplyForm = () => {
   const { festivalId } = useParams<{ festivalId: string }>();
   const navigate = useNavigate();
   const { goBack } = useNav();
-  const [documents, setDocuments] = useState<
-    Array<{ id: number; presignedUrl: string; fileName: string }>
-  >([]);
-  const [isUploading, setIsUploading] = useState(false);
+  const { documents, setDocuments, isUploading, handleFileUpload } = useDocumentUpload();
 
   // 축제 정보 가져오기
   const { data: festivalData, isLoading: isFestivalLoading } = useQuery({
@@ -55,27 +50,6 @@ const FestivalInfoManagerApplyForm = () => {
       }
     },
   });
-
-  // 파일 업로드
-  const pickAndUploadDocuments = createDocumentPicker(
-    (uploaded) => {
-      const totalAfterUpload = documents.length + uploaded.length;
-      if (totalAfterUpload > MAX_DOCUMENT_COUNT) {
-        alert(
-          `최대 ${MAX_DOCUMENT_COUNT}개까지만 업로드할 수 있습니다.\n` +
-            `현재: ${documents.length}개, 선택: ${uploaded.length}개`,
-        );
-        return;
-      }
-      setDocuments((prev) => [...prev, ...uploaded]);
-    },
-    setIsUploading,
-    (error) => alert(error),
-  );
-
-  const handleFileUpload = () => {
-    pickAndUploadDocuments();
-  };
 
   const handleSubmit = () => {
     if (documents.length === 0) {
