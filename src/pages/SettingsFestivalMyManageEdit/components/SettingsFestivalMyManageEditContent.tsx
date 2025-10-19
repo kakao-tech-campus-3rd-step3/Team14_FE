@@ -1,0 +1,145 @@
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { putMyFestivalPermission } from '@/apis/festivalManager/putMyFestivalPermission';
+import { getMyFestivalPermissionDetail } from '@/apis/festivalManager/getMyFestivalPermissionDetail';
+import { MAX_DOCUMENT_COUNT } from '@/constants/maxMediaSize';
+import ApplicationDocumentCard from '@/pages/SettingsFMPermissionApplication/components/ApplicationDocumentCard';
+import FormSubmitButtons from '@/components/common/FormSubmitButtons';
+import { createDocumentPicker } from '@/utils/filePicker';
+import LoadingSpinner from '@/components/common/LoadingSpinner';
+import FestivalPermissionInfoCard from '@/pages/SettingsFestivalMyManageDetail/components/FestivalPermissionInfoCard';
+import useNav from '@/hooks/useNav';
+import { ROUTE_PATH } from '@/constants/routes';
+
+const SettingsFestivalMyManageEditContent = () => {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const { goBack } = useNav();
+  
+  const [documents, setDocuments] = useState<
+    Array<{ id: number; presignedUrl: string; fileName: string }>
+  >([]);
+  const [isUploading, setIsUploading] = useState(false);
+
+  // 기존 데이터 가져오기
+  const { data: detailData, isLoading: isDetailLoading } = useQuery({
+    queryKey: ['festivalPermission', id],
+    queryFn: () => getMyFestivalPermissionDetail(id!),
+    enabled: !!id,
+  });
+
+  // 기존 문서 로드
+  useEffect(() => {
+    if (detailData?.data.content.docs) {
+      const existingDocs = detailData.data.content.docs.map((url, index) => ({
+        id: index, // 임시 ID
+        presignedUrl: url,
+        fileName: `기존 서류 ${index + 1}`,
+      }));
+      setDocuments(existingDocs);
+    }
+  }, [detailData]);
+
+  // 수정 mutation
+  const { mutate: updateApplication, isPending } = useMutation({
+    mutationFn: (body: { documents: Array<{ id: number; presignedUrl: string }> }) =>
+      putMyFestivalPermission(id!, body),
+    onSuccess: () => {
+      alert('축제 관리 신청이 수정되었습니다!');
+      navigate(`${ROUTE_PATH.FESTIVAL_MY_MANAGE}/${id}`);
+    },
+    onError: (error: any) => {
+      if (error.response?.status === 400) {
+        alert('수정할 수 없습니다. 입력값을 확인해주세요.');
+      } else {
+        alert('수정에 실패했습니다. 다시 시도해주세요.');
+      }
+    },
+  });
+
+  // 파일 업로드
+  const pickAndUploadDocuments = createDocumentPicker(
+    (uploaded) => {
+      const totalAfterUpload = documents.length + uploaded.length;
+      if (totalAfterUpload > MAX_DOCUMENT_COUNT) {
+        alert(
+          `최대 ${MAX_DOCUMENT_COUNT}개까지만 업로드할 수 있습니다.\n` +
+            `현재: ${documents.length}개, 선택: ${uploaded.length}개`,
+        );
+        return;
+      }
+      setDocuments((prev) => [...prev, ...uploaded]);
+    },
+    setIsUploading,
+    (error) => alert(error),
+  );
+
+  const handleFileUpload = () => {
+    pickAndUploadDocuments();
+  };
+
+  const handleSubmit = () => {
+    if (documents.length === 0) {
+      return alert('최소 1개 이상의 증빙 서류를 업로드해주세요.');
+    }
+
+    updateApplication({
+      documents: documents.map((doc) => ({
+        id: doc.id,
+        presignedUrl: doc.presignedUrl,
+      })),
+    });
+  };
+
+  const handleCancel = () => {
+    goBack();
+  };
+
+  if (isDetailLoading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[400px]">
+        <LoadingSpinner size="lg" message="정보를 불러오는 중..." />
+      </div>
+    );
+  }
+
+  const permission = detailData?.data.content;
+
+  return (
+    <div className="bg-white rounded-lg p-4 m-4 shadow-sm">
+      {/* 축제 정보 */}
+      {permission && <FestivalPermissionInfoCard permission={permission} />}
+
+      {/* 안내 메시지 */}
+      <div className="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+        <h4 className="font-semibold text-blue-900 mb-2">📌 수정 안내</h4>
+        <ul className="text-sm text-blue-800 space-y-1">
+          <li>• 증빙 서류를 수정할 수 있습니다.</li>
+          <li>• 수정 후 다시 심사가 진행됩니다.</li>
+        </ul>
+      </div>
+
+      {/* 증빙 서류 업로드 */}
+      <ApplicationDocumentCard
+        documents={documents}
+        setDocuments={setDocuments}
+        handleFileUpload={handleFileUpload}
+        isUploading={isUploading}
+      />
+
+      {/* 제출 버튼 */}
+      <FormSubmitButtons
+        onCancel={handleCancel}
+        onPatch={handleSubmit}
+        isDisabled={isPending || isUploading || documents.length === 0}
+        isLoading={isPending || isUploading}
+        submitLabel="수정하기"
+        isEdit={true}
+        onSubmit={() => {}}
+      />
+    </div>
+  );
+};
+
+export default SettingsFestivalMyManageEditContent;
