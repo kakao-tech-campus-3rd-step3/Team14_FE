@@ -1,6 +1,6 @@
 import Header from '@/components/common/Header';
 import { generatePath, useLocation, useParams } from 'react-router-dom';
-import FestivalCard from '../Festivals/components/FestivalCard';
+import FestivalCard from '@/pages/Festivals/components/FestivalCard';
 import Container from '@/components/common/Container';
 import ReviewForm from '@/pages/Review/components/ReviewForm';
 import ScoreStarRating from '@/pages/Review/components/ScoreStarRating';

@@ -2,7 +2,7 @@ import Container from '@/components/common/Container';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
 import SettingsFMPermissionApplicationForm from '@/pages/SettingsFMPermissionApplication/components/SettingsFMPermissionApplicationForm';
-import SettingsFMPermissionEditForm from './components/SettingsFMPermissionEditForm';
+import SettingsFMPermissionEditForm from '@/pages/SettingsFMPermissionApplication/components/SettingsFMPermissionEditForm';
 import { useSearchParams } from 'react-router-dom';
 
 const SettingsFMPermissionApplicationPage = () => {

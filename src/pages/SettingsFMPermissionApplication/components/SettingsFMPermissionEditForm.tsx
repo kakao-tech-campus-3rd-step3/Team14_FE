@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getMyFMPermission } from '@/apis/festivalManager/getMyFMPermission';
-import SettingsFMPermissionApplicationForm from './SettingsFMPermissionApplicationForm';
+import SettingsFMPermissionApplicationForm from '@/pages/SettingsFMPermissionApplication/components/SettingsFMPermissionApplicationForm';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
 import ErrorComponent from '@/components/common/ErrorComponent';
 

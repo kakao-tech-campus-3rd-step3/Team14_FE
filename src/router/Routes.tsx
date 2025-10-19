@@ -7,7 +7,7 @@ import MyPage from '@/pages/My/MyPage';
 import PickPage from '@/pages/Pick/PickPage';
 import FestivalsPage from '@/pages/Festivals/FestivalsPage';
 import FestivalInfoPage from '@/pages/FestivalInfo/FestivalInfoPage';
-import ProtectedRoute from './ProtectedRoute';
+import ProtectedRoute from '@/router/ProtectedRoute';
 import SearchPage from '@/pages/Search/SearchPage';
 import ReviewPage from '@/pages/Review/ReviewPage';
 import ChatPage from '@/pages/Chat/ChatPage';

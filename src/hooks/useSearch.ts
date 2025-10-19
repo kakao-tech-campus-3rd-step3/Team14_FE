@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import useDebounce from './useDebounce';
+import useDebounce from '@/hooks/useDebounce';
 import { useQuery } from '@tanstack/react-query';
 import { searchFestivals } from '@/apis/search/searchFestivals';
 
