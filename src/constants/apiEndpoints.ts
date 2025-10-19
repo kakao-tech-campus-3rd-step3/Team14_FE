@@ -40,6 +40,10 @@ const API_ENDPOINTS = {
   FESTIVAL_MANAGER_APPLY: '/api/festival-permissions/festival/:festivalId',
   // 축제 관리 신청 조회
   FESTIVAL_MANAGER_APPLY_CHECK: '/api/festival-permissions/festival/:festivalId/check',
+  // 내 축제 관리 신청 목록
+  MY_FESTIVAL_PERMISSIONS: '/api/festival-permissions/my',
+  // 축제 관리 신청 상세/수정/삭제
+  FESTIVAL_PERMISSION_DETAIL: '/api/festival-permissions/:id',
 } as const;
 
 export default API_ENDPOINTS;
