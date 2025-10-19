@@ -7,6 +7,7 @@ import Button from '@/components/common/Button';
 import AREA_OPTIONS from '@/constants/areaOptions';
 import BorderCardComponent from '@/components/common/BorderCardComponent';
 import RegisterFestivalNameCard from './RegisterFestivalNameCard';
+import RegisterFestivalAreaCard from './RegisterFestivalAreaCard';
 
 const SettingsFestivalRegisterContent = () => {
     const { goBack } = useNav();
@@ -244,25 +245,7 @@ const SettingsFestivalRegisterContent = () => {
     <form onSubmit={handleSubmit} className="flex flex-col gap-6">
     <RegisterFestivalNameCard formData={formData} handleInputChange={handleInputChange} isSubmitting={isSubmitting} />
       {/* 지역 선택 */}
-      <div className="flex flex-col gap-2">
-        <label htmlFor="areaCode" className="font-semibold">
-          지역 <span className="text-red-500">*</span>
-        </label>
-        <select
-          id="areaCode"
-          name="areaCode"
-          value={formData.areaCode}
-          onChange={handleInputChange}
-          className="border rounded-lg p-3"
-          disabled={isSubmitting}
-        >
-          {AREA_OPTIONS.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-      </div>
+    <RegisterFestivalAreaCard formData={formData} handleInputChange={handleInputChange} isSubmitting={isSubmitting} />
 
       {/* 주소 */}
       <div className="flex flex-col gap-2">
