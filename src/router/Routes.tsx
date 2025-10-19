@@ -18,6 +18,7 @@ import SettingsFMPermissionStatusPage from '@/pages/SettingsFMPermissionStatus/S
 import SettingsFestivalMyManagePage from '@/pages/SettingsFestivalMyManage/SettingsFestivalMyManagePage';
 import SettingsFestivalMyRegisteredPage from '@/pages/SettingsFestivalMyRegistered/SettingsFestivalMyRegisteredPage';
 import SettingsFestivalRegisterPage from '@/pages/SettingsFestivalRegister/SettingsFestivalRegisterPage';
+import FestivalManagerApplyPage from '@/pages/FestivalManagerApply/FestivalManagerApplyPage';
 
 /**
  * 라우터 컴포넌트
@@ -121,6 +122,14 @@ const Routes = () => {
       <Route path={ROUTE_PATH.FESTIVALS} element={<FestivalsPage />} />
       <Route path={ROUTE_PATH.FESTIVAL_INFO} element={<FestivalInfoPage />} />
       <Route path={ROUTE_PATH.SEARCH} element={<SearchPage />} />
+      <Route
+        path={ROUTE_PATH.FESTIVAL_MANAGER_APPLY}
+        element={
+          <ProtectedRoute>
+            <FestivalManagerApplyPage />
+          </ProtectedRoute>
+        }
+      />
     </RouterRoutes>
   );
 };

@@ -2,11 +2,10 @@ import { useState } from 'react';
 import Button from '@/components/common/Button';
 import ConfirmModal from '@/components/modal/ConfirmModal';
 import { getUserRole } from '@/apis/user/getUserRole';
-import { postFestivalManagerApply } from '@/apis/festivalManager/postFestivalManagerApply';
 import { useAuth } from '@/context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE_PATH } from '@/constants/routes';
-import { useMutation } from '@tanstack/react-query';
+import { generatePath } from 'react-router-dom';
 
 interface FestivalContentManagerSectionProps {
   festivalId: string;
@@ -30,21 +29,6 @@ const FestivalContentManagerSection = ({
     onConfirm: () => {},
   });
 
-  const applyMutation = useMutation({
-    mutationFn: () =>
-      postFestivalManagerApply(festivalId, {
-        documents: [], // 이미 등록된 서류를 사용
-      }),
-    onSuccess: () => {
-      alert('축제 관리 신청이 완료되었습니다!');
-      setShowModal(false);
-    },
-    onError: (error) => {
-      console.error('축제 관리 신청 실패:', error);
-      alert('축제 관리 신청에 실패했습니다. 다시 시도해주세요.');
-    },
-  });
-
   const handleApplyClick = async () => {
     if (!isLoggedIn) {
       alert('로그인이 필요합니다.');
@@ -66,7 +50,7 @@ const FestivalContentManagerSection = ({
         // 축제 관리자 권한이 없는 경우
         setModalContent({
           title: '권한이 필요해요',
-          message: '축제 관리는 관리자 권한이 있어야 해요.\n 지금 신청할 수 있어요.',
+          message: '축제 관리자만 축제를 관리할 수 있습니다.\n축제 관리자 권한을 신청해주세요.',
           onConfirm: () => {
             setShowModal(false);
             navigate(ROUTE_PATH.FM_PERMISSION_APPLICATION);
@@ -74,26 +58,14 @@ const FestivalContentManagerSection = ({
         });
         setShowModal(true);
       } else {
-        // 축제 관리자 권한이 있는 경우
-        setModalContent({
-          title: '축제 관리 신청',
-          message: '이 축제의 관리자로 신청하시겠습니까?',
-          onConfirm: () => {
-            applyMutation.mutate();
-          },
-        });
-        setShowModal(true);
+        // 축제별 관리자 신청 페이지로 이동
+        navigate(generatePath(ROUTE_PATH.FESTIVAL_MANAGER_APPLY, { festivalId }));
       }
     } catch (error) {
       console.error('역할 확인 실패:', error);
       alert('권한 확인에 실패했습니다. 다시 시도해주세요.');
     }
   };
-
-  // 이미 관리자가 있는 경우 렌더링하지 않음
-  if (managerId !== null) {
-    return null;
-  }
 
   return (
     <>
