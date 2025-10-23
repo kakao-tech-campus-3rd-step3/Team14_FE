@@ -9,12 +9,12 @@ import RegisterFestivalOverviewCard from '@/pages/SettingsFestivalRegister/compo
 import RegisterFestivalPosterCard from '@/pages/SettingsFestivalRegister/components/RegisterFestivalPosterCard';
 import RegisterFestivalImageCard from '@/pages/SettingsFestivalRegister/components/RegisterFestivalImageCard';
 import FormSubmitButtons from '@/components/common/FormSubmitButtons';
-import { useImageUploadWithPreview } from '@/hooks/useImageUploadWithPreview';
+import { useMediaUpload } from '@/hooks/useMediaUpload';
 import { validateFestivalForm } from '@/utils/festivalValidation';
 import { isAxiosError } from 'axios';
 import { postFestival } from '@/apis/festivals/postFestival';
 import type { PostFestivalRequest } from '@/apis/festivals/postFestival';
-
+import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 /**
  * 축제 등록 내용 컴포넌트
  * @returns 축제 등록 내용 컴포넌트
@@ -43,9 +43,9 @@ const SettingsFestivalRegisterContent = () => {
     imageInfos,
     imagePreviews,
     isUploading: isUploadingImages,
-    handleImagesUpload,
+    pickAndUploadImages,
     removeImage: handleRemoveImage,
-  } = useImageUploadWithPreview(10);
+  } = useMediaUpload({ maxImages: 10, enableVideo: false });
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
@@ -80,7 +80,7 @@ const SettingsFestivalRegisterContent = () => {
 
       await postFestival(requestBody);
 
-      alert('축제가 성공적으로 등록되었습니다!');
+      alert(SYSTEM_MESSAGES.FESTIVAL_REGISTER.SUCCESS);
       goBack();
     } catch (error) {
       console.error('축제 등록 실패:', error);
@@ -90,14 +90,14 @@ const SettingsFestivalRegisterContent = () => {
         const errorMessages = fieldErrors
           .map((fieldError) => `${Object.keys(fieldError)[0]}: ${Object.values(fieldError)[0]}`)
           .join('\n');
-        alert(`입력 오류:\n${errorMessages}`);
+        alert(SYSTEM_MESSAGES.FESTIVAL_REGISTER.FIELD_ERROR(errorMessages));
         return;
       }
 
       if (isAxiosError(error) && error.response?.status === 403) {
-        alert('축제 등록 권한이 없습니다. 축제 관리자 승인이 필요합니다.');
+        alert(SYSTEM_MESSAGES.FESTIVAL_REGISTER.NO_PERMISSION);
       } else {
-        alert('축제 등록에 실패했습니다. 다시 시도해주세요.');
+        alert(SYSTEM_MESSAGES.FESTIVAL_REGISTER.ERROR);
       }
     } finally {
       setIsSubmitting(false);
@@ -162,7 +162,7 @@ const SettingsFestivalRegisterContent = () => {
           isSubmitting={isSubmitting}
           isUploading={isUploading}
           imageInfos={imageInfos}
-          handleImagesUpload={handleImagesUpload}
+          pickAndUploadImages={pickAndUploadImages}
           isUploadingImages={isUploadingImages}
         />
 

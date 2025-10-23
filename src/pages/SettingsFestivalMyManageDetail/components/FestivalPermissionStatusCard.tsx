@@ -1,5 +1,6 @@
-import type { ApplicationState } from '@/apis/apiResponse';
+import type { ApplicationState } from '@/types/FMPermissionsRequest';
 import { getFestivalPermissionStatusInfo } from '@/utils/festivalPermissionStatus';
+import PickIcon from '@/components/common/PickIcon';
 
 interface FestivalPermissionStatusCardProps {
   state: ApplicationState;
@@ -16,7 +17,7 @@ const FestivalPermissionStatusCard = ({ state }: FestivalPermissionStatusCardPro
   return (
     <div className={`rounded-lg p-4 border-2 ${statusInfo.color}`}>
       <div className="flex items-center gap-3 mb-2">
-        <span className="text-3xl">{statusInfo.icon}</span>
+        <PickIcon name={statusInfo.icon} size={48} />
         <div>
           <h3 className="font-bold text-lg">{statusInfo.label}</h3>
           <p className="text-sm">{statusInfo.message}</p>

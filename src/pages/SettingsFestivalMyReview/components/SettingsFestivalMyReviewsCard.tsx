@@ -1,5 +1,7 @@
 import { type MyReview } from '@/apis/review/getMyReviews';
 import StarRating from '@/components/common/StarRating';
+import PickIcon from '@/components/common/PickIcon';
+import { PICK_ICONS } from '@/constants/pickIcons';
 
 interface SettingsMyReviewsCardProps {
   review: MyReview;
@@ -62,7 +64,7 @@ const SettingsMyReviewsCard = ({
           className="text-red-500 p-1 rounded-full"
           aria-label="리뷰 삭제"
         >
-          🗑️
+          <PickIcon name={PICK_ICONS.DELETE} size={40} />
         </button>
       </div>
     </div>

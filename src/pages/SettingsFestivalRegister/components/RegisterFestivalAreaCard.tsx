@@ -1,6 +1,6 @@
 import BorderCardComponent from '@/components/common/BorderCardComponent';
-import AREA_OPTIONS from '@/constants/areaOptions';
-import type { FestivalCardProps } from '../types';
+import AREA_OPTIONS from '@/utils/areaOptions';
+import type { FestivalCardProps } from '../../../types/FestivalFormTypes';
 
 /**
  * 축제 등록 지역 카드

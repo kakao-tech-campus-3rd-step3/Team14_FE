@@ -6,6 +6,9 @@ import { uploadImageFiles } from '@/utils/s3Upload';
 import MAX_MEDIA_SIZE from '@/constants/maxMediaSize';
 import { useAuth } from '@/context/AuthContext';
 import { getUserInfo } from '@/apis/user/getUserInfo';
+import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
+import PickIcon from '@/components/common/PickIcon';
+import { PICK_ICONS } from '@/constants/pickIcons';
 
 interface ProfileImageUploadModalProps {
   isOpen: boolean;
@@ -37,7 +40,7 @@ const ProfileImageUploadModal = ({ isOpen, onClose }: ProfileImageUploadModalPro
     },
     onError: (error: unknown) => {
       console.error('프로필 이미지 업데이트 실패:', error);
-      alert('프로필 사진 변경에 실패했습니다. 다시 시도해주세요.');
+      alert(SYSTEM_MESSAGES.PROFILE_IMAGE.UPDATE_ERROR);
       setIsUploading(false);
     },
   });
@@ -49,13 +52,13 @@ const ProfileImageUploadModal = ({ isOpen, onClose }: ProfileImageUploadModalPro
 
     // 파일 크기 체크
     if (file.size > MAX_MEDIA_SIZE.IMAGE) {
-      alert(`파일 크기가 ${MAX_MEDIA_SIZE.IMAGE / 1024 / 1024}MB를 초과합니다.`);
+      alert(SYSTEM_MESSAGES.PROFILE_IMAGE.FILE_SIZE_EXCEED(MAX_MEDIA_SIZE.IMAGE / 1024 / 1024));
       return;
     }
 
     // 이미지 타입 체크
     if (!file.type.startsWith('image/')) {
-      alert('이미지 파일만 업로드 가능합니다.');
+      alert(SYSTEM_MESSAGES.PROFILE_IMAGE.INVALID_FILE_TYPE);
       return;
     }
 
@@ -85,7 +88,7 @@ const ProfileImageUploadModal = ({ isOpen, onClose }: ProfileImageUploadModalPro
   // 확인 버튼 클릭
   const handleConfirm = async () => {
     if (!selectedFile) {
-      alert('이미지를 선택해주세요.');
+      alert(SYSTEM_MESSAGES.PROFILE_IMAGE.NO_IMAGE_SELECTED);
       return;
     }
 
@@ -104,12 +107,12 @@ const ProfileImageUploadModal = ({ isOpen, onClose }: ProfileImageUploadModalPro
         updateProfileImage({ id, presignedUrl });
       } else {
         // 업로드 결과가 비어있는 경우
-        alert('이미지 업로드에 실패했습니다.');
+        alert(SYSTEM_MESSAGES.PROFILE_IMAGE.UPLOAD_ERROR);
         setIsUploading(false);
       }
     } catch (error) {
       console.error('이미지 업로드 실패:', error);
-      alert('이미지 업로드에 실패했습니다.');
+      alert(SYSTEM_MESSAGES.PROFILE_IMAGE.UPLOAD_ERROR);
       setIsUploading(false);
     }
   };
@@ -141,7 +144,7 @@ const ProfileImageUploadModal = ({ isOpen, onClose }: ProfileImageUploadModalPro
       >
         {/* 제목 */}
         <h3 className="text-lg font-bold text-gray-900 mb-4">
-          {isSuccess ? '✅ 프로필 사진이 변경되었습니다!' : '프로필 이미지 변경'}
+          {isSuccess ? SYSTEM_MESSAGES.PROFILE_IMAGE.UPDATE_SUCCESS_TITLE : '프로필 이미지 변경'}
         </h3>
 
         {/* 성공 메시지가 아닐 때만 업로드 UI 표시 */}
@@ -155,7 +158,8 @@ const ProfileImageUploadModal = ({ isOpen, onClose }: ProfileImageUploadModalPro
                 onClick={handleUploadClick}
                 disabled={isUploading || isPending}
               >
-                📷 이미지 업로드
+                <PickIcon name={PICK_ICONS.CAMERA} size={20} className="mr-2" />
+                이미지 업로드
               </Button>
               <input
                 ref={fileInputRef}
@@ -194,7 +198,7 @@ const ProfileImageUploadModal = ({ isOpen, onClose }: ProfileImageUploadModalPro
         {/* 성공 시 안내 메시지 */}
         {isSuccess && (
           <div className="mb-6 py-8 text-center">
-            <p className="text-gray-600">프로필 사진이 성공적으로 변경되었습니다.</p>
+            <p className="text-gray-600">{SYSTEM_MESSAGES.PROFILE_IMAGE.UPDATE_SUCCESS_MESSAGE}</p>
           </div>
         )}
 

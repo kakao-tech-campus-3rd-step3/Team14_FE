@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { generatePath, useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { postFestivalManagerApply } from '@/apis/festivalManager/postFestivalManagerApply';
 import getFestivalInfo from '@/apis/festivals/getFestivalInfo';
@@ -11,7 +11,8 @@ import FestivalInfoManagerApplyRuleCard from '@/pages/FestivalInfoManagerApply/c
 import useNav from '@/hooks/useNav';
 import { useDocumentUpload } from '@/hooks/useDocumentUpload';
 import { isAxiosError } from 'axios';
-
+import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
+import { ROUTE_PATH } from '@/constants/routes';
 /**
  * 축제 관리 신청 폼 컴포넌트
  * 축제 관리자로 승급한 신청자가 자신이 원하는 축제에 대해 신청할 수 있습니다.
@@ -36,29 +37,29 @@ const FestivalInfoManagerApplyForm = () => {
   const { mutate: submitApplication, isPending } = useMutation({
     mutationFn: (body: FestivalManagerApplyRequest) => postFestivalManagerApply(festivalId!, body),
     onSuccess: () => {
-      alert('축제 관리 신청이 완료되었습니다!');
-      navigate(`/festival/${festivalId}`);
+      alert(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.SUCCESS);
+      navigate(generatePath(ROUTE_PATH.FESTIVAL_INFO, { festivalId: festivalId || '' }));
     },
     onError: (error: unknown) => {
       if (isAxiosError(error)) {
         if (error.response?.status === 409) {
-          alert('이미 이 축제의 관리자 신청이 존재합니다.');
+          alert(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.ALREADY_APPLIED);
         } else if (error.response?.status === 400) {
-          alert('신청할 수 없습니다. 입력값을 확인해주세요.');
+          alert(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.INVALID_REQUEST);
         } else if (error.response?.status === 403) {
-          alert('축제 관리자 권한이 필요합니다.');
+          alert(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.NO_PERMISSION);
         } else {
-          alert('신청 제출에 실패했습니다. 다시 시도해주세요.');
+          alert(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.ERROR);
         }
       } else {
-        alert('신청 제출에 실패했습니다. 다시 시도해주세요.');
+        alert(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.ERROR);
       }
     },
   });
 
   const handleSubmit = () => {
     if (documents.length === 0) {
-      return alert('최소 1개 이상의 증빙 서류를 업로드해주세요.');
+      return alert(SYSTEM_MESSAGES.FM_APPLICATION_VALIDATION.DOCUMENT_REQUIRED);
     }
 
     submitApplication({

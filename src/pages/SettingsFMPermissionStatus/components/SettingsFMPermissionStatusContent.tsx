@@ -12,7 +12,7 @@ import SettingsFMPermissionStatusCard from '@/pages/SettingsFMPermissionStatus/c
 import SettingsFMPermissionInfoCard from '@/pages/SettingsFMPermissionStatus/components/SettingsFMPermissionInfoCard';
 import SettingsFMPermissionDocumentCard from '@/pages/SettingsFMPermissionStatus/components/SettingsFMPermissionDocumentCard';
 import SettingsFMPermissionButton from '@/pages/SettingsFMPermissionStatus/components/SettingsFMPermissionButton';
-
+import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 /**
  * 축제 관리자 신청 상태 내용
  * @returns 축제 관리자 신청 상태 내용 컴포넌트
@@ -32,16 +32,16 @@ const SettingsFMPermissionStatusContent = () => {
     mutationFn: deleteFMPermission,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['fmPermission'] });
-      alert('신청서가 삭제되었습니다.');
+      alert(SYSTEM_MESSAGES.FM_APPLICATION.DELETE_SUCCESS);
       goBack();
     },
     onError: () => {
-      alert('신청서 삭제에 실패했습니다.');
+      alert(SYSTEM_MESSAGES.FM_APPLICATION.DELETE_ERROR);
     },
   });
 
   const handleDelete = () => {
-    if (confirm('정말 신청서를 삭제하시겠습니까?')) {
+    if (confirm(SYSTEM_MESSAGES.FM_APPLICATION.DELETE_CONFIRM)) {
       deleteApplication();
     }
   };
@@ -95,7 +95,6 @@ const SettingsFMPermissionStatusContent = () => {
 
       <SettingsFMPermissionButton
         permission={permission}
-        goBack={goBack}
         handleEdit={handleEdit}
         handleDelete={handleDelete}
         isDeleting={isDeleting}

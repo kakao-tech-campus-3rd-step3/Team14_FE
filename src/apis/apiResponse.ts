@@ -35,5 +35,3 @@ export interface ApiErrorResponse {
   status: number;
   message: string;
 }
-
-export type ApplicationState = 'PENDING' | 'ACCEPTED' | 'DENIED';

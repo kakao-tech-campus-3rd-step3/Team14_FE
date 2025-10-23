@@ -11,6 +11,9 @@ import useNav from '@/hooks/useNav';
 import { useDocumentUpload } from '@/hooks/useDocumentUpload';
 import { ROUTE_PATH } from '@/constants/routes';
 import { isAxiosError } from 'axios';
+import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
+import PickIcon from '@/components/common/PickIcon';
+import { PICK_ICONS } from '@/constants/pickIcons';
 
 /**
  * 축제 관리 신청 수정 내용 컴포넌트
@@ -49,21 +52,21 @@ const SettingsFestivalMyManageEditContent = () => {
       queryClient.invalidateQueries({ queryKey: ['festivalPermission', id] });
       queryClient.invalidateQueries({ queryKey: ['festivalPermissions'] });
 
-      alert('축제 관리 신청이 수정되었습니다!');
+      alert(SYSTEM_MESSAGES.FESTIVAL_MANAGER_EDIT.SUCCESS);
       navigate(`${ROUTE_PATH.FESTIVAL_MY_MANAGE}/${id}`);
     },
     onError: (error: unknown) => {
       if (isAxiosError(error) && error.response?.status === 400) {
-        alert('수정할 수 없습니다. 입력값을 확인해주세요.');
+        alert(SYSTEM_MESSAGES.FESTIVAL_MANAGER_EDIT.INVALID_REQUEST);
       } else {
-        alert('수정에 실패했습니다. 다시 시도해주세요.');
+        alert(SYSTEM_MESSAGES.FESTIVAL_MANAGER_EDIT.ERROR);
       }
     },
   });
 
   const handleSubmit = () => {
     if (documents.length === 0) {
-      return alert('최소 1개 이상의 증빙 서류를 업로드해주세요.');
+      return alert(SYSTEM_MESSAGES.FM_APPLICATION_VALIDATION.DOCUMENT_REQUIRED);
     }
 
     updateApplication({
@@ -72,10 +75,6 @@ const SettingsFestivalMyManageEditContent = () => {
         presignedUrl: doc.presignedUrl,
       })),
     });
-  };
-
-  const handleCancel = () => {
-    goBack();
   };
 
   if (isDetailLoading) {
@@ -93,7 +92,10 @@ const SettingsFestivalMyManageEditContent = () => {
       {permission && <FestivalPermissionInfoCard permission={permission} />}
 
       <div className="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-        <h4 className="font-semibold text-blue-900 mb-2">📌 수정 안내</h4>
+        <h4 className="font-semibold text-blue-900 mb-2 flex items-center">
+          <PickIcon name={PICK_ICONS.PIN} size={20} className="mr-2" />
+          수정 안내
+        </h4>
         <ul className="text-sm text-blue-800 space-y-1">
           <li>• 증빙 서류를 수정할 수 있습니다.</li>
           <li>• 수정 후 다시 심사가 진행됩니다.</li>
@@ -108,13 +110,12 @@ const SettingsFestivalMyManageEditContent = () => {
       />
 
       <FormSubmitButtons
-        onCancel={handleCancel}
+        onCancel={goBack}
         onPatch={handleSubmit}
         isDisabled={isPending || isUploading || documents.length === 0}
         isLoading={isPending || isUploading}
         submitLabel="수정하기"
         isEdit={true}
-        onSubmit={() => {}}
       />
     </div>
   );

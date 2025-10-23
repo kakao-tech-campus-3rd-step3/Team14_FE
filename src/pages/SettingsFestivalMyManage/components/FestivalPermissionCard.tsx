@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import type { FestivalPermissionItem } from '@/apis/festivalManager/getMyFestivalPermissions';
 import { getFestivalPermissionStatusInfo } from '@/utils/festivalPermissionStatus';
+import PickIcon from '@/components/common/PickIcon';
 
 interface FestivalPermissionCardProps {
   permission: FestivalPermissionItem;
@@ -29,7 +30,8 @@ const FestivalPermissionCard = ({ permission }: FestivalPermissionCardProps) => 
           <div className="flex items-center gap-2 mb-2">
             <h3 className="font-bold text-lg text-gray-900">{permission.title}</h3>
             <span className={`px-3 py-1 rounded-full text-xs font-semibold ${statusInfo.color}`}>
-              {statusInfo.icon} {statusInfo.label}
+              <PickIcon name={statusInfo.icon} size={16} className="mr-1" />
+              {statusInfo.label}
             </span>
           </div>
           <p className="text-sm text-gray-500">

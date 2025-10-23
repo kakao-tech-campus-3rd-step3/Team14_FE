@@ -2,7 +2,7 @@ import { apiInstance } from '@/apis/apiInstance';
 import API_ENDPOINTS from '@/constants/apiEndpoints';
 import type { AxiosResponse } from 'axios';
 import type { ApiResponseList } from '@/apis/apiResponse';
-import type { ApplicationState } from '@/apis/apiResponse';
+import type { ApplicationState } from '@/types/FMPermissionsRequest';
 
 export interface FestivalPermissionItem {
   id: number;

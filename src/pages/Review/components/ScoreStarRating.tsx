@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import StarIcon from '@/components/icon/StarIcon';
 
+/**
+ * 별점 평가 컴포넌트
+ * @param value - 현재 별점
+ * @param onChange - 별점 변경 핸들러
+ * @returns 별점 평가 컴포넌트
+ */
 const ScoreStarRating = ({ value, onChange }: { value: number; onChange: (v: number) => void }) => {
   const [hover, setHover] = useState<number | null>(null);
 
@@ -19,7 +25,7 @@ const ScoreStarRating = ({ value, onChange }: { value: number; onChange: (v: num
             aria-label={`${star}점`}
           >
             <StarIcon
-              className={`x-8 h-8 ${filled ? 'text-yellow-400' : 'text-gray-300'}`}
+              className={`w-8 h-8 ${filled ? 'text-yellow-400' : 'text-gray-300'}`}
               filled={filled}
             />
           </button>

@@ -1,9 +1,9 @@
 import Button from '@/components/common/Button';
 import type { FMPermissionStatusResponse } from '@/apis/festivalManager/getMyFMPermission';
+import useNav from '@/hooks/useNav';
 
 interface SettingsFMPermissionButtonProps {
   permission: FMPermissionStatusResponse['content'];
-  goBack: () => void;
   handleEdit: () => void;
   handleDelete: () => void;
   isDeleting: boolean;
@@ -11,7 +11,6 @@ interface SettingsFMPermissionButtonProps {
 /**
  * 축제 관리자 신청 버튼
  * @param permission - 축제 관리자 신청 상태
- * @param goBack - 뒤로가기 핸들러
  * @param handleEdit - 수정 핸들러
  * @param handleDelete - 삭제 핸들러
  * @param isDeleting - 삭제 중 여부
@@ -20,11 +19,11 @@ interface SettingsFMPermissionButtonProps {
  */
 const SettingsFMPermissionButton = ({
   permission,
-  goBack,
   handleEdit,
   handleDelete,
   isDeleting,
 }: SettingsFMPermissionButtonProps) => {
+  const { goBack } = useNav();
   return (
     <div className="flex gap-3 p-4 shadow-sm rounded-lg">
       <Button variant="secondary" className="flex-1" onClick={goBack}>

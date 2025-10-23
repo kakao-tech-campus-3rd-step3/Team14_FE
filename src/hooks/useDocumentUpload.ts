@@ -1,12 +1,8 @@
 import { useState } from 'react';
 import { createDocumentPicker } from '@/utils/filePicker';
 import { MAX_DOCUMENT_COUNT } from '@/constants/maxMediaSize';
-
-export interface DocumentInfo {
-  id: number;
-  presignedUrl: string;
-  fileName: string;
-}
+import type { DocumentInfo } from '@/types/Media/MediaInfo';
+import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 
 /**
  * 문서 업로드 훅
@@ -23,8 +19,11 @@ export const useDocumentUpload = (initialDocuments: DocumentInfo[] = []) => {
       const totalAfterUpload = documents.length + uploaded.length;
       if (totalAfterUpload > MAX_DOCUMENT_COUNT) {
         alert(
-          `최대 ${MAX_DOCUMENT_COUNT}개까지만 업로드할 수 있습니다.\n` +
-            `현재: ${documents.length}개, 선택: ${uploaded.length}개`,
+          SYSTEM_MESSAGES.MEDIA_UPLOAD.DOCUMENT_LIMIT_EXCEEDED(
+            MAX_DOCUMENT_COUNT,
+            documents.length,
+            uploaded.length,
+          ),
         );
         return;
       }

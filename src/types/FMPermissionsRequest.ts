@@ -1,7 +1,7 @@
+import type { MediaInfo } from '@/types/Media/MediaInfo';
 export interface FMPermissionRequest {
   department: string;
-  documents: Array<{
-    id: number;
-    presignedUrl: string;
-  }>;
+  documents: MediaInfo[];
 }
+
+export type ApplicationState = 'PENDING' | 'ACCEPTED' | 'DENIED';

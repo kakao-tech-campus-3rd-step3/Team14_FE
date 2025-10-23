@@ -12,7 +12,7 @@ import FestivalPermissionStatusCard from '@/pages/SettingsFestivalMyManageDetail
 import FestivalPermissionInfoCard from '@/pages/SettingsFestivalMyManageDetail/components/FestivalPermissionInfoCard';
 import FestivalPermissionDocumentCard from '@/pages/SettingsFestivalMyManageDetail/components/FestivalPermissionDocumentCard';
 import FestivalPermissionButtons from '@/pages/SettingsFestivalMyManageDetail/components/FestivalPermissionButtons';
-
+import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 /**
  * 축제 관리자 신청 상세 내용 컴포넌트
  * @returns 축제 관리자 신청 상세 내용 컴포넌트
@@ -35,16 +35,16 @@ const SettingsFestivalMyManageDetailContent = () => {
     mutationFn: () => deleteMyFestivalPermission(id!),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['festivalPermissions'] });
-      alert('신청서가 삭제되었습니다.');
+      alert(SYSTEM_MESSAGES.FM_APPLICATION.DELETE_SUCCESS);
       navigate(ROUTE_PATH.FESTIVAL_MY_MANAGE);
     },
     onError: () => {
-      alert('신청서 삭제에 실패했습니다.');
+      alert(SYSTEM_MESSAGES.FM_APPLICATION.DELETE_ERROR);
     },
   });
 
   const handleDelete = () => {
-    if (confirm('정말 신청서를 삭제하시겠습니까?')) {
+    if (confirm(SYSTEM_MESSAGES.FM_APPLICATION.DELETE_CONFIRM)) {
       deleteApplication();
     }
   };

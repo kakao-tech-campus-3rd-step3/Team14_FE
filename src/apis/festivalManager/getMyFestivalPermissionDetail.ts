@@ -3,14 +3,10 @@ import API_ENDPOINTS from '@/constants/apiEndpoints';
 import { generatePath } from 'react-router-dom';
 import type { AxiosResponse } from 'axios';
 import type { ApiResponseItem } from '@/apis/apiResponse';
-import type { ApplicationState } from '@/apis/apiResponse';
+import type { FestivalPermissionItem } from './getMyFestivalPermissions';
 
-export interface FestivalPermissionDetail {
-  id: number;
-  title: string;
+export interface FestivalPermissionDetail extends FestivalPermissionItem {
   posterImg: string;
-  appliedDate: string;
-  state: ApplicationState;
   docs: string[];
 }
 

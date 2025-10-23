@@ -2,6 +2,7 @@ import BorderCardComponent from '@/components/common/BorderCardComponent';
 import Button from '@/components/common/Button';
 import { uploadImageFiles } from '@/utils/s3Upload';
 import MAX_MEDIA_SIZE from '@/constants/maxMediaSize';
+import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 /**
  * 축제 등록 포스터 카드
  * @param posterInfo - 포스터 정보
@@ -41,12 +42,12 @@ const RegisterFestivalPosterCard = ({
     if (!file) return;
 
     if (file.size > MAX_MEDIA_SIZE.IMAGE) {
-      alert(`이미지 크기는 ${MAX_MEDIA_SIZE.IMAGE / 1024 / 1024}MB를 초과할 수 없습니다.`);
+      alert(SYSTEM_MESSAGES.POSTER.FILE_SIZE_EXCEED(MAX_MEDIA_SIZE.IMAGE / 1024 / 1024));
       return;
     }
 
     if (!file.type.startsWith('image/')) {
-      alert('이미지 파일만 업로드 가능합니다.');
+      alert(SYSTEM_MESSAGES.POSTER.INVALID_FILE_TYPE);
       return;
     }
 
@@ -65,7 +66,7 @@ const RegisterFestivalPosterCard = ({
       setPosterInfo(uploaded[0]);
     } catch (error) {
       console.error('포스터 업로드 실패:', error);
-      alert('포스터 업로드에 실패했습니다.');
+      alert(SYSTEM_MESSAGES.POSTER.UPLOAD_ERROR);
       setPosterPreview(null);
       setPosterInfo(null);
     } finally {

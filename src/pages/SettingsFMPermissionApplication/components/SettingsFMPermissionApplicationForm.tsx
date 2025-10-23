@@ -10,6 +10,7 @@ import { useDocumentUpload } from '@/hooks/useDocumentUpload';
 import type { FMPermissionRequest } from '@/types/FMPermissionsRequest';
 import { putFMPermission } from '@/apis/festivalManager/putFMPermission';
 import { isAxiosError } from 'axios';
+import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 
 interface SettingsFMPermissionApplicationFormProps {
   initialData?: {
@@ -41,20 +42,20 @@ const SettingsFMPermissionApplicationForm = ({
     mutationFn: (body: FMPermissionRequest) => postFMPermission(body),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['fmPermission'] });
-      alert('축제 관리자 신청이 완료되었습니다.');
+      alert(SYSTEM_MESSAGES.FM_APPLICATION.SUBMIT_SUCCESS);
       goBack();
     },
     onError: (error: unknown) => {
       if (isAxiosError(error)) {
         if (error.response?.status === 409) {
-          alert('이미 신청서가 존재합니다.');
+          alert(SYSTEM_MESSAGES.FM_APPLICATION.ALREADY_EXISTS);
         } else if (error.response?.status === 400) {
-          alert('신청할 수 없습니다. 관리자에게 문의해주세요.');
+          alert(SYSTEM_MESSAGES.FM_APPLICATION.CANNOT_APPLY);
         } else {
-          alert('신청서 제출에 실패했습니다. 다시 시도해주세요.');
+          alert(SYSTEM_MESSAGES.FM_APPLICATION.SUBMIT_ERROR);
         }
       } else {
-        alert('신청서 제출에 실패했습니다. 다시 시도해주세요.');
+        alert(SYSTEM_MESSAGES.FM_APPLICATION.SUBMIT_ERROR);
       }
     },
   });
@@ -62,22 +63,22 @@ const SettingsFMPermissionApplicationForm = ({
     mutationFn: (body: FMPermissionRequest) => putFMPermission(body),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['fmPermission'] });
-      alert('신청서 수정이 완료되었습니다.');
+      alert(SYSTEM_MESSAGES.FM_APPLICATION.UPDATE_SUCCESS);
       goBack();
     },
     onError: (error: unknown) => {
       if (isAxiosError(error)) {
         if (error.response?.status === 403) {
-          alert('수정 권한이 없습니다.');
+          alert(SYSTEM_MESSAGES.FM_APPLICATION.UPDATE_NO_PERMISSION);
         } else if (error.response?.status === 404) {
-          alert('신청서를 찾을 수 없습니다.');
+          alert(SYSTEM_MESSAGES.FM_APPLICATION.UPDATE_NOT_FOUND);
         } else if (error.response?.status === 400) {
-          alert('잘못된 요청입니다. 입력값을 확인해주세요.');
+          alert(SYSTEM_MESSAGES.FM_APPLICATION.UPDATE_INVALID_REQUEST);
         } else {
-          alert('신청서 수정에 실패했습니다. 다시 시도해주세요.');
+          alert(SYSTEM_MESSAGES.FM_APPLICATION.UPDATE_ERROR);
         }
       } else {
-        alert('신청서 수정에 실패했습니다. 다시 시도해주세요.');
+        alert(SYSTEM_MESSAGES.FM_APPLICATION.UPDATE_ERROR);
       }
     },
   });
@@ -112,15 +113,15 @@ const SettingsFMPermissionApplicationForm = ({
     const trimmedDepartment = department.trim();
 
     if (!trimmedDepartment) {
-      return alert('부서명을 입력해주세요.');
+      return alert(SYSTEM_MESSAGES.FM_APPLICATION_VALIDATION.DEPARTMENT_REQUIRED);
     }
 
     if (trimmedDepartment.length < 2 || trimmedDepartment.length > 50) {
-      return alert('부서명은 2자 이상 50자 이하여야 합니다.');
+      return alert(SYSTEM_MESSAGES.FM_APPLICATION_VALIDATION.DEPARTMENT_LENGTH);
     }
 
     if (documents.length === 0) {
-      return alert('최소 1개 이상의 증빙 서류를 업로드해주세요.');
+      return alert(SYSTEM_MESSAGES.FM_APPLICATION_VALIDATION.DOCUMENT_REQUIRED);
     }
 
     updateApplication({

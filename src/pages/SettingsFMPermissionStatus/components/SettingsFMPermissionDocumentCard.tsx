@@ -1,4 +1,6 @@
 import type { FMPermissionStatusResponse } from '@/apis/festivalManager/getMyFMPermission';
+import PickIcon from '@/components/common/PickIcon';
+import { PICK_ICONS } from '@/constants/pickIcons';
 
 interface SettingsFMPermissionDocumentCardProps {
   permission: FMPermissionStatusResponse['content'];
@@ -25,7 +27,7 @@ const SettingsFMPermissionDocumentCard = ({
             className="flex items-center justify-between p-2 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors"
           >
             <div className="flex items-center gap-2">
-              <span className="text-xl">📎</span>
+              <PickIcon name={PICK_ICONS.CLIP} size={24} />
               <span className="text-sm text-gray-700">서류 {index + 1}</span>
             </div>
             <span className="text-sm text-blue-600">보기 →</span>

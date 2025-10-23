@@ -8,7 +8,7 @@ import Button from '@/components/common/Button';
  * @param isSubmitting - 제출 중 여부
  * @param isUploading - 업로드 중 여부
  * @param imageInfos - 이미지 정보
- * @param handleImagesUpload - 이미지 업로드 핸들러
+ * @param pickAndUploadImages - 이미지 업로드 핸들러
  * @param isUploadingImages - 업로드 중 여부
  * @returns 축제 등록 이미지 카드 컴포넌트
  * 축제 등록 이미지를 표시합니다.
@@ -19,7 +19,7 @@ const RegisterFestivalImageCard = ({
   isSubmitting,
   isUploading,
   imageInfos,
-  handleImagesUpload,
+  pickAndUploadImages,
   isUploadingImages,
 }: {
   imagePreviews: string[];
@@ -27,7 +27,7 @@ const RegisterFestivalImageCard = ({
   isSubmitting: boolean;
   isUploading: boolean;
   imageInfos: { id: number; presignedUrl: string }[];
-  handleImagesUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  pickAndUploadImages: () => void;
   isUploadingImages: boolean;
 }) => {
   return (
@@ -57,26 +57,17 @@ const RegisterFestivalImageCard = ({
             ))}
           </div>
         )}
-        <label htmlFor="images-upload">
-          <Button
-            type="button"
-            variant="secondary"
-            className="w-full"
-            disabled={isUploading || isSubmitting || imageInfos.length >= 10}
-            onClick={() => document.getElementById('images-upload')?.click()}
-          >
-            {isUploadingImages ? '업로드 중...' : `이미지 추가 (${imageInfos.length}/10)`}
-          </Button>
-        </label>
-        <input
-          id="images-upload"
-          type="file"
-          accept="image/*"
-          multiple
-          className="hidden"
-          onChange={handleImagesUpload}
+
+        <Button
+          type="button"
+          variant="secondary"
+          className="w-full"
           disabled={isUploading || isSubmitting || imageInfos.length >= 10}
-        />
+          onClick={pickAndUploadImages}
+        >
+          {isUploadingImages ? '업로드 중...' : `이미지 추가 (${imageInfos.length}/10)`}
+        </Button>
+
         <p className="text-sm text-gray-500">최소 1개, 최대 10개의 이미지를 업로드해주세요.</p>
       </div>
     </BorderCardComponent>

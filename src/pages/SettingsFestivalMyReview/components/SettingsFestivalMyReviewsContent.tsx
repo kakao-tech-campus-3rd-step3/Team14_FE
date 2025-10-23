@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getMyReviews, type MyReview } from '@/apis/review/getMyReviews';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorComponent from '@/components/common/ErrorComponent';
@@ -6,34 +6,46 @@ import { deleteReview } from '@/apis/review/deleteReview';
 import ImageModal, { type MediaItem } from '@/components/modal/ImageModal';
 import SettingsMyReviewsCard from '@/pages/SettingsFestivalMyReview/components/SettingsFestivalMyReviewsCard';
 import EmptyComponent from '@/components/common/EmptyComponent';
+import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
+import { useState, useRef, useCallback, type RefObject } from 'react';
+import useInfiniteScrolling from '@/hooks/useInfiniteScrolling';
 
-/**
- * 내가 작성한 리뷰 내용 컴포넌트
- * @returns 내가 작성한 리뷰 내용 컴포넌트
- * 내가 작성한 리뷰 목록을 표시합니다.
- */
 const SettingsMyReviewsContent = () => {
-  const [reviews, setReviews] = useState<MyReview[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [hasMore, setHasMore] = useState(true);
+  const queryClient = useQueryClient();
+  const observerRef = useRef<HTMLDivElement>(null);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMediaItems, setModalMediaItems] = useState<MediaItem[]>([]);
   const [selectedMediaIndex, setSelectedMediaIndex] = useState(0);
 
-  const handleDeleteReview = async (reviewId: number) => {
-    if (!confirm('정말로 이 리뷰를 삭제하시겠습니까?')) return;
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } =
+    useInfiniteQuery({
+      queryKey: ['myReviews'],
+      queryFn: ({ pageParam = 0 }) => getMyReviews(pageParam, 5),
+      getNextPageParam: (lastPage, allPages) => {
+        return lastPage.data.last ? undefined : allPages.length;
+      },
+      initialPageParam: 0,
+      select: (data) => ({
+        pages: data.pages,
+        pageParams: data.pageParams,
+      }),
+    });
 
-    try {
-      await deleteReview(reviewId);
-      // 삭제된 리뷰를 목록에서 제거
-      setReviews((prev) => prev.filter((review) => review.reviewId !== reviewId));
-      alert('리뷰가 삭제되었습니다.');
-    } catch (error) {
-      console.error('리뷰 삭제 실패:', error);
-      alert('리뷰 삭제에 실패했습니다.');
-    }
+  const { mutate: deleteReviewMutation } = useMutation({
+    mutationFn: deleteReview,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['myReviews'] });
+      alert(SYSTEM_MESSAGES.REVIEW.DELETE_SUCCESS);
+    },
+    onError: () => {
+      alert(SYSTEM_MESSAGES.REVIEW.DELETE_ERROR);
+    },
+  });
+
+  const handleDeleteReview = async (reviewId: number) => {
+    if (!confirm(SYSTEM_MESSAGES.REVIEW.DELETE_CONFIRM)) return;
+    deleteReviewMutation(reviewId);
   };
 
   const handleMediaClick = (review: MyReview, clickedIndex: number) => {
@@ -46,45 +58,36 @@ const SettingsMyReviewsContent = () => {
     setIsModalOpen(true);
   };
 
-  const loadReviews = async (page: number) => {
-    try {
-      setLoading(true);
-      const response = await getMyReviews(page, 5);
-      const newReviews = response.data.content || [];
-
-      if (page === 0) {
-        setReviews(newReviews);
-      } else {
-        setReviews((prev) => [...prev, ...newReviews]);
-      }
-
-      setHasMore(!response.data.last);
-    } catch (err) {
-      console.error('리뷰를 가져오는데 실패했습니다:', err);
-      throw err;
-    } finally {
-      setLoading(false);
+  const fetchMore = useCallback(() => {
+    if (!isFetchingNextPage && hasNextPage) {
+      fetchNextPage();
     }
-  };
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
-  useEffect(() => {
-    loadReviews(0);
-  }, []);
+  useInfiniteScrolling({
+    observerRef: observerRef as RefObject<HTMLDivElement>,
+    fetchMore,
+    hasMore: hasNextPage ?? false,
+  });
 
-  const loadMore = () => {
-    if (!loading && hasMore) {
-      const nextPage = currentPage + 1;
-      setCurrentPage(nextPage);
-      loadReviews(nextPage);
-    }
-  };
-  //TODO: 로딩 중 빈 컴포넌트 추가
-  if (loading && reviews.length === 0) {
+  const reviews = data?.pages.flatMap((page) => page.data.content) || [];
+
+  if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-300"></div>
         <p className="ml-2 text-gray-600">리뷰를 불러오는 중...</p>
       </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <ErrorComponent
+        title="리뷰를 불러올 수 없습니다"
+        message="잠시 후 다시 시도해주세요."
+        showBackButton={true}
+      />
     );
   }
 
@@ -122,17 +125,13 @@ const SettingsMyReviewsContent = () => {
           ))}
         </div>
 
-        {hasMore && (
-          <div className="flex justify-center mt-6">
-            <button
-              onClick={loadMore}
-              disabled={loading}
-              className="px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 disabled:opacity-50"
-            >
-              {loading ? '로딩 중...' : '더 보기'}
-            </button>
+        {isFetchingNextPage && (
+          <div className="flex justify-center py-4">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-300"></div>
           </div>
         )}
+
+        {hasNextPage && <div ref={observerRef} className="h-10" />}
       </div>
 
       {isModalOpen && (

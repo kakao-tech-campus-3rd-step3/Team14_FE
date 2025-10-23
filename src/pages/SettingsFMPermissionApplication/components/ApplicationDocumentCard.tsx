@@ -1,4 +1,6 @@
 import Button from '@/components/common/Button';
+import PickIcon from '@/components/common/PickIcon';
+import { PICK_ICONS } from '@/constants/pickIcons';
 
 interface ApplicationDocumentCardProps {
   documents: { id: number; presignedUrl: string; fileName: string }[];
@@ -24,19 +26,19 @@ const ApplicationDocumentCard = ({
     const ext = fileName.split('.').pop()?.toLowerCase();
     switch (ext) {
       case 'pdf':
-        return '📄';
+        return <PickIcon name={PICK_ICONS.DOCUMENT} size={20} />;
       case 'doc':
       case 'docx':
-        return '📘';
+        return <PickIcon name={PICK_ICONS.BOOK_BLUE} size={20} />;
       case 'hwp':
-        return '📗';
+        return <PickIcon name={PICK_ICONS.BOOK_GREEN} size={20} />;
       case 'jpg':
       case 'jpeg':
       case 'png':
       case 'gif':
-        return '🖼️';
+        return <PickIcon name={PICK_ICONS.IMAGE} size={20} />;
       default:
-        return '📎';
+        return <PickIcon name={PICK_ICONS.CLIP} size={20} />;
     }
   };
 
@@ -59,7 +61,8 @@ const ApplicationDocumentCard = ({
           onClick={handleFileUpload}
           disabled={isUploading}
         >
-          📎 증빙 서류 업로드 (PDF, 이미지, 문서 파일)
+          <PickIcon name={PICK_ICONS.CLIP} size={20} className="mr-2" />
+          증빙 서류 업로드 (PDF, 이미지, 문서 파일)
         </Button>
         <p className="text-xs text-gray-500 mt-1">
           지원 형식: PDF, DOC, DOCX, HWP, 이미지 (최대 10MB/파일)

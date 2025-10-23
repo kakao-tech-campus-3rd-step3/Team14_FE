@@ -6,7 +6,7 @@ import { useAuth } from '@/context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE_PATH } from '@/constants/routes';
 import { generatePath } from 'react-router-dom';
-
+import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 import { checkFestivalManagerApply } from '@/apis/festivalManager/checkFestivalManagerApply';
 
 interface FestivalContentManagerSectionProps {
@@ -35,14 +35,14 @@ const FestivalContentManagerSection = ({
 
   const handleApplyClick = async () => {
     if (!isLoggedIn) {
-      alert('로그인이 필요합니다.');
+      alert(SYSTEM_MESSAGES.REVIEW.LOGIN_REQUIRED);
       navigate(ROUTE_PATH.LOGIN);
       return;
     }
 
     // 이미 이 축제의 관리자인 경우
     if (managerId === userInfo?.userId) {
-      alert('이미 이 축제의 관리자입니다.');
+      alert(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.ALREADY_MANAGER);
       return;
     }
 
@@ -90,7 +90,7 @@ const FestivalContentManagerSection = ({
       }
     } catch (error) {
       console.error('권한/중복 확인 실패:', error);
-      alert('확인 중 오류가 발생했습니다. 다시 시도해주세요.');
+      alert(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.CHECK_ERROR);
     }
   };
 

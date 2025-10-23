@@ -1,5 +1,5 @@
 import BorderCardComponent from '@/components/common/BorderCardComponent';
-import type { FestivalCardProps } from '../types';
+import type { FestivalCardProps } from '@/types/FestivalFormTypes';
 
 /**
  * 축제 등록 주소 카드

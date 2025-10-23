@@ -1,5 +1,5 @@
 import { getPresignedUrl } from '@/apis/media/getPresignedUrl';
-import type { DocumentInfo, ImageInfo } from '@/types/Media/MediaInfo';
+import type { DocumentInfo, MediaInfo } from '@/types/Media/MediaInfo';
 
 async function putToS3(presignedUrl: string, file: File) {
   await fetch(presignedUrl, { method: 'PUT', body: file });
@@ -9,7 +9,7 @@ function cleanUrl(presignedUrl: string) {
   return presignedUrl.split('?')[0];
 }
 export async function uploadImageFiles(files: File[]) {
-  const results: ImageInfo[] = [];
+  const results: MediaInfo[] = [];
   for (const f of files) {
     const { id, presignedUrl } = await getPresignedUrl();
     await putToS3(presignedUrl, f);
