@@ -4,7 +4,7 @@ import Container from '@/components/common/Container';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
 import { useAuth } from '@/context/AuthContext';
-import LoginContent from './components/LoginContent';
+import LoginContent from '@/pages/Login/components/LoginContent';
 import { ROUTE_PATH } from '@/constants/routes';
 import { safePath } from '@/utils/safePath';
 /**

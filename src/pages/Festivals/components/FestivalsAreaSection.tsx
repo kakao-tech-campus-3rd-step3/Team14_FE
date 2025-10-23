@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import getFestivals from '@/apis/festivals/getFestivals';
-import FestivalsSection from './FestivalsSection';
+import FestivalsSection from '@/pages/Festivals/components/FestivalsSection';
 import { useParams } from 'react-router-dom';
 
 const FestivalsAreaSection = () => {

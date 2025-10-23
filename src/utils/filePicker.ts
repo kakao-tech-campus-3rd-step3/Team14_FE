@@ -1,56 +1,49 @@
 import MAX_MEDIA_SIZE from '@/constants/maxMediaSize';
-import { uploadImageFiles, uploadVideoFile } from './getPresigned';
+import { uploadDocumentFiles, uploadImageFiles, uploadVideoFile } from '@/utils/s3Upload';
 
 export interface FileUploadOptions<T> {
   accept: string;
   multiple?: boolean;
+  maxSize?: number;
+  uploadFunction: (files: File[]) => Promise<T>;
   onUpload: (result: T) => void;
   onError?: (error: string) => void;
   onUploadingChange?: (isUploading: boolean) => void;
 }
 
 export const createFilePicker = <T>(options: FileUploadOptions<T>) => {
-  const { accept, multiple = false, onUpload, onError, onUploadingChange } = options;
+  const {
+    accept,
+    multiple = false,
+    maxSize,
+    uploadFunction,
+    onUpload,
+    onError,
+    onUploadingChange,
+  } = options;
 
   const handleFileSelect = async (files: FileList | null) => {
     if (!files || files.length === 0) return;
 
     try {
       onUploadingChange?.(true);
+      const fileArray = Array.from(files);
 
-      if (multiple) {
-        const fileArray = Array.from(files);
-
-        const invalids = fileArray.filter(
-          (f) => !f.type.startsWith('image/') || f.size > MAX_MEDIA_SIZE.IMAGE,
-        );
-        if (invalids.length) {
+      if (maxSize) {
+        const oversizedFiles = fileArray.filter((f) => f.size > maxSize);
+        if (oversizedFiles.length) {
           onError?.(
-            `이미지는 파일당 최대 10MB만 허용됩니다. 문제 파일: ${invalids
-              .map((f) => f.name)
-              .join(', ')}`,
+            `파일 크기는 ${maxSize / 1024 / 1024}MB를 초과할 수 없습니다.\n문제 파일: ${oversizedFiles.map((f) => f.name).join(', ')}`,
           );
           onUploadingChange?.(false);
           return;
         }
-        const uploaded = await uploadImageFiles(fileArray);
-        onUpload(uploaded as T);
-      } else {
-        const file = files[0];
-        if (file.size > MAX_MEDIA_SIZE.VIDEO) {
-          onError?.(`동영상은 최대 250MB만 허용됩니다.`);
-          onUploadingChange?.(false);
-          return;
-        }
-        const uploaded = await uploadVideoFile(file);
-        onUpload(uploaded as T);
       }
+
+      const uploaded = await uploadFunction(multiple ? fileArray : [fileArray[0]]);
+      onUpload(uploaded);
     } catch (error) {
-      const errorMessage = multiple
-        ? '이미지 업로드에 실패했습니다.'
-        : '동영상 업로드에 실패했습니다.';
-      onError?.(errorMessage);
-      // eslint로 error를 throw하였습니다. 추후에 변경하시면 됩니다!
+      onError?.('파일 업로드에 실패했습니다.');
       throw error;
     } finally {
       onUploadingChange?.(false);
@@ -65,7 +58,6 @@ export const createFilePicker = <T>(options: FileUploadOptions<T>) => {
 
     input.onchange = () => {
       handleFileSelect(input.files);
-      // input 정리
       input.value = '';
       input.remove();
     };
@@ -76,7 +68,6 @@ export const createFilePicker = <T>(options: FileUploadOptions<T>) => {
   return openFilePicker;
 };
 
-// 이미지, 동영상 업로드
 export const createImagePicker = (
   onUpload: (result: { id: number; presignedUrl: string }[]) => void,
   onUploadingChange?: (isUploading: boolean) => void,
@@ -85,6 +76,8 @@ export const createImagePicker = (
   return createFilePicker({
     accept: 'image/*',
     multiple: true,
+    maxSize: MAX_MEDIA_SIZE.IMAGE,
+    uploadFunction: uploadImageFiles,
     onUpload,
     onError,
     onUploadingChange,
@@ -99,6 +92,24 @@ export const createVideoPicker = (
   return createFilePicker({
     accept: 'video/*',
     multiple: false,
+    maxSize: MAX_MEDIA_SIZE.VIDEO,
+    uploadFunction: async (files) => uploadVideoFile(files[0]),
+    onUpload,
+    onError,
+    onUploadingChange,
+  });
+};
+
+export const createDocumentPicker = (
+  onUpload: (result: { id: number; presignedUrl: string; fileName: string }[]) => void,
+  onUploadingChange?: (isUploading: boolean) => void,
+  onError?: (error: string) => void,
+) => {
+  return createFilePicker({
+    accept: '.pdf,.doc,.docx,.hwp,image/*',
+    multiple: true,
+    maxSize: MAX_MEDIA_SIZE.DOCUMENT,
+    uploadFunction: uploadDocumentFiles,
     onUpload,
     onError,
     onUploadingChange,

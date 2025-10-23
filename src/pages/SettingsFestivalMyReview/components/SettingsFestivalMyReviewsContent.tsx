@@ -1,0 +1,148 @@
+import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { getMyReviews, type MyReview } from '@/apis/review/getMyReviews';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorComponent from '@/components/common/ErrorComponent';
+import { deleteReview } from '@/apis/review/deleteReview';
+import ImageModal, { type MediaItem } from '@/components/modal/ImageModal';
+import SettingsMyReviewsCard from '@/pages/SettingsFestivalMyReview/components/SettingsFestivalMyReviewsCard';
+import EmptyComponent from '@/components/common/EmptyComponent';
+import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
+import { useState, useRef, useCallback, type RefObject } from 'react';
+import useInfiniteScrolling from '@/hooks/useInfiniteScrolling';
+
+const SettingsMyReviewsContent = () => {
+  const queryClient = useQueryClient();
+  const observerRef = useRef<HTMLDivElement>(null);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMediaItems, setModalMediaItems] = useState<MediaItem[]>([]);
+  const [selectedMediaIndex, setSelectedMediaIndex] = useState(0);
+
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } =
+    useInfiniteQuery({
+      queryKey: ['myReviews'],
+      queryFn: ({ pageParam = 0 }) => getMyReviews(pageParam, 5),
+      getNextPageParam: (lastPage, allPages) => {
+        return lastPage.data.last ? undefined : allPages.length;
+      },
+      initialPageParam: 0,
+      select: (data) => ({
+        pages: data.pages,
+        pageParams: data.pageParams,
+      }),
+    });
+
+  const { mutate: deleteReviewMutation } = useMutation({
+    mutationFn: deleteReview,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['myReviews'] });
+      alert(SYSTEM_MESSAGES.REVIEW.DELETE_SUCCESS);
+    },
+    onError: () => {
+      alert(SYSTEM_MESSAGES.REVIEW.DELETE_ERROR);
+    },
+  });
+
+  const handleDeleteReview = async (reviewId: number) => {
+    if (!confirm(SYSTEM_MESSAGES.REVIEW.DELETE_CONFIRM)) return;
+    deleteReviewMutation(reviewId);
+  };
+
+  const handleMediaClick = (review: MyReview, clickedIndex: number) => {
+    const mediaItems: MediaItem[] = [
+      ...(review.imageUrls?.map((url) => ({ type: 'image' as const, url })) || []),
+      ...(review.videoUrl ? [{ type: 'video' as const, url: review.videoUrl }] : []),
+    ];
+    setModalMediaItems(mediaItems);
+    setSelectedMediaIndex(clickedIndex);
+    setIsModalOpen(true);
+  };
+
+  const fetchMore = useCallback(() => {
+    if (!isFetchingNextPage && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
+
+  useInfiniteScrolling({
+    observerRef: observerRef as RefObject<HTMLDivElement>,
+    fetchMore,
+    hasMore: hasNextPage ?? false,
+  });
+
+  const reviews = data?.pages.flatMap((page) => page.data.content) || [];
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-300"></div>
+        <p className="ml-2 text-gray-600">리뷰를 불러오는 중...</p>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <ErrorComponent
+        title="리뷰를 불러올 수 없습니다"
+        message="잠시 후 다시 시도해주세요."
+        showBackButton={true}
+      />
+    );
+  }
+
+  if (reviews.length === 0) {
+    return (
+      <EmptyComponent
+        title="작성한 리뷰가 없습니다."
+        description="축제를 방문하고 첫 리뷰를 작성해보세요!"
+      />
+    );
+  }
+
+  return (
+    <ErrorBoundary
+      FallbackComponent={() => (
+        <ErrorComponent
+          title="리뷰를 불러올 수 없습니다"
+          message="잠시 후 다시 시도해주세요."
+          showBackButton={true}
+        />
+      )}
+      onError={(error, errorInfo) => {
+        console.error('MyReviewsPage Error:', error, errorInfo);
+      }}
+    >
+      <div className="p-4">
+        <div className="space-y-4">
+          {reviews.map((review) => (
+            <SettingsMyReviewsCard
+              key={review.reviewId}
+              review={review}
+              handleDeleteReview={handleDeleteReview}
+              handleMediaClick={handleMediaClick}
+            />
+          ))}
+        </div>
+
+        {isFetchingNextPage && (
+          <div className="flex justify-center py-4">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-300"></div>
+          </div>
+        )}
+
+        {hasNextPage && <div ref={observerRef} className="h-10" />}
+      </div>
+
+      {isModalOpen && (
+        <ImageModal
+          mediaItems={modalMediaItems}
+          selectedMediaIndex={selectedMediaIndex}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
+    </ErrorBoundary>
+  );
+};
+
+export default SettingsMyReviewsContent;

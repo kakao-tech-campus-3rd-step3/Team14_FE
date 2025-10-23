@@ -7,12 +7,21 @@ import MyPage from '@/pages/My/MyPage';
 import PickPage from '@/pages/Pick/PickPage';
 import FestivalsPage from '@/pages/Festivals/FestivalsPage';
 import FestivalInfoPage from '@/pages/FestivalInfo/FestivalInfoPage';
-import ProtectedRoute from './ProtectedRoute';
+import ProtectedRoute from '@/router/ProtectedRoute';
 import SearchPage from '@/pages/Search/SearchPage';
 import ReviewPage from '@/pages/Review/ReviewPage';
 import ChatPage from '@/pages/Chat/ChatPage';
 import SettingsPage from '@/pages/Settings/SettingsPage';
-import SettingsMyReviewsPage from '@/pages/SettingsMyReview/SettingsMyReviewsPage';
+import SettingsFestivalMyReviewsPage from '@/pages/SettingsFestivalMyReview/SettingsFestivalMyReviewsPage';
+import SettingsFMPermissionApplicationPage from '@/pages/SettingsFMPermissionApplication/SettingsFMPermissionApplicationPage';
+import SettingsFMPermissionStatusPage from '@/pages/SettingsFMPermissionStatus/SettingsFMPermissionStatusPage';
+import SettingsFestivalMyManagePage from '@/pages/SettingsFestivalMyManage/SettingsFestivalMyManagePage';
+import SettingsFestivalMyRegisteredPage from '@/pages/SettingsFestivalMyRegistered/SettingsFestivalMyRegisteredPage';
+import SettingsFestivalRegisterPage from '@/pages/SettingsFestivalRegister/SettingsFestivalRegisterPage';
+import FestivalManagerApplyPage from '@/pages/FestivalInfoManagerApply/FestivalInfoManagerApplyPage';
+import SettingsFestivalMyManageDetailPage from '@/pages/SettingsFestivalMyManageDetail/SettingsFestivalMyManageDetailPage';
+import SettingsFestivalMyManageEditPage from '@/pages/SettingsFestivalMyManageEdit/SettingsFestivalMyManageEditPage';
+import SettingsFAQPage from '@/pages/SettingsFAQ/SettingsFAQPage';
 
 /**
  * 라우터 컴포넌트
@@ -66,16 +75,88 @@ const Routes = () => {
         }
       />
       <Route
+        path={ROUTE_PATH.FM_PERMISSION_APPLICATION}
+        element={
+          <ProtectedRoute>
+            <SettingsFMPermissionApplicationPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={ROUTE_PATH.FM_PERMISSION_STATUS}
+        element={
+          <ProtectedRoute>
+            <SettingsFMPermissionStatusPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path={ROUTE_PATH.MY_REVIEWS}
         element={
           <ProtectedRoute>
-            <SettingsMyReviewsPage />
+            <SettingsFestivalMyReviewsPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={ROUTE_PATH.FESTIVAL_REGISTER}
+        element={
+          <ProtectedRoute>
+            <SettingsFestivalRegisterPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={ROUTE_PATH.FESTIVAL_MY_REGISTERED}
+        element={
+          <ProtectedRoute>
+            <SettingsFestivalMyRegisteredPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={ROUTE_PATH.FESTIVAL_MY_MANAGE}
+        element={
+          <ProtectedRoute>
+            <SettingsFestivalMyManagePage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={ROUTE_PATH.FESTIVAL_MY_MANAGE_DETAIL}
+        element={
+          <ProtectedRoute>
+            <SettingsFestivalMyManageDetailPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={ROUTE_PATH.FESTIVAL_MY_MANAGE_EDIT}
+        element={
+          <ProtectedRoute>
+            <SettingsFestivalMyManageEditPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={ROUTE_PATH.FAQ}
+        element={
+          <ProtectedRoute>
+            <SettingsFAQPage />
           </ProtectedRoute>
         }
       />
       <Route path={ROUTE_PATH.FESTIVALS} element={<FestivalsPage />} />
       <Route path={ROUTE_PATH.FESTIVAL_INFO} element={<FestivalInfoPage />} />
       <Route path={ROUTE_PATH.SEARCH} element={<SearchPage />} />
+      <Route
+        path={ROUTE_PATH.FESTIVAL_MANAGER_APPLY}
+        element={
+          <ProtectedRoute>
+            <FestivalManagerApplyPage />
+          </ProtectedRoute>
+        }
+      />
     </RouterRoutes>
   );
 };

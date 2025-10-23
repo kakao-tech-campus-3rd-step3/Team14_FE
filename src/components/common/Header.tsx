@@ -2,7 +2,7 @@ import Button from '@/components/common/Button';
 import Home from '@/components/icon/HomeIcon';
 import LeftArrow from '@/components/icon/LeftArrowIcon';
 import Profile from '@/components/icon/ProfileIcon';
-import Logo from '../icon/LogoIcon';
+import Logo from '@/components/icon/LogoIcon';
 import useNav from '@/hooks/useNav';
 import { ROUTE_PATH } from '@/constants/routes';
 import { Link, useNavigate } from 'react-router-dom';

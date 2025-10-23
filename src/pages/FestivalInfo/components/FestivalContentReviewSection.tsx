@@ -1,6 +1,6 @@
 import StarRating from '@/components/common/StarRating';
 import type { Review } from '@/apis/review/getReview';
-import FestivalContentReviewMediaSlider from './FestivalContentReviewMediaSlider';
+import FestivalContentReviewMediaSlider from '@/pages/FestivalInfo/components/FestivalContentReviewMediaSlider';
 
 interface FestivalContentReviewSectionProps {
   reviewsData: Review[] | undefined;

@@ -7,6 +7,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useMediaUpload } from '@/hooks/useMediaUpload';
 import { jwtExchange } from '@/apis/auth/jwtExchange';
 import { getCurrentToken } from '@/apis/apiInstance';
+import FormSubmitButtons from '@/components/common/FormSubmitButtons';
+import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
+import PickIcon from '@/components/common/PickIcon';
+import { PICK_ICONS } from '@/constants/pickIcons';
 
 interface ReviewFormProps {
   festivalId: string;
@@ -19,10 +23,17 @@ async function ensureToken() {
     await jwtExchange();
   } catch (error) {
     // 이 부분은 추후에 토스트 메시지로 변경할 예정입니다.
-    alert('로그인이 필요합니다.');
+    alert(SYSTEM_MESSAGES.REVIEW.LOGIN_REQUIRED);
     throw error;
   }
 }
+
+/**
+ * 리뷰 작성 폼 컴포넌트
+ * @param festivalId - 축제 ID
+ * @param score - 평점
+ * @returns 리뷰 작성 폼 컴포넌트
+ */
 const ReviewForm = ({ festivalId, score }: ReviewFormProps) => {
   const {
     imageInfos,
@@ -44,17 +55,18 @@ const ReviewForm = ({ festivalId, score }: ReviewFormProps) => {
       queryClient.invalidateQueries({ queryKey: ['reviews', festivalId] });
       // 리뷰 개수/평점이 바뀐다면 함께 무효화 -> 상세 페이지 평점, 리뷰 수 등이 바로 반영되게
       queryClient.invalidateQueries({ queryKey: ['festival', festivalId] });
+      alert(SYSTEM_MESSAGES.REVIEW.SUBMIT_SUCCESS);
       goBack();
     },
     onError: () => {
-      alert('리뷰 작성에 실패했습니다.');
+      alert(SYSTEM_MESSAGES.REVIEW.SUBMIT_ERROR);
     },
   });
   const handleSubmit = async () => {
     const trimmed = content.trim();
-    if (score < 1 || score > 5) return alert('별점을 선택해주세요. (1~5점)');
+    if (score < 1 || score > 5) return alert(SYSTEM_MESSAGES.REVIEW.SCORE_REQUIRED);
     if (trimmed.length < 10 || trimmed.length > 500)
-      return alert('내용은 10자 이상 500자 이하여야 합니다.');
+      return alert(SYSTEM_MESSAGES.REVIEW.CONTENT_LENGTH);
 
     await ensureToken(); // 제출 직전 토큰 확인
     mutateReview({
@@ -77,16 +89,18 @@ const ReviewForm = ({ festivalId, score }: ReviewFormProps) => {
             pickAndUploadImages();
           }}
         >
-          📷 사진 업로드
+          <PickIcon name={PICK_ICONS.CAMERA} size={20} className="mr-2" />
+          사진 업로드
         </Button>
         <Button
           variant="secondary"
           className="flex-1"
           onClick={async () => {
-            pickAndUploadVideo();
+            pickAndUploadVideo?.();
           }}
         >
-          🎥 동영상 업로드
+          <PickIcon name={PICK_ICONS.VIDEO} size={20} className="mr-2" />
+          동영상 업로드
         </Button>
       </div>
 
@@ -136,19 +150,13 @@ const ReviewForm = ({ festivalId, score }: ReviewFormProps) => {
         className="w-full h-32 p-3 bg-gray-50 rounded-lg border-0 resize-none"
       />
 
-      <div className="flex gap-3 mt-4">
-        <Button variant="secondary" className="flex-1" onClick={goBack}>
-          취소
-        </Button>
-        <Button
-          variant="primary"
-          className="flex-1"
-          onClick={handleSubmit}
-          disabled={isPending || isUploading}
-        >
-          {isPending || isUploading ? '미디어 업로드중' : '리뷰 작성'}
-        </Button>
-      </div>
+      <FormSubmitButtons
+        onCancel={goBack}
+        onSubmit={handleSubmit}
+        isDisabled={isPending || isUploading}
+        isLoading={isPending || isUploading}
+        submitLabel="리뷰 작성"
+      />
     </div>
   );
 };
