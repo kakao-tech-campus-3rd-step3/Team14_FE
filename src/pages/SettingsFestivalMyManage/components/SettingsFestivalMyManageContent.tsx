@@ -1,10 +1,10 @@
-import { useState, useEffect, useRef, type RefObject } from 'react';
+import { useState, useEffect } from 'react';
 import { getMyFestivalPermissions } from '@/apis/festivalManager/getMyFestivalPermissions';
 import type { FestivalPermissionItem } from '@/apis/festivalManager/getMyFestivalPermissions';
 import EmptyComponent from '@/components/common/EmptyComponent';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
-import useInfiniteScrolling from '@/hooks/useInfiniteScrolling';
 import FestivalPermissionCard from '@/pages/SettingsFestivalMyManage/components/FestivalPermissionCard';
+import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
 /**
  * 축제 관리자 신청 내역 컴포넌트
@@ -16,8 +16,6 @@ const SettingsFestivalMyManageContent = () => {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
-
-  const observerRef = useRef<HTMLDivElement | null>(null);
 
   const loadPermissions = async (page: number) => {
     try {
@@ -51,10 +49,8 @@ const SettingsFestivalMyManageContent = () => {
     }
   };
 
-  useInfiniteScrolling({
-    observerRef: observerRef as RefObject<HTMLDivElement>,
-    fetchMore,
-    hasMore,
+  const { ref: observerRef } = useIntersectionObserver(() => {
+    fetchMore();
   });
 
   if (loading && permissions.length === 0) {

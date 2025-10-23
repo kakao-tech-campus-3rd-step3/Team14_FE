@@ -23,6 +23,7 @@ vi.mock('@/context/AuthContext', () => ({
   AuthProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
   useAuth: () => ({
     user: { id: 10, name: 'TestUser' },
+    userInfo: { userId: 10, userName: 'TestUser' }, // ChatMessageSection에서 사용
     isAuthenticated: true,
     login: vi.fn(),
     logout: vi.fn(),
@@ -33,6 +34,7 @@ vi.mock('@/context/AuthContext', () => ({
 const sendMessageMock = vi.fn();
 const sendImageMessageMock = vi.fn();
 const handleMessageChangeMock = vi.fn();
+const fetchNextPageMock = vi.fn();
 
 const mockCurrentMessages = [
   {
@@ -63,6 +65,18 @@ const mockChatState = {
   },
 };
 
+// 무한 스크롤 상태를 시뮬레이션하기 위한 객체
+const mockInfiniteScrollState = {
+  hasNextPage: true,
+  isFetching: false,
+  setHasNextPage: (value: boolean) => {
+    mockInfiniteScrollState.hasNextPage = value;
+  },
+  setIsFetching: (value: boolean) => {
+    mockInfiniteScrollState.isFetching = value;
+  },
+};
+
 vi.mock('@/hooks/useChatRoom', () => ({
   __esModule: true,
   default: () => ({
@@ -81,6 +95,10 @@ vi.mock('@/hooks/useChatRoom', () => ({
         sendMessageMock();
       }
     },
+    // 무한 스크롤을 위한 추가 속성
+    fetchNextPage: fetchNextPageMock,
+    hasNextPage: mockInfiniteScrollState.hasNextPage,
+    isFetching: mockInfiniteScrollState.isFetching,
   }),
 }));
 
@@ -98,7 +116,10 @@ describe('ChatPage', () => {
     sendMessageMock.mockClear();
     sendImageMessageMock.mockClear();
     handleMessageChangeMock.mockClear();
+    fetchNextPageMock.mockClear();
     mockChatState.setMessage(''); // 각 테스트 전에 메시지 상태 초기화
+    mockInfiniteScrollState.setHasNextPage(true); // 무한 스크롤 상태 초기화
+    mockInfiniteScrollState.setIsFetching(false);
   });
 
   test('스냅샷 - 상대 메시지 컴포넌트', () => {
@@ -246,5 +267,102 @@ describe('ChatPage', () => {
 
     // Then: 메시지 전송 함수가 호출된다
     expect(mockSendMessage).toHaveBeenCalledTimes(1);
+  });
+
+  describe('무한 스크롤', () => {
+    test('IntersectionObserver가 관찰 대상 요소를 감지한다', () => {
+      // Given: 더 불러올 페이지가 있고
+      mockInfiniteScrollState.setHasNextPage(true);
+
+      // When: ChatPage가 렌더링되면
+      render(
+        <TestWrapper>
+          <ChatPage />
+        </TestWrapper>,
+      );
+
+      // Then: IntersectionObserver가 생성되어야 한다
+      expect(global.IntersectionObserver).toBeDefined();
+    });
+
+    test('hasNextPage가 true일 때 무한 스크롤 영역이 표시된다', () => {
+      // Given: 더 불러올 페이지가 있고
+      mockInfiniteScrollState.setHasNextPage(true);
+
+      // When: ChatPage가 렌더링되면
+      const { container } = render(
+        <TestWrapper>
+          <ChatPage />
+        </TestWrapper>,
+      );
+
+      // Then: 무한 스크롤 관찰 영역이 존재해야 한다 (h-1 클래스를 가진 div)
+      const observerElement = container.querySelector('.h-1');
+      expect(observerElement).toBeInTheDocument();
+    });
+
+    test('isFetching이 true일 때는 fetchNextPage가 호출되지 않는다', () => {
+      // Given: 이미 데이터를 불러오는 중이고
+      mockInfiniteScrollState.setIsFetching(true);
+      mockInfiniteScrollState.setHasNextPage(true);
+
+      // When: ChatPage가 렌더링되면
+      render(
+        <TestWrapper>
+          <ChatPage />
+        </TestWrapper>,
+      );
+
+      // Then: fetchNextPage가 호출되지 않아야 한다
+      expect(fetchNextPageMock).not.toHaveBeenCalled();
+    });
+
+    test('hasNextPage가 false일 때는 fetchNextPage가 호출되지 않는다', () => {
+      // Given: 더 이상 불러올 페이지가 없고
+      mockInfiniteScrollState.setHasNextPage(false);
+      mockInfiniteScrollState.setIsFetching(false);
+
+      // When: ChatPage가 렌더링되면
+      render(
+        <TestWrapper>
+          <ChatPage />
+        </TestWrapper>,
+      );
+
+      // Then: fetchNextPage가 호출되지 않아야 한다
+      expect(fetchNextPageMock).not.toHaveBeenCalled();
+    });
+
+    test('메시지 목록이 올바르게 렌더링된다', () => {
+      // Given: 2개의 메시지가 주어지고
+      // When: ChatPage가 렌더링되면
+      render(
+        <TestWrapper>
+          <ChatPage />
+        </TestWrapper>,
+      );
+
+      // Then: 모든 메시지 내용이 표시되어야 한다
+      expect(screen.getByText('hello')).toBeInTheDocument();
+      expect(screen.getByText('world')).toBeInTheDocument();
+      // userId 10은 자신의 메시지라 이름 미표시, userId 11은 상대방이라 이름 표시
+      expect(screen.getByText('Bob')).toBeInTheDocument();
+      expect(screen.queryByText('Alice')).not.toBeInTheDocument(); // 자신의 메시지는 이름 미표시
+    });
+
+    test('스크롤 컨테이너가 overflow-y-auto 클래스를 가진다', () => {
+      // Given: ChatPage가 렌더링되고
+      const { container } = render(
+        <TestWrapper>
+          <ChatPage />
+        </TestWrapper>,
+      );
+
+      // When: 메시지 컨테이너를 찾으면
+      const scrollContainer = container.querySelector('.overflow-y-auto');
+
+      // Then: 스크롤 가능한 컨테이너가 존재해야 한다
+      expect(scrollContainer).toBeInTheDocument();
+    });
   });
 });

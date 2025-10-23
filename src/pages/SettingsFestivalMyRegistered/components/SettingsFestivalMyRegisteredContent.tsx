@@ -1,10 +1,10 @@
-import { useState, useEffect, useRef, type RefObject } from 'react';
+import { useState, useEffect } from 'react';
 import { getMyFestivals } from '@/apis/festivals/getMyFestivals';
 import type { Festival } from '@/types/FestivalType';
 import EmptyComponent from '@/components/common/EmptyComponent';
 import FestivalCard from '@/pages/Festivals/components/FestivalCard';
-import useInfiniteScrolling from '@/hooks/useInfiniteScrolling';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
+import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
 /**
  * 내가 등록한 축제 내용 컴포넌트
@@ -16,8 +16,6 @@ const SettingsFestivalMyRegisteredContent = () => {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
-
-  const observerRef = useRef<HTMLDivElement | null>(null);
 
   const loadFestivals = async (page: number) => {
     try {
@@ -51,10 +49,8 @@ const SettingsFestivalMyRegisteredContent = () => {
     }
   };
 
-  useInfiniteScrolling({
-    observerRef: observerRef as RefObject<HTMLDivElement>,
-    fetchMore,
-    hasMore,
+  const { ref: observerRef } = useIntersectionObserver(() => {
+    fetchMore();
   });
 
   if (loading && festivals.length === 0) {
