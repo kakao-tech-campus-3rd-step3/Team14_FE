@@ -14,8 +14,18 @@ import { Suspense } from 'react';
  * @returns ChatPage
  */
 const ChatPage = () => {
-  const { chatRoom, sendMessage, sendImageMessage, message, handleMessageChange, handleKeyPress } =
-    useChatRoom();
+  const {
+    chatRoom,
+    sendMessage,
+    sendImageMessage,
+    message,
+    handleMessageChange,
+    handleKeyPress,
+    messages,
+    isFetching,
+    hasNextPage,
+    fetchNextPage,
+  } = useChatRoom();
 
   return (
     <Container>
@@ -27,7 +37,12 @@ const ChatPage = () => {
       />
       <div className="flex flex-col px-4 py-2 gap-1 h-[calc(100dvh-110px)]">
         <Suspense fallback={<div>Loading...</div>}>
-          <ChatMessageSection />
+          <ChatMessageSection
+            messages={messages}
+            isFetching={isFetching}
+            hasNextPage={hasNextPage}
+            fetchNextPage={fetchNextPage}
+          />
         </Suspense>
         <ChatSendSection
           message={message}

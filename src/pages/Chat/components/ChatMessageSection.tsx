@@ -2,14 +2,30 @@ import ChatMessageItemOther from '@/pages/Chat/components/ChatMessageItemOther';
 import ChatMessageItemSelf from '@/pages/Chat/components/ChatMessageItemSelf';
 import { useEffect, useRef } from 'react';
 import { useAuth } from '@/context/AuthContext';
-import useChatRoom from '@/hooks/useChatRoom';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
+import type { MessageResponse } from '@/hooks/useChatRoom';
+
+interface ChatMessageSectionProps {
+  messages: MessageResponse[];
+  isFetching: boolean;
+  hasNextPage: boolean;
+  fetchNextPage: () => void;
+}
 
 /**
  * 채팅 메시지 섹션
+ * @param messages - 메시지 목록
+ * @param isFetching - 메시지 로딩 상태
+ * @param hasNextPage - 다음 페이지 존재 여부
+ * @param fetchNextPage - 다음 페이지 가져오기 함수
  * @returns ChatMessageSection
  */
-const ChatMessageSection = () => {
+const ChatMessageSection = ({
+  messages,
+  isFetching,
+  hasNextPage,
+  fetchNextPage,
+}: ChatMessageSectionProps) => {
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const chatRef = useRef<HTMLDivElement>(null);
   const didInitRef = useRef<boolean>(false);
@@ -19,7 +35,6 @@ const ChatMessageSection = () => {
   const previousMessagesLengthRef = useRef<number>(0);
   const isFetchingPrevRef = useRef<boolean>(false);
 
-  const { messages, isFetching, hasNextPage, fetchNextPage } = useChatRoom();
   const { userInfo } = useAuth();
 
   // 하단에 있는지 확인하는 함수
