@@ -8,9 +8,12 @@ import { generatePath } from 'react-router-dom';
 
 export const getChatRoomMessage = async (params: {
   chatRoomId: string;
+  cursor: number;
+  size: number;
 }): Promise<AxiosResponse<ApiResponseList<MessageResponse>, ApiErrorResponse>> => {
   return await apiInstance.get<ApiResponseList<MessageResponse>>(
     generatePath(API_ENDPOINTS.FESTIVAL_CHAT_ROOM_MESSAGES, { chatRoomId: params.chatRoomId }),
+    { params: { cursor: params.cursor, size: params.size } },
   );
 };
 
