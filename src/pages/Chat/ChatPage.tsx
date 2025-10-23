@@ -4,6 +4,7 @@ import Header from '@/components/common/Header';
 import useChatRoom from '@/hooks/useChatRoom';
 import ChatSendSection from '@/pages/Chat/components/ChatSendSection';
 import ChatMessageSection from '@/pages/Chat/components/ChatMessageSection';
+import { Suspense } from 'react';
 
 /**
  * 채팅 페이지
@@ -13,15 +14,8 @@ import ChatMessageSection from '@/pages/Chat/components/ChatMessageSection';
  * @returns ChatPage
  */
 const ChatPage = () => {
-  const {
-    chatRoom,
-    sendMessage,
-    sendImageMessage,
-    messages,
-    message,
-    handleMessageChange,
-    handleKeyPress,
-  } = useChatRoom();
+  const { chatRoom, sendMessage, sendImageMessage, message, handleMessageChange, handleKeyPress } =
+    useChatRoom();
 
   return (
     <Container>
@@ -32,7 +26,9 @@ const ChatPage = () => {
         }
       />
       <div className="flex flex-col px-4 py-2 gap-1 h-[calc(100dvh-110px)]">
-        <ChatMessageSection messages={messages} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <ChatMessageSection />
+        </Suspense>
         <ChatSendSection
           message={message}
           handleMessageChange={handleMessageChange}
