@@ -1,6 +1,50 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`FestivalsPage 테스트 > 스냅샷 테스트 > AI 추천 섹션 스냅샷 > ai-first-card 1`] = `
+exports[`FestivalsPage 테스트 > 스냅샷 테스트 > AI 추천 섹션과 일반 섹션 스냅샷 > ai-pick-first-card 1`] = `
+<a
+  class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-100 hover:scale-[1.02] cursor-pointer"
+  data-discover="true"
+  href="/festival/143"
+>
+  <div
+    class="aspect-[3/2] w-full"
+  >
+    <img
+      alt="안동국제탈춤페스티벌 축제 이미지"
+      class="w-full h-full object-cover"
+      src="http://tong.visitkorea.or.kr/cms/resource/24/3535224_image2_1.jpg"
+    />
+  </div>
+  <div
+    class="p-4"
+  >
+    <h3
+      class="text-lg font-bold text-gray-900 mb-3 line-clamp-2 min-h-[3.5rem]"
+    >
+      안동국제탈춤페스티벌
+    </h3>
+    <div
+      class="space-y-1"
+    >
+      <p
+        class="text-sm sm:text-xs text-gray-600 font-medium whitespace-nowrap overflow-hidden"
+      >
+        2025-09-26
+         ~ 
+        2025-10-05
+      </p>
+      <p
+        class="text-sm sm:text-xs text-gray-500"
+        title="경상북도 안동시 육사로 239 (운흥동)"
+      >
+        경상북도 안동시
+      </p>
+    </div>
+  </div>
+</a>
+`;
+
+exports[`FestivalsPage 테스트 > 스냅샷 테스트 > AI 추천 섹션과 일반 섹션 스냅샷 > festivals-first-card 1`] = `
 <div
   class="bg-white rounded-xl overflow-hidden shadow-lg"
 >
@@ -38,7 +82,7 @@ exports[`FestivalsPage 테스트 > 스냅샷 테스트 > AI 추천 섹션 스냅
 </div>
 `;
 
-exports[`FestivalsPage 테스트 > 스냅샷 테스트 > AI 추천 섹션 스냅샷 > festivals-first-card 1`] = `
+exports[`FestivalsPage 테스트 > 스냅샷 테스트 > AI 추천이 없을 때 일반 섹션만 스냅샷 > festivals-only-first-card 1`] = `
 <div
   class="bg-white rounded-xl overflow-hidden shadow-lg"
 >

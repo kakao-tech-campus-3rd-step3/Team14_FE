@@ -1,60 +1,49 @@
-import { useState, useRef } from 'react';
+import { useSlider } from '@/hooks/useSlider';
 import LeftArrow from '@/components/icon/LeftArrowIcon';
 import RightArrow from '@/components/icon/RightArrowIcon';
 
-interface MediaItem {
+/**
+ * 미디어 아이템 타입
+ * @property type - 미디어 타입 (video 또는 image)
+ * @property url - 미디어 URL
+ */
+export interface MediaItem {
   type: 'video' | 'image';
   url: string;
 }
 
-interface FestivalContentReviewMediaModalProps {
+interface ImageModalProps {
   mediaItems: MediaItem[];
   selectedMediaIndex: number;
-  setSelectedMediaIndex: (index: number) => void;
   onClose: () => void;
-  festivalTitle?: string;
+  title?: string;
 }
 
 // 드래그 임계값
 const SWIPE_THRESHOLD = 50;
 
-const FestivalContentReviewMediaModal = ({
-  mediaItems,
-  selectedMediaIndex,
-  setSelectedMediaIndex,
-  onClose,
-  festivalTitle,
-}: FestivalContentReviewMediaModalProps) => {
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [translateX, setTranslateX] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setIsDragging(true);
-    setStartX(e.touches[0].clientX);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!isDragging) return;
-    const currentX = e.touches[0].clientX;
-    const diff = currentX - startX;
-    setTranslateX(diff);
-  };
-
-  const handleDragEnd = () => {
-    if (!isDragging) return;
-    const threshold = SWIPE_THRESHOLD;
-    if (Math.abs(translateX) > threshold) {
-      if (translateX > 0 && selectedMediaIndex > 0) {
-        setSelectedMediaIndex(selectedMediaIndex - 1);
-      } else if (translateX < 0 && selectedMediaIndex < mediaItems.length - 1) {
-        setSelectedMediaIndex(selectedMediaIndex + 1);
-      }
-    }
-    setIsDragging(false);
-    setTranslateX(0);
-  };
+/**
+ * 이미지/비디오를 확대해서 볼 수 있는 모달 컴포넌트
+ * @param mediaItems - 표시할 미디어 아이템 배열
+ * @param selectedMediaIndex - 초기 선택된 미디어 인덱스
+ * @param onClose - 모달 닫기 콜백 함수
+ * @param title - 모달 제목 (선택사항)
+ */
+const ImageModal = ({ mediaItems, selectedMediaIndex, onClose, title }: ImageModalProps) => {
+  const {
+    containerRef,
+    touchHandlers,
+    getTransformStyle,
+    canGoPrevious,
+    canGoNext,
+    goToPrevious,
+    goToNext,
+    currentIndex,
+  } = useSlider({
+    initialIndex: selectedMediaIndex,
+    itemCount: mediaItems.length,
+    swipeThreshold: SWIPE_THRESHOLD,
+  });
 
   const arrowButtonClasses =
     'absolute top-1/2 transform -translate-y-1/2 text-white w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200 z-20 hidden md:flex';
@@ -64,19 +53,17 @@ const FestivalContentReviewMediaModal = ({
       className="fixed inset-0 bg-black flex items-center justify-center z-[1000]"
       onClick={onClose}
     >
-      <div className="relative w-full h-full max-w-[480px] p-4 flex items-center justify-center">
+      <div className="relative w-full h-full max-w-[480px] p-2 flex items-center justify-center">
         <div
           ref={containerRef}
           className="relative w-full h-full max-w-[480px] overflow-hidden"
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleDragEnd}
+          {...touchHandlers}
           onClick={(e) => e.stopPropagation()}
         >
           <div
             className="flex transition-transform duration-300 ease-out h-full"
             style={{
-              transform: `translateX(${-selectedMediaIndex * 100 + (isDragging ? (translateX / (containerRef.current?.offsetWidth || 1)) * 100 : 0)}%)`,
+              transform: getTransformStyle(),
             }}
           >
             {mediaItems.map((item, index) => (
@@ -111,11 +98,11 @@ const FestivalContentReviewMediaModal = ({
 
           {mediaItems.length > 1 && (
             <>
-              {selectedMediaIndex > 0 && (
+              {canGoPrevious && (
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    setSelectedMediaIndex(selectedMediaIndex - 1);
+                    goToPrevious();
                   }}
                   className={`${arrowButtonClasses} left-4`}
                   aria-label="이전 미디어"
@@ -123,11 +110,11 @@ const FestivalContentReviewMediaModal = ({
                   <LeftArrow className="stroke-white" />
                 </button>
               )}
-              {selectedMediaIndex < mediaItems.length - 1 && (
+              {canGoNext && (
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    setSelectedMediaIndex(selectedMediaIndex + 1);
+                    goToNext();
                   }}
                   className={`${arrowButtonClasses} right-4`}
                   aria-label="다음 미디어"
@@ -146,11 +133,11 @@ const FestivalContentReviewMediaModal = ({
             >
               ×
             </button>
-            {festivalTitle && <h3 className="text-white text-lg font-medium">{festivalTitle}</h3>}
+            {title && <h3 className="text-white text-lg font-medium">{title}</h3>}
           </div>
 
           <div className="absolute bottom-4 right-4 text-white px-3 py-1 rounded-full text-sm z-20">
-            {selectedMediaIndex + 1} / {mediaItems.length}
+            {currentIndex + 1} / {mediaItems.length}
           </div>
         </div>
       </div>
@@ -158,4 +145,4 @@ const FestivalContentReviewMediaModal = ({
   );
 };
 
-export default FestivalContentReviewMediaModal;
+export default ImageModal;

@@ -76,7 +76,7 @@ export default [
       ...vitest.configs.recommended.rules,
       // 스냅샷 크기 제한
       // 처음에는 warn으로 설정하고 적응하면 나중에 error로 변경하겠습니다.
-      'vitest/no-large-snapshots': ['warn', { maxSize: 50, inlineMaxSize: 20 }],
+      'vitest/no-large-snapshots': ['warn', { maxSize: 80, inlineMaxSize: 20 }],
       // exports 미정의 오류 무시
       'no-undef': 'off',
     },

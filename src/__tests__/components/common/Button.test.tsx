@@ -14,6 +14,8 @@ describe('Button 컴포넌트', () => {
       ['tertiary', '3차 버튼'],
       ['icon', '아이콘 버튼'],
       ['link', '링크 버튼'],
+      ['text', '텍스트 버튼'],
+      ['socialLogin', '소셜 로그인 버튼'],
     ] as const)('%s variant 스냅샷', (variant, text) => {
       const { container } = render(<Button variant={variant}>{text}</Button>);
       expect(container.firstChild).toMatchSnapshot();
