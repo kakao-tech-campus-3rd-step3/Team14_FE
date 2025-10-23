@@ -2,6 +2,8 @@ import SearchIcon from '@/components/icon/SearchIcon';
 import FestivalCard from '@/pages/Festivals/components/FestivalCard';
 import type { Festival } from '@/types/FestivalType';
 import useSearch from '@/hooks/useSearch';
+import ErrorComponent from '@/components/common/ErrorComponent';
+import LoadingSpinner from '@/components/common/LoadingSpinner';
 
 /**
  * 검색 컨텐츠 컴포넌트
@@ -10,7 +12,12 @@ import useSearch from '@/hooks/useSearch';
 const SearchContent = () => {
   const { searchQuery, setSearchQuery, searchResults, isLoading, error, canShowResults } =
     useSearch();
-
+  if (error) {
+    return <ErrorComponent title="검색에 실패했습니다." message="다시 시도해주세요." />;
+  }
+  if (isLoading) {
+    return <LoadingSpinner size="lg" className="min-h-[400px]" message="검색 중..." />;
+  }
   return (
     <div className="p-4">
       <div className="relative mb-6">
@@ -28,10 +35,6 @@ const SearchContent = () => {
           <SearchIcon />
         </button>
       </div>
-
-      {error && (
-        <div className="text-center py-8 text-red-500">검색에 실패했습니다. 다시 시도해주세요.</div>
-      )}
 
       {canShowResults && !isLoading && !error && (
         <div>
