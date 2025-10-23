@@ -15,7 +15,7 @@ export interface PickIconProps {
  */
 
 const PickIcon: React.FC<PickIconProps> = ({ name, size = 24, className = '' }) => {
-  const iconPath = `/pickImoji/pick${name.charAt(0).toUpperCase() + name.slice(1)}.svg`;
+  const iconPath = `/pickEmoji/pick${name.charAt(0).toUpperCase() + name.slice(1)}.svg`;
 
   return (
     <img src={iconPath} alt={`${name} icon`} width={size} height={size} className={className} />
