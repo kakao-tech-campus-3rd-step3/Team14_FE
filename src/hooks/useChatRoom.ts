@@ -17,7 +17,7 @@ const EMPTY_MESSAGE: MessageResponse = {
   userId: 0,
   senderName: 'Pick',
   profileImgUrl: '/logo.svg',
-  content: '채팅방에 처음 오신 것을 환영합니다! 🎉\n하단의 입력창을 통해 채팅을 시작해보세요.',
+  content: '채팅방에 처음 오신 것을 환영합니다!\n하단의 입력창을 통해 채팅을 시작해보세요.',
   imageUrl: '',
 };
 
@@ -79,6 +79,8 @@ const useChatRoom = () => {
       }),
     getNextPageParam: (lastPage) => (lastPage.data.hasMoreList ? lastPage.data.cursor : undefined),
     initialPageParam: 0,
+    staleTime: 0,
+    gcTime: 0,
   });
 
   // 페이지네이션된 메시지들을 올바른 순서로 정렬
@@ -86,13 +88,8 @@ const useChatRoom = () => {
     return previousMessages?.pages.flatMap((page) => page.data.content.reverse()).reverse() ?? [];
   }, [previousMessages?.pages]);
 
-  // 이전 메시지가 없을 때는 기본 메시지를 출력합니다.
-  const initialMessages = useMemo(() => {
-    return allMessages.length > 0 ? allMessages : [EMPTY_MESSAGE];
-  }, [allMessages]);
-
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState<MessageResponse[]>(() => initialMessages);
+  const [messages, setMessages] = useState<MessageResponse[]>([]);
   const stompClientRef = useRef<Client | null>(null);
   const subscriptionRef = useRef<StompSubscription | null>(null);
 
@@ -104,7 +101,14 @@ const useChatRoom = () => {
       const realtimeMessages = prevMessages.filter((msg) => !serverMessageIds.has(msg.id));
 
       // 서버 메시지 + 실시간 메시지 합치기
-      return [...allMessages, ...realtimeMessages];
+      const combinedMessages = [...allMessages, ...realtimeMessages];
+
+      // 메시지가 하나도 없으면 EMPTY_MESSAGE 표시
+      if (combinedMessages.length === 0) {
+        return [EMPTY_MESSAGE];
+      }
+
+      return combinedMessages;
     });
   }, [allMessages]);
 
