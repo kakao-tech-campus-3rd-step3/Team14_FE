@@ -62,7 +62,10 @@ export const createStompConnection = ({
             onMessageReceived(newMessage);
           };
 
-          const subscription = stompClient.subscribe(subscribeTopic(chatRoomId), callback);
+          const subscription = stompClient.subscribe(subscribeTopic(chatRoomId), callback, {
+            id: `sub-${chatRoomId}`,
+            ack: 'auto',
+          });
 
           resolve({ client: stompClient, subscription });
         } catch (error) {
