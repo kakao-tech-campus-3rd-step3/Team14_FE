@@ -1,5 +1,5 @@
 import Button from '@/components/common/Button';
-import type { ApplicationState } from '@/apis/apiResponse';
+import type { ApplicationState } from '@/types/FMPermissionsRequest';
 
 interface FestivalPermissionButtonsProps {
   state: ApplicationState;
