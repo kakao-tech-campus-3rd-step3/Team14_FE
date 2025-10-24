@@ -7,13 +7,11 @@ import ImageModal, { type MediaItem } from '@/components/modal/ImageModal';
 import SettingsMyReviewsCard from '@/pages/SettingsFestivalMyReview/components/SettingsFestivalMyReviewsCard';
 import EmptyComponent from '@/components/common/EmptyComponent';
 import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
-import { useState, useRef, useCallback, type RefObject } from 'react';
-import useInfiniteScrolling from '@/hooks/useInfiniteScrolling';
+import { useState, useCallback } from 'react';
+import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
 const SettingsMyReviewsContent = () => {
   const queryClient = useQueryClient();
-  const observerRef = useRef<HTMLDivElement>(null);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMediaItems, setModalMediaItems] = useState<MediaItem[]>([]);
   const [selectedMediaIndex, setSelectedMediaIndex] = useState(0);
@@ -64,10 +62,9 @@ const SettingsMyReviewsContent = () => {
     }
   }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
-  useInfiniteScrolling({
-    observerRef: observerRef as RefObject<HTMLDivElement>,
-    fetchMore,
-    hasMore: hasNextPage ?? false,
+  const { ref: observerRef } = useIntersectionObserver(() => {
+    if (isFetchingNextPage || !hasNextPage) return;
+    fetchMore();
   });
 
   const reviews = data?.pages.flatMap((page) => page.data.content) || [];

@@ -1,8 +1,8 @@
 import postCreateChatRoom from '@/apis/chat/postCreateChatRoom';
 import { apiBaseUrl, getCurrentToken } from '@/apis/apiInstance';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { Client, type StompSubscription } from '@stomp/stompjs';
 import API_ENDPOINTS from '@/constants/apiEndpoints';
 import getChatRoomMessage from '@/apis/chat/getChatRoomMessage';
@@ -17,9 +17,12 @@ const EMPTY_MESSAGE: MessageResponse = {
   userId: 0,
   senderName: 'Pick',
   profileImgUrl: '/logo.svg',
-  content: '채팅방에 처음 오신 것을 환영합니다! 🎉\n하단의 입력창을 통해 채팅을 시작해보세요.',
+  content: '채팅방에 처음 오신 것을 환영합니다!\n하단의 입력창을 통해 채팅을 시작해보세요.',
   imageUrl: '',
 };
+
+const INITIAL_CHAT_ROOM_MESSAGE_SIZE = 20;
+
 export interface MessageRequest {
   content: string;
   imageInfo?: {
@@ -51,6 +54,7 @@ const webSocketUrl = apiBaseUrl + API_ENDPOINTS.CHAT;
  * - message: 메시지 입력 필드
  * - handleMessageChange: 메시지 변경 이벤트 핸들러
  * - handleKeyPress: 키 누르기 이벤트 핸들러
+ * - loader: 로더 컴포넌트로 페이지네이션에서 다음 페이지를 호출하는 영역
  */
 const useChatRoom = () => {
   const { festivalId } = useParams();
@@ -60,18 +64,53 @@ const useChatRoom = () => {
     select: (data) => data.data.content,
   });
 
-  const { data: previousMessages } = useSuspenseQuery({
+  const {
+    data: previousMessages,
+    fetchNextPage,
+    isFetching,
+    hasNextPage,
+  } = useSuspenseInfiniteQuery({
     queryKey: ['chatRoomMessages', chatRoom.roomId],
-    queryFn: () => getChatRoomMessage({ chatRoomId: chatRoom.roomId.toString() }),
-    select: (data) => data.data.content,
+    queryFn: ({ pageParam }) =>
+      getChatRoomMessage({
+        chatRoomId: chatRoom.roomId.toString(),
+        cursor: pageParam,
+        size: INITIAL_CHAT_ROOM_MESSAGE_SIZE,
+      }),
+    getNextPageParam: (lastPage) => (lastPage.data.hasMoreList ? lastPage.data.cursor : undefined),
+    initialPageParam: 0,
+    staleTime: 0,
+    gcTime: 0,
   });
 
-  const initialMessages = previousMessages.length > 0 ? previousMessages : [EMPTY_MESSAGE];
+  // 페이지네이션된 메시지들을 올바른 순서로 정렬
+  const allMessages = useMemo(() => {
+    return previousMessages?.pages.flatMap((page) => page.data.content.reverse()).reverse() ?? [];
+  }, [previousMessages?.pages]);
 
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState<MessageResponse[]>(initialMessages);
+  const [messages, setMessages] = useState<MessageResponse[]>([]);
   const stompClientRef = useRef<Client | null>(null);
   const subscriptionRef = useRef<StompSubscription | null>(null);
+
+  // 페이지네이션으로 불러온 메시지들을 messages 상태에 동기화
+  useEffect(() => {
+    setMessages((prevMessages) => {
+      // 기존 실시간 메시지들 중 서버에서 불러온 메시지와 중복되지 않는 것들만 필터링
+      const serverMessageIds = new Set(allMessages.map((msg) => msg.id));
+      const realtimeMessages = prevMessages.filter((msg) => !serverMessageIds.has(msg.id));
+
+      // 서버 메시지 + 실시간 메시지 합치기
+      const combinedMessages = [...allMessages, ...realtimeMessages];
+
+      // 메시지가 하나도 없으면 EMPTY_MESSAGE 표시
+      if (combinedMessages.length === 0) {
+        return [EMPTY_MESSAGE];
+      }
+
+      return combinedMessages;
+    });
+  }, [allMessages]);
 
   useEffect(() => {
     const initializeConnection = async () => {
@@ -170,6 +209,9 @@ const useChatRoom = () => {
     message,
     handleMessageChange,
     handleKeyPress,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
   };
 };
 
