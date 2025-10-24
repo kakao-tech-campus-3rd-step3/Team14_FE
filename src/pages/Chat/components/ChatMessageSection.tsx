@@ -12,6 +12,9 @@ interface ChatMessageSectionProps {
   fetchNextPage: () => void;
 }
 
+// 하단으로 스크롤하기 위한 임계값
+const SCROLL_BOTTOM_THRESHOLD = 50;
+
 /**
  * 채팅 메시지 섹션
  * @param messages - 메시지 목록
@@ -41,7 +44,7 @@ const ChatMessageSection = ({
   const checkIfAtBottom = () => {
     if (!chatRef.current) return false;
     const { scrollTop, scrollHeight, clientHeight } = chatRef.current;
-    return scrollHeight - scrollTop - clientHeight < 50; // 50px 여유
+    return scrollHeight - scrollTop - clientHeight < SCROLL_BOTTOM_THRESHOLD;
   };
 
   // 하단으로 스크롤하는 함수
