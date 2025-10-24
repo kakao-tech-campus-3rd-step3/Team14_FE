@@ -63,6 +63,7 @@ const SettingsMyReviewsContent = () => {
   }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
   const { ref: observerRef } = useIntersectionObserver(() => {
+    if (isFetchingNextPage || !hasNextPage) return;
     fetchMore();
   });
 

@@ -50,6 +50,7 @@ const SettingsFestivalMyRegisteredContent = () => {
   };
 
   const { ref: observerRef } = useIntersectionObserver(() => {
+    if (loading || !hasMore) return;
     fetchMore();
   });
 
