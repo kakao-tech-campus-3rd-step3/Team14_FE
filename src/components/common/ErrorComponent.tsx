@@ -11,12 +11,12 @@ const ErrorComponent = ({ title, message, showBackButton = true }: ErrorComponen
   const { goBack } = useNav();
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex flex-col items-center justify-center h-screen">
       <div className="text-red-500 text-center">
         <h2 className="text-xl font-semibold mb-2">{title}</h2>
         <p className="mb-4">{message}</p>
         {showBackButton && (
-          <Button variant="primary" onClick={goBack}>
+          <Button variant="primary" onClick={goBack} className="mx-auto">
             이전 페이지로 돌아가기
           </Button>
         )}
