@@ -3,6 +3,12 @@ interface EmptyComponentProps {
   description: string;
   className?: string;
 }
+/**
+ * 빈 컴포넌트 (데이터가 없을 때 표시)
+ * @param title - 제목
+ * @param description - 설명
+ * @returns 빈 컴포넌트
+ */
 const EmptyComponent = ({ title, description, className }: EmptyComponentProps) => {
   return (
     <div className={className || "flex flex-col items-center justify-center h-64"}>

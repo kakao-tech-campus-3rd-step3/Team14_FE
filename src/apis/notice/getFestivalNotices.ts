@@ -23,10 +23,11 @@ export const getFestivalNotices = async (
   festivalId: string,
   page: number = 0,
   size: number = 5,
-): Promise<AxiosResponse< ApiResponseList<FestivalNoticeItem>>> => {
-  return await apiInstance.get< ApiResponseList<FestivalNoticeItem>>(
+): Promise<AxiosResponse<ApiResponseList<FestivalNoticeItem>>> => {
+  return await apiInstance.get<ApiResponseList<FestivalNoticeItem>>(
     generatePath(API_ENDPOINTS.FESTIVAL_NOTICE, { festivalId }),
     {
-    params: { page, size },
-  });
+      params: { page, size },
+    },
+  );
 };
