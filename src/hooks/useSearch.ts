@@ -39,7 +39,7 @@ const useSearch = () => {
     enabled: debouncedQuery.length >= MIN_LENGTH,
     staleTime: 5 * 60 * 1000,
     gcTime: 10 * 60 * 1000,
-    //throwOnError: true, // TODO: 차후 에러 바운더리 리팩토링을 위해 해당 설정을 추가해놓았습니다.
+    throwOnError: true,
   });
 
   const canShowResults = debouncedQuery.length >= MIN_LENGTH;

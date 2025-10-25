@@ -2,6 +2,8 @@ import { Client, type Message, type StompSubscription } from '@stomp/stompjs';
 import type { IFrame } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import type { MessageResponse } from '@/hooks/useChatRoom';
+import { showToastErrorMessage } from './showToastMessage';
+import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 
 // STOMP 연결 설정 상수
 export const STOMP_CONFIG = {
@@ -95,16 +97,16 @@ export const cleanupStompConnection = (
 ): void => {
   try {
     subscription?.unsubscribe();
-  } catch (error) {
-    console.warn('[STOMP] 구독 해제 중 오류:', error);
+  } catch {
+    showToastErrorMessage(SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.UNKNOWN_ERROR);
   }
 
   try {
     if (client && client.connected) {
       client.deactivate();
     }
-  } catch (error) {
-    console.error('[STOMP] 연결 해제 중 오류:', error);
+  } catch {
+    showToastErrorMessage(SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.UNKNOWN_ERROR);
   }
 };
 
@@ -113,12 +115,15 @@ export const cleanupStompConnection = (
  */
 export const publishMessage = (client: Client, chatRoomId: number, messageBody: string): void => {
   if (!client || !client.connected) {
-    console.warn('[STOMP] 연결되지 않은 상태에서 메시지 발행 시도');
+    showToastErrorMessage(SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.NETWORK_ERROR);
     return;
   }
-
-  client.publish({
-    destination: publishTopic(chatRoomId),
-    body: messageBody,
-  });
+  try {
+    client.publish({
+      destination: publishTopic(chatRoomId),
+      body: messageBody,
+    });
+  } catch {
+    showToastErrorMessage(SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.UNKNOWN_ERROR);
+  }
 };
