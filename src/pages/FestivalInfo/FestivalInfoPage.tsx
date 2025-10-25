@@ -13,6 +13,7 @@ import FestivalContentReviewSection from '@/pages/FestivalInfo/components/Festiv
 import Footer from '@/components/common/Footer';
 import getReview from '@/apis/review/getReview';
 import FestivalContentManagerSection from '@/pages/FestivalInfo/components/FestivalContentManagerSection';
+import FestivalContentNoticeSection from '@/pages/FestivalInfo/components/FestivalContentNoticeSection';
 
 const FestivalInfoPage = () => {
   const { festivalId } = useParams();
@@ -67,6 +68,11 @@ const FestivalInfoPage = () => {
           <FestivalContentInfoSection content={data.content} reviewsData={reviewsData?.content} />
           <Divider height="1px" />
           <FestivalContentOverviewSection overview={data.content.overView} />
+          <Divider height="1px" />
+          <FestivalContentNoticeSection
+            festivalId={festivalId}
+            managerId={data.content.managerId}
+          />
           <Divider height="1px" />
           <FestivalContentManagerSection
             festivalId={festivalId}
