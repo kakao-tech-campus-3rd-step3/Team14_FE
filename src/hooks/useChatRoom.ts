@@ -23,6 +23,10 @@ const EMPTY_MESSAGE: MessageResponse = {
 
 const INITIAL_CHAT_ROOM_MESSAGE_SIZE = 20;
 
+const RECONNECT_DELAY_MS = 1000 * 5; // 5초
+
+const MAX_RECONNECT_ATTEMPTS = 3; // 최대 재연결 시도 횟수
+
 export interface MessageRequest {
   content: string;
   imageInfo?: {
@@ -92,6 +96,7 @@ const useChatRoom = () => {
   const [messages, setMessages] = useState<MessageResponse[]>([]);
   const stompClientRef = useRef<Client | null>(null);
   const subscriptionRef = useRef<StompSubscription | null>(null);
+  const reconnectAttemptsRef = useRef<number>(0);
 
   // 페이지네이션으로 불러온 메시지들을 messages 상태에 동기화
   useEffect(() => {
@@ -141,11 +146,30 @@ const useChatRoom = () => {
             });
           },
           onError: (error) => {
-            // TODO: 연결 실패 -> 에러 바운더리 처리
-            console.error('[STOMP] 연결 실패: ', error);
+            console.error('[STOMP] 연결 실패:', error);
+
+            // 최대 재연결 횟수 확인
+            if (reconnectAttemptsRef.current < MAX_RECONNECT_ATTEMPTS) {
+              reconnectAttemptsRef.current += 1;
+              console.log(
+                `[STOMP] 재연결 시도 중... (${reconnectAttemptsRef.current}/${MAX_RECONNECT_ATTEMPTS})`,
+              );
+
+              // 재연결 시도
+              setTimeout(() => {
+                void initializeConnection();
+              }, RECONNECT_DELAY_MS);
+            } else {
+              console.error(
+                `[STOMP] 최대 재연결 횟수(${MAX_RECONNECT_ATTEMPTS})를 초과했습니다. 재연결을 중단합니다.`,
+              );
+              // TODO: 사용자에게 알림 표시 또는 에러 바운더리 처리
+            }
           },
         });
 
+        // 연결 성공 시 재연결 카운터 초기화
+        reconnectAttemptsRef.current = 0;
         stompClientRef.current = client;
         subscriptionRef.current = subscription;
       } catch (error) {
@@ -153,12 +177,15 @@ const useChatRoom = () => {
       }
     };
 
+    // 채팅방 변경 시 재연결 카운터 초기화
+    reconnectAttemptsRef.current = 0;
     void initializeConnection();
 
     return () => {
       cleanupStompConnection(stompClientRef.current, subscriptionRef.current);
       stompClientRef.current = null;
       subscriptionRef.current = null;
+      reconnectAttemptsRef.current = 0;
     };
   }, [chatRoom.roomId]);
 
