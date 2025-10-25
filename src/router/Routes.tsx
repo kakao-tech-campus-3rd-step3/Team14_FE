@@ -22,6 +22,7 @@ import FestivalManagerApplyPage from '@/pages/FestivalInfoManagerApply/FestivalI
 import SettingsFestivalMyManageDetailPage from '@/pages/SettingsFestivalMyManageDetail/SettingsFestivalMyManageDetailPage';
 import SettingsFestivalMyManageEditPage from '@/pages/SettingsFestivalMyManageEdit/SettingsFestivalMyManageEditPage';
 import SettingsFAQPage from '@/pages/SettingsFAQ/SettingsFAQPage';
+import NotFoundPage from '@/pages/NotFound/NotFoundPage';
 
 /**
  * 라우터 컴포넌트
@@ -58,7 +59,8 @@ const publicRoutes = [
   { path: ROUTE_PATH.SEARCH, component: SearchPage },
   { path: ROUTE_PATH.FESTIVALS, component: FestivalsPage },
   { path: ROUTE_PATH.FESTIVAL_INFO, component: FestivalInfoPage },
-];
+  { path: ROUTE_PATH.NOT_FOUND, component: NotFoundPage },
+] as const;
 
 const protectedRoutes = [
   { path: ROUTE_PATH.MY, component: MyPage },
