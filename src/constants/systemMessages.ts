@@ -81,7 +81,8 @@ export const SYSTEM_MESSAGES = {
   // 프로필 이미지 관련
   PROFILE_IMAGE: {
     UPDATE_ERROR: '프로필 사진 변경에 실패했습니다. 다시 시도해주세요.',
-    FILE_SIZE_EXCEED: (maxSizeMB: number) => `파일 크기가 ${maxSizeMB}MB를 초과합니다.`,
+    FILE_SIZE_EXCEED: (maxSizeMB: number) =>
+      `파일 크기가 ${Math.round(maxSizeMB / 1024 / 1024)}MB를 초과합니다.`,
     INVALID_FILE_TYPE: '이미지 파일만 업로드 가능합니다.',
     NO_IMAGE_SELECTED: '이미지를 선택해주세요.',
     UPLOAD_ERROR: '이미지 업로드에 실패했습니다.',
@@ -91,7 +92,8 @@ export const SYSTEM_MESSAGES = {
 
   // 포스터 업로드 관련
   POSTER: {
-    FILE_SIZE_EXCEED: (maxSizeMB: number) => `이미지 크기는 ${maxSizeMB}MB를 초과할 수 없습니다.`,
+    FILE_SIZE_EXCEED: (maxSizeMB: number) =>
+      `이미지 크기는 ${Math.round(maxSizeMB / 1024 / 1024)}MB를 초과할 수 없습니다.`,
     INVALID_FILE_TYPE: '이미지 파일만 업로드 가능합니다.',
     UPLOAD_ERROR: '포스터 업로드에 실패했습니다.',
   },
@@ -120,8 +122,70 @@ export const SYSTEM_MESSAGES = {
     ERROR: '회원탈퇴에 실패했습니다. 다시 시도해주세요.',
   },
 
-  // 공통 에러
-  COMMON: {
-    GENERIC_ERROR: '오류가 발생했습니다. 다시 시도해주세요.',
+  // HTTP 상태 코드별 에러 메시지
+  HTTP_ERROR_MESSAGES: {
+    400: {
+      title: '잘못된 요청',
+      message: '요청이 올바르지 않습니다. 다시 시도해주세요.',
+    },
+    401: {
+      title: '인증 오류',
+      message: '로그인이 필요합니다. 다시 로그인해주세요.',
+    },
+    403: {
+      title: '접근 권한 없음',
+      message: '해당 페이지에 접근할 권한이 없습니다.',
+    },
+    404: {
+      title: '페이지를 찾을 수 없음',
+      message: '요청하신 페이지를 찾을 수 없습니다.',
+    },
+    408: {
+      title: '요청 시간 초과',
+      message: '요청 시간이 초과되었습니다. 다시 시도해주세요.',
+    },
+    409: {
+      title: '데이터 충돌',
+      message: '데이터 충돌이 발생했습니다. 새로고침 후 다시 시도해주세요.',
+    },
+    429: {
+      title: '요청 한도 초과',
+      message: '너무 많은 요청을 보냈습니다. 잠시 후 다시 시도해주세요.',
+    },
+    500: {
+      title: '서버 오류',
+      message: '서버에 문제가 발생했습니다. 잠시 후 다시 시도해주세요.',
+    },
+    502: {
+      title: '서버 연결 오류',
+      message: '서버에 연결할 수 없습니다. 네트워크 상태를 확인해주세요.',
+    },
+    503: {
+      title: '서비스 이용 불가',
+      message: '현재 서비스를 이용할 수 없습니다. 잠시 후 다시 시도해주세요.',
+    },
+    504: {
+      title: '서버 응답 시간 초과',
+      message: '서버 응답이 지연되고 있습니다. 잠시 후 다시 시도해주세요.',
+    },
+  },
+  // 기본 에러 메시지
+  DEFAULT_ERROR_MESSAGES: {
+    NETWORK_ERROR: {
+      title: '네트워크 오류',
+      message: '인터넷 연결을 확인하고 다시 시도해주세요.',
+    },
+    TIMEOUT_ERROR: {
+      title: '연결 시간 초과',
+      message: '요청 시간이 초과되었습니다. 다시 시도해주세요.',
+    },
+    UNKNOWN_ERROR: {
+      title: '알 수 없는 오류',
+      message: '예상치 못한 오류가 발생했습니다. 다시 시도해주세요.',
+    },
+    PARSING_ERROR: {
+      title: '데이터 처리 오류',
+      message: '데이터를 처리하는 중 오류가 발생했습니다.',
+    },
   },
 } as const;

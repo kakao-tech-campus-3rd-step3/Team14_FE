@@ -52,7 +52,7 @@ const ProfileImageUploadModal = ({ isOpen, onClose }: ProfileImageUploadModalPro
 
     // 파일 크기 체크
     if (file.size > MAX_MEDIA_SIZE.IMAGE) {
-      alert(SYSTEM_MESSAGES.PROFILE_IMAGE.FILE_SIZE_EXCEED(MAX_MEDIA_SIZE.IMAGE / 1024 / 1024));
+      alert(SYSTEM_MESSAGES.PROFILE_IMAGE.FILE_SIZE_EXCEED(MAX_MEDIA_SIZE.IMAGE));
       return;
     }
 

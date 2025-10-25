@@ -43,10 +43,10 @@ const SettingsContent = () => {
         } else if (error.response?.status === 409) {
           goTo(ROUTE_PATH.FM_PERMISSION_STATUS);
         } else {
-          alert(SYSTEM_MESSAGES.COMMON.GENERIC_ERROR);
+          alert(SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.UNKNOWN_ERROR.message);
         }
       } else {
-        alert(SYSTEM_MESSAGES.COMMON.GENERIC_ERROR);
+        alert(SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.UNKNOWN_ERROR.message);
       }
     } finally {
       setCheckingPermission(false);
@@ -70,7 +70,7 @@ const SettingsContent = () => {
       }
     } catch (error) {
       console.error('권한 확인 중 오류 발생:', error);
-      alert(SYSTEM_MESSAGES.COMMON.GENERIC_ERROR);
+      alert(SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.UNKNOWN_ERROR.message);
     } finally {
       setCheckingRole(false);
     }

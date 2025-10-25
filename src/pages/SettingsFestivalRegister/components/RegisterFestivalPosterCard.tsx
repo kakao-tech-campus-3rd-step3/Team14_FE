@@ -42,7 +42,7 @@ const RegisterFestivalPosterCard = ({
     if (!file) return;
 
     if (file.size > MAX_MEDIA_SIZE.IMAGE) {
-      alert(SYSTEM_MESSAGES.POSTER.FILE_SIZE_EXCEED(MAX_MEDIA_SIZE.IMAGE / 1024 / 1024));
+      alert(SYSTEM_MESSAGES.POSTER.FILE_SIZE_EXCEED(MAX_MEDIA_SIZE.IMAGE));
       return;
     }
 
