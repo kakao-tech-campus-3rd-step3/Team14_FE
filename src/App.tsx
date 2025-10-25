@@ -4,6 +4,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from '@/utils/queryClient';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AuthProvider } from '@/context/AuthContext';
+import { ToastContainer } from 'react-toastify';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
           <Routes />
         </BrowserRouter>
       </AuthProvider>
+      <ToastContainer />
       {import.meta.env.VITE_ENABLE_RQ_DEVTOOLS === 'true' && <ReactQueryDevtools />}
     </QueryClientProvider>
   );
