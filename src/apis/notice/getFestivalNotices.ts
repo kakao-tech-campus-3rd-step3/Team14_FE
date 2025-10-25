@@ -5,9 +5,12 @@ import type { ApiResponseList } from '@/apis/apiResponse';
 import { generatePath } from 'react-router-dom';
 
 export interface FestivalNoticeItem {
-  festivalId: string;
-  page: number;
-  size: number;
+  id: number;
+  userId: number;
+  updatedDate: string;
+  title: string;
+  content: string;
+  images: string[];
 }
 /**
  * 축제를 기준으로 공지사항 목록을 조회하는 API 함수입니다.
