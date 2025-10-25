@@ -7,6 +7,10 @@ import LoadingSpinner from '@/components/common/LoadingSpinner';
 import PickIcon from '@/components/common/PickIcon';
 import { PICK_ICONS } from '@/constants/pickIcons';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
+import { useAuth } from '@/context/AuthContext';
+import { ROUTE_PATH } from '@/constants/routes';
+import Button from '@/components/common/Button';
+import useNav from '@/hooks/useNav';
 
 interface FestivalContentNoticeSectionProps {
   festivalId: string;
@@ -16,6 +20,9 @@ interface FestivalContentNoticeSectionProps {
  * 공지사항 섹션
  * 공지사항을 표시해주는 섹션입니다. 공지사항이 없을 때는 빈 컴포넌트를 표시해줍니다.
  * 공지사항을 클릭하면 공지사항 상세 페이지로 이동합니다.
+ * 축제 정보의 managerId와 현재 로그인한 사용자의 userId를 비교하여 관리자인지 확인합니다.
+ * 관리자인 경우 공지사항 작성 버튼을 표시해줍니다.
+ * 관리자가 아닌 경우 공지사항 작성 버튼을 표시하지 않습니다.
  * @param festivalId - 축제 ID
  * @param managerId - 관리자 ID
  * @returns 공지사항 섹션
@@ -24,6 +31,11 @@ const FestivalContentNoticeSection = ({
   festivalId,
   managerId,
 }: FestivalContentNoticeSectionProps) => {
+
+  const { userInfo } = useAuth();
+  const isCurrentUserManager = userInfo?.userId === managerId;
+  const { goTo } = useNav();
+
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, error } =
     useInfiniteQuery({
       queryKey: ['festival-notices', festivalId, managerId],
@@ -64,10 +76,17 @@ const FestivalContentNoticeSection = ({
   if (notices.length === 0) {
     return (
       <div className="w-full h-full flex flex-col gap-2">
+            <div className="flex items-center justify-between">
         <div className="flex items-center gap-1">
           <PickIcon name={PICK_ICONS.NOTICE} size={20} className="mr-1" />
           <h3 className="text-sm text-gray-900 font-bold">공지사항</h3>
         </div>  
+        {isCurrentUserManager && (
+          <Button variant="text" className="text-sm text-primary-300" onClick={() => goTo(ROUTE_PATH.FESTIVAL_NOTICE_CREATE)}>
+            공지사항 작성
+          </Button>
+        )}
+        </div>
         <EmptyComponent
           className="w-full h-full flex flex-col gap-2"
           title=""
@@ -79,9 +98,16 @@ const FestivalContentNoticeSection = ({
 
   return (
     <div className="w-full h-full flex flex-col gap-2">
+      <div className="flex items-center justify-between">
       <div className="flex items-center gap-1">
         <PickIcon name={PICK_ICONS.NOTICE} size={20} className="mr-2" />
         <h3 className="text-sm text-gray-900 font-bold">공지사항</h3>
+      </div>
+      {isCurrentUserManager && (
+        <Button variant="text" className="text-sm text-primary-300" onClick={() => goTo(ROUTE_PATH.FESTIVAL_NOTICE_CREATE)}>
+          공지사항 작성
+          </Button>
+        )}
       </div>
       <div className="w-full h-full flex flex-col gap-2">
         {notices.map((notice) => (
