@@ -31,134 +31,49 @@ import SettingsFAQPage from '@/pages/SettingsFAQ/SettingsFAQPage';
 const Routes = () => {
   return (
     <RouterRoutes>
-      <Route path={ROUTE_PATH.HOME} element={<HomePage />} />
-      <Route path={ROUTE_PATH.LOGIN} element={<LoginPage />} />
-      <Route path={ROUTE_PATH.LOGIN_CALLBACK} element={<LoginCallback />} />
-      <Route
-        path={ROUTE_PATH.MY}
-        element={
-          <ProtectedRoute>
-            <MyPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path={ROUTE_PATH.PICK}
-        element={
-          <ProtectedRoute>
-            <PickPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path={ROUTE_PATH.REVIEW}
-        element={
-          <ProtectedRoute>
-            <ReviewPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path={ROUTE_PATH.CHAT}
-        element={
-          <ProtectedRoute>
-            <ChatPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path={ROUTE_PATH.SETTINGS}
-        element={
-          <ProtectedRoute>
-            <SettingsPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path={ROUTE_PATH.FM_PERMISSION_APPLICATION}
-        element={
-          <ProtectedRoute>
-            <SettingsFMPermissionApplicationPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path={ROUTE_PATH.FM_PERMISSION_STATUS}
-        element={
-          <ProtectedRoute>
-            <SettingsFMPermissionStatusPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path={ROUTE_PATH.MY_REVIEWS}
-        element={
-          <ProtectedRoute>
-            <SettingsFestivalMyReviewsPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path={ROUTE_PATH.FESTIVAL_REGISTER}
-        element={
-          <ProtectedRoute>
-            <SettingsFestivalRegisterPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path={ROUTE_PATH.FESTIVAL_MY_REGISTERED}
-        element={
-          <ProtectedRoute>
-            <SettingsFestivalMyRegisteredPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path={ROUTE_PATH.FESTIVAL_MY_MANAGE}
-        element={
-          <ProtectedRoute>
-            <SettingsFestivalMyManagePage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path={ROUTE_PATH.FESTIVAL_MY_MANAGE_DETAIL}
-        element={
-          <ProtectedRoute>
-            <SettingsFestivalMyManageDetailPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path={ROUTE_PATH.FESTIVAL_MY_MANAGE_EDIT}
-        element={
-          <ProtectedRoute>
-            <SettingsFestivalMyManageEditPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path={ROUTE_PATH.FAQ}
-        element={
-          <ProtectedRoute>
-            <SettingsFAQPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route path={ROUTE_PATH.FESTIVALS} element={<FestivalsPage />} />
-      <Route path={ROUTE_PATH.FESTIVAL_INFO} element={<FestivalInfoPage />} />
-      <Route path={ROUTE_PATH.SEARCH} element={<SearchPage />} />
-      <Route
-        path={ROUTE_PATH.FESTIVAL_MANAGER_APPLY}
-        element={
-          <ProtectedRoute>
-            <FestivalManagerApplyPage />
-          </ProtectedRoute>
-        }
-      />
+      {publicRoutes.map(({ path, component: Component }) => (
+        <Route key={path} path={path} element={<Component />} />
+      ))}
+      {protectedRoutes.map(({ path, component: Component }) => (
+        <Route
+          key={path}
+          path={path}
+          element={
+            <ProtectedRoute>
+              <Component />
+            </ProtectedRoute>
+          }
+        />
+      ))}
     </RouterRoutes>
   );
 };
 
 export default Routes;
+
+const publicRoutes = [
+  { path: ROUTE_PATH.HOME, component: HomePage },
+  { path: ROUTE_PATH.LOGIN, component: LoginPage },
+  { path: ROUTE_PATH.LOGIN_CALLBACK, component: LoginCallback },
+  { path: ROUTE_PATH.SEARCH, component: SearchPage },
+  { path: ROUTE_PATH.FESTIVALS, component: FestivalsPage },
+  { path: ROUTE_PATH.FESTIVAL_INFO, component: FestivalInfoPage },
+];
+
+const protectedRoutes = [
+  { path: ROUTE_PATH.MY, component: MyPage },
+  { path: ROUTE_PATH.PICK, component: PickPage },
+  { path: ROUTE_PATH.REVIEW, component: ReviewPage },
+  { path: ROUTE_PATH.CHAT, component: ChatPage },
+  { path: ROUTE_PATH.SETTINGS, component: SettingsPage },
+  { path: ROUTE_PATH.FM_PERMISSION_APPLICATION, component: SettingsFMPermissionApplicationPage },
+  { path: ROUTE_PATH.FM_PERMISSION_STATUS, component: SettingsFMPermissionStatusPage },
+  { path: ROUTE_PATH.MY_REVIEWS, component: SettingsFestivalMyReviewsPage },
+  { path: ROUTE_PATH.FESTIVAL_REGISTER, component: SettingsFestivalRegisterPage },
+  { path: ROUTE_PATH.FESTIVAL_MY_REGISTERED, component: SettingsFestivalMyRegisteredPage },
+  { path: ROUTE_PATH.FESTIVAL_MY_MANAGE, component: SettingsFestivalMyManagePage },
+  { path: ROUTE_PATH.FESTIVAL_MY_MANAGE_DETAIL, component: SettingsFestivalMyManageDetailPage },
+  { path: ROUTE_PATH.FESTIVAL_MY_MANAGE_EDIT, component: SettingsFestivalMyManageEditPage },
+  { path: ROUTE_PATH.FAQ, component: SettingsFAQPage },
+  { path: ROUTE_PATH.FESTIVAL_MANAGER_APPLY, component: FestivalManagerApplyPage },
+];
