@@ -1,8 +1,8 @@
 import { apiInstance } from '@/apis/apiInstance';
 import type { NoticeCreateRequest } from '@/types/Notice';
-import { generatePath } from 'react-router-dom';
 import API_ENDPOINTS from '@/constants/apiEndpoints';
 import type { AxiosResponse } from 'axios';
+import { generatePath } from 'react-router-dom';
 
 /**
  * 축제 공지사항 생성을 위한 API 함수입니다.

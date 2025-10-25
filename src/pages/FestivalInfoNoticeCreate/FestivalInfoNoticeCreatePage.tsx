@@ -38,7 +38,15 @@ const FestivalInfoNoticeCreatePage = () => {
       </Container>
     );
   }
-
+  if (!festivalData) {
+    return (
+      <Container>
+        <Header variant="page" title="공지사항 작성" />
+        <ErrorComponent title="오류" message="축제 정보를 불러오지 못했습니다." />
+        <Footer />
+      </Container>
+    );
+  }
   const isCurrentUserManager = userInfo?.userId === festivalData?.content.managerId;
 
   if (!isCurrentUserManager) {

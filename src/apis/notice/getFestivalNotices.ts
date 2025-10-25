@@ -3,15 +3,7 @@ import API_ENDPOINTS from '@/constants/apiEndpoints';
 import type { AxiosResponse } from 'axios';
 import type { ApiResponseList } from '@/apis/apiResponse';
 import { generatePath } from 'react-router-dom';
-
-export interface FestivalNoticeItem {
-  id: number;
-  userId: number;
-  updatedDate: string;
-  title: string;
-  content: string;
-  images: string[];
-}
+import type { Notice } from '@/types/Notice';
 /**
  * 축제를 기준으로 공지사항 목록을 조회하는 API 함수입니다.
  * @param festivalId 축제 ID
@@ -23,8 +15,8 @@ export const getFestivalNotices = async (
   festivalId: string,
   page: number = 0,
   size: number = 5,
-): Promise<AxiosResponse<ApiResponseList<FestivalNoticeItem>>> => {
-  return await apiInstance.get<ApiResponseList<FestivalNoticeItem>>(
+): Promise<AxiosResponse<ApiResponseList<Notice>>> => {
+  return await apiInstance.get<ApiResponseList<Notice>>(
     generatePath(API_ENDPOINTS.FESTIVAL_NOTICE, { festivalId }),
     {
       params: { page, size },

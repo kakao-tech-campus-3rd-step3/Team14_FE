@@ -2,13 +2,7 @@ import { apiInstance } from '@/apis/apiInstance';
 import API_ENDPOINTS from '@/constants/apiEndpoints';
 import { generatePath } from 'react-router-dom';
 import type { AxiosResponse } from 'axios';
-import type { MediaInfo } from '@/types/Media/MediaInfo';
-
-export interface UpdateFestivalNoticeRequest {
-  title: string;
-  content: string;
-  images: MediaInfo[];
-}
+import type { NoticeUpdateRequest } from '@/types/Notice';
 
 /**
  * 축제 공지사항 수정을 위한 API 함수입니다.
@@ -18,7 +12,7 @@ export interface UpdateFestivalNoticeRequest {
  */
 export const putFestivalNotice = async (
   id: string,
-  body: UpdateFestivalNoticeRequest,
+  body: NoticeUpdateRequest,
 ): Promise<AxiosResponse<void>> => {
   return await apiInstance.put<void>(
     generatePath(API_ENDPOINTS.FESTIVAL_NOTICE_DETAIL, { id }),
