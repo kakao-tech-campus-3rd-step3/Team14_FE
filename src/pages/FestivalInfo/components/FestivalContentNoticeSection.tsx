@@ -11,6 +11,8 @@ import { useAuth } from '@/context/AuthContext';
 import { ROUTE_PATH } from '@/constants/routes';
 import Button from '@/components/common/Button';
 import useNav from '@/hooks/useNav';
+import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
+import { generatePath } from 'react-router-dom';
 
 interface FestivalContentNoticeSectionProps {
   festivalId: string;
@@ -35,6 +37,10 @@ const FestivalContentNoticeSection = ({
   const { userInfo } = useAuth();
   const isCurrentUserManager = userInfo?.userId === managerId;
   const { goTo } = useNav();
+  
+  const handleCreateNotice = () => {
+    goTo(generatePath(ROUTE_PATH.FESTIVAL_NOTICE_CREATE, { festivalId: festivalId.toString() }));
+  };
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, error } =
     useInfiniteQuery({
@@ -82,7 +88,7 @@ const FestivalContentNoticeSection = ({
           <h3 className="text-sm text-gray-900 font-bold">공지사항</h3>
         </div>  
         {isCurrentUserManager && (
-          <Button variant="text" className="text-sm text-primary-300" onClick={() => goTo(ROUTE_PATH.FESTIVAL_NOTICE_CREATE)}>
+          <Button variant="text" className="text-sm text-primary-300" onClick={handleCreateNotice}>
             공지사항 작성
           </Button>
         )}
@@ -104,7 +110,7 @@ const FestivalContentNoticeSection = ({
         <h3 className="text-sm text-gray-900 font-bold">공지사항</h3>
       </div>
       {isCurrentUserManager && (
-        <Button variant="text" className="text-sm text-primary-300" onClick={() => goTo(ROUTE_PATH.FESTIVAL_NOTICE_CREATE)}>
+        <Button variant="text" className="text-sm text-primary-300" onClick={handleCreateNotice}>
           공지사항 작성
           </Button>
         )}
