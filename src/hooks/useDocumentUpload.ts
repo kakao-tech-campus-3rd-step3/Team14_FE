@@ -3,6 +3,7 @@ import { createDocumentPicker } from '@/utils/filePicker';
 import { MAX_DOCUMENT_COUNT } from '@/constants/maxMediaSize';
 import type { DocumentInfo } from '@/types/Media/MediaInfo';
 import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
+import { showToastErrorMessage } from '@/utils/showToastMessage';
 
 /**
  * 문서 업로드 훅
@@ -18,7 +19,7 @@ export const useDocumentUpload = (initialDocuments: DocumentInfo[] = []) => {
     (uploaded) => {
       const totalAfterUpload = documents.length + uploaded.length;
       if (totalAfterUpload > MAX_DOCUMENT_COUNT) {
-        alert(
+        showToastErrorMessage(
           SYSTEM_MESSAGES.MEDIA_UPLOAD.DOCUMENT_LIMIT_EXCEEDED(
             MAX_DOCUMENT_COUNT,
             documents.length,
@@ -30,7 +31,7 @@ export const useDocumentUpload = (initialDocuments: DocumentInfo[] = []) => {
       setDocuments((prev) => [...prev, ...uploaded]);
     },
     setIsUploading,
-    (error) => alert(error),
+    (error) => showToastErrorMessage(error),
   );
 
   const handleFileUpload = () => {

@@ -11,6 +11,11 @@ import FormSubmitButtons from '@/components/common/FormSubmitButtons';
 import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 import PickIcon from '@/components/common/PickIcon';
 import { PICK_ICONS } from '@/constants/pickIcons';
+import {
+  showToastErrorMessage,
+  showToastAxiosError,
+  showToastSuccessMessage,
+} from '@/utils/showToastMessage';
 
 interface ReviewFormProps {
   festivalId: string;
@@ -22,9 +27,7 @@ async function ensureToken() {
   try {
     await jwtExchange();
   } catch (error) {
-    // 이 부분은 추후에 토스트 메시지로 변경할 예정입니다.
-    alert(SYSTEM_MESSAGES.REVIEW.LOGIN_REQUIRED);
-    throw error;
+    showToastAxiosError(error);
   }
 }
 
@@ -55,18 +58,18 @@ const ReviewForm = ({ festivalId, score }: ReviewFormProps) => {
       queryClient.invalidateQueries({ queryKey: ['reviews', festivalId] });
       // 리뷰 개수/평점이 바뀐다면 함께 무효화 -> 상세 페이지 평점, 리뷰 수 등이 바로 반영되게
       queryClient.invalidateQueries({ queryKey: ['festival', festivalId] });
-      alert(SYSTEM_MESSAGES.REVIEW.SUBMIT_SUCCESS);
+      showToastSuccessMessage(SYSTEM_MESSAGES.REVIEW.SUBMIT_SUCCESS);
       goBack();
     },
-    onError: () => {
-      alert(SYSTEM_MESSAGES.REVIEW.SUBMIT_ERROR);
+    onError: (error) => {
+      showToastAxiosError(error);
     },
   });
   const handleSubmit = async () => {
     const trimmed = content.trim();
-    if (score < 1 || score > 5) return alert(SYSTEM_MESSAGES.REVIEW.SCORE_REQUIRED);
+    if (score < 1 || score > 5) return showToastErrorMessage(SYSTEM_MESSAGES.REVIEW.SCORE_REQUIRED);
     if (trimmed.length < 10 || trimmed.length > 500)
-      return alert(SYSTEM_MESSAGES.REVIEW.CONTENT_LENGTH);
+      return showToastErrorMessage(SYSTEM_MESSAGES.REVIEW.CONTENT_LENGTH);
 
     await ensureToken(); // 제출 직전 토큰 확인
     mutateReview({

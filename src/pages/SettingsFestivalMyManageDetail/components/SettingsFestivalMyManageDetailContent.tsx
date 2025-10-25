@@ -13,6 +13,9 @@ import FestivalPermissionInfoCard from '@/pages/SettingsFestivalMyManageDetail/c
 import FestivalPermissionDocumentCard from '@/pages/SettingsFestivalMyManageDetail/components/FestivalPermissionDocumentCard';
 import FestivalPermissionButtons from '@/pages/SettingsFestivalMyManageDetail/components/FestivalPermissionButtons';
 import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
+import { showToastErrorMessage, showToastSuccessMessage } from '@/utils/showToastMessage';
+import ConfirmModal from '@/components/modal/ConfirmModal';
+import { useState } from 'react';
 /**
  * 축제 관리자 신청 상세 내용 컴포넌트
  * @returns 축제 관리자 신청 상세 내용 컴포넌트
@@ -23,6 +26,7 @@ const SettingsFestivalMyManageDetailContent = () => {
   const { goBack } = useNav();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['festivalPermission', id],
@@ -35,18 +39,21 @@ const SettingsFestivalMyManageDetailContent = () => {
     mutationFn: () => deleteMyFestivalPermission(id!),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['festivalPermissions'] });
-      alert(SYSTEM_MESSAGES.FM_APPLICATION.DELETE_SUCCESS);
+      showToastSuccessMessage(SYSTEM_MESSAGES.FM_APPLICATION.DELETE_SUCCESS);
       navigate(ROUTE_PATH.FESTIVAL_MY_MANAGE);
     },
     onError: () => {
-      alert(SYSTEM_MESSAGES.FM_APPLICATION.DELETE_ERROR);
+      showToastErrorMessage(SYSTEM_MESSAGES.FM_APPLICATION.DELETE_ERROR);
     },
   });
 
-  const handleDelete = () => {
-    if (confirm(SYSTEM_MESSAGES.FM_APPLICATION.DELETE_CONFIRM)) {
-      deleteApplication();
-    }
+  const handleDeleteClick = () => {
+    setIsConfirmOpen(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    deleteApplication();
+    setIsConfirmOpen(false);
   };
 
   const handleEdit = () => {
@@ -95,8 +102,15 @@ const SettingsFestivalMyManageDetailContent = () => {
         state={permission.state}
         goBack={goBack}
         handleEdit={handleEdit}
-        handleDelete={handleDelete}
+        handleDelete={handleDeleteClick}
         isDeleting={isDeleting}
+      />
+      <ConfirmModal
+        isOpen={isConfirmOpen}
+        onClose={() => setIsConfirmOpen(false)}
+        onConfirm={handleDeleteConfirm}
+        title="신청서 삭제"
+        message={SYSTEM_MESSAGES.FM_APPLICATION.DELETE_CONFIRM}
       />
     </div>
   );

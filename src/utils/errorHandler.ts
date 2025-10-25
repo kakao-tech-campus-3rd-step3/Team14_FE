@@ -2,12 +2,17 @@ import { AxiosError, isAxiosError } from 'axios';
 import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 import type { ApiErrorResponse } from '@/apis/apiResponse';
 
+export interface ErrorInfo {
+  message: string;
+  statusCode?: number;
+}
+
 /**
  * 에러를 ErrorInfo 형태로 파싱하는 함수
  * @param error - 파싱할 에러 객체
- * @returns ErrorInfo 객체
+ * @returns ErrorInfo 객체 (메시지와 상태 코드)
  */
-export const parseError = (error: unknown) => {
+export const parseError = (error: unknown): ErrorInfo => {
   // Axios 에러인 경우
   if (isAxiosError(error)) {
     return parseAxiosError(error);
@@ -16,15 +21,13 @@ export const parseError = (error: unknown) => {
   // 일반 Error 객체인 경우
   if (error instanceof Error) {
     return {
-      title: SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.UNKNOWN_ERROR.title,
-      message: error.message || SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.UNKNOWN_ERROR.message,
+      message: error.message || SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.UNKNOWN_ERROR,
     };
   }
 
   // 알 수 없는 에러인 경우
   return {
-    title: SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.UNKNOWN_ERROR.title,
-    message: SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.UNKNOWN_ERROR.message,
+    message: SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.UNKNOWN_ERROR,
   };
 };
 
@@ -33,20 +36,18 @@ export const parseError = (error: unknown) => {
  * @param error - Axios 에러 객체
  * @returns ErrorInfo 객체
  */
-const parseAxiosError = (error: AxiosError<ApiErrorResponse>) => {
+const parseAxiosError = (error: AxiosError<ApiErrorResponse>): ErrorInfo => {
   // 네트워크 에러인 경우
   if (error.code === 'ERR_NETWORK') {
     return {
-      title: SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.NETWORK_ERROR.title,
-      message: SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.NETWORK_ERROR.message,
+      message: SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.NETWORK_ERROR,
     };
   }
 
   // 타임아웃 에러인 경우
   if (error.code === 'ECONNABORTED') {
     return {
-      title: SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.TIMEOUT_ERROR.title,
-      message: SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.TIMEOUT_ERROR.message,
+      message: SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.TIMEOUT_ERROR,
     };
   }
 
@@ -58,10 +59,7 @@ const parseAxiosError = (error: AxiosError<ApiErrorResponse>) => {
     // 서버에서 제공한 에러 메시지가 있는 경우
     if (data?.message) {
       return {
-        title:
-          SYSTEM_MESSAGES.HTTP_ERROR_MESSAGES[statusCode].title ??
-          SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.UNKNOWN_ERROR.title,
-        message: SYSTEM_MESSAGES.HTTP_ERROR_MESSAGES[statusCode].message,
+        message: data.message,
         statusCode: status,
       };
     }
@@ -69,8 +67,7 @@ const parseAxiosError = (error: AxiosError<ApiErrorResponse>) => {
     // HTTP 상태 코드별 기본 메시지 사용
     if (SYSTEM_MESSAGES.HTTP_ERROR_MESSAGES[statusCode]) {
       return {
-        title: SYSTEM_MESSAGES.HTTP_ERROR_MESSAGES[statusCode].title,
-        message: SYSTEM_MESSAGES.HTTP_ERROR_MESSAGES[statusCode].message,
+        message: SYSTEM_MESSAGES.HTTP_ERROR_MESSAGES[statusCode],
         statusCode: status,
       };
     }
@@ -78,7 +75,6 @@ const parseAxiosError = (error: AxiosError<ApiErrorResponse>) => {
 
   // 기본 에러 메시지 반환
   return {
-    title: SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.UNKNOWN_ERROR.title,
-    message: error.message || SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.UNKNOWN_ERROR.message,
+    message: error.message || SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.UNKNOWN_ERROR,
   };
 };

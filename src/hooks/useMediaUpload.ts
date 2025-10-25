@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { createImagePicker, createVideoPicker } from '@/utils/filePicker';
 import type { MediaInfo } from '@/types/Media/MediaInfo';
 import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
+import { showToastErrorMessage } from '@/utils/showToastMessage';
 export interface UseMediaUploadOptions {
   maxImages?: number;
   enableVideo?: boolean;
@@ -25,22 +26,23 @@ export function useMediaUpload(options: UseMediaUploadOptions = {}) {
       const newTotal = currentLength + uploaded.length;
 
       if (newTotal > maxImages) {
-        // TODO: 토스트 도입 시 수정필요
-        alert(SYSTEM_MESSAGES.MEDIA_UPLOAD.IMAGE_LIMIT_EXCEEDED(maxImages, currentLength));
+        showToastErrorMessage(
+          SYSTEM_MESSAGES.MEDIA_UPLOAD.IMAGE_LIMIT_EXCEEDED(maxImages, currentLength),
+        );
         return;
       }
 
       setImageInfos((prev) => [...prev, ...uploaded]);
     },
     setIsUploading,
-    (error) => alert(error),
+    (error) => showToastErrorMessage(error),
   );
 
   const pickAndUploadVideo = enableVideo
     ? createVideoPicker(
         (uploaded) => setVideoInfo(uploaded),
         setIsUploading,
-        (error) => alert(error),
+        (error) => showToastErrorMessage(error),
       )
     : undefined;
 

@@ -9,6 +9,7 @@ import { getUserInfo } from '@/apis/user/getUserInfo';
 import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 import PickIcon from '@/components/common/PickIcon';
 import { PICK_ICONS } from '@/constants/pickIcons';
+import { showToastErrorMessage, showToastAxiosError } from '@/utils/showToastMessage';
 
 interface ProfileImageUploadModalProps {
   isOpen: boolean;
@@ -35,12 +36,11 @@ const ProfileImageUploadModal = ({ isOpen, onClose }: ProfileImageUploadModalPro
         const userInfoResponse = await getUserInfo();
         setUserInfo(userInfoResponse.data.content);
       } catch (error) {
-        console.error('사용자 정보 갱신 실패:', error);
+        showToastAxiosError(error);
       }
     },
     onError: (error: unknown) => {
-      console.error('프로필 이미지 업데이트 실패:', error);
-      alert(SYSTEM_MESSAGES.PROFILE_IMAGE.UPDATE_ERROR);
+      showToastAxiosError(error);
       setIsUploading(false);
     },
   });
@@ -52,13 +52,13 @@ const ProfileImageUploadModal = ({ isOpen, onClose }: ProfileImageUploadModalPro
 
     // 파일 크기 체크
     if (file.size > MAX_MEDIA_SIZE.IMAGE) {
-      alert(SYSTEM_MESSAGES.PROFILE_IMAGE.FILE_SIZE_EXCEED(MAX_MEDIA_SIZE.IMAGE));
+      showToastErrorMessage(SYSTEM_MESSAGES.PROFILE_IMAGE.FILE_SIZE_EXCEED(MAX_MEDIA_SIZE.IMAGE));
       return;
     }
 
     // 이미지 타입 체크
     if (!file.type.startsWith('image/')) {
-      alert(SYSTEM_MESSAGES.PROFILE_IMAGE.INVALID_FILE_TYPE);
+      showToastErrorMessage(SYSTEM_MESSAGES.PROFILE_IMAGE.INVALID_FILE_TYPE);
       return;
     }
 
@@ -88,7 +88,7 @@ const ProfileImageUploadModal = ({ isOpen, onClose }: ProfileImageUploadModalPro
   // 확인 버튼 클릭
   const handleConfirm = async () => {
     if (!selectedFile) {
-      alert(SYSTEM_MESSAGES.PROFILE_IMAGE.NO_IMAGE_SELECTED);
+      showToastErrorMessage(SYSTEM_MESSAGES.PROFILE_IMAGE.NO_IMAGE_SELECTED);
       return;
     }
 
@@ -107,12 +107,11 @@ const ProfileImageUploadModal = ({ isOpen, onClose }: ProfileImageUploadModalPro
         updateProfileImage({ id, presignedUrl });
       } else {
         // 업로드 결과가 비어있는 경우
-        alert(SYSTEM_MESSAGES.PROFILE_IMAGE.UPLOAD_ERROR);
+        showToastErrorMessage(SYSTEM_MESSAGES.PROFILE_IMAGE.UPLOAD_ERROR);
         setIsUploading(false);
       }
-    } catch (error) {
-      console.error('이미지 업로드 실패:', error);
-      alert(SYSTEM_MESSAGES.PROFILE_IMAGE.UPLOAD_ERROR);
+    } catch {
+      showToastErrorMessage(SYSTEM_MESSAGES.PROFILE_IMAGE.UPLOAD_ERROR);
       setIsUploading(false);
     }
   };

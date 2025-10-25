@@ -13,6 +13,7 @@ import { useDocumentUpload } from '@/hooks/useDocumentUpload';
 import { isAxiosError } from 'axios';
 import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 import { ROUTE_PATH } from '@/constants/routes';
+import { showToastErrorMessage, showToastSuccessMessage } from '@/utils/showToastMessage';
 /**
  * 축제 관리 신청 폼 컴포넌트
  * 축제 관리자로 승급한 신청자가 자신이 원하는 축제에 대해 신청할 수 있습니다.
@@ -37,29 +38,29 @@ const FestivalInfoManagerApplyForm = () => {
   const { mutate: submitApplication, isPending } = useMutation({
     mutationFn: (body: FestivalManagerApplyRequest) => postFestivalManagerApply(festivalId!, body),
     onSuccess: () => {
-      alert(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.SUCCESS);
+      showToastSuccessMessage(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.SUCCESS);
       navigate(generatePath(ROUTE_PATH.FESTIVAL_INFO, { festivalId: festivalId || '' }));
     },
     onError: (error: unknown) => {
       if (isAxiosError(error)) {
         if (error.response?.status === 409) {
-          alert(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.ALREADY_APPLIED);
+          showToastErrorMessage(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.ALREADY_APPLIED);
         } else if (error.response?.status === 400) {
-          alert(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.INVALID_REQUEST);
+          showToastErrorMessage(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.INVALID_REQUEST);
         } else if (error.response?.status === 403) {
-          alert(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.NO_PERMISSION);
+          showToastErrorMessage(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.NO_PERMISSION);
         } else {
-          alert(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.ERROR);
+          showToastErrorMessage(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.ERROR);
         }
       } else {
-        alert(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.ERROR);
+        showToastErrorMessage(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.ERROR);
       }
     },
   });
 
   const handleSubmit = () => {
     if (documents.length === 0) {
-      return alert(SYSTEM_MESSAGES.FM_APPLICATION_VALIDATION.DOCUMENT_REQUIRED);
+      return showToastErrorMessage(SYSTEM_MESSAGES.FM_APPLICATION_VALIDATION.DOCUMENT_REQUIRED);
     }
 
     submitApplication({

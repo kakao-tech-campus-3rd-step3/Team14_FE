@@ -11,6 +11,12 @@ import deleteUser from '@/apis/user/deleteUser';
 import { useAuth } from '@/context/AuthContext';
 import { isAxiosError } from 'axios';
 import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
+import {
+  showToastErrorMessage,
+  showToastAxiosError,
+  showToastSuccessMessage,
+} from '@/utils/showToastMessage';
+import ConfirmModal from '@/components/modal/ConfirmModal';
 /**
  * 설정 내용 컴포넌트
  * 다양한 기능들의 버튼과 실질적인 핸들러들 담당 부분입니다.
@@ -23,6 +29,9 @@ const SettingsContent = () => {
   const [checkingPermission, setCheckingPermission] = useState(false);
   const [checkingRole, setCheckingRole] = useState(false);
   const [isProfileImageModalOpen, setIsProfileImageModalOpen] = useState(false);
+  const [isLogoutConfirmOpen, setIsLogoutConfirmOpen] = useState(false);
+  const [isDeleteAccountConfirmOpen, setIsDeleteAccountConfirmOpen] = useState(false);
+  const [isDeleteAccountFinalConfirmOpen, setIsDeleteAccountFinalConfirmOpen] = useState(false);
 
   const handleFestivalManagerClick = async () => {
     if (checkingPermission) return;
@@ -33,7 +42,7 @@ const SettingsContent = () => {
       const response = await getMyFMPermission();
 
       if (response.status === 200) {
-        alert(SYSTEM_MESSAGES.FM_PERMISSION.ALREADY_APPLIED);
+        showToastErrorMessage(SYSTEM_MESSAGES.FM_PERMISSION.ALREADY_APPLIED);
       }
     } catch (error) {
       if (isAxiosError(error)) {
@@ -43,10 +52,10 @@ const SettingsContent = () => {
         } else if (error.response?.status === 409) {
           goTo(ROUTE_PATH.FM_PERMISSION_STATUS);
         } else {
-          alert(SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.UNKNOWN_ERROR.message);
+          showToastAxiosError(error);
         }
       } else {
-        alert(SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.UNKNOWN_ERROR.message);
+        showToastAxiosError(error);
       }
     } finally {
       setCheckingPermission(false);
@@ -66,20 +75,21 @@ const SettingsContent = () => {
         goTo(targetPath);
       } else {
         // 권한이 없는 경우 승급 신청 알림
-        alert(SYSTEM_MESSAGES.FM_PERMISSION.NO_PERMISSION);
+        showToastErrorMessage(SYSTEM_MESSAGES.FM_PERMISSION.NO_PERMISSION);
       }
     } catch (error) {
-      console.error('권한 확인 중 오류 발생:', error);
-      alert(SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.UNKNOWN_ERROR.message);
+      showToastAxiosError(error);
     } finally {
       setCheckingRole(false);
     }
   };
 
   // 로그아웃 핸들러
-  const handleLogout = async () => {
-    if (!confirm(SYSTEM_MESSAGES.LOGOUT.CONFIRM)) return;
+  const handleLogoutClick = () => {
+    setIsLogoutConfirmOpen(true);
+  };
 
+  const handleLogoutConfirm = async () => {
     try {
       // 로그아웃 API 호출 (서버에서 리프레시 토큰 쿠키 삭제)
       await logout();
@@ -89,24 +99,26 @@ const SettingsContent = () => {
 
       // 로그인 페이지로 이동
       goTo(ROUTE_PATH.LOGIN);
-    } catch (error) {
-      console.error('로그아웃 실패:', error);
-      alert(SYSTEM_MESSAGES.LOGOUT.ERROR);
+    } catch {
+      showToastErrorMessage(SYSTEM_MESSAGES.LOGOUT.ERROR);
+    } finally {
+      setIsLogoutConfirmOpen(false);
     }
   };
 
   // 회원탈퇴 핸들러
-  const handleDeleteAccount = async () => {
+  const handleDeleteAccountClick = () => {
     // 1차 확인
-    if (!confirm(SYSTEM_MESSAGES.DELETE_ACCOUNT.CONFIRM_PRIMARY)) {
-      return;
-    }
+    setIsDeleteAccountConfirmOpen(true);
+  };
 
-    // 2차 확인 (더 강력한 경고)
-    if (!confirm(SYSTEM_MESSAGES.DELETE_ACCOUNT.CONFIRM_SECONDARY)) {
-      return;
-    }
+  const handleDeleteAccountFirstConfirm = () => {
+    // 2차 확인
+    setIsDeleteAccountConfirmOpen(false);
+    setIsDeleteAccountFinalConfirmOpen(true);
+  };
 
+  const handleDeleteAccountFinalConfirm = async () => {
     try {
       // 회원탈퇴 API 호출
       await deleteUser();
@@ -115,11 +127,12 @@ const SettingsContent = () => {
       clearAuth();
 
       // 완료 메시지 및 홈으로 이동
-      alert(SYSTEM_MESSAGES.DELETE_ACCOUNT.SUCCESS);
+      showToastSuccessMessage(SYSTEM_MESSAGES.DELETE_ACCOUNT.SUCCESS);
       goTo(ROUTE_PATH.HOME);
-    } catch (error) {
-      console.error('회원탈퇴 실패:', error);
-      alert(SYSTEM_MESSAGES.DELETE_ACCOUNT.ERROR);
+    } catch {
+      showToastErrorMessage(SYSTEM_MESSAGES.DELETE_ACCOUNT.ERROR);
+    } finally {
+      setIsDeleteAccountFinalConfirmOpen(false);
     }
   };
 
@@ -176,10 +189,10 @@ const SettingsContent = () => {
           <Button variant="text" onClick={() => setIsProfileImageModalOpen(true)}>
             프로필 이미지 수정
           </Button>
-          <Button variant="text" onClick={handleLogout}>
+          <Button variant="text" onClick={handleLogoutClick}>
             로그아웃
           </Button>
-          <Button variant="text" onClick={handleDeleteAccount} className="text-red-500">
+          <Button variant="text" onClick={handleDeleteAccountClick} className="text-red-500">
             회원탈퇴
           </Button>
         </div>
@@ -199,6 +212,29 @@ const SettingsContent = () => {
       <ProfileImageUploadModal
         isOpen={isProfileImageModalOpen}
         onClose={() => setIsProfileImageModalOpen(false)}
+      />
+      <ConfirmModal
+        isOpen={isLogoutConfirmOpen}
+        onClose={() => setIsLogoutConfirmOpen(false)}
+        onConfirm={handleLogoutConfirm}
+        title="로그아웃"
+        message={SYSTEM_MESSAGES.LOGOUT.CONFIRM}
+      />
+      <ConfirmModal
+        isOpen={isDeleteAccountConfirmOpen}
+        onClose={() => setIsDeleteAccountConfirmOpen(false)}
+        onConfirm={handleDeleteAccountFirstConfirm}
+        title="회원탈퇴"
+        message={SYSTEM_MESSAGES.DELETE_ACCOUNT.CONFIRM_PRIMARY}
+        confirmText="다음"
+      />
+      <ConfirmModal
+        isOpen={isDeleteAccountFinalConfirmOpen}
+        onClose={() => setIsDeleteAccountFinalConfirmOpen(false)}
+        onConfirm={handleDeleteAccountFinalConfirm}
+        title="최종 확인"
+        message={SYSTEM_MESSAGES.DELETE_ACCOUNT.CONFIRM_SECONDARY}
+        confirmText="회원탈퇴"
       />
     </>
   );
