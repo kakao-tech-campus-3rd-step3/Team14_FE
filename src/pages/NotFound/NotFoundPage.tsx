@@ -18,7 +18,7 @@ const NotFoundPage = () => {
       <Header variant="page" />
       <div className="flex flex-col items-center justify-center text-center h-[calc(100dvh-110px)]">
         <img
-          src="lost404.svg"
+          src="/lost404.svg"
           alt="길을 잃은 픽이 그림"
           className="w-64 h-64 mb-6 animate-bounce-slow drop-shadow-lg"
         />
