@@ -23,7 +23,7 @@ import SettingsFestivalMyManageDetailPage from '@/pages/SettingsFestivalMyManage
 import SettingsFestivalMyManageEditPage from '@/pages/SettingsFestivalMyManageEdit/SettingsFestivalMyManageEditPage';
 import SettingsFAQPage from '@/pages/SettingsFAQ/SettingsFAQPage';
 import FestivalInfoNoticeCreatePage from '@/pages/FestivalInfoNoticeCreate/FestivalInfoNoticeCreatePage';
-import FestivalInfoNoticeDetailPage from '@/pages/FestivalInfoNoticeDetail/FestivalInfoNoticeDetailPage';
+import FestivalInfoNoticeListPage from '@/pages/FestivalInfoNoticeList/FestivalInfoNoticeListPage';
 
 /**
  * 라우터 컴포넌트
@@ -168,10 +168,10 @@ const Routes = () => {
         }
       />
       <Route
-        path={ROUTE_PATH.FESTIVAL_NOTICE_DETAIL}
+        path={ROUTE_PATH.FESTIVAL_NOTICES}
         element={
           <ProtectedRoute>
-            <FestivalInfoNoticeDetailPage />
+            <FestivalInfoNoticeListPage />
           </ProtectedRoute>
         }
       />
