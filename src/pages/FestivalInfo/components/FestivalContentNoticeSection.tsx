@@ -32,11 +32,10 @@ const FestivalContentNoticeSection = ({
   festivalId,
   managerId,
 }: FestivalContentNoticeSectionProps) => {
-
   const { userInfo } = useAuth();
   const isCurrentUserManager = userInfo?.userId === managerId;
   const { goTo } = useNav();
-  
+
   const handleCreateNotice = () => {
     goTo(generatePath(ROUTE_PATH.FESTIVAL_NOTICE_CREATE, { festivalId: festivalId.toString() }));
   };
@@ -81,16 +80,20 @@ const FestivalContentNoticeSection = ({
   if (notices.length === 0) {
     return (
       <div className="w-full h-full flex flex-col gap-2">
-            <div className="flex items-center justify-between">
-        <div className="flex items-center gap-1">
-          <PickIcon name={PICK_ICONS.NOTICE} size={20} className="mr-1" />
-          <h3 className="text-sm text-gray-900 font-bold">공지사항</h3>
-        </div>  
-        {isCurrentUserManager && (
-          <Button variant="text" className="text-sm text-primary-300" onClick={handleCreateNotice}>
-            공지사항 작성
-          </Button>
-        )}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1">
+            <PickIcon name={PICK_ICONS.NOTICE} size={20} className="mr-1" />
+            <h3 className="text-sm text-gray-900 font-bold">공지사항</h3>
+          </div>
+          {isCurrentUserManager && (
+            <Button
+              variant="text"
+              className="text-sm text-primary-300"
+              onClick={handleCreateNotice}
+            >
+              공지사항 작성
+            </Button>
+          )}
         </div>
         <EmptyComponent
           className="w-full h-full flex flex-col gap-2"
@@ -104,13 +107,13 @@ const FestivalContentNoticeSection = ({
   return (
     <div className="w-full h-full flex flex-col gap-2">
       <div className="flex items-center justify-between">
-      <div className="flex items-center gap-1">
-        <PickIcon name={PICK_ICONS.NOTICE} size={20} className="mr-2" />
-        <h3 className="text-sm text-gray-900 font-bold">공지사항</h3>
-      </div>
-      {isCurrentUserManager && (
-        <Button variant="text" className="text-sm text-primary-300" onClick={handleCreateNotice}>
-          공지사항 작성
+        <div className="flex items-center gap-1">
+          <PickIcon name={PICK_ICONS.NOTICE} size={20} className="mr-2" />
+          <h3 className="text-sm text-gray-900 font-bold">공지사항</h3>
+        </div>
+        {isCurrentUserManager && (
+          <Button variant="text" className="text-sm text-primary-300" onClick={handleCreateNotice}>
+            공지사항 작성
           </Button>
         )}
       </div>
@@ -121,7 +124,7 @@ const FestivalContentNoticeSection = ({
           </div>
         ))}
         {isFetchingNextPage && <div>Loading more...</div>}
-        <div ref={observerRef} /> 
+        <div ref={observerRef} />
       </div>
     </div>
   );

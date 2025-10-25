@@ -26,7 +26,8 @@ const FestivalInfoNoticeForm = ({ festivalData }: { festivalData: FestivalInfo }
 
   // 신청 mutation
   const { mutate: submitApplication, isPending } = useMutation({
-    mutationFn: (body: FestivalManagerApplyRequest) => postFestivalManagerApply(festivalData.id.toString(), body),
+    mutationFn: (body: FestivalManagerApplyRequest) =>
+      postFestivalManagerApply(festivalData.id.toString(), body),
     onSuccess: () => {
       alert(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.SUCCESS);
       navigate(generatePath(ROUTE_PATH.FESTIVAL_INFO, { festivalId: festivalData.id.toString() }));
@@ -60,10 +61,8 @@ const FestivalInfoNoticeForm = ({ festivalData }: { festivalData: FestivalInfo }
     goBack();
   };
 
-
   return (
     <div className="bg-white rounded-lg p-4 m-4 shadow-sm">
-
       {festivalData && <FestivalInfoNoticeInfoCard festivalData={festivalData} />}
       <FestivalInfoNoticeRuleCard />
       <FormSubmitButtons
