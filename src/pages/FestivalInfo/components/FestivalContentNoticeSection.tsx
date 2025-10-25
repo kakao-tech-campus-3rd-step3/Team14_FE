@@ -11,7 +11,6 @@ import { useAuth } from '@/context/AuthContext';
 import { ROUTE_PATH } from '@/constants/routes';
 import Button from '@/components/common/Button';
 import useNav from '@/hooks/useNav';
-import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 import { generatePath } from 'react-router-dom';
 
 interface FestivalContentNoticeSectionProps {
@@ -68,7 +67,7 @@ const FestivalContentNoticeSection = ({
   });
 
   const notices = data?.pages.flatMap((page) => page.data.content) || [];
-
+  //TODO: 로딩 스피너와 에러 컴포넌트 수정 부탁드립니다!
   if (isLoading)
     return (
       <LoadingSpinner size="lg" className="min-h-[400px]" message="공지사항을 불러오는 중..." />
