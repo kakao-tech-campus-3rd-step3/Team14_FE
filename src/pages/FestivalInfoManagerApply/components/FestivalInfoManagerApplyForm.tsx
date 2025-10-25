@@ -6,7 +6,7 @@ import ApplicationDocumentCard from '@/pages/SettingsFMPermissionApplication/com
 import FormSubmitButtons from '@/components/common/FormSubmitButtons';
 import type { FestivalManagerApplyRequest } from '@/apis/festivalManager/postFestivalManagerApply';
 import FestivalInfoManagerApplyInfoCard from '@/pages/FestivalInfoManagerApply/components/FestivalInfoManagerApplyInfoCard';
-import LoadingSpinner from '@/components/common/LoadingSpinner';
+import LoadingSpinner from '@/components/loading/LoadingSpinner';
 import FestivalInfoManagerApplyRuleCard from '@/pages/FestivalInfoManagerApply/components/FestivalInfoManagerApplyRuleCard';
 import useNav from '@/hooks/useNav';
 import { useDocumentUpload } from '@/hooks/useDocumentUpload';
