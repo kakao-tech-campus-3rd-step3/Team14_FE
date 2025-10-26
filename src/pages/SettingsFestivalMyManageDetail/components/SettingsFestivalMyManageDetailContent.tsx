@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getMyFestivalPermissionDetail } from '@/apis/festivalManager/getMyFestivalPermissionDetail';
 import { deleteMyFestivalPermission } from '@/apis/festivalManager/deleteMyFestivalPermission';
@@ -13,9 +13,9 @@ import FestivalPermissionInfoCard from '@/pages/SettingsFestivalMyManageDetail/c
 import FestivalPermissionDocumentCard from '@/pages/SettingsFestivalMyManageDetail/components/FestivalPermissionDocumentCard';
 import FestivalPermissionButtons from '@/pages/SettingsFestivalMyManageDetail/components/FestivalPermissionButtons';
 import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
-import { showToastErrorMessage, showToastSuccessMessage } from '@/utils/showToastMessage';
 import ConfirmModal from '@/components/modal/ConfirmModal';
-import { useState } from 'react';
+import { useDeleteWithConfirm } from '@/hooks/useDeleteWithConfirm';
+
 /**
  * 축제 관리자 신청 상세 내용 컴포넌트
  * @returns 축제 관리자 신청 상세 내용 컴포넌트
@@ -25,8 +25,22 @@ const SettingsFestivalMyManageDetailContent = () => {
   const { id } = useParams<{ id: string }>();
   const { goBack } = useNav();
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+
+  const {
+    isConfirmOpen,
+    isDeleting,
+    handleDelete: handleDeleteClick,
+    handleConfirmDelete,
+    setIsConfirmOpen,
+  } = useDeleteWithConfirm(
+    async (id: number) => {
+      await deleteMyFestivalPermission(id.toString());
+      navigate(ROUTE_PATH.FESTIVAL_MY_MANAGE);
+    },
+    ['festivalPermissions'],
+    SYSTEM_MESSAGES.FM_APPLICATION.DELETE_SUCCESS,
+    SYSTEM_MESSAGES.FM_APPLICATION.DELETE_ERROR
+  );
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['festivalPermission', id],
@@ -34,27 +48,6 @@ const SettingsFestivalMyManageDetailContent = () => {
     enabled: !!id,
     retry: false,
   });
-
-  const { mutate: deleteApplication, isPending: isDeleting } = useMutation({
-    mutationFn: () => deleteMyFestivalPermission(id!),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['festivalPermissions'] });
-      showToastSuccessMessage(SYSTEM_MESSAGES.FM_APPLICATION.DELETE_SUCCESS);
-      navigate(ROUTE_PATH.FESTIVAL_MY_MANAGE);
-    },
-    onError: () => {
-      showToastErrorMessage(SYSTEM_MESSAGES.FM_APPLICATION.DELETE_ERROR);
-    },
-  });
-
-  const handleDeleteClick = () => {
-    setIsConfirmOpen(true);
-  };
-
-  const handleDeleteConfirm = () => {
-    deleteApplication();
-    setIsConfirmOpen(false);
-  };
 
   const handleEdit = () => {
     navigate(`${ROUTE_PATH.FESTIVAL_MY_MANAGE}/${id}/edit`);
@@ -102,13 +95,13 @@ const SettingsFestivalMyManageDetailContent = () => {
         state={permission.state}
         goBack={goBack}
         handleEdit={handleEdit}
-        handleDelete={handleDeleteClick}
+        handleDelete={() => handleDeleteClick(permission.id)}
         isDeleting={isDeleting}
       />
       <ConfirmModal
         isOpen={isConfirmOpen}
         onClose={() => setIsConfirmOpen(false)}
-        onConfirm={handleDeleteConfirm}
+        onConfirm={handleConfirmDelete}
         title="신청서 삭제"
         message={SYSTEM_MESSAGES.FM_APPLICATION.DELETE_CONFIRM}
       />

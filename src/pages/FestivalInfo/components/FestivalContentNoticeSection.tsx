@@ -8,14 +8,12 @@ import PickIcon from '@/components/common/PickIcon';
 import { PICK_ICONS } from '@/constants/pickIcons';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { useAuth } from '@/context/AuthContext';
-import { ROUTE_PATH } from '@/constants/routes';
 import Button from '@/components/common/Button';
-import useNav from '@/hooks/useNav';
-import { generatePath } from 'react-router-dom';
 import { useSlider } from '@/hooks/useSlider';
 import LeftArrow from '@/components/icon/LeftArrowIcon';
 import RightArrow from '@/components/icon/RightArrowIcon';
-import { useNavigate } from 'react-router-dom';
+import { useNoticeNavigationHandlers } from '@/hooks/useNoticeNavigationHandlers';
+
 interface FestivalContentNoticeSectionProps {
   festivalId: string;
   managerId: number | null;
@@ -37,8 +35,6 @@ const FestivalContentNoticeSection = ({
 }: FestivalContentNoticeSectionProps) => {
   const { userInfo } = useAuth();
   const isCurrentUserManager = userInfo?.userId === managerId;
-  const { goTo } = useNav();
-  const navigate = useNavigate();
   // festivalId가 없으면 에러 표시
   if (!festivalId) {
     return (
@@ -49,16 +45,8 @@ const FestivalContentNoticeSection = ({
       />
     );
   }
+  const { handleCreateNotice, handleNoticeClick } = useNoticeNavigationHandlers(festivalId);
 
-  const handleCreateNotice = () => {
-    goTo(generatePath(ROUTE_PATH.FESTIVAL_NOTICE_CREATE, { festivalId: festivalId.toString() }));
-  };
-  const handleNoticeClick = (noticeId: number) => {
-    // 공지사항 목록 페이지로 이동하면서 해당 공지에 포커싱
-    navigate(generatePath(ROUTE_PATH.FESTIVAL_NOTICES, { festivalId }), {
-      state: { focusNoticeId: noticeId },
-    });
-  };
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, error } =
     useInfiniteQuery({
       queryKey: ['festival-notices', festivalId, managerId],
