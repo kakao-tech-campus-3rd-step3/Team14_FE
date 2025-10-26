@@ -31,5 +31,5 @@ export const searchFestivals = async (
       page: params.page ?? defaltPage,
       size: params.size ?? defaltSize,
     },
-  });
+  } as const);
 };

@@ -5,6 +5,7 @@ import useChatRoom from '@/hooks/useChatRoom';
 import ChatSendSection from '@/pages/Chat/components/ChatSendSection';
 import ChatMessageSection from '@/pages/Chat/components/ChatMessageSection';
 import { Suspense } from 'react';
+import LoadingSpinner from '@/components/loading/LoadingSpinner';
 
 /**
  * 채팅 페이지
@@ -36,7 +37,7 @@ const ChatPage = () => {
         }
       />
       <div className="flex flex-col px-4 py-2 gap-1 h-[calc(100dvh-110px)]">
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<LoadingSpinner />}>
           <ChatMessageSection
             messages={messages}
             isFetching={isFetching}

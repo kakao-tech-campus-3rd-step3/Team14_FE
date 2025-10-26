@@ -3,7 +3,7 @@ import FestivalCard from '@/pages/Festivals/components/FestivalCard';
 import type { Festival } from '@/types/FestivalType';
 import useSearch from '@/hooks/useSearch';
 import ErrorComponent from '@/components/common/ErrorComponent';
-import LoadingSpinner from '@/components/common/LoadingSpinner';
+import LoadingSpinner from '@/components/loading/LoadingSpinner';
 
 /**
  * 검색 컨텐츠 컴포넌트

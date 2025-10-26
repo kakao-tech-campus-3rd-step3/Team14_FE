@@ -5,7 +5,7 @@ import { putMyFestivalPermission } from '@/apis/festivalManager/putMyFestivalPer
 import { getMyFestivalPermissionDetail } from '@/apis/festivalManager/getMyFestivalPermissionDetail';
 import ApplicationDocumentCard from '@/pages/SettingsFMPermissionApplication/components/ApplicationDocumentCard';
 import FormSubmitButtons from '@/components/common/FormSubmitButtons';
-import LoadingSpinner from '@/components/common/LoadingSpinner';
+import LoadingSpinner from '@/components/loading/LoadingSpinner';
 import FestivalPermissionInfoCard from '@/pages/SettingsFestivalMyManageDetail/components/FestivalPermissionInfoCard';
 import useNav from '@/hooks/useNav';
 import { useDocumentUpload } from '@/hooks/useDocumentUpload';
@@ -14,6 +14,7 @@ import { isAxiosError } from 'axios';
 import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 import PickIcon from '@/components/common/PickIcon';
 import { PICK_ICONS } from '@/constants/pickIcons';
+import { showToastErrorMessage, showToastSuccessMessage } from '@/utils/showToastMessage';
 
 /**
  * 축제 관리 신청 수정 내용 컴포넌트
@@ -52,21 +53,21 @@ const SettingsFestivalMyManageEditContent = () => {
       queryClient.invalidateQueries({ queryKey: ['festivalPermission', id] });
       queryClient.invalidateQueries({ queryKey: ['festivalPermissions'] });
 
-      alert(SYSTEM_MESSAGES.FESTIVAL_MANAGER_EDIT.SUCCESS);
+      showToastSuccessMessage(SYSTEM_MESSAGES.FESTIVAL_MANAGER_EDIT.SUCCESS);
       navigate(`${ROUTE_PATH.FESTIVAL_MY_MANAGE}/${id}`);
     },
     onError: (error: unknown) => {
       if (isAxiosError(error) && error.response?.status === 400) {
-        alert(SYSTEM_MESSAGES.FESTIVAL_MANAGER_EDIT.INVALID_REQUEST);
+        showToastErrorMessage(SYSTEM_MESSAGES.FESTIVAL_MANAGER_EDIT.INVALID_REQUEST);
       } else {
-        alert(SYSTEM_MESSAGES.FESTIVAL_MANAGER_EDIT.ERROR);
+        showToastErrorMessage(SYSTEM_MESSAGES.FESTIVAL_MANAGER_EDIT.ERROR);
       }
     },
   });
 
   const handleSubmit = () => {
     if (documents.length === 0) {
-      return alert(SYSTEM_MESSAGES.FM_APPLICATION_VALIDATION.DOCUMENT_REQUIRED);
+      return showToastErrorMessage(SYSTEM_MESSAGES.FM_APPLICATION_VALIDATION.DOCUMENT_REQUIRED);
     }
 
     updateApplication({

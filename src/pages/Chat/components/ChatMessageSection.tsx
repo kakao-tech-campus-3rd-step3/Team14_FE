@@ -87,9 +87,11 @@ const ChatMessageSection = ({
     const isNewMessagesLoaded = messages.length > previousMessagesLengthRef.current;
     const isInitialLoad = !didInitRef.current;
 
-    if (isInitialLoad) {
-      // 최초 로딩 시 하단으로 스크롤
-      setTimeout(() => scrollToBottom('auto'), 0);
+    if (isInitialLoad && messages.length > 0) {
+      // 최초 로딩 시 하단으로 스크롤 (DOM 렌더링 완료 후)
+      requestAnimationFrame(() => {
+        scrollToBottom('auto');
+      });
       didInitRef.current = true;
       previousMessagesLengthRef.current = messages.length;
       return;
@@ -100,16 +102,20 @@ const ChatMessageSection = ({
 
       if (isLoadingPreviousMessages) {
         // 이전 메시지 로딩 완료 시 스크롤 위치 복원
-        const currentScrollHeight = chatRef.current.scrollHeight;
-        const heightDifference = currentScrollHeight - prevScrollHeightRef.current;
+        requestAnimationFrame(() => {
+          if (!chatRef.current) return;
 
-        // 이전 스크롤 위치 + 추가된 높이만큼 조정
-        chatRef.current.scrollTop = prevScrollTopRef.current + heightDifference;
+          const currentScrollHeight = chatRef.current.scrollHeight;
+          const heightDifference = currentScrollHeight - prevScrollHeightRef.current;
 
-        // 복원 완료 후 초기화
-        prevScrollHeightRef.current = 0;
-        prevScrollTopRef.current = 0;
-        isFetchingPrevRef.current = false;
+          // 이전 스크롤 위치 + 추가된 높이만큼 조정
+          chatRef.current.scrollTop = prevScrollTopRef.current + heightDifference;
+
+          // 복원 완료 후 초기화
+          prevScrollHeightRef.current = 0;
+          prevScrollTopRef.current = 0;
+          isFetchingPrevRef.current = false;
+        });
       } else if (isAtBottomRef.current) {
         // 하단에 있을 때 새 메시지 시 자동 스크롤
         scrollToBottom('smooth');

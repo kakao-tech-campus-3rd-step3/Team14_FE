@@ -22,4 +22,5 @@ export const ROUTE_PATH = {
   FAQ: '/settings/faq',
   SEARCH: '/search',
   FESTIVAL_MANAGER_APPLY: '/festival/:festivalId/manager-apply',
+  NOT_FOUND: '*',
 } as const;
