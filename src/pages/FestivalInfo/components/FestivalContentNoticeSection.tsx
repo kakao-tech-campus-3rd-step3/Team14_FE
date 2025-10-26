@@ -35,16 +35,7 @@ const FestivalContentNoticeSection = ({
 }: FestivalContentNoticeSectionProps) => {
   const { userInfo } = useAuth();
   const isCurrentUserManager = userInfo?.userId === managerId;
-  // festivalId가 없으면 에러 표시
-  if (!festivalId) {
-    return (
-      <ErrorComponent
-        title="오류가 발생했습니다"
-        message="Missing ':festivalId' param"
-        showBackButton={true}
-      />
-    );
-  }
+
   const { handleCreateNotice, handleNoticeClick } = useNoticeNavigationHandlers(festivalId);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, error } =
@@ -88,7 +79,16 @@ const FestivalContentNoticeSection = ({
 
   const arrowButtonClasses =
     'absolute top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200';
-
+  // festivalId가 없으면 에러 표시
+  if (!festivalId) {
+    return (
+      <ErrorComponent
+        title="오류가 발생했습니다"
+        message="Missing ':festivalId' param"
+        showBackButton={true}
+      />
+    );
+  }
   //TODO: 로딩 스피너와 에러 컴포넌트 수정 부탁드립니다!
   if (isLoading)
     return (

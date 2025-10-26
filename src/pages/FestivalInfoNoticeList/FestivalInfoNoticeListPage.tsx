@@ -27,7 +27,6 @@ const FestivalInfoNoticeListPage = () => {
 
   const {
     isConfirmOpen,
-    selectedId,
     isDeleting,
     handleDelete,
     handleConfirmDelete,

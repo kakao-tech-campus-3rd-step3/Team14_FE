@@ -1,4 +1,4 @@
-import { generatePath, useNavigate } from 'react-router-dom';
+import { generatePath } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { postFestivalNotice } from '@/apis/notice/postFestivalNotice';
 import FormSubmitButtons from '@/components/common/FormSubmitButtons';
@@ -6,7 +6,6 @@ import type { NoticeCreateRequest } from '@/types/Notice';
 import FestivalInfoNoticeRuleCard from '@/pages/FestivalInfoNoticeCreate/components/FestivalInfoNoticeRuleCard';
 import useNav from '@/hooks/useNav';
 import { useMediaUpload } from '@/hooks/useMediaUpload';
-import { isAxiosError } from 'axios';
 import { ROUTE_PATH } from '@/constants/routes';
 import FestivalInfoNoticeInfoCard from '@/pages/FestivalInfoNoticeCreate/components/FestivalInfoNoticeInfoCard';
 import type { FestivalInfo } from '@/types/FestivalType';
@@ -18,14 +17,15 @@ import { queryClient } from '@/utils/queryClient';
 import { showToastAxiosError, showToastSuccessMessage } from '@/utils/showToastMessage';
 
 const FestivalInfoNoticeForm = ({ festivalData }: { festivalData: FestivalInfo }) => {
-  
-  const { goTo,goBack } = useNav();
+  const { goTo, goBack } = useNav();
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
-  const { imageInfos, setImageInfos, isUploading, pickAndUploadImages, removeImage } =
-    useMediaUpload({ maxImages: 10, enableVideo: false });
+  const { imageInfos, isUploading, pickAndUploadImages, removeImage } = useMediaUpload({
+    maxImages: 10,
+    enableVideo: false,
+  });
 
   const { mutate: submitApplication, isPending } = useMutation({
     mutationFn: (body: NoticeCreateRequest) => postFestivalNotice(festivalData.id.toString(), body),

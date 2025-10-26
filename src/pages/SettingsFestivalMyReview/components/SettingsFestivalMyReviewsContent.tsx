@@ -21,7 +21,6 @@ const SettingsMyReviewsContent = () => {
 
   const {
     isConfirmOpen,
-    isDeleting,
     handleDelete: handleDeleteReview,
     handleConfirmDelete,
     setIsConfirmOpen,
@@ -31,7 +30,7 @@ const SettingsMyReviewsContent = () => {
     },
     ['myReviews'],
     SYSTEM_MESSAGES.REVIEW.DELETE_SUCCESS,
-    SYSTEM_MESSAGES.REVIEW.DELETE_ERROR
+    SYSTEM_MESSAGES.REVIEW.DELETE_ERROR,
   );
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } =

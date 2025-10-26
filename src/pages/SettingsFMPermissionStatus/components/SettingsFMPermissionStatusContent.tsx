@@ -30,20 +30,15 @@ const SettingsFMPermissionStatusContent = () => {
     retry: false,
   });
 
-  const { 
-    isConfirmOpen, 
-    isDeleting, 
-    handleDelete, 
-    handleConfirmDelete, 
-    setIsConfirmOpen 
-  } = useDeleteWithConfirm(
-    async () => {
-      await deleteFMPermission();
-    },
-    ['fmPermission'],
-    SYSTEM_MESSAGES.FM_APPLICATION.DELETE_SUCCESS,
-    SYSTEM_MESSAGES.FM_APPLICATION.DELETE_ERROR
-  );
+  const { isConfirmOpen, isDeleting, handleDelete, handleConfirmDelete, setIsConfirmOpen } =
+    useDeleteWithConfirm(
+      async () => {
+        await deleteFMPermission();
+      },
+      ['fmPermission'],
+      SYSTEM_MESSAGES.FM_APPLICATION.DELETE_SUCCESS,
+      SYSTEM_MESSAGES.FM_APPLICATION.DELETE_ERROR,
+    );
 
   const handleEdit = () => {
     goTo(`${ROUTE_PATH.FM_PERMISSION_APPLICATION}?mode=edit`);

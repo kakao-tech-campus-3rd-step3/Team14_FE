@@ -39,7 +39,7 @@ const SettingsFestivalMyManageDetailContent = () => {
     },
     ['festivalPermissions'],
     SYSTEM_MESSAGES.FM_APPLICATION.DELETE_SUCCESS,
-    SYSTEM_MESSAGES.FM_APPLICATION.DELETE_ERROR
+    SYSTEM_MESSAGES.FM_APPLICATION.DELETE_ERROR,
   );
 
   const { data, isLoading, isError, error } = useQuery({
