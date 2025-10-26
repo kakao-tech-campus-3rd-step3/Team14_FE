@@ -1,7 +1,6 @@
-
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import Container from '@/components/common/Container';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
@@ -11,16 +10,13 @@ import EmptyComponent from '@/components/common/EmptyComponent';
 import { getFestivalNotices } from '@/apis/notice/getFestivalNotices';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { useAuth } from '@/context/AuthContext';
-import { ROUTE_PATH } from '@/constants/routes';
-import useNav from '@/hooks/useNav';
-import { generatePath } from 'react-router-dom';
 import getFestivalInfo from '@/apis/festivals/getFestivalInfo';
 import FestivalInfoNoticeListInfoCard from '@/pages/FestivalInfoNoticeList/components/FestivalInfoNoticeListInfoCard';
 import { deleteFestivalNotice } from '@/apis/notice/deleteFestivalNotice';
-import { queryClient } from '@/utils/queryClient';
 import ConfirmModal from '@/components/modal/ConfirmModal';
-import { showToastErrorMessage, showToastSuccessMessage } from '@/utils/showToastMessage';
 import { FestivalInfoNoticeCard } from './components/FestivalInfoNoticeCard';
+import { useDeleteWithConfirm } from '@/hooks/useDeleteWithConfirm';
+import { useNoticeNavigationHandlers } from '@/hooks/useNoticeNavigationHandlers';
 
 const FestivalInfoNoticeListPage = () => {
   const { festivalId } = useParams();
@@ -28,11 +24,23 @@ const FestivalInfoNoticeListPage = () => {
   const focusNoticeId = location.state?.focusNoticeId;
   const noticeRefs = useRef<{ [key: number]: HTMLDivElement | null }>({});
   const { userInfo } = useAuth();
-  const { goTo } = useNav();
 
-  // 상태 추가
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-  const [selectedNoticeId, setSelectedNoticeId] = useState<number | null>(null);
+  const {
+    isConfirmOpen,
+    selectedId,
+    isDeleting,
+    handleDelete,
+    handleConfirmDelete,
+    setIsConfirmOpen,
+    setSelectedId,
+  } = useDeleteWithConfirm(
+    async (noticeId: number) => {
+      await deleteFestivalNotice(noticeId.toString());
+    },
+    ['festival-notices', festivalId || ''],
+    '공지사항이 삭제되었습니다.',
+    '공지사항 삭제에 실패했습니다.',
+  );
 
   // 축제 정보 조회
   const { data: festivalData } = useQuery({
@@ -55,6 +63,10 @@ const FestivalInfoNoticeListPage = () => {
         pageParams: data.pageParams,
       }),
     });
+  // 관리자인지 확인
+  const isCurrentUserManager = userInfo?.userId === festivalData?.content?.managerId;
+
+  const { handleCreateNotice, handleEditNotice } = useNoticeNavigationHandlers(festivalId || '');
 
   // 무한 스크롤
   const { ref: observerRef } = useIntersectionObserver(() => {
@@ -88,48 +100,6 @@ const FestivalInfoNoticeListPage = () => {
       }, 100);
     }
   }, [focusNoticeId]);
-
-  // 관리자인지 확인
-  const isCurrentUserManager = userInfo?.userId === festivalData?.content?.managerId;
-
-  const handleCreateNotice = () => {
-    goTo(generatePath(ROUTE_PATH.FESTIVAL_NOTICE_CREATE, { festivalId: festivalId || '' }));
-  };
-
-  // 수정 버튼 핸들러
-  const handleEditNotice = (noticeId: number) => {
-    goTo(generatePath(ROUTE_PATH.FESTIVAL_NOTICE_EDIT, { 
-      festivalId: festivalId || '', 
-      noticeId: noticeId.toString() 
-    }));
-  };
-
-  // 삭제 뮤테이션
-  const deleteNoticeMutation = useMutation({
-    mutationFn: (noticeId: number) => deleteFestivalNotice(noticeId.toString()),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['festival-notices', festivalId] });
-      showToastSuccessMessage('공지사항이 삭제되었습니다.');
-      setIsConfirmOpen(false);
-      setSelectedNoticeId(null);
-    },
-    onError: () => {
-      showToastErrorMessage('공지사항 삭제에 실패했습니다.');
-    },
-  });
-
-  // 삭제 확인 핸들러
-  const handleConfirmDelete = () => {
-    if (selectedNoticeId) {
-      deleteNoticeMutation.mutate(selectedNoticeId);
-    }
-  };
-
-  // 삭제 버튼 핸들러
-  const handleDeleteNotice = (noticeId: number) => {
-    setIsConfirmOpen(true);
-    setSelectedNoticeId(noticeId);
-  };
 
   // 로딩 상태
   if (isLoading) {
@@ -196,8 +166,8 @@ const FestivalInfoNoticeListPage = () => {
             focusNoticeId={focusNoticeId}
             isCurrentUserManager={isCurrentUserManager}
             handleEditNotice={handleEditNotice}
-            handleDeleteNotice={handleDeleteNotice}
-            isDeleting={deleteNoticeMutation.isPending}
+            handleDeleteNotice={handleDelete}
+            isDeleting={isDeleting}
           />
         ))}
 
@@ -216,7 +186,7 @@ const FestivalInfoNoticeListPage = () => {
         isOpen={isConfirmOpen}
         onClose={() => {
           setIsConfirmOpen(false);
-          setSelectedNoticeId(null);
+          setSelectedId(null);
         }}
         onConfirm={handleConfirmDelete}
         title="공지사항 삭제"

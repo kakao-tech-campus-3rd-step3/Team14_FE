@@ -10,18 +10,20 @@ import { ROUTE_PATH } from '@/constants/routes';
  * - handleEditNotice: 공지사항 수정 핸들러
  */
 export const useNoticeNavigationHandlers = (festivalId: string) => {
-    const { goTo } = useNav();
-    
-    const handleCreateNotice = () => {
-      goTo(generatePath(ROUTE_PATH.FESTIVAL_NOTICE_CREATE, { festivalId }));
-    };
-    
-    const handleEditNotice = (noticeId: number) => {
-      goTo(generatePath(ROUTE_PATH.FESTIVAL_NOTICE_EDIT, { 
-        festivalId, 
-        noticeId: noticeId.toString() 
-      }));
-    };
-    
-    return { handleCreateNotice, handleEditNotice };
+  const { goTo } = useNav();
+
+  const handleCreateNotice = () => {
+    goTo(generatePath(ROUTE_PATH.FESTIVAL_NOTICE_CREATE, { festivalId }));
   };
+
+  const handleEditNotice = (noticeId: number) => {
+    goTo(
+      generatePath(ROUTE_PATH.FESTIVAL_NOTICE_EDIT, {
+        festivalId,
+        noticeId: noticeId.toString(),
+      }),
+    );
+  };
+
+  return { handleCreateNotice, handleEditNotice };
+};

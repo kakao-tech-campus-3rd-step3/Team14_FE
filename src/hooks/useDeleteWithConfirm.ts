@@ -18,46 +18,46 @@ import { showToastSuccessMessage, showToastErrorMessage } from '@/utils/showToas
  * - setSelectedId - 선택된 ID 설정
  */
 export const useDeleteWithConfirm = (
-    deleteFn: (id: number) => Promise<void>,
-    queryKey: string[],
-    successMessage: string,
-    errorMessage: string
-  ) => {
-    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-    const [selectedId, setSelectedId] = useState<number | null>(null);
-    const queryClient = useQueryClient();
-    
-    const deleteMutation = useMutation({
-      mutationFn: deleteFn,
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey });
-        showToastSuccessMessage(successMessage);
-        setIsConfirmOpen(false);
-        setSelectedId(null);
-      },
-      onError: () => {
-        showToastErrorMessage(errorMessage);
-      },
-    });
-    
-    const handleDelete = (id: number) => {
-      setSelectedId(id);
-      setIsConfirmOpen(true);
-    };
-    
-    const handleConfirmDelete = () => {
-      if (selectedId) {
-        deleteMutation.mutate(selectedId);
-      }
-    };
-    
-    return {
-      isConfirmOpen,
-      selectedId,
-      isDeleting: deleteMutation.isPending,
-      handleDelete,
-      handleConfirmDelete,
-      setIsConfirmOpen,
-      setSelectedId
-    };
+  deleteFn: (id: number) => Promise<void>,
+  queryKey: string[],
+  successMessage: string,
+  errorMessage: string,
+) => {
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const queryClient = useQueryClient();
+
+  const deleteMutation = useMutation({
+    mutationFn: deleteFn,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey });
+      showToastSuccessMessage(successMessage);
+      setIsConfirmOpen(false);
+      setSelectedId(null);
+    },
+    onError: () => {
+      showToastErrorMessage(errorMessage);
+    },
+  });
+
+  const handleDelete = (id: number) => {
+    setSelectedId(id);
+    setIsConfirmOpen(true);
   };
+
+  const handleConfirmDelete = () => {
+    if (selectedId) {
+      deleteMutation.mutate(selectedId);
+    }
+  };
+
+  return {
+    isConfirmOpen,
+    selectedId,
+    isDeleting: deleteMutation.isPending,
+    handleDelete,
+    handleConfirmDelete,
+    setIsConfirmOpen,
+    setSelectedId,
+  };
+};
