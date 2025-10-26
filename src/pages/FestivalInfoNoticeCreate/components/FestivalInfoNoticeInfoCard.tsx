@@ -2,12 +2,13 @@ import type { FestivalInfo } from '@/types/FestivalType';
 
 interface FestivalInfoNoticeInfoCardProps {
   festivalData: FestivalInfo;
+  title?: string;
 }
 
-const FestivalInfoNoticeInfoCard = ({ festivalData }: FestivalInfoNoticeInfoCardProps) => {
+const FestivalInfoNoticeInfoCard = ({ festivalData, title }: FestivalInfoNoticeInfoCardProps) => {
   return (
     <div className="mb-6 p-4 bg-gray-50 rounded-lg">
-      <h3 className="font-semibold text-lg mb-2">공지사항을 작성할 축제</h3>
+      <h3 className="font-semibold text-lg mb-2">{title || '공지사항을 작성할 축제'}</h3>
       <div className="flex gap-3">
         {festivalData?.posterInfo && (
           <img

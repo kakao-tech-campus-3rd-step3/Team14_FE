@@ -15,7 +15,7 @@ import { generatePath } from 'react-router-dom';
 import { useSlider } from '@/hooks/useSlider';
 import LeftArrow from '@/components/icon/LeftArrowIcon';
 import RightArrow from '@/components/icon/RightArrowIcon';
-
+import { useNavigate } from 'react-router-dom';
 interface FestivalContentNoticeSectionProps {
   festivalId: string;
   managerId: number | null;
@@ -38,7 +38,7 @@ const FestivalContentNoticeSection = ({
   const { userInfo } = useAuth();
   const isCurrentUserManager = userInfo?.userId === managerId;
   const { goTo } = useNav();
-
+  const navigate = useNavigate();
   // festivalId가 없으면 에러 표시
   if (!festivalId) {
     return (
@@ -53,7 +53,12 @@ const FestivalContentNoticeSection = ({
   const handleCreateNotice = () => {
     goTo(generatePath(ROUTE_PATH.FESTIVAL_NOTICE_CREATE, { festivalId: festivalId.toString() }));
   };
-
+  const handleNoticeClick = (noticeId: number) => {
+    // 공지사항 목록 페이지로 이동하면서 해당 공지에 포커싱
+    navigate(generatePath(ROUTE_PATH.FESTIVAL_NOTICES, { festivalId }), {
+      state: { focusNoticeId: noticeId }
+    });
+  };
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, error } =
     useInfiniteQuery({
       queryKey: ['festival-notices', festivalId, managerId],
@@ -162,13 +167,16 @@ const FestivalContentNoticeSection = ({
               transform: getTransformStyle(),
             }}
           >
-            {notices.map((notice) => (
+          {notices.map((notice) => (
               <div key={notice.id} className="w-full h-full flex-shrink-0 px-2">
-                <div className="p-3 border border-gray-200 rounded-lg flex items-center h-full bg-white shadow-sm">
+                <button
+                  onClick={() => handleNoticeClick(notice.id)}
+                  className="w-full h-full p-3 border border-gray-200 rounded-lg flex items-center bg-white shadow-sm hover:bg-gray-50 hover:border-primary-300 transition-all duration-200 cursor-pointer"
+                >
                   <p className="font-medium text-gray-900 text-lg line-clamp-2 w-full text-center">
                     {notice.title}
                   </p>
-                </div>
+                </button>
               </div>
             ))}
           </div>
