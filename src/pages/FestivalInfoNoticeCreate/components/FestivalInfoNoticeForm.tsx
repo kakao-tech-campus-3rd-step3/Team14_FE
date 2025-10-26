@@ -18,24 +18,15 @@ import { PICK_ICONS } from '@/constants/pickIcons';
 const FestivalInfoNoticeForm = ({ festivalData }: { festivalData: FestivalInfo }) => {
   const navigate = useNavigate();
   const { goBack } = useNav();
-  
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  
 
-  const {
-    imageInfos,
-    setImageInfos,
-    isUploading,
-    pickAndUploadImages,
-    removeImage,
-  } = useMediaUpload({ maxImages: 10, enableVideo: false });
-
+  const { imageInfos, setImageInfos, isUploading, pickAndUploadImages, removeImage } =
+    useMediaUpload({ maxImages: 10, enableVideo: false });
 
   const { mutate: submitApplication, isPending } = useMutation({
-    mutationFn: (body: NoticeCreateRequest) =>
-      postFestivalNotice(festivalData.id.toString(), body),
+    mutationFn: (body: NoticeCreateRequest) => postFestivalNotice(festivalData.id.toString(), body),
     onSuccess: () => {
       alert('공지사항이 등록되었습니다.');
       navigate(generatePath(ROUTE_PATH.FESTIVAL_INFO, { festivalId: festivalData.id.toString() }));
@@ -80,8 +71,8 @@ const FestivalInfoNoticeForm = ({ festivalData }: { festivalData: FestivalInfo }
     <div className="bg-white rounded-lg p-4 m-4 shadow-sm">
       {festivalData && <FestivalInfoNoticeInfoCard festivalData={festivalData} />}
       <FestivalInfoNoticeRuleCard />
-      
-      <div >
+
+      <div>
         <h3 className="font-semibold mb-3">아래 빈칸을 모두 작성해주세요.</h3>
 
         <div className="mb-4">

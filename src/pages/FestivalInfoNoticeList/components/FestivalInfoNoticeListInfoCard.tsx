@@ -8,22 +8,18 @@ interface FestivalInfoNoticeListInfoCardProps {
   onCreateNotice?: () => void;
 }
 
-const FestivalInfoNoticeListInfoCard = ({ 
-  festivalData, 
-  title, 
-  showCreateButton = false, 
-  onCreateNotice 
+const FestivalInfoNoticeListInfoCard = ({
+  festivalData,
+  title,
+  showCreateButton = false,
+  onCreateNotice,
 }: FestivalInfoNoticeListInfoCardProps) => {
   return (
     <div className="mb-6 p-4 bg-gray-50 rounded-lg">
       <div className="flex justify-between items-center mb-2">
         <h3 className="font-semibold text-lg">{title || '공지사항을 작성할 축제'}</h3>
         {showCreateButton && onCreateNotice && (
-          <Button
-            variant="text"
-            onClick={onCreateNotice}
-            className="text-sm text-primary-300"
-          >
+          <Button variant="text" onClick={onCreateNotice} className="text-sm text-primary-300">
             공지사항 작성
           </Button>
         )}

@@ -42,10 +42,10 @@ const FestivalContentNoticeSection = ({
   // festivalId가 없으면 에러 표시
   if (!festivalId) {
     return (
-      <ErrorComponent 
-        title="오류가 발생했습니다" 
-        message="Missing ':festivalId' param" 
-        showBackButton={true} 
+      <ErrorComponent
+        title="오류가 발생했습니다"
+        message="Missing ':festivalId' param"
+        showBackButton={true}
       />
     );
   }
@@ -56,7 +56,7 @@ const FestivalContentNoticeSection = ({
   const handleNoticeClick = (noticeId: number) => {
     // 공지사항 목록 페이지로 이동하면서 해당 공지에 포커싱
     navigate(generatePath(ROUTE_PATH.FESTIVAL_NOTICES, { festivalId }), {
-      state: { focusNoticeId: noticeId }
+      state: { focusNoticeId: noticeId },
     });
   };
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, error } =
@@ -153,7 +153,7 @@ const FestivalContentNoticeSection = ({
           </Button>
         )}
       </div>
-      
+
       {/* 스와이프 가능한 공지사항 제목들 */}
       <div className="w-full relative">
         <div
@@ -167,7 +167,7 @@ const FestivalContentNoticeSection = ({
               transform: getTransformStyle(),
             }}
           >
-          {notices.map((notice) => (
+            {notices.map((notice) => (
               <div key={notice.id} className="w-full h-full flex-shrink-0 px-2">
                 <button
                   onClick={() => handleNoticeClick(notice.id)}

@@ -26,12 +26,12 @@ const FestivalInfoNoticeListPage = () => {
   const { userInfo } = useAuth();
   const { goTo } = useNav();
 
-    // 축제 정보 조회
-    const { data: festivalData } = useQuery({
-      queryKey: ['festival', festivalId],
-      queryFn: () => getFestivalInfo({ festivalId: festivalId || '' }),
-      select: (data) => data.data,
-    });
+  // 축제 정보 조회
+  const { data: festivalData } = useQuery({
+    queryKey: ['festival', festivalId],
+    queryFn: () => getFestivalInfo({ festivalId: festivalId || '' }),
+    select: (data) => data.data,
+  });
   // API 호출
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, error } =
     useInfiniteQuery({
@@ -61,12 +61,20 @@ const FestivalInfoNoticeListPage = () => {
       setTimeout(() => {
         noticeRefs.current[focusNoticeId]?.scrollIntoView({
           behavior: 'smooth',
-          block: 'center'
+          block: 'center',
         });
         // 포커싱 효과 추가
-        noticeRefs.current[focusNoticeId]?.classList.add('ring-2', 'ring-primary-300', 'ring-opacity-50');
+        noticeRefs.current[focusNoticeId]?.classList.add(
+          'ring-2',
+          'ring-primary-300',
+          'ring-opacity-50',
+        );
         setTimeout(() => {
-          noticeRefs.current[focusNoticeId]?.classList.remove('ring-2', 'ring-primary-300', 'ring-opacity-50');
+          noticeRefs.current[focusNoticeId]?.classList.remove(
+            'ring-2',
+            'ring-primary-300',
+            'ring-opacity-50',
+          );
         }, 3000);
       }, 100);
     }
@@ -117,18 +125,18 @@ const FestivalInfoNoticeListPage = () => {
 
   return (
     <Container>
-      <Header 
-  variant="page" 
-  title={
-    festivalData?.content?.title && festivalData.content.title.length > 10 
-      ? `${festivalData.content.title.slice(0, 16)}...` 
-      : festivalData?.content?.title || '공지사항'
-  } 
-/>
+      <Header
+        variant="page"
+        title={
+          festivalData?.content?.title && festivalData.content.title.length > 10
+            ? `${festivalData.content.title.slice(0, 16)}...`
+            : festivalData?.content?.title || '공지사항'
+        }
+      />
       <div className="p-4 space-y-4">
-      {festivalData?.content && (
-          <FestivalInfoNoticeListInfoCard 
-            festivalData={festivalData.content} 
+        {festivalData?.content && (
+          <FestivalInfoNoticeListInfoCard
+            festivalData={festivalData.content}
             title="지금 보고 있는 축제"
             showCreateButton={isCurrentUserManager}
             onCreateNotice={handleCreateNotice}
@@ -140,16 +148,14 @@ const FestivalInfoNoticeListPage = () => {
           <div
             key={notice.id}
             ref={(el) => {
-
-                noticeRefs.current[notice.id] = el;
-
+              noticeRefs.current[notice.id] = el;
             }}
             className={`p-4 border border-gray-200 rounded-lg bg-white shadow-sm transition-all duration-300 ${
               focusNoticeId === notice.id ? 'ring-2 ring-primary-300 ring-opacity-50' : ''
             }`}
           >
             <div className="flex justify-between items-start mb-2">
-            <PickIcon name={PICK_ICONS.NOTICE} size={20} className="mt-1 mr-2" />
+              <PickIcon name={PICK_ICONS.NOTICE} size={20} className="mt-1 mr-2" />
               <h3 className="font-semibold text-lg text-gray-900 flex-1">{notice.title}</h3>
               <span className="text-sm text-gray-500 ml-2">
                 {new Date(notice.updatedDate).toLocaleDateString()}
