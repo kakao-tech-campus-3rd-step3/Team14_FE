@@ -119,7 +119,9 @@ describe('상세정보 더보기/접기 상호작용', () => {
 
     // Then: 접기 버튼으로 변경되고, 말줄임표가 사라진다
     expect(await screen.findByRole('button', { name: '접기' })).toBeInTheDocument();
-    expect(screen.queryByText(/수국밭 속 양떼목장에서는 동물들에게 먹\.\.\.$/)).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/수국밭 속 양떼목장에서는 동물들에게 먹\.\.\.$/),
+    ).not.toBeInTheDocument();
 
     // When: 접기 버튼을 다시 클릭하면
     fireEvent.click(screen.getByRole('button', { name: '접기' }));
@@ -539,21 +541,24 @@ describe('리뷰 섹션 컴포넌트', () => {
     const firstReviewer = reviewMockData.content[0].reviewerName;
     const reviewer = screen.getByText(firstReviewer);
     const reviewCard = reviewer.closest('div')?.parentElement; // 카드 컨테이너
-    
+
     // 리뷰 미디어 슬라이더 내의 이미지를 찾기
     const mediaSlider = reviewCard?.querySelector('[class*="overflow-x-scroll"]');
     const firstImage = mediaSlider?.querySelector('img');
-    
+
     expect(firstImage).toBeTruthy();
     if (firstImage) {
       fireEvent.click(firstImage);
     }
 
     // Then: 모달이 열리고 모달 닫기 버튼, 미디어 카운터, 다음 화살표가 보인다
-    await waitFor(() => {
-      expect(screen.getByRole('dialog')).toBeInTheDocument();
-    }, { timeout: 3000 });
-    
+    await waitFor(
+      () => {
+        expect(screen.getByRole('dialog')).toBeInTheDocument();
+      },
+      { timeout: 3000 },
+    );
+
     expect(await screen.findByRole('button', { name: '모달 닫기' })).toBeInTheDocument();
     expect(screen.getByText(/\d+ \/ \d+/)).toBeInTheDocument();
     expect(screen.getByLabelText('다음 미디어')).toBeInTheDocument();
