@@ -6,7 +6,8 @@ import type { AxiosResponse } from 'axios';
 import { generatePath } from 'react-router-dom';
 
 export interface Review {
-  reviewId: string;
+  reviewId: number;
+  userId: number;
   reviewerName: string;
   festivalTitle: string;
   content: string;
