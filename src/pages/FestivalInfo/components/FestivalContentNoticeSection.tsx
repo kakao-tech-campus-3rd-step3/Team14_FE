@@ -12,6 +12,9 @@ import { ROUTE_PATH } from '@/constants/routes';
 import Button from '@/components/common/Button';
 import useNav from '@/hooks/useNav';
 import { generatePath } from 'react-router-dom';
+import { useSlider } from '@/hooks/useSlider';
+import LeftArrow from '@/components/icon/LeftArrowIcon';
+import RightArrow from '@/components/icon/RightArrowIcon';
 
 interface FestivalContentNoticeSectionProps {
   festivalId: string;
@@ -35,6 +38,17 @@ const FestivalContentNoticeSection = ({
   const { userInfo } = useAuth();
   const isCurrentUserManager = userInfo?.userId === managerId;
   const { goTo } = useNav();
+
+  // festivalId가 없으면 에러 표시
+  if (!festivalId) {
+    return (
+      <ErrorComponent 
+        title="오류가 발생했습니다" 
+        message="Missing ':festivalId' param" 
+        showBackButton={true} 
+      />
+    );
+  }
 
   const handleCreateNotice = () => {
     goTo(generatePath(ROUTE_PATH.FESTIVAL_NOTICE_CREATE, { festivalId: festivalId.toString() }));
@@ -66,6 +80,23 @@ const FestivalContentNoticeSection = ({
   });
 
   const notices = data?.pages.flatMap((page) => page.data.content) || [];
+
+  // 스와이프 기능 추가
+  const {
+    currentIndex,
+    setCurrentIndex,
+    containerRef,
+    goToPrevious,
+    goToNext,
+    canGoPrevious,
+    canGoNext,
+    touchHandlers,
+    getTransformStyle,
+  } = useSlider({ itemCount: notices.length });
+
+  const arrowButtonClasses =
+    'absolute top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200';
+
   //TODO: 로딩 스피너와 에러 컴포넌트 수정 부탁드립니다!
   if (isLoading)
     return (
@@ -117,15 +148,76 @@ const FestivalContentNoticeSection = ({
           </Button>
         )}
       </div>
-      <div className="w-full h-full flex flex-col gap-2">
-        {notices.map((notice) => (
-          <div key={notice.id} className="w-full h-full flex flex-col gap-2">
-            <p className="font-medium text-gray-900">{notice.title}</p>
+      
+      {/* 스와이프 가능한 공지사항 제목들 */}
+      <div className="w-full relative">
+        <div
+          ref={containerRef}
+          className="relative w-full h-[60px] overflow-hidden"
+          {...touchHandlers}
+        >
+          <div
+            className="flex transition-transform duration-300 ease-out h-full"
+            style={{
+              transform: getTransformStyle(),
+            }}
+          >
+            {notices.map((notice) => (
+              <div key={notice.id} className="w-full h-full flex-shrink-0 px-2">
+                <div className="p-3 border border-gray-200 rounded-lg flex items-center h-full bg-white shadow-sm">
+                  <p className="font-medium text-gray-900 text-lg line-clamp-2 w-full text-center">
+                    {notice.title}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-        {isFetchingNextPage && <div>Loading more...</div>}
-        <div ref={observerRef} />
+
+          {/* 화살표 버튼 (공지사항이 2개 이상일 때만) */}
+          {notices.length > 1 && (
+            <>
+              {canGoPrevious && (
+                <button
+                  onClick={goToPrevious}
+                  className={`${arrowButtonClasses} left-2`}
+                  aria-label="이전 공지사항"
+                >
+                  <LeftArrow className="stroke-white w-4 h-4" />
+                </button>
+              )}
+
+              {canGoNext && (
+                <button
+                  onClick={goToNext}
+                  className={`${arrowButtonClasses} right-2`}
+                  aria-label="다음 공지사항"
+                >
+                  <RightArrow className="stroke-white w-4 h-4" />
+                </button>
+              )}
+            </>
+          )}
+        </div>
+
+        {/* 인디케이터 (공지사항이 2개 이상일 때만) */}
+        {notices.length > 1 && (
+          <div className="flex justify-center mt-2 gap-1">
+            {notices.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`w-2 h-2 rounded-full transition-colors ${
+                  index === currentIndex ? 'bg-primary-300' : 'bg-gray-300'
+                }`}
+              />
+            ))}
+          </div>
+        )}
       </div>
+
+      {/* 무한 스크롤용 */}
+      {isFetchingNextPage && <div>Loading more...</div>}
+      <div ref={observerRef} />
     </div>
   );
 };
