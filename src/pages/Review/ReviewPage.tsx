@@ -27,7 +27,6 @@ const ReviewPage = () => {
   const { goTo } = useNav();
   const [score, setScore] = useState(0);
 
-
   const {
     data: festivalData,
     isPending,
