@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react';
+
+import { useEffect, useRef, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 import Container from '@/components/common/Container';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
@@ -17,6 +18,11 @@ import getFestivalInfo from '@/apis/festivals/getFestivalInfo';
 import FestivalInfoNoticeListInfoCard from '@/pages/FestivalInfoNoticeList/components/FestivalInfoNoticeListInfoCard';
 import { PICK_ICONS } from '@/constants/pickIcons';
 import PickIcon from '@/components/common/PickIcon';
+import { deleteFestivalNotice } from '@/apis/notice/deleteFestivalNotice';
+import { queryClient } from '@/utils/queryClient';
+import ConfirmModal from '@/components/modal/ConfirmModal';
+import { showToastErrorMessage, showToastSuccessMessage } from '@/utils/showToastMessage';
+import FormSubmitButtons from '@/components/common/FormSubmitButtons';
 
 const FestivalInfoNoticeListPage = () => {
   const { festivalId } = useParams();
@@ -26,12 +32,17 @@ const FestivalInfoNoticeListPage = () => {
   const { userInfo } = useAuth();
   const { goTo } = useNav();
 
+  // 상태 추가
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [selectedNoticeId, setSelectedNoticeId] = useState<number | null>(null);
+
   // 축제 정보 조회
   const { data: festivalData } = useQuery({
     queryKey: ['festival', festivalId],
     queryFn: () => getFestivalInfo({ festivalId: festivalId || '' }),
     select: (data) => data.data,
   });
+
   // API 호출
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, error } =
     useInfiniteQuery({
@@ -80,6 +91,48 @@ const FestivalInfoNoticeListPage = () => {
     }
   }, [focusNoticeId]);
 
+  // 관리자인지 확인
+  const isCurrentUserManager = userInfo?.userId === festivalData?.content?.managerId;
+
+  const handleCreateNotice = () => {
+    goTo(generatePath(ROUTE_PATH.FESTIVAL_NOTICE_CREATE, { festivalId: festivalId || '' }));
+  };
+
+  // 수정 버튼 핸들러
+  const handleEditNotice = (noticeId: number) => {
+    goTo(generatePath(ROUTE_PATH.FESTIVAL_NOTICE_EDIT, { 
+      festivalId: festivalId || '', 
+      noticeId: noticeId.toString() 
+    }));
+  };
+
+  // 삭제 뮤테이션
+  const deleteNoticeMutation = useMutation({
+    mutationFn: (noticeId: number) => deleteFestivalNotice(noticeId.toString()),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['festival-notices', festivalId] });
+      showToastSuccessMessage('공지사항이 삭제되었습니다.');
+      setIsConfirmOpen(false);
+      setSelectedNoticeId(null);
+    },
+    onError: () => {
+      showToastErrorMessage('공지사항 삭제에 실패했습니다.');
+    },
+  });
+
+  // 삭제 확인 핸들러
+  const handleConfirmDelete = () => {
+    if (selectedNoticeId) {
+      deleteNoticeMutation.mutate(selectedNoticeId);
+    }
+  };
+
+  // 삭제 버튼 핸들러
+  const handleDeleteNotice = (noticeId: number) => {
+    setIsConfirmOpen(true);
+    setSelectedNoticeId(noticeId);
+  };
+
   // 로딩 상태
   if (isLoading) {
     return (
@@ -115,13 +168,6 @@ const FestivalInfoNoticeListPage = () => {
       </Container>
     );
   }
-
-  // 관리자인지 확인
-  const isCurrentUserManager = userInfo?.userId === notices[0]?.userId; // 임시로 첫 번째 공지의 작성자와 비교
-
-  const handleCreateNotice = () => {
-    goTo(generatePath(ROUTE_PATH.FESTIVAL_NOTICE_CREATE, { festivalId: festivalId || '' }));
-  };
 
   return (
     <Container>
@@ -174,6 +220,21 @@ const FestivalInfoNoticeListPage = () => {
                 ))}
               </div>
             )}
+
+            {isCurrentUserManager && (
+              <div className="mt-4 pt-3 border-t border-gray-100">
+                <FormSubmitButtons
+                  onCancel={() => handleEditNotice(notice.id)}
+                  onSubmit={() => handleDeleteNotice(notice.id)}
+                  isEdit={false}
+                  isDisabled={deleteNoticeMutation.isPending}
+                  isLoading={deleteNoticeMutation.isPending}
+                  submitLabel="삭제"
+                  cancelLabel="수정"
+                  submitType="button"
+                />
+              </div>
+            )}
           </div>
         ))}
 
@@ -186,6 +247,20 @@ const FestivalInfoNoticeListPage = () => {
         <div ref={observerRef} />
       </div>
       <Footer />
+
+      {/* 삭제 확인 모달 */}
+      <ConfirmModal
+        isOpen={isConfirmOpen}
+        onClose={() => {
+          setIsConfirmOpen(false);
+          setSelectedNoticeId(null);
+        }}
+        onConfirm={handleConfirmDelete}
+        title="공지사항 삭제"
+        message="정말로 이 공지사항을 삭제하시겠습니까?"
+        confirmText="삭제"
+        cancelText="취소"
+      />
     </Container>
   );
 };
