@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Button from '@/components/common/Button';
 import type { UserInfoResponse } from '@/types/UserType';
 import { postReview, type PostReviewBody } from '@/apis/review/postReview';
 import useNav from '@/hooks/useNav';
@@ -9,8 +8,9 @@ import { jwtExchange } from '@/apis/auth/jwtExchange';
 import { getCurrentToken } from '@/apis/apiInstance';
 import FormSubmitButtons from '@/components/common/FormSubmitButtons';
 import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
-import PickIcon from '@/components/common/PickIcon';
-import { PICK_ICONS } from '@/constants/pickIcons';
+import TextInputWithCounter from '@/components/form/TextInputWithCounter';
+import MediaUploadSection from '@/components/form/MediaUploadSection';
+
 import {
   showToastErrorMessage,
   showToastAxiosError,
@@ -84,73 +84,49 @@ const ReviewForm = ({ festivalId, score }: ReviewFormProps) => {
     <div className="bg-white rounded-lg p-4 shadow-sm">
       <h3 className="font-semibold mb-3">축제 후기를 남겨주세요.</h3>
 
-      <div className="flex gap-2 mb-3">
-        <Button
-          variant="secondary"
-          className="flex-1"
-          onClick={async () => {
-            pickAndUploadImages();
-          }}
-        >
-          <PickIcon name={PICK_ICONS.CAMERA} size={20} className="mr-2" />
-          사진 업로드
-        </Button>
-        <Button
-          variant="secondary"
-          className="flex-1"
-          onClick={async () => {
-            pickAndUploadVideo?.();
-          }}
-        >
-          <PickIcon name={PICK_ICONS.VIDEO} size={20} className="mr-2" />
-          동영상 업로드
-        </Button>
-      </div>
-
-      {(imageInfos.length > 0 || videoInfo) && (
-        <div className="mb-3">
-          <h4 className="text-sm font-medium text-gray-700 mb-2">업로드된 미디어</h4>
-          <div className="flex flex-wrap gap-2">
-            {imageInfos.map((image, index) => (
-              <div key={index} className="relative">
-                <img
-                  src={image.presignedUrl}
-                  alt={`업로드된 이미지 ${index + 1}`}
-                  className="w-16 h-16 object-cover rounded-lg border border-gray-200"
-                />
-                <button
-                  onClick={() => setImageInfos((prev) => prev.filter((_, i) => i !== index))}
-                  className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600"
-                >
-                  ×
-                </button>
-              </div>
-            ))}
-
-            {videoInfo && (
-              <div className="relative">
-                <video
-                  src={videoInfo.presignedUrl}
-                  className="w-16 h-16 object-cover rounded-lg border border-gray-200"
-                  controls={false}
-                />
-                <button
-                  onClick={() => setVideoInfo(null)}
-                  className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600"
-                >
-                  ×
-                </button>
-              </div>
-            )}
-          </div>
+      {/* 이미지 업로드 섹션 */}
+      <div className="flex flex-row gap-2 justify-center">
+        <div className="flex-1">
+          <MediaUploadSection
+            mediaInfos={imageInfos}
+            onUpload={pickAndUploadImages}
+            onRemove={(index) => setImageInfos((prev) => prev.filter((_, i) => i !== index))}
+            isUploading={isUploading}
+            mediaType="image"
+            maxMedia={10}
+            showProgress={false}
+            showCard={false}
+            label=""
+            layout="flex"
+          />
         </div>
-      )}
-
-      <textarea
+        <div className="flex-1">
+          {/* 동영상 업로드 섹션 */}
+          <MediaUploadSection
+            mediaInfos={videoInfo ? [videoInfo] : []}
+            onUpload={() => pickAndUploadVideo?.()}
+            onRemove={() => setVideoInfo(null)}
+            isUploading={isUploading}
+            mediaType="video"
+            maxMedia={1}
+            showProgress={false}
+            showCard={false}
+            label=""
+            layout="flex"
+          />
+        </div>
+      </div>
+      <TextInputWithCounter
         value={content}
         onChange={(e) => setContent(e.target.value)}
         placeholder="이번 축제의 소중한 후기를 남겨주세요. 남겨주신 후기는 다른 분들이 축제를 선택할 때 큰 도움이 됩니다."
-        className="w-full h-32 p-3 bg-gray-50 rounded-lg border-0 resize-none"
+        maxLength={500}
+        minLength={10}
+        type="textarea"
+        className="h-32 resize-none"
+        rows={5}
+        showMinLengthMessage={true}
+        minLengthMessage="최소 10자 이상 입력해주세요"
       />
 
       <FormSubmitButtons

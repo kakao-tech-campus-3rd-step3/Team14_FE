@@ -13,6 +13,7 @@ import { useSlider } from '@/hooks/useSlider';
 import LeftArrow from '@/components/icon/LeftArrowIcon';
 import RightArrow from '@/components/icon/RightArrowIcon';
 import { useNoticeNavigationHandlers } from '@/hooks/useNoticeNavigationHandlers';
+import FestivalContentNoticeSectionCard from '@/pages/FestivalInfo/components/FestivalContentNoticeSectionCard';
 
 interface FestivalContentNoticeSectionProps {
   festivalId: string;
@@ -156,14 +157,7 @@ const FestivalContentNoticeSection = ({
           >
             {notices.map((notice) => (
               <div key={notice.id} className="w-full h-full flex-shrink-0 px-2">
-                <button
-                  onClick={() => handleNoticeClick(notice.id)}
-                  className="w-full h-full p-3 border border-gray-200 rounded-lg flex items-center bg-white shadow-sm hover:bg-gray-50 hover:border-primary-300 transition-all duration-200 cursor-pointer"
-                >
-                  <p className="font-medium text-gray-900 text-lg line-clamp-2 w-full text-center">
-                    {notice.title}
-                  </p>
-                </button>
+                <FestivalContentNoticeSectionCard notice={notice} onClick={handleNoticeClick} />
               </div>
             ))}
           </div>
@@ -211,7 +205,7 @@ const FestivalContentNoticeSection = ({
       </div>
 
       {/* 무한 스크롤용 */}
-      {isFetchingNextPage && <div>Loading more...</div>}
+      {isFetchingNextPage && <LoadingSpinner size="sm" message="공지사항을 불러오는 중..." />}
       <div ref={observerRef} />
     </div>
   );
