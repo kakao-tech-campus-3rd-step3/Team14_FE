@@ -10,6 +10,10 @@ import { useAuth } from '@/context/AuthContext';
 import FestivalInfoNoticeEditForm from '@/pages/FestivalInfoNoticeEdit/components/FestivalInfoNoticeEditForm';
 import type { Notice } from '@/types/Notice';
 
+/**
+ * 공지사항 수정 페이지
+ * @returns 공지사항 수정 페이지
+ */
 const FestivalInfoNoticeEditPage = () => {
   const { festivalId, noticeId } = useParams();
   const location = useLocation();

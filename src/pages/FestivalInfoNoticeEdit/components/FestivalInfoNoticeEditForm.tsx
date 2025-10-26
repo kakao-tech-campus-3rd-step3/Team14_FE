@@ -15,13 +15,21 @@ import { queryClient } from '@/utils/queryClient';
 import { showToastAxiosError, showToastSuccessMessage } from '@/utils/showToastMessage';
 import TextInputWithCounter from '@/components/form/TextInputWithCounter';
 import MediaUploadSection from '@/components/form/MediaUploadSection';
+import { showToastErrorMessage } from '@/utils/showToastMessage';
+import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 
 interface FestivalInfoNoticeEditFormProps {
   festivalData: FestivalInfo;
   noticeData: Notice;
   noticeId: string;
 }
-
+/**
+ * 공지사항 수정 폼 컴포넌트
+ * @param festivalData - 축제 데이터
+ * @param noticeData - 공지사항 데이터
+ * @param noticeId - 공지사항 ID
+ * @returns 공지사항 수정 폼 컴포넌트
+ */
 const FestivalInfoNoticeEditForm = ({
   festivalData,
   noticeData,
@@ -66,12 +74,10 @@ const FestivalInfoNoticeEditForm = ({
 
   const handleSubmit = () => {
     if (!title.trim()) {
-      alert('제목을 입력해주세요.');
-      return;
+      return showToastErrorMessage(SYSTEM_MESSAGES.INPUT_FORM.TITLE_REQUIRED);
     }
     if (!content.trim()) {
-      alert('내용을 입력해주세요.');
-      return;
+      return showToastErrorMessage(SYSTEM_MESSAGES.INPUT_FORM.CONTENT_REQUIRED);
     }
 
     submitApplication({
@@ -116,7 +122,7 @@ const FestivalInfoNoticeEditForm = ({
           type="textarea"
           rows={5}
           showMinLengthMessage={true}
-          minLengthMessage="최소 10자 이상 입력해주세요"
+          minLengthMessage={SYSTEM_MESSAGES.INPUT_FORM.LENGTH_REQUIRED(10, 2000)}
           errorClassName="text-red-500"
         />
 

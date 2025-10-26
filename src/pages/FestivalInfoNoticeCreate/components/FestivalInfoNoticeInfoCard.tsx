@@ -4,7 +4,13 @@ interface FestivalInfoNoticeInfoCardProps {
   festivalData: FestivalInfo;
   title?: string;
 }
-
+/**
+ * 공지사항 정보 카드
+ * 공지사항 정보를 표시해주는 카드입니다.
+ * @param festivalData - 축제 데이터
+ * @param title - 공지사항 제목
+ * @returns 공지사항 정보 카드
+ */
 const FestivalInfoNoticeInfoCard = ({ festivalData, title }: FestivalInfoNoticeInfoCardProps) => {
   return (
     <div className="mb-6 p-4 bg-gray-50 rounded-lg">

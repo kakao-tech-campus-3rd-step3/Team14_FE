@@ -1,6 +1,10 @@
 import PickIcon from '@/components/common/PickIcon';
 import { PICK_ICONS } from '@/constants/pickIcons';
-
+/**
+ * 공지사항 작성 규칙 카드
+ * 공지사항 작성 규칙을 표시해주는 카드입니다.
+ * @returns 공지사항 작성 규칙 카드
+ */
 const FestivalInfoNoticeRuleCard = () => {
   return (
     <div className="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
