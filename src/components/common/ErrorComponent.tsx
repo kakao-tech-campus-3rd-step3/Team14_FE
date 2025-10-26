@@ -7,6 +7,7 @@ interface ErrorComponentProps {
   showBackButton?: boolean;
   onRetry?: () => void;
   isGlobal?: boolean;
+  className?: string;
 }
 
 /**
@@ -25,6 +26,7 @@ const ErrorComponent = ({
   showBackButton = true,
   onRetry,
   isGlobal = false,
+  className,
 }: ErrorComponentProps) => {
   const { goBack } = useNav();
 
@@ -42,7 +44,7 @@ const ErrorComponent = ({
     : 'flex flex-col items-center justify-center h-[calc(100vh-110px)]';
 
   return (
-    <div className={containerClass}>
+    <div className={`${containerClass} ${className}`}>
       <div className="text-center flex flex-col gap-10">
         <div className="flex flex-col gap-1">
           <h2 className="text-xl font-semibold mb-2">{displayTitle}</h2>
