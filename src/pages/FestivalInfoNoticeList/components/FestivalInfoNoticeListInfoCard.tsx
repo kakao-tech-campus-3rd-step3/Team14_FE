@@ -6,6 +6,7 @@ interface FestivalInfoNoticeListInfoCardProps {
   title?: string;
   showCreateButton?: boolean;
   onCreateNotice?: () => void;
+  onClick?: () => void;
 }
 
 const FestivalInfoNoticeListInfoCard = ({
@@ -13,13 +14,21 @@ const FestivalInfoNoticeListInfoCard = ({
   title,
   showCreateButton = false,
   onCreateNotice,
+  onClick,
 }: FestivalInfoNoticeListInfoCardProps) => {
   return (
-    <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+    <div className="mb-6 p-4 bg-gray-50 rounded-lg cursor-pointer" onClick={onClick}>
       <div className="flex justify-between items-center mb-2">
         <h3 className="font-semibold text-lg">{title || '공지사항을 작성할 축제'}</h3>
         {showCreateButton && onCreateNotice && (
-          <Button variant="text" onClick={onCreateNotice} className="text-sm text-primary-300">
+          <Button
+            variant="text"
+            onClick={(e) => {
+              e.stopPropagation();
+              onCreateNotice();
+            }}
+            className="text-sm text-primary-300"
+          >
             공지사항 작성
           </Button>
         )}

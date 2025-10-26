@@ -25,9 +25,10 @@ export const useNoticeNavigationHandlers = (festivalId: string) => {
       generatePath(ROUTE_PATH.FESTIVAL_NOTICE_EDIT, {
         festivalId,
         noticeId: noticeId.toString(),
-      }),{
+      }),
+      {
         state: { noticeData },
-      }
+      },
     );
   };
   const handleNoticeClick = (noticeId: number) => {
@@ -35,5 +36,8 @@ export const useNoticeNavigationHandlers = (festivalId: string) => {
       state: { focusNoticeId: noticeId },
     });
   };
-  return { handleCreateNotice, handleEditNotice, handleNoticeClick };
+  const handleFestivalClick = () => {
+    goTo(generatePath(ROUTE_PATH.FESTIVAL_INFO, { festivalId }));
+  };
+  return { handleCreateNotice, handleEditNotice, handleNoticeClick, handleFestivalClick };
 };

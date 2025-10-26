@@ -24,7 +24,6 @@ const FestivalInfoNoticeListPage = () => {
   const focusNoticeId = location.state?.focusNoticeId;
   const noticeRefs = useRef<{ [key: number]: HTMLDivElement | null }>({});
   const { userInfo } = useAuth();
-
   const {
     isConfirmOpen,
     isDeleting,
@@ -65,7 +64,9 @@ const FestivalInfoNoticeListPage = () => {
   // 관리자인지 확인
   const isCurrentUserManager = userInfo?.userId === festivalData?.content?.managerId;
 
-  const { handleCreateNotice, handleEditNotice } = useNoticeNavigationHandlers(festivalId || '');
+  const { handleCreateNotice, handleEditNotice, handleFestivalClick } = useNoticeNavigationHandlers(
+    festivalId || '',
+  );
 
   // 무한 스크롤
   const { ref: observerRef } = useIntersectionObserver(() => {
@@ -153,6 +154,7 @@ const FestivalInfoNoticeListPage = () => {
             title="지금 보고 있는 축제"
             showCreateButton={isCurrentUserManager}
             onCreateNotice={handleCreateNotice}
+            onClick={handleFestivalClick}
           />
         )}
 
@@ -164,7 +166,7 @@ const FestivalInfoNoticeListPage = () => {
             noticeRefs={noticeRefs}
             focusNoticeId={focusNoticeId}
             isCurrentUserManager={isCurrentUserManager}
-            handleEditNotice={() => handleEditNotice(notice.id, notice)} 
+            handleEditNotice={() => handleEditNotice(notice.id, notice)}
             handleDeleteNotice={() => handleDelete(notice.id)}
             isDeleting={isDeleting}
           />

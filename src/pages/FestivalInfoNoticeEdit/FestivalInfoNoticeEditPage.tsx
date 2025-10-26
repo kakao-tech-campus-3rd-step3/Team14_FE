@@ -1,4 +1,3 @@
-// src/pages/FestivalInfoNoticeEdit/FestivalInfoNoticeEditPage.tsx
 import { useLocation, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import Container from '@/components/common/Container';
@@ -41,7 +40,11 @@ const FestivalInfoNoticeEditPage = () => {
     return (
       <Container>
         <Header variant="page" title="공지사항 수정" />
-        <ErrorComponent title="권한이 없습니다" message="관리자만 공지사항을 수정할 수 있습니다." showBackButton={true} />
+        <ErrorComponent
+          title="권한이 없습니다"
+          message="관리자만 공지사항을 수정할 수 있습니다."
+          showBackButton={true}
+        />
         <Footer />
       </Container>
     );
@@ -51,7 +54,11 @@ const FestivalInfoNoticeEditPage = () => {
     return (
       <Container>
         <Header variant="page" title="공지사항 수정" />
-        <ErrorComponent title="데이터를 찾을 수 없습니다" message="축제 또는 공지사항 정보를 찾을 수 없습니다." showBackButton={true} />
+        <ErrorComponent
+          title="데이터를 찾을 수 없습니다"
+          message="축제 또는 공지사항 정보를 찾을 수 없습니다."
+          showBackButton={true}
+        />
         <Footer />
       </Container>
     );
@@ -60,8 +67,8 @@ const FestivalInfoNoticeEditPage = () => {
   return (
     <Container>
       <Header variant="page" title="공지사항 수정" />
-      <FestivalInfoNoticeEditForm 
-        festivalData={festivalData.content} 
+      <FestivalInfoNoticeEditForm
+        festivalData={festivalData.content}
         noticeData={noticeData}
         noticeId={noticeId!}
       />

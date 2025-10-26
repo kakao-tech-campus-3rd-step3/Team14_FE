@@ -23,12 +23,12 @@ interface FestivalInfoNoticeEditFormProps {
   noticeId: string;
 }
 
-const FestivalInfoNoticeEditForm = ({ 
-  festivalData, 
-  noticeData, 
-  noticeId 
+const FestivalInfoNoticeEditForm = ({
+  festivalData,
+  noticeData,
+  noticeId,
 }: FestivalInfoNoticeEditFormProps) => {
-  const { goTo, goBack } = useNav();
+  const { goBack } = useNav();
   const navigate = useNavigate();
 
   // 기존 데이터로 초기화
@@ -54,9 +54,11 @@ const FestivalInfoNoticeEditForm = ({
     onSuccess: () => {
       // 관련 쿼리들 무효화
       queryClient.invalidateQueries({ queryKey: ['festival-notices'] });
-      
+
       showToastSuccessMessage('공지사항이 수정되었습니다.');
-      navigate(generatePath(ROUTE_PATH.FESTIVAL_NOTICES, { festivalId: festivalData.id.toString() }));
+      navigate(
+        generatePath(ROUTE_PATH.FESTIVAL_NOTICES, { festivalId: festivalData.id.toString() }),
+      );
     },
     onError: (error: unknown) => {
       showToastAxiosError(error);
