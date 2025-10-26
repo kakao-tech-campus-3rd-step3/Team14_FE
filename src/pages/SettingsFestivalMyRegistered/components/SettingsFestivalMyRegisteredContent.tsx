@@ -3,7 +3,7 @@ import { getMyFestivals } from '@/apis/festivals/getMyFestivals';
 import type { Festival } from '@/types/FestivalType';
 import EmptyComponent from '@/components/common/EmptyComponent';
 import FestivalCard from '@/pages/Festivals/components/FestivalCard';
-import LoadingSpinner from '@/components/common/LoadingSpinner';
+import LoadingSpinner from '@/components/loading/LoadingSpinner';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
 /**

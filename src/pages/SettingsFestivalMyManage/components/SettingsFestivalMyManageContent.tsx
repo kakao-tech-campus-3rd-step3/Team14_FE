@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { getMyFestivalPermissions } from '@/apis/festivalManager/getMyFestivalPermissions';
 import type { FestivalPermissionItem } from '@/apis/festivalManager/getMyFestivalPermissions';
 import EmptyComponent from '@/components/common/EmptyComponent';
-import LoadingSpinner from '@/components/common/LoadingSpinner';
+import LoadingSpinner from '@/components/loading/LoadingSpinner';
 import FestivalPermissionCard from '@/pages/SettingsFestivalMyManage/components/FestivalPermissionCard';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 

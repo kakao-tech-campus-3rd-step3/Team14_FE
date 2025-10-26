@@ -2,7 +2,7 @@
 
 exports[`Footer 컴포넌트 > 기본 렌더링 > 기본 상태 스냅샷 - 선택된 버튼 없음 > footer-button-structure 1`] = `
 <button
-  class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3 "
+  class="flex items-center justify-center hover:opacity-90 transition-opacity duration-100 w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3 "
   type="button"
 >
   <svg
@@ -31,7 +31,7 @@ exports[`Footer 컴포넌트 > 기본 렌더링 > 기본 상태 스냅샷 - 선�
 
 exports[`Footer 컴포넌트 > 기본 렌더링 > 선택된 상태 스냅샷 - home 선택 > selected-button 1`] = `
 <button
-  class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3 "
+  class="flex items-center justify-center hover:opacity-90 transition-opacity duration-100 w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3 "
   type="button"
 >
   <svg
@@ -60,7 +60,7 @@ exports[`Footer 컴포넌트 > 기본 렌더링 > 선택된 상태 스냅샷 - h
 
 exports[`Footer 컴포넌트 > 기본 렌더링 > 선택된 상태 스냅샷 - home 선택 > unselected-button 1`] = `
 <button
-  class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3 "
+  class="flex items-center justify-center hover:opacity-90 transition-opacity duration-100 w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3 "
   type="button"
 >
   <svg
@@ -89,7 +89,7 @@ exports[`Footer 컴포넌트 > 기본 렌더링 > 선택된 상태 스냅샷 - h
 
 exports[`Footer 컴포넌트 > 상호작용 테스트 > 버튼 클릭 시 폰트가 볼드로 변경된다 > clicked-home-button 1`] = `
 <button
-  class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3 "
+  class="flex items-center justify-center hover:opacity-90 transition-opacity duration-100 w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 flex-col text-xs pt-2 pb-3 px-3 "
   type="button"
 >
   <svg

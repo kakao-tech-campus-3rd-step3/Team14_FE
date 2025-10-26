@@ -5,6 +5,11 @@ import jwtExchange from '@/apis/auth/jwtExchange';
 import axios from 'axios';
 import { ROUTE_PATH } from '@/constants/routes';
 import { safePath } from '@/utils/safePath';
+import Container from '@/components/common/Container';
+import Header from '@/components/common/Header';
+import Footer from '@/components/common/Footer';
+import LoadingSpinner from '@/components/loading/LoadingSpinner';
+import ErrorComponent from '@/components/common/ErrorComponent';
 /**
  * 로그인 콜백 컴포넌트
  * 로그인 콜백 처리
@@ -69,19 +74,21 @@ const LoginCallback = () => {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-300"></div>
-        <p className="mt-4 text-lg text-gray-600">로그인 처리 중</p>
-      </div>
+      <Container>
+        <Header variant="logo" />
+        <LoadingSpinner size="lg" message="로그인 처리 중" />
+        <Footer />
+      </Container>
     );
   }
 
   if (error) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen">
-        <div className="text-red-500 text-lg mb-4">{error}</div>
-        <p className="text-gray-600">에러가 발생했습니다. 로그인 페이지로 다시 이동됩니다.</p>
-      </div>
+      <Container>
+        <Header variant="logo" />
+        <ErrorComponent title="로그인 처리 중 오류가 발생했습니다." message={error} />
+        <Footer />
+      </Container>
     );
   }
 

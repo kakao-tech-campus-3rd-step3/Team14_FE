@@ -8,6 +8,7 @@ import { ROUTE_PATH } from '@/constants/routes';
 import { generatePath } from 'react-router-dom';
 import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 import { checkFestivalManagerApply } from '@/apis/festivalManager/checkFestivalManagerApply';
+import { showToastErrorMessage, showToastAxiosError } from '@/utils/showToastMessage';
 
 interface FestivalContentManagerSectionProps {
   festivalId: string;
@@ -35,14 +36,14 @@ const FestivalContentManagerSection = ({
 
   const handleApplyClick = async () => {
     if (!isLoggedIn) {
-      alert(SYSTEM_MESSAGES.REVIEW.LOGIN_REQUIRED);
+      showToastErrorMessage(SYSTEM_MESSAGES.REVIEW.LOGIN_REQUIRED);
       navigate(ROUTE_PATH.LOGIN);
       return;
     }
 
     // 이미 이 축제의 관리자인 경우
     if (managerId === userInfo?.userId) {
-      alert(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.ALREADY_MANAGER);
+      showToastErrorMessage(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.ALREADY_MANAGER);
       return;
     }
 
@@ -89,8 +90,7 @@ const FestivalContentManagerSection = ({
         navigate(generatePath(ROUTE_PATH.FESTIVAL_MANAGER_APPLY, { festivalId }));
       }
     } catch (error) {
-      console.error('권한/중복 확인 실패:', error);
-      alert(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.CHECK_ERROR);
+      showToastAxiosError(error);
     }
   };
 

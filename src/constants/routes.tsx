@@ -22,9 +22,9 @@ export const ROUTE_PATH = {
   FAQ: '/settings/faq',
   SEARCH: '/search',
   FESTIVAL_MANAGER_APPLY: '/festival/:festivalId/manager-apply',
-
   FESTIVAL_NOTICES: '/festival/:festivalId/notices',
   FESTIVAL_NOTICE_DETAIL: '/festival/:festivalId/notice/:noticeId',
   FESTIVAL_NOTICE_CREATE: '/festival/:festivalId/notice/create',
   FESTIVAL_NOTICE_EDIT: '/festival/:festivalId/notice/:noticeId/edit',
+  NOT_FOUND: '*',
 } as const;

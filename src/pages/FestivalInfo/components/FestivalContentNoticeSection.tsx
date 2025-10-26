@@ -3,7 +3,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { getFestivalNotices } from '@/apis/notice/getFestivalNotices';
 import EmptyComponent from '@/components/common/EmptyComponent';
 import ErrorComponent from '@/components/common/ErrorComponent';
-import LoadingSpinner from '@/components/common/LoadingSpinner';
+import LoadingSpinner from '@/components/loading/LoadingSpinner';
 import PickIcon from '@/components/common/PickIcon';
 import { PICK_ICONS } from '@/constants/pickIcons';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';

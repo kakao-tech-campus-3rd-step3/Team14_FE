@@ -1,4 +1,6 @@
 import Button from '@/components/common/Button';
+import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
+import { showToastErrorMessage } from '@/utils/showToastMessage';
 
 const FestivalHostInfo = ({ url }: { url: string }) => {
   const goToPage = () => {
@@ -7,7 +9,7 @@ const FestivalHostInfo = ({ url }: { url: string }) => {
       new URL(url);
       window.open(url, '_blank', 'noopener,noreferrer');
     } catch {
-      alert('유효하지 않은 URL입니다.');
+      showToastErrorMessage(SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.URL_INVALID);
     }
   };
   return (

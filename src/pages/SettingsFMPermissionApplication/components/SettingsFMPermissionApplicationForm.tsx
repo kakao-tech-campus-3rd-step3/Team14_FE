@@ -11,6 +11,7 @@ import type { FMPermissionRequest } from '@/types/FMPermissionsRequest';
 import { putFMPermission } from '@/apis/festivalManager/putFMPermission';
 import { isAxiosError } from 'axios';
 import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
+import { showToastErrorMessage, showToastSuccessMessage } from '@/utils/showToastMessage';
 
 interface SettingsFMPermissionApplicationFormProps {
   initialData?: {
@@ -42,20 +43,20 @@ const SettingsFMPermissionApplicationForm = ({
     mutationFn: (body: FMPermissionRequest) => postFMPermission(body),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['fmPermission'] });
-      alert(SYSTEM_MESSAGES.FM_APPLICATION.SUBMIT_SUCCESS);
+      showToastSuccessMessage(SYSTEM_MESSAGES.FM_APPLICATION.SUBMIT_SUCCESS);
       goBack();
     },
     onError: (error: unknown) => {
       if (isAxiosError(error)) {
         if (error.response?.status === 409) {
-          alert(SYSTEM_MESSAGES.FM_APPLICATION.ALREADY_EXISTS);
+          showToastErrorMessage(SYSTEM_MESSAGES.FM_APPLICATION.ALREADY_EXISTS);
         } else if (error.response?.status === 400) {
-          alert(SYSTEM_MESSAGES.FM_APPLICATION.CANNOT_APPLY);
+          showToastErrorMessage(SYSTEM_MESSAGES.FM_APPLICATION.CANNOT_APPLY);
         } else {
-          alert(SYSTEM_MESSAGES.FM_APPLICATION.SUBMIT_ERROR);
+          showToastErrorMessage(SYSTEM_MESSAGES.FM_APPLICATION.SUBMIT_ERROR);
         }
       } else {
-        alert(SYSTEM_MESSAGES.FM_APPLICATION.SUBMIT_ERROR);
+        showToastErrorMessage(SYSTEM_MESSAGES.FM_APPLICATION.SUBMIT_ERROR);
       }
     },
   });
@@ -63,22 +64,22 @@ const SettingsFMPermissionApplicationForm = ({
     mutationFn: (body: FMPermissionRequest) => putFMPermission(body),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['fmPermission'] });
-      alert(SYSTEM_MESSAGES.FM_APPLICATION.UPDATE_SUCCESS);
+      showToastSuccessMessage(SYSTEM_MESSAGES.FM_APPLICATION.UPDATE_SUCCESS);
       goBack();
     },
     onError: (error: unknown) => {
       if (isAxiosError(error)) {
         if (error.response?.status === 403) {
-          alert(SYSTEM_MESSAGES.FM_APPLICATION.UPDATE_NO_PERMISSION);
+          showToastErrorMessage(SYSTEM_MESSAGES.FM_APPLICATION.UPDATE_NO_PERMISSION);
         } else if (error.response?.status === 404) {
-          alert(SYSTEM_MESSAGES.FM_APPLICATION.UPDATE_NOT_FOUND);
+          showToastErrorMessage(SYSTEM_MESSAGES.FM_APPLICATION.UPDATE_NOT_FOUND);
         } else if (error.response?.status === 400) {
-          alert(SYSTEM_MESSAGES.FM_APPLICATION.UPDATE_INVALID_REQUEST);
+          showToastErrorMessage(SYSTEM_MESSAGES.FM_APPLICATION.UPDATE_INVALID_REQUEST);
         } else {
-          alert(SYSTEM_MESSAGES.FM_APPLICATION.UPDATE_ERROR);
+          showToastErrorMessage(SYSTEM_MESSAGES.FM_APPLICATION.UPDATE_ERROR);
         }
       } else {
-        alert(SYSTEM_MESSAGES.FM_APPLICATION.UPDATE_ERROR);
+        showToastErrorMessage(SYSTEM_MESSAGES.FM_APPLICATION.UPDATE_ERROR);
       }
     },
   });
@@ -88,15 +89,15 @@ const SettingsFMPermissionApplicationForm = ({
     const trimmedDepartment = department.trim();
 
     if (!trimmedDepartment) {
-      return alert('부서명을 입력해주세요.');
+      return showToastErrorMessage(SYSTEM_MESSAGES.FM_APPLICATION_VALIDATION.DEPARTMENT_REQUIRED);
     }
 
     if (trimmedDepartment.length < 2 || trimmedDepartment.length > 50) {
-      return alert('부서명은 2자 이상 50자 이하여야 합니다.');
+      return showToastErrorMessage(SYSTEM_MESSAGES.FM_APPLICATION_VALIDATION.DEPARTMENT_LENGTH);
     }
 
     if (documents.length === 0) {
-      return alert('최소 1개 이상의 증빙 서류를 업로드해주세요.');
+      return showToastErrorMessage(SYSTEM_MESSAGES.FM_APPLICATION_VALIDATION.DOCUMENT_REQUIRED);
     }
 
     submitApplication({
@@ -113,15 +114,15 @@ const SettingsFMPermissionApplicationForm = ({
     const trimmedDepartment = department.trim();
 
     if (!trimmedDepartment) {
-      return alert(SYSTEM_MESSAGES.FM_APPLICATION_VALIDATION.DEPARTMENT_REQUIRED);
+      return showToastErrorMessage(SYSTEM_MESSAGES.FM_APPLICATION_VALIDATION.DEPARTMENT_REQUIRED);
     }
 
     if (trimmedDepartment.length < 2 || trimmedDepartment.length > 50) {
-      return alert(SYSTEM_MESSAGES.FM_APPLICATION_VALIDATION.DEPARTMENT_LENGTH);
+      return showToastErrorMessage(SYSTEM_MESSAGES.FM_APPLICATION_VALIDATION.DEPARTMENT_LENGTH);
     }
 
     if (documents.length === 0) {
-      return alert(SYSTEM_MESSAGES.FM_APPLICATION_VALIDATION.DOCUMENT_REQUIRED);
+      return showToastErrorMessage(SYSTEM_MESSAGES.FM_APPLICATION_VALIDATION.DOCUMENT_REQUIRED);
     }
 
     updateApplication({

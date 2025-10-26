@@ -1,4 +1,4 @@
-interface SkeletonProps {
+interface LoadingSkeletonProps {
   className?: string;
   variant: 'rectangular' | 'circular' | 'text';
   width?: string;
@@ -6,7 +6,13 @@ interface SkeletonProps {
   animate?: boolean;
 }
 
-const Skeleton = ({ className, variant, width, height, animate = true }: SkeletonProps) => {
+const LoadingSkeleton = ({
+  className,
+  variant,
+  width,
+  height,
+  animate = true,
+}: LoadingSkeletonProps) => {
   const baseClasses = `bg-gray-200 ${animate ? 'animate-pulse' : ''}`;
 
   const variantClasses = {
@@ -23,4 +29,4 @@ const Skeleton = ({ className, variant, width, height, animate = true }: Skeleto
   return <div className={`${baseClasses} ${variantClasses[variant]} ${className}`} style={style} />;
 };
 
-export default Skeleton;
+export default LoadingSkeleton;

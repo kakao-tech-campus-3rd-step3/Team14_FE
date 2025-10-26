@@ -6,7 +6,7 @@ import { useAuth } from '@/context/AuthContext';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import getFestivalInfo from '@/apis/festivals/getFestivalInfo';
-import LoadingSpinner from '@/components/common/LoadingSpinner';
+import LoadingSpinner from '@/components/loading/LoadingSpinner';
 import ErrorComponent from '@/components/common/ErrorComponent';
 
 /**

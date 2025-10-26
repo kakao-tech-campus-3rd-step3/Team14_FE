@@ -9,6 +9,13 @@ import EmptyComponent from '@/components/common/EmptyComponent';
 import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 import { useState, useCallback } from 'react';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
+import {
+  showToastAxiosError,
+  showToastErrorMessage,
+  showToastSuccessMessage,
+} from '@/utils/showToastMessage';
+import LoadingSpinner from '@/components/loading/LoadingSpinner';
+import ConfirmModal from '@/components/modal/ConfirmModal';
 
 const SettingsMyReviewsContent = () => {
   const queryClient = useQueryClient();
@@ -16,6 +23,8 @@ const SettingsMyReviewsContent = () => {
   const [modalMediaItems, setModalMediaItems] = useState<MediaItem[]>([]);
   const [selectedMediaIndex, setSelectedMediaIndex] = useState(0);
 
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [selectedReviewId, setSelectedReviewId] = useState<number>(0);
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } =
     useInfiniteQuery({
       queryKey: ['myReviews'],
@@ -34,16 +43,16 @@ const SettingsMyReviewsContent = () => {
     mutationFn: deleteReview,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['myReviews'] });
-      alert(SYSTEM_MESSAGES.REVIEW.DELETE_SUCCESS);
+      showToastSuccessMessage(SYSTEM_MESSAGES.REVIEW.DELETE_SUCCESS);
     },
     onError: () => {
-      alert(SYSTEM_MESSAGES.REVIEW.DELETE_ERROR);
+      showToastErrorMessage(SYSTEM_MESSAGES.REVIEW.DELETE_ERROR);
     },
   });
 
-  const handleDeleteReview = async (reviewId: number) => {
-    if (!confirm(SYSTEM_MESSAGES.REVIEW.DELETE_CONFIRM)) return;
-    deleteReviewMutation(reviewId);
+  const handleDeleteReview = (reviewId: number) => {
+    setSelectedReviewId(reviewId);
+    setIsConfirmOpen(true);
   };
 
   const handleMediaClick = (review: MyReview, clickedIndex: number) => {
@@ -70,12 +79,7 @@ const SettingsMyReviewsContent = () => {
   const reviews = data?.pages.flatMap((page) => page.data.content) || [];
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-300"></div>
-        <p className="ml-2 text-gray-600">리뷰를 불러오는 중...</p>
-      </div>
-    );
+    return <LoadingSpinner size="lg" className="min-h-[400px]" message="리뷰를 불러오는 중..." />;
   }
 
   if (isError) {
@@ -106,8 +110,8 @@ const SettingsMyReviewsContent = () => {
           showBackButton={true}
         />
       )}
-      onError={(error, errorInfo) => {
-        console.error('MyReviewsPage Error:', error, errorInfo);
+      onError={(error) => {
+        showToastAxiosError(error);
       }}
     >
       <div className="p-4">
@@ -136,6 +140,18 @@ const SettingsMyReviewsContent = () => {
           mediaItems={modalMediaItems}
           selectedMediaIndex={selectedMediaIndex}
           onClose={() => setIsModalOpen(false)}
+        />
+      )}
+      {isConfirmOpen && (
+        <ConfirmModal
+          isOpen={isConfirmOpen}
+          onClose={() => setIsConfirmOpen(false)}
+          onConfirm={() => {
+            deleteReviewMutation(selectedReviewId);
+            setIsConfirmOpen(false);
+          }}
+          title="리뷰 삭제"
+          message={SYSTEM_MESSAGES.REVIEW.DELETE_CONFIRM}
         />
       )}
     </ErrorBoundary>

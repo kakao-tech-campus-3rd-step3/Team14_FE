@@ -15,6 +15,7 @@ import { isAxiosError } from 'axios';
 import { postFestival } from '@/apis/festivals/postFestival';
 import type { PostFestivalRequest } from '@/apis/festivals/postFestival';
 import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
+import { showToastErrorMessage, showToastSuccessMessage } from '@/utils/showToastMessage';
 /**
  * 축제 등록 내용 컴포넌트
  * @returns 축제 등록 내용 컴포넌트
@@ -56,8 +57,8 @@ const SettingsFestivalRegisterContent = () => {
 
   const handleSubmit = async () => {
     const validation = validateFestivalForm(formData, posterInfo, imageInfos);
-    if (!validation.isValid) {
-      alert(validation.errorMessage);
+    if (!validation.isValid && validation.errorMessage) {
+      showToastErrorMessage(validation.errorMessage);
       return;
     }
 
@@ -80,24 +81,22 @@ const SettingsFestivalRegisterContent = () => {
 
       await postFestival(requestBody);
 
-      alert(SYSTEM_MESSAGES.FESTIVAL_REGISTER.SUCCESS);
+      showToastSuccessMessage(SYSTEM_MESSAGES.FESTIVAL_REGISTER.SUCCESS);
       goBack();
     } catch (error) {
-      console.error('축제 등록 실패:', error);
-
       if (isAxiosError(error) && error.response?.data?.fieldErrors) {
         const fieldErrors = error.response.data.fieldErrors as Record<string, string>[];
         const errorMessages = fieldErrors
           .map((fieldError) => `${Object.keys(fieldError)[0]}: ${Object.values(fieldError)[0]}`)
           .join('\n');
-        alert(SYSTEM_MESSAGES.FESTIVAL_REGISTER.FIELD_ERROR(errorMessages));
+        showToastErrorMessage(SYSTEM_MESSAGES.FESTIVAL_REGISTER.FIELD_ERROR(errorMessages));
         return;
       }
 
       if (isAxiosError(error) && error.response?.status === 403) {
-        alert(SYSTEM_MESSAGES.FESTIVAL_REGISTER.NO_PERMISSION);
+        showToastErrorMessage(SYSTEM_MESSAGES.FESTIVAL_REGISTER.NO_PERMISSION);
       } else {
-        alert(SYSTEM_MESSAGES.FESTIVAL_REGISTER.ERROR);
+        showToastErrorMessage(SYSTEM_MESSAGES.FESTIVAL_REGISTER.ERROR);
       }
     } finally {
       setIsSubmitting(false);

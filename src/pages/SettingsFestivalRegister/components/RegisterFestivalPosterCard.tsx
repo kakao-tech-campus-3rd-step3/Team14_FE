@@ -3,6 +3,7 @@ import Button from '@/components/common/Button';
 import { uploadImageFiles } from '@/utils/s3Upload';
 import MAX_MEDIA_SIZE from '@/constants/maxMediaSize';
 import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
+import { showToastErrorMessage, showToastAxiosError } from '@/utils/showToastMessage';
 /**
  * 축제 등록 포스터 카드
  * @param posterInfo - 포스터 정보
@@ -42,12 +43,12 @@ const RegisterFestivalPosterCard = ({
     if (!file) return;
 
     if (file.size > MAX_MEDIA_SIZE.IMAGE) {
-      alert(SYSTEM_MESSAGES.POSTER.FILE_SIZE_EXCEED(MAX_MEDIA_SIZE.IMAGE / 1024 / 1024));
+      showToastErrorMessage(SYSTEM_MESSAGES.POSTER.FILE_SIZE_EXCEED(MAX_MEDIA_SIZE.IMAGE));
       return;
     }
 
     if (!file.type.startsWith('image/')) {
-      alert(SYSTEM_MESSAGES.POSTER.INVALID_FILE_TYPE);
+      showToastErrorMessage(SYSTEM_MESSAGES.POSTER.INVALID_FILE_TYPE);
       return;
     }
 
@@ -65,8 +66,7 @@ const RegisterFestivalPosterCard = ({
       const uploaded = await uploadImageFiles([file]);
       setPosterInfo(uploaded[0]);
     } catch (error) {
-      console.error('포스터 업로드 실패:', error);
-      alert(SYSTEM_MESSAGES.POSTER.UPLOAD_ERROR);
+      showToastAxiosError(error);
       setPosterPreview(null);
       setPosterInfo(null);
     } finally {

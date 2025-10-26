@@ -7,12 +7,15 @@ import { ROUTE_PATH } from '@/constants/routes';
 import axios from 'axios';
 import EmptyComponent from '@/components/common/EmptyComponent';
 import ErrorComponent from '@/components/common/ErrorComponent';
-import LoadingSpinner from '@/components/common/LoadingSpinner';
+import LoadingSpinner from '@/components/loading/LoadingSpinner';
 import SettingsFMPermissionStatusCard from '@/pages/SettingsFMPermissionStatus/components/SettingsFMPermissionStatusCard';
 import SettingsFMPermissionInfoCard from '@/pages/SettingsFMPermissionStatus/components/SettingsFMPermissionInfoCard';
 import SettingsFMPermissionDocumentCard from '@/pages/SettingsFMPermissionStatus/components/SettingsFMPermissionDocumentCard';
 import SettingsFMPermissionButton from '@/pages/SettingsFMPermissionStatus/components/SettingsFMPermissionButton';
 import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
+import { showToastErrorMessage, showToastSuccessMessage } from '@/utils/showToastMessage';
+import ConfirmModal from '@/components/modal/ConfirmModal';
+import { useState } from 'react';
 /**
  * 축제 관리자 신청 상태 내용
  * @returns 축제 관리자 신청 상태 내용 컴포넌트
@@ -21,6 +24,7 @@ import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 const SettingsFMPermissionStatusContent = () => {
   const { goTo, goBack } = useNav();
   const queryClient = useQueryClient();
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['fmPermission'],
@@ -32,18 +36,21 @@ const SettingsFMPermissionStatusContent = () => {
     mutationFn: deleteFMPermission,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['fmPermission'] });
-      alert(SYSTEM_MESSAGES.FM_APPLICATION.DELETE_SUCCESS);
+      showToastSuccessMessage(SYSTEM_MESSAGES.FM_APPLICATION.DELETE_SUCCESS);
       goBack();
     },
     onError: () => {
-      alert(SYSTEM_MESSAGES.FM_APPLICATION.DELETE_ERROR);
+      showToastErrorMessage(SYSTEM_MESSAGES.FM_APPLICATION.DELETE_ERROR);
     },
   });
 
-  const handleDelete = () => {
-    if (confirm(SYSTEM_MESSAGES.FM_APPLICATION.DELETE_CONFIRM)) {
-      deleteApplication();
-    }
+  const handleDeleteClick = () => {
+    setIsConfirmOpen(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    deleteApplication();
+    setIsConfirmOpen(false);
   };
 
   const handleEdit = () => {
@@ -96,8 +103,15 @@ const SettingsFMPermissionStatusContent = () => {
       <SettingsFMPermissionButton
         permission={permission}
         handleEdit={handleEdit}
-        handleDelete={handleDelete}
+        handleDelete={handleDeleteClick}
         isDeleting={isDeleting}
+      />
+      <ConfirmModal
+        isOpen={isConfirmOpen}
+        onClose={() => setIsConfirmOpen(false)}
+        onConfirm={handleDeleteConfirm}
+        title="신청서 삭제"
+        message={SYSTEM_MESSAGES.FM_APPLICATION.DELETE_CONFIRM}
       />
     </div>
   );
