@@ -10,5 +10,8 @@ export interface ReviewUpdateRequest {
 }
 
 export const putReview = async (reviewId: number, body: ReviewUpdateRequest) => {
-  return await apiInstance.put(API_ENDPOINTS.REVIEW_UPDATE.replace(':reviewId', reviewId.toString()), body);
+  return await apiInstance.put(
+    API_ENDPOINTS.REVIEW_UPDATE.replace(':reviewId', reviewId.toString()),
+    body,
+  );
 };

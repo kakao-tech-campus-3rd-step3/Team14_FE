@@ -27,7 +27,7 @@ const ReviewPage = () => {
   const { goTo } = useNav();
   const [score, setScore] = useState(0);
 
-  // useQuery를 모든 조건부 return보다 앞에 위치
+
   const {
     data: festivalData,
     isPending,
@@ -36,12 +36,11 @@ const ReviewPage = () => {
     queryKey: ['festival', festivalId],
     queryFn: () => getFestivalInfo({ festivalId: festivalId || '' }),
     select: (data) => data.data,
-    enabled: !!festivalId && !festivalInfo, // festivalInfo가 없을 때만 실행
+    enabled: !!festivalId && !festivalInfo,
   });
 
   const currentFestivalInfo = festivalInfo || festivalData?.content;
 
-  // festivalId가 없으면 에러 처리
   if (!festivalId) {
     return (
       <Container>
@@ -60,7 +59,6 @@ const ReviewPage = () => {
     );
   }
 
-  // 로딩 중 (festivalInfo가 없고 API 호출 중)
   if (!currentFestivalInfo && isPending) {
     return (
       <Container>
@@ -74,7 +72,6 @@ const ReviewPage = () => {
     );
   }
 
-  // 축제가 존재하지 않거나 에러 발생
   if (!currentFestivalInfo && (isError || !isPending)) {
     return (
       <Container>
@@ -88,7 +85,6 @@ const ReviewPage = () => {
     );
   }
 
-  // festivalInfo가 없으면 에러 처리
   if (!currentFestivalInfo) {
     return (
       <Container>
@@ -115,6 +111,7 @@ const ReviewPage = () => {
           festivalId={festivalId || ''}
           userInfo={userInfo || { email: '', username: '', profileImageUrl: '', userId: 0 }}
           score={score}
+          onScoreChange={setScore}
         />
       </div>
       <Footer />

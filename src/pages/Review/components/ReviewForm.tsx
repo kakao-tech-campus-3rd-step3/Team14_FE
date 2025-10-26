@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { UserInfoResponse } from '@/types/UserType';
 import { postReview, type PostReviewBody } from '@/apis/review/postReview';
 import useNav from '@/hooks/useNav';
@@ -10,18 +10,26 @@ import FormSubmitButtons from '@/components/common/FormSubmitButtons';
 import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 import TextInputWithCounter from '@/components/form/TextInputWithCounter';
 import MediaUploadSection from '@/components/form/MediaUploadSection';
-
+import type { Review } from '@/apis/review/getReview';
+import type { ReviewUpdateRequest } from '@/apis/review/putReview';
 import {
   showToastErrorMessage,
   showToastAxiosError,
   showToastSuccessMessage,
 } from '@/utils/showToastMessage';
+import ScoreStarRating from '@/pages/Review/components/ScoreStarRating';
 
 interface ReviewFormProps {
   festivalId: string;
   userInfo: UserInfoResponse['content'];
   score: number;
+  reviewId?: number;
+  initialData?: Review;
+  onSubmit?: (body: ReviewUpdateRequest) => void;
+  isEditing?: boolean;
+  onScoreChange?: (score: number) => void;
 }
+
 async function ensureToken() {
   if (getCurrentToken()) return;
   try {
@@ -30,14 +38,37 @@ async function ensureToken() {
     showToastAxiosError(error);
   }
 }
-
 /**
- * 리뷰 작성 폼 컴포넌트
+ * 리뷰 폼
+ * 수정모드일때와 리뷰 작성 모드일때의 별점 포함여부가 다릅니다.
  * @param festivalId - 축제 ID
- * @param score - 평점
- * @returns 리뷰 작성 폼 컴포넌트
+ * @param userInfo - 사용자 정보
+ * @param score - 별점
+ * @param initialData - 기존 리뷰 데이터
+ * @param onSubmit - 리뷰 제출 핸들러
+ * @param isEditing - 수정 모드 여부
+ * @param onScoreChange - 별점 변경 핸들러
  */
-const ReviewForm = ({ festivalId, score }: ReviewFormProps) => {
+const ReviewForm = ({
+  festivalId,
+  score,
+  initialData,
+  onSubmit,
+  isEditing = false,
+  onScoreChange,
+}: ReviewFormProps) => {
+  const [content, setContent] = useState(initialData?.content || '');
+  const [currentScore, setCurrentScore] = useState(initialData?.score || score);
+
+  useEffect(() => {
+    setCurrentScore(score);
+  }, [score]);
+  const handleScoreChange = (newScore: number) => {
+    setCurrentScore(newScore);
+    if (onScoreChange) {
+      onScoreChange(newScore);
+    }
+  };
   const {
     imageInfos,
     setImageInfos,
@@ -47,16 +78,31 @@ const ReviewForm = ({ festivalId, score }: ReviewFormProps) => {
     pickAndUploadImages,
     pickAndUploadVideo,
   } = useMediaUpload();
-  const [content, setContent] = useState('');
+
   const { goBack } = useNav();
   const queryClient = useQueryClient();
+  useEffect(() => {
+    if (initialData && isEditing) {
+      const existingImages =
+        initialData.imageUrls?.map((url, index) => ({
+          id: index + 1,
+          presignedUrl: url,
+        })) || [];
+      setImageInfos(existingImages);
+
+      if (initialData.videoUrl) {
+        setVideoInfo({
+          id: 1,
+          presignedUrl: initialData.videoUrl,
+        });
+      }
+    }
+  }, [initialData, isEditing, setImageInfos, setVideoInfo]);
 
   const { mutate: mutateReview, isPending } = useMutation({
     mutationFn: (body: PostReviewBody) => postReview({ festivalId, body }),
     onSuccess: () => {
-      // 상세 페이지 캐시 무효화 -> 활성화되면 자동 refetch되어서 내가 작성한 리뷰 바로 볼 수 있게
       queryClient.invalidateQueries({ queryKey: ['reviews', festivalId] });
-      // 리뷰 개수/평점이 바뀐다면 함께 무효화 -> 상세 페이지 평점, 리뷰 수 등이 바로 반영되게
       queryClient.invalidateQueries({ queryKey: ['festival', festivalId] });
       showToastSuccessMessage(SYSTEM_MESSAGES.REVIEW.SUBMIT_SUCCESS);
       goBack();
@@ -65,26 +111,44 @@ const ReviewForm = ({ festivalId, score }: ReviewFormProps) => {
       showToastAxiosError(error);
     },
   });
+
   const handleSubmit = async () => {
     const trimmed = content.trim();
-    if (score < 1 || score > 5) return showToastErrorMessage(SYSTEM_MESSAGES.REVIEW.SCORE_REQUIRED);
+    if (currentScore < 1 || currentScore > 5)
+      return showToastErrorMessage(SYSTEM_MESSAGES.REVIEW.SCORE_REQUIRED);
     if (trimmed.length < 10 || trimmed.length > 500)
       return showToastErrorMessage(SYSTEM_MESSAGES.REVIEW.CONTENT_LENGTH);
 
-    await ensureToken(); // 제출 직전 토큰 확인
-    mutateReview({
-      content: trimmed,
-      score,
-      imageInfos: imageInfos.filter(Boolean),
-      videoInfo: videoInfo || undefined,
-    });
+    await ensureToken();
+
+    if (isEditing && onSubmit) {
+      onSubmit({
+        content: trimmed,
+        score: currentScore,
+        imageInfos: imageInfos.filter(Boolean),
+        videoInfo: videoInfo || undefined,
+      });
+    } else {
+      mutateReview({
+        content: trimmed,
+        score: currentScore,
+        imageInfos: imageInfos.filter(Boolean),
+        videoInfo: videoInfo || undefined,
+      });
+    }
   };
 
   return (
     <div className="bg-white rounded-lg p-4 shadow-sm">
-      <h3 className="font-semibold mb-3">축제 후기를 남겨주세요.</h3>
-
-      {/* 이미지 업로드 섹션 */}
+      <h3 className="font-semibold mb-3">
+        {isEditing ? '리뷰를 수정해주세요.' : '축제 후기를 남겨주세요.'}
+      </h3>
+      {isEditing && (
+        <div className="mb-4">
+          <h4 className="text-sm font-medium text-gray-700 mb-2">현재 별점</h4>
+          <ScoreStarRating value={currentScore} onChange={handleScoreChange} />
+        </div>
+      )}
       <div className="flex flex-row gap-2 justify-center">
         <div className="flex-1">
           <MediaUploadSection
@@ -101,7 +165,6 @@ const ReviewForm = ({ festivalId, score }: ReviewFormProps) => {
           />
         </div>
         <div className="flex-1">
-          {/* 동영상 업로드 섹션 */}
           <MediaUploadSection
             mediaInfos={videoInfo ? [videoInfo] : []}
             onUpload={() => pickAndUploadVideo?.()}
@@ -116,6 +179,7 @@ const ReviewForm = ({ festivalId, score }: ReviewFormProps) => {
           />
         </div>
       </div>
+
       <TextInputWithCounter
         value={content}
         onChange={(e) => setContent(e.target.value)}
@@ -134,7 +198,7 @@ const ReviewForm = ({ festivalId, score }: ReviewFormProps) => {
         onSubmit={handleSubmit}
         isDisabled={isPending || isUploading}
         isLoading={isPending || isUploading}
-        submitLabel="리뷰 작성"
+        submitLabel={isEditing ? '리뷰 수정' : '리뷰 작성'}
       />
     </div>
   );

@@ -1,18 +1,20 @@
 import StarRating from '@/components/common/StarRating';
 import type { Review } from '@/apis/review/getReview';
 import FestivalContentReviewMediaSlider from '@/pages/FestivalInfo/components/FestivalContentReviewMediaSlider';
-
-interface FestivalContentReviewSectionProps {
-  reviewsData: Review[] | undefined;
-  festivalTitle: string;
-}
 import { useAuth } from '@/context/AuthContext';
 import { useDeleteWithConfirm } from '@/hooks/useDeleteWithConfirm';
 import { deleteReview } from '@/apis/review/deleteReview';
 import ConfirmModal from '@/components/modal/ConfirmModal';
 import PickIcon from '@/components/common/PickIcon';
 import { PICK_ICONS } from '@/constants/pickIcons';
+import { ROUTE_PATH } from '@/constants/routes';
+import { generatePath } from 'react-router-dom';
+import useNav from '@/hooks/useNav';
 
+interface FestivalContentReviewSectionProps {
+  reviewsData: Review[] | undefined;
+  festivalTitle: string;
+}
 /**
  * 축제 내용 리뷰 섹션
  * @param reviewsData - 리뷰 데이터
@@ -24,6 +26,7 @@ const FestivalContentReviewSection = ({
   festivalTitle,
 }: FestivalContentReviewSectionProps) => {
   const { userInfo } = useAuth();
+  const { goTo } = useNav();
 
   const { isConfirmOpen, handleDelete, handleConfirmDelete, setIsConfirmOpen } =
     useDeleteWithConfirm(
@@ -38,7 +41,7 @@ const FestivalContentReviewSection = ({
   };
 
   const handleEditReview = (reviewId: number) => {
-    // 리뷰 수정 로직
+    goTo(generatePath(ROUTE_PATH.REVIEW_EDIT, { reviewId: reviewId.toString() }));
   };
 
   if (!reviewsData) return null;
@@ -81,7 +84,6 @@ const FestivalContentReviewSection = ({
         </div>
       ))}
 
-      {/* 삭제 확인 모달 */}
       <ConfirmModal
         isOpen={isConfirmOpen}
         onClose={() => setIsConfirmOpen(false)}

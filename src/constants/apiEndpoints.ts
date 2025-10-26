@@ -29,6 +29,8 @@ const API_ENDPOINTS = {
   REVIEW_DELETE: '/api/reviews/:reviewId',
   // 리뷰 수정
   REVIEW_UPDATE: '/api/reviews/:reviewId',
+  // 리뷰 단건 조회
+  REVIEW_SINGLE: '/api/reviews/:reviewId',
   // 미디어 업로드
   PRESIGNED_URL: '/api/presigned-url',
   // 축제 관리자 신청
