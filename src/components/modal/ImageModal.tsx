@@ -52,6 +52,8 @@ const ImageModal = ({ mediaItems, selectedMediaIndex, onClose, title }: ImageMod
     <div
       className="fixed inset-0 bg-black flex items-center justify-center z-[1000]"
       onClick={onClose}
+      role="dialog"
+      aria-modal="true"
     >
       <div className="relative w-full h-full max-w-[480px] p-2 flex items-center justify-center">
         <div
