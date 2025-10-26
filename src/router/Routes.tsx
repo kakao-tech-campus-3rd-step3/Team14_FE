@@ -23,6 +23,7 @@ import SettingsFestivalMyManageDetailPage from '@/pages/SettingsFestivalMyManage
 import SettingsFestivalMyManageEditPage from '@/pages/SettingsFestivalMyManageEdit/SettingsFestivalMyManageEditPage';
 import SettingsFAQPage from '@/pages/SettingsFAQ/SettingsFAQPage';
 import FestivalInfoNoticeCreatePage from '@/pages/FestivalInfoNoticeCreate/FestivalInfoNoticeCreatePage';
+import FestivalInfoNoticeEditPage from '@/pages/FestivalInfoNoticeEdit/FestivalInfoNoticeEditPage';
 import FestivalInfoNoticeListPage from '@/pages/FestivalInfoNoticeList/FestivalInfoNoticeListPage';
 import NotFoundPage from '@/pages/NotFound/NotFoundPage';
 
@@ -82,4 +83,5 @@ const protectedRoutes = [
   { path: ROUTE_PATH.FESTIVAL_MANAGER_APPLY, component: FestivalManagerApplyPage },
   { path: ROUTE_PATH.FESTIVAL_NOTICE_CREATE, component: FestivalInfoNoticeCreatePage },
   { path: ROUTE_PATH.FESTIVAL_NOTICES, component: FestivalInfoNoticeListPage },
+  { path: ROUTE_PATH.FESTIVAL_NOTICE_EDIT, component: FestivalInfoNoticeEditPage },
 ];
