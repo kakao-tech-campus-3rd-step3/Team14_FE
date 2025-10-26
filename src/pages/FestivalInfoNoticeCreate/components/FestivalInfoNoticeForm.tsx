@@ -14,10 +14,12 @@ import { useState } from 'react';
 import Button from '@/components/common/Button';
 import PickIcon from '@/components/common/PickIcon';
 import { PICK_ICONS } from '@/constants/pickIcons';
+import { queryClient } from '@/utils/queryClient';
+import { showToastAxiosError, showToastSuccessMessage } from '@/utils/showToastMessage';
 
 const FestivalInfoNoticeForm = ({ festivalData }: { festivalData: FestivalInfo }) => {
-  const navigate = useNavigate();
-  const { goBack } = useNav();
+  
+  const { goTo,goBack } = useNav();
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -28,21 +30,12 @@ const FestivalInfoNoticeForm = ({ festivalData }: { festivalData: FestivalInfo }
   const { mutate: submitApplication, isPending } = useMutation({
     mutationFn: (body: NoticeCreateRequest) => postFestivalNotice(festivalData.id.toString(), body),
     onSuccess: () => {
-      alert('공지사항이 등록되었습니다.');
-      navigate(generatePath(ROUTE_PATH.FESTIVAL_INFO, { festivalId: festivalData.id.toString() }));
+      queryClient.invalidateQueries({ queryKey: ['festival-notices'] });
+      showToastSuccessMessage('공지사항이 작성되었습니다.');
+      goTo(generatePath(ROUTE_PATH.FESTIVAL_NOTICES, { festivalId: festivalData.id.toString() }));
     },
     onError: (error: unknown) => {
-      if (isAxiosError(error)) {
-        if (error.response?.status === 403) {
-          alert('권한이 없습니다.');
-        } else if (error.response?.status === 400) {
-          alert('잘못된 요청입니다.');
-        } else {
-          alert('공지사항 등록에 실패했습니다.');
-        }
-      } else {
-        alert('공지사항 등록에 실패했습니다.');
-      }
+      showToastAxiosError(error);
     },
   });
 

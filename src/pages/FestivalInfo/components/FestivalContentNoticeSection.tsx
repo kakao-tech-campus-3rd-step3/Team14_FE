@@ -49,7 +49,7 @@ const FestivalContentNoticeSection = ({
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, error } =
     useInfiniteQuery({
-      queryKey: ['festival-notices', festivalId, managerId],
+      queryKey: ['festival-notices', festivalId],
       queryFn: ({ pageParam = 0 }) => getFestivalNotices(festivalId, pageParam, 5),
       getNextPageParam: (lastPage, allPages) => {
         return lastPage.data.last ? undefined : allPages.length;
@@ -74,7 +74,6 @@ const FestivalContentNoticeSection = ({
 
   const notices = data?.pages.flatMap((page) => page.data.content) || [];
 
-  // 스와이프 기능 추가
   const {
     currentIndex,
     setCurrentIndex,
