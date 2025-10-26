@@ -2,6 +2,7 @@ import useNav from './useNav';
 import { generatePath } from 'react-router-dom';
 import { ROUTE_PATH } from '@/constants/routes';
 import { useNavigate } from 'react-router-dom';
+import type { Notice } from '@/types/Notice';
 /**
  * 공지사항 네비게이션 핸들러 훅
  * 공지사항과 관련된 부분에서 사용할 수 있도록 핸들러를 따로 모아뒀습니다.
@@ -19,12 +20,14 @@ export const useNoticeNavigationHandlers = (festivalId: string) => {
     goTo(generatePath(ROUTE_PATH.FESTIVAL_NOTICE_CREATE, { festivalId }));
   };
 
-  const handleEditNotice = (noticeId: number) => {
-    goTo(
+  const handleEditNotice = (noticeId: number, noticeData: Notice) => {
+    navigate(
       generatePath(ROUTE_PATH.FESTIVAL_NOTICE_EDIT, {
         festivalId,
         noticeId: noticeId.toString(),
-      }),
+      }),{
+        state: { noticeData },
+      }
     );
   };
   const handleNoticeClick = (noticeId: number) => {

@@ -164,8 +164,8 @@ const FestivalInfoNoticeListPage = () => {
             noticeRefs={noticeRefs}
             focusNoticeId={focusNoticeId}
             isCurrentUserManager={isCurrentUserManager}
-            handleEditNotice={() => handleEditNotice(notice.id)} 
-   handleDeleteNotice={handleDelete}
+            handleEditNotice={() => handleEditNotice(notice.id, notice)} 
+            handleDeleteNotice={() => handleDelete(notice.id)}
             isDeleting={isDeleting}
           />
         ))}
