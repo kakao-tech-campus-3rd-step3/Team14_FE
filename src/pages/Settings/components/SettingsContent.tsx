@@ -166,13 +166,13 @@ const SettingsContent = () => {
             variant="text"
             onClick={() => handleFestivalManagementClick(ROUTE_PATH.FESTIVAL_MY_REGISTERED)}
           >
-            내가 등록한 축제
+            내가 관리하는 축제
           </Button>
           <Button
             variant="text"
             onClick={() => handleFestivalManagementClick(ROUTE_PATH.FESTIVAL_MY_MANAGE)}
           >
-            내가 관리하는 축제
+          축제 관리 신청 내역
           </Button>
         </div>
       </SettingsSection>
