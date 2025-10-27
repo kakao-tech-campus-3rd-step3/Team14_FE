@@ -2,7 +2,7 @@ import { generatePath, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { putFestivalNotice } from '@/apis/notice/putFestivalNotice';
 import FormSubmitButtons from '@/components/common/FormSubmitButtons';
-import type { NoticeUpdateRequest } from '@/types/Notice';
+import type { NoticeRequest } from '@/types/Notice';
 import FestivalInfoNoticeRuleCard from '@/pages/FestivalInfoNoticeCreate/components/FestivalInfoNoticeRuleCard';
 import useNav from '@/hooks/useNav';
 import { useMediaUpload } from '@/hooks/useMediaUpload';
@@ -57,7 +57,7 @@ const FestivalInfoNoticeEditForm = ({
   }, [noticeData.images, setImageInfos]);
 
   const { mutate: submitApplication, isPending } = useMutation({
-    mutationFn: (body: NoticeUpdateRequest) => putFestivalNotice(noticeId, body),
+    mutationFn: (body: NoticeRequest) => putFestivalNotice(noticeId, body),
     onSuccess: () => {
       // 관련 쿼리들 무효화
       queryClient.invalidateQueries({ queryKey: ['festival-notices'] });
@@ -100,6 +100,7 @@ const FestivalInfoNoticeEditForm = ({
         <h3 className="font-semibold mb-3">아래 빈칸을 모두 작성해주세요.</h3>
 
         <TextInputWithCounter
+          name="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="공지사항 제목을 입력하세요"
@@ -115,6 +116,7 @@ const FestivalInfoNoticeEditForm = ({
         />
 
         <TextInputWithCounter
+          name="content"
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder="공지사항 내용을 입력하세요"

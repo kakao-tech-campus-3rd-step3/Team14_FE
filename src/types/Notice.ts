@@ -9,13 +9,7 @@ export interface Notice {
   images: string[];
 }
 
-export interface NoticeCreateRequest {
-  title: string;
-  content: string;
-  images: MediaInfo[];
-}
-
-export interface NoticeUpdateRequest {
+export interface NoticeRequest {
   title: string;
   content: string;
   images: MediaInfo[];

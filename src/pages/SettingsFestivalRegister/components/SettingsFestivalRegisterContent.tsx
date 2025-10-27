@@ -7,7 +7,6 @@ import RegisterFestivalPeriodCard from '@/pages/SettingsFestivalRegister/compone
 import RegisterFestivalHomePageCard from '@/pages/SettingsFestivalRegister/components/RegisterFestivalHomePageCard';
 import RegisterFestivalOverviewCard from '@/pages/SettingsFestivalRegister/components/RegisterFestivalOverviewCard';
 import RegisterFestivalPosterCard from '@/pages/SettingsFestivalRegister/components/RegisterFestivalPosterCard';
-import RegisterFestivalImageCard from '@/pages/SettingsFestivalRegister/components/RegisterFestivalImageCard';
 import FormSubmitButtons from '@/components/common/FormSubmitButtons';
 import { useMediaUpload } from '@/hooks/useMediaUpload';
 import { validateFestivalForm } from '@/utils/festivalValidation';
@@ -16,6 +15,7 @@ import { postFestival } from '@/apis/festivals/postFestival';
 import type { PostFestivalRequest } from '@/apis/festivals/postFestival';
 import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 import { showToastErrorMessage, showToastSuccessMessage } from '@/utils/showToastMessage';
+import MediaUploadSection from '@/components/form/MediaUploadSection';
 /**
  * 축제 등록 내용 컴포넌트
  * @returns 축제 등록 내용 컴포넌트
@@ -42,7 +42,6 @@ const SettingsFestivalRegisterContent = () => {
 
   const {
     imageInfos,
-    imagePreviews,
     isUploading: isUploadingImages,
     pickAndUploadImages,
     removeImage: handleRemoveImage,
@@ -155,16 +154,20 @@ const SettingsFestivalRegisterContent = () => {
           isUploading={isUploading}
         />
 
-        <RegisterFestivalImageCard
-          imagePreviews={imagePreviews}
-          handleRemoveImage={handleRemoveImage}
-          isSubmitting={isSubmitting}
-          isUploading={isUploading}
-          imageInfos={imageInfos}
-          pickAndUploadImages={pickAndUploadImages}
-          isUploadingImages={isUploadingImages}
+        <MediaUploadSection
+          mediaInfos={imageInfos}
+          onUpload={pickAndUploadImages}
+          onRemove={handleRemoveImage}
+          isUploading={isUploadingImages}
+          mediaType="image"
+          maxMedia={10}
+          showProgress={true}
+          showCard={true}
+          label="축제 이미지 (최대 10개)"
+          required={true}
+          layout="grid"
+          disabled={isSubmitting}
         />
-
         <FormSubmitButtons
           onCancel={goBack}
           onSubmit={handleSubmit}

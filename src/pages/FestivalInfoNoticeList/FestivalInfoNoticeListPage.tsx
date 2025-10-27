@@ -14,7 +14,7 @@ import getFestivalInfo from '@/apis/festivals/getFestivalInfo';
 import FestivalInfoNoticeListInfoCard from '@/pages/FestivalInfoNoticeList/components/FestivalInfoNoticeListInfoCard';
 import { deleteFestivalNotice } from '@/apis/notice/deleteFestivalNotice';
 import ConfirmModal from '@/components/modal/ConfirmModal';
-import { FestivalInfoNoticeCard } from './components/FestivalInfoNoticeCard';
+import { FestivalInfoNoticeCard } from '@/pages/FestivalInfoNoticeList/components/FestivalInfoNoticeCard';
 import { useDeleteWithConfirm } from '@/hooks/useDeleteWithConfirm';
 import { useNoticeNavigationHandlers } from '@/hooks/useNoticeNavigationHandlers';
 

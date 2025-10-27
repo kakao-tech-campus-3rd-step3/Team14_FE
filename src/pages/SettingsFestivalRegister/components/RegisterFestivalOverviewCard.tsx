@@ -21,6 +21,7 @@ const RegisterFestivalOverviewCard = ({
           축제 개요 <span className="text-red-500">*</span>
         </label>
         <TextInputWithCounter
+          name="overView"
           value={formData.overView}
           onChange={handleInputChange}
           placeholder="축제에 대한 자세한 설명을 30자 이상 입력하세요 (최대 5000자)"

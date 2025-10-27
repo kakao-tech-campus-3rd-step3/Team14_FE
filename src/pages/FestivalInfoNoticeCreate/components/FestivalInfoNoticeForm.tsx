@@ -2,7 +2,7 @@ import { generatePath } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { postFestivalNotice } from '@/apis/notice/postFestivalNotice';
 import FormSubmitButtons from '@/components/common/FormSubmitButtons';
-import type { NoticeCreateRequest } from '@/types/Notice';
+import type { NoticeRequest } from '@/types/Notice';
 import FestivalInfoNoticeRuleCard from '@/pages/FestivalInfoNoticeCreate/components/FestivalInfoNoticeRuleCard';
 import useNav from '@/hooks/useNav';
 import { useMediaUpload } from '@/hooks/useMediaUpload';
@@ -33,7 +33,7 @@ const FestivalInfoNoticeForm = ({ festivalData }: { festivalData: FestivalInfo }
   });
 
   const { mutate: submitApplication, isPending } = useMutation({
-    mutationFn: (body: NoticeCreateRequest) => postFestivalNotice(festivalData.id.toString(), body),
+    mutationFn: (body: NoticeRequest) => postFestivalNotice(festivalData.id.toString(), body),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['festival-notices'] });
       showToastSuccessMessage('공지사항이 작성되었습니다.');

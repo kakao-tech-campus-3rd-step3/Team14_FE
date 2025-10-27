@@ -119,7 +119,12 @@ const ReviewForm = ({
     if (trimmed.length < 10 || trimmed.length > 500)
       return showToastErrorMessage(SYSTEM_MESSAGES.REVIEW.CONTENT_LENGTH);
 
-    await ensureToken();
+    try {
+      await ensureToken();
+    } catch (error) {
+      showToastAxiosError(error);
+      return;
+    }
 
     if (isEditing && onSubmit) {
       onSubmit({

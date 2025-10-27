@@ -1,6 +1,7 @@
 import { apiInstance } from '@/apis/apiInstance';
 import API_ENDPOINTS from '@/constants/apiEndpoints';
 import type { MediaInfo } from '@/types/Media/MediaInfo';
+import { generatePath } from 'react-router-dom';
 
 export interface ReviewUpdateRequest {
   content: string;
@@ -11,7 +12,7 @@ export interface ReviewUpdateRequest {
 
 export const putReview = async (reviewId: number, body: ReviewUpdateRequest) => {
   return await apiInstance.put(
-    API_ENDPOINTS.REVIEW_UPDATE.replace(':reviewId', reviewId.toString()),
+    generatePath(API_ENDPOINTS.REVIEW_BY_ID, { reviewId: reviewId.toString() }),
     body,
   );
 };

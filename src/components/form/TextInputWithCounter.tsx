@@ -11,6 +11,7 @@ interface TextInputWithCounterProps {
   showMinLengthMessage?: boolean;
   minLengthMessage?: string;
   errorClassName?: string;
+  name?: string;
 }
 /**
  * TextInputWithCounter 컴포넌트
@@ -37,6 +38,7 @@ const TextInputWithCounter = ({
   rows = 1,
   showMinLengthMessage = false,
   errorClassName = 'text-red-500',
+  name,
 }: TextInputWithCounterProps) => {
   const isMinLengthError = minLength && value.length < minLength;
   const isMaxLengthError = value.length > maxLength;
@@ -45,6 +47,7 @@ const TextInputWithCounter = ({
     <div className="mb-4">
       {type === 'input' ? (
         <input
+          name={name}
           type="text"
           value={value}
           onChange={onChange}
@@ -55,6 +58,7 @@ const TextInputWithCounter = ({
         />
       ) : (
         <textarea
+          name={name}
           value={value}
           onChange={onChange}
           placeholder={placeholder}

@@ -10,7 +10,7 @@ export const getSingleReview = async (
   reviewId: number,
 ): Promise<AxiosResponse<ApiResponseItem<Review>, ApiErrorResponse>> => {
   return await apiInstance.get<ApiResponseItem<Review>>(
-    generatePath(API_ENDPOINTS.REVIEW_SINGLE, { reviewId: reviewId.toString() }),
+    generatePath(API_ENDPOINTS.REVIEW_BY_ID, { reviewId: reviewId.toString() }),
   );
 };
 

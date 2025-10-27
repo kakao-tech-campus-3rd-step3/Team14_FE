@@ -1,5 +1,5 @@
 import { apiInstance } from '@/apis/apiInstance';
-import type { NoticeCreateRequest } from '@/types/Notice';
+import type { NoticeRequest } from '@/types/Notice';
 import API_ENDPOINTS from '@/constants/apiEndpoints';
 import type { AxiosResponse } from 'axios';
 import { generatePath } from 'react-router-dom';
@@ -13,7 +13,7 @@ import { generatePath } from 'react-router-dom';
  */
 export const postFestivalNotice = async (
   festivalId: string,
-  noticeData: NoticeCreateRequest,
+  noticeData: NoticeRequest,
 ): Promise<AxiosResponse<void>> => {
   return await apiInstance.post<void>(
     generatePath(API_ENDPOINTS.FESTIVAL_NOTICE, { festivalId }),
