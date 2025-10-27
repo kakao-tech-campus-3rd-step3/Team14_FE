@@ -51,7 +51,7 @@ export const createStompConnection = ({
     const stompClient = new Client({
       webSocketFactory: () => socket as WebSocket,
       // 디버깅 로그 출력
-      // debug: (msg: string) => console.log('[STOMP]:', msg),
+      debug: (msg: string) => console.log('[STOMP]:', msg),
       connectHeaders: {
         Authorization: `Bearer ${token}`,
       },
@@ -90,13 +90,22 @@ export const createStompConnection = ({
 
 /**
  * STOMP 연결을 정리합니다.
+ * @param client - STOMP 클라이언트
+ * @param subscription - STOMP 구독
+ * @param chatRoomId - 채팅룸 ID (구독 경로 추적용)
  */
 export const cleanupStompConnection = (
   client: Client | null,
   subscription: StompSubscription | null,
+  chatRoomId: number,
 ): void => {
   try {
-    subscription?.unsubscribe();
+    if (subscription) {
+      subscription.unsubscribe({
+        // 구독 해제 시 구독 경로 반환
+        destination: subscribeTopic(chatRoomId),
+      });
+    }
   } catch {
     showToastErrorMessage(SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.UNKNOWN_ERROR);
   }
