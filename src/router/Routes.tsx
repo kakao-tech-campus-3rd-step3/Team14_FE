@@ -22,7 +22,11 @@ import FestivalManagerApplyPage from '@/pages/FestivalInfoManagerApply/FestivalI
 import SettingsFestivalMyManageDetailPage from '@/pages/SettingsFestivalMyManageDetail/SettingsFestivalMyManageDetailPage';
 import SettingsFestivalMyManageEditPage from '@/pages/SettingsFestivalMyManageEdit/SettingsFestivalMyManageEditPage';
 import SettingsFAQPage from '@/pages/SettingsFAQ/SettingsFAQPage';
+import FestivalInfoNoticeCreatePage from '@/pages/FestivalInfoNoticeCreate/FestivalInfoNoticeCreatePage';
+import FestivalInfoNoticeEditPage from '@/pages/FestivalInfoNoticeEdit/FestivalInfoNoticeEditPage';
+import FestivalInfoNoticeListPage from '@/pages/FestivalInfoNoticeList/FestivalInfoNoticeListPage';
 import NotFoundPage from '@/pages/NotFound/NotFoundPage';
+import ReviewEditPage from '@/pages/ReviewEdit/ReviewEditPage';
 
 /**
  * 라우터 컴포넌트
@@ -78,4 +82,8 @@ const protectedRoutes = [
   { path: ROUTE_PATH.FESTIVAL_MY_MANAGE_EDIT, component: SettingsFestivalMyManageEditPage },
   { path: ROUTE_PATH.FAQ, component: SettingsFAQPage },
   { path: ROUTE_PATH.FESTIVAL_MANAGER_APPLY, component: FestivalManagerApplyPage },
+  { path: ROUTE_PATH.FESTIVAL_NOTICE_CREATE, component: FestivalInfoNoticeCreatePage },
+  { path: ROUTE_PATH.FESTIVAL_NOTICES, component: FestivalInfoNoticeListPage },
+  { path: ROUTE_PATH.FESTIVAL_NOTICE_EDIT, component: FestivalInfoNoticeEditPage },
+  { path: ROUTE_PATH.REVIEW_EDIT, component: ReviewEditPage },
 ];

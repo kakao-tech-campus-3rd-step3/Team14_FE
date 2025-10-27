@@ -13,9 +13,10 @@ export const PICK_ICONS = {
 
   // 액션 관련
   DELETE: 'trash',
-
+  EDIT: 'edit',
   // 안내/표시
   PIN: 'pin',
+  NOTICE: 'notice',
 
   // 상태 관련
   CHECK: 'check',

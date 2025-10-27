@@ -5,6 +5,12 @@
  */
 
 export const SYSTEM_MESSAGES = {
+  // 입력 관련
+  INPUT_FORM: {
+    TITLE_REQUIRED: '제목을 입력해주세요.',
+    CONTENT_REQUIRED: '내용을 입력해주세요.',
+    LENGTH_REQUIRED: (min: number, max: number) => `내용은 ${min}자 이상 ${max}자 이하여야 합니다.`,
+  },
   // 축제 관리자 권한 신청 관련
   FM_PERMISSION: {
     ALREADY_APPLIED: '축제 관리자 신청이 된 상태입니다.',

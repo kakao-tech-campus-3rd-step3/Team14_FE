@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { getMyFMPermission } from '@/apis/festivalManager/getMyFMPermission';
 import { deleteFMPermission } from '@/apis/festivalManager/deleteFMPermission';
 import Button from '@/components/common/Button';
@@ -13,18 +13,16 @@ import SettingsFMPermissionInfoCard from '@/pages/SettingsFMPermissionStatus/com
 import SettingsFMPermissionDocumentCard from '@/pages/SettingsFMPermissionStatus/components/SettingsFMPermissionDocumentCard';
 import SettingsFMPermissionButton from '@/pages/SettingsFMPermissionStatus/components/SettingsFMPermissionButton';
 import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
-import { showToastErrorMessage, showToastSuccessMessage } from '@/utils/showToastMessage';
 import ConfirmModal from '@/components/modal/ConfirmModal';
-import { useState } from 'react';
+import { useDeleteWithConfirm } from '@/hooks/useDeleteWithConfirm';
+
 /**
  * 축제 관리자 신청 상태 내용
  * @returns 축제 관리자 신청 상태 내용 컴포넌트
  * 축제 관리자 신청 상태를 표시합니다.
  */
 const SettingsFMPermissionStatusContent = () => {
-  const { goTo, goBack } = useNav();
-  const queryClient = useQueryClient();
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const { goTo } = useNav();
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['fmPermission'],
@@ -32,26 +30,15 @@ const SettingsFMPermissionStatusContent = () => {
     retry: false,
   });
 
-  const { mutate: deleteApplication, isPending: isDeleting } = useMutation({
-    mutationFn: deleteFMPermission,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['fmPermission'] });
-      showToastSuccessMessage(SYSTEM_MESSAGES.FM_APPLICATION.DELETE_SUCCESS);
-      goBack();
-    },
-    onError: () => {
-      showToastErrorMessage(SYSTEM_MESSAGES.FM_APPLICATION.DELETE_ERROR);
-    },
-  });
-
-  const handleDeleteClick = () => {
-    setIsConfirmOpen(true);
-  };
-
-  const handleDeleteConfirm = () => {
-    deleteApplication();
-    setIsConfirmOpen(false);
-  };
+  const { isConfirmOpen, isDeleting, handleDelete, handleConfirmDelete, setIsConfirmOpen } =
+    useDeleteWithConfirm(
+      async () => {
+        await deleteFMPermission();
+      },
+      ['fmPermission'],
+      SYSTEM_MESSAGES.FM_APPLICATION.DELETE_SUCCESS,
+      SYSTEM_MESSAGES.FM_APPLICATION.DELETE_ERROR,
+    );
 
   const handleEdit = () => {
     goTo(`${ROUTE_PATH.FM_PERMISSION_APPLICATION}?mode=edit`);
@@ -78,7 +65,7 @@ const SettingsFMPermissionStatusContent = () => {
     );
   }
 
-  // TODO: 에러 처리 수정
+  // 기타 에러
   if (isError) {
     return (
       <ErrorComponent
@@ -103,13 +90,13 @@ const SettingsFMPermissionStatusContent = () => {
       <SettingsFMPermissionButton
         permission={permission}
         handleEdit={handleEdit}
-        handleDelete={handleDeleteClick}
+        handleDelete={() => handleDelete(permission.id)}
         isDeleting={isDeleting}
       />
       <ConfirmModal
         isOpen={isConfirmOpen}
         onClose={() => setIsConfirmOpen(false)}
-        onConfirm={handleDeleteConfirm}
+        onConfirm={handleConfirmDelete}
         title="신청서 삭제"
         message={SYSTEM_MESSAGES.FM_APPLICATION.DELETE_CONFIRM}
       />

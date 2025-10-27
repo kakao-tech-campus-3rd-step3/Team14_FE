@@ -82,9 +82,11 @@ exports[`리뷰 섹션 컴포넌트 > 기본 렌더링 > 첫 번째 리뷰 카�
 
 exports[`리뷰 섹션 컴포넌트 > 기본 렌더링 > 첫 번째 리뷰 카드 구성 요소별 스냅샷 > first-review-first-image 1`] = `
 <img
-  alt="리뷰 이미지"
-  class="w-full h-full object-cover cursor-pointer transition-transform"
-  src="http://tong.visitkorea.or.kr/cms/resource/82/3503882_image2_1.jpg"
+  alt="edit icon"
+  class=""
+  height="40"
+  src="/pickEmoji/pickEdit.svg"
+  width="40"
 />
 `;
 

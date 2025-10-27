@@ -7,6 +7,7 @@ export const ROUTE_PATH = {
   FESTIVALS: '/festivals/:areaId',
   FESTIVAL_INFO: '/festival/:festivalId',
   REVIEW: '/review/:festivalId',
+  REVIEW_EDIT: '/review/:reviewId/edit',
   CHAT: '/chat/:festivalId',
   LOGIN_CHECK: '/login/check',
   SETTINGS: '/settings',
@@ -22,5 +23,10 @@ export const ROUTE_PATH = {
   FAQ: '/settings/faq',
   SEARCH: '/search',
   FESTIVAL_MANAGER_APPLY: '/festival/:festivalId/manager-apply',
+  FESTIVAL_NOTICES: '/festival/:festivalId/notices',
+  FESTIVAL_NOTICE_DETAIL: '/festival/:festivalId/notice/:noticeId',
+  FESTIVAL_NOTICE_CREATE: '/festival/:festivalId/notice/create',
+  FESTIVAL_NOTICE_EDIT: '/festival/:festivalId/notice/:noticeId/edit',
+
   NOT_FOUND: '*',
 } as const;

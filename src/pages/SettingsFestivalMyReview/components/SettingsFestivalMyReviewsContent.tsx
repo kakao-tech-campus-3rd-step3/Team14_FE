@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { getMyReviews, type MyReview } from '@/apis/review/getMyReviews';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorComponent from '@/components/common/ErrorComponent';
@@ -9,22 +9,30 @@ import EmptyComponent from '@/components/common/EmptyComponent';
 import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 import { useState, useCallback } from 'react';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
-import {
-  showToastAxiosError,
-  showToastErrorMessage,
-  showToastSuccessMessage,
-} from '@/utils/showToastMessage';
+import { showToastAxiosError } from '@/utils/showToastMessage';
 import LoadingSpinner from '@/components/loading/LoadingSpinner';
 import ConfirmModal from '@/components/modal/ConfirmModal';
+import { useDeleteWithConfirm } from '@/hooks/useDeleteWithConfirm';
 
 const SettingsMyReviewsContent = () => {
-  const queryClient = useQueryClient();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMediaItems, setModalMediaItems] = useState<MediaItem[]>([]);
   const [selectedMediaIndex, setSelectedMediaIndex] = useState(0);
 
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-  const [selectedReviewId, setSelectedReviewId] = useState<number>(0);
+  const {
+    isConfirmOpen,
+    handleDelete: handleDeleteReview,
+    handleConfirmDelete,
+    setIsConfirmOpen,
+  } = useDeleteWithConfirm(
+    async (reviewId: number) => {
+      await deleteReview(reviewId);
+    },
+    ['myReviews'],
+    SYSTEM_MESSAGES.REVIEW.DELETE_SUCCESS,
+    SYSTEM_MESSAGES.REVIEW.DELETE_ERROR,
+  );
+
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } =
     useInfiniteQuery({
       queryKey: ['myReviews'],
@@ -38,22 +46,6 @@ const SettingsMyReviewsContent = () => {
         pageParams: data.pageParams,
       }),
     });
-
-  const { mutate: deleteReviewMutation } = useMutation({
-    mutationFn: deleteReview,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['myReviews'] });
-      showToastSuccessMessage(SYSTEM_MESSAGES.REVIEW.DELETE_SUCCESS);
-    },
-    onError: () => {
-      showToastErrorMessage(SYSTEM_MESSAGES.REVIEW.DELETE_ERROR);
-    },
-  });
-
-  const handleDeleteReview = (reviewId: number) => {
-    setSelectedReviewId(reviewId);
-    setIsConfirmOpen(true);
-  };
 
   const handleMediaClick = (review: MyReview, clickedIndex: number) => {
     const mediaItems: MediaItem[] = [
@@ -142,18 +134,13 @@ const SettingsMyReviewsContent = () => {
           onClose={() => setIsModalOpen(false)}
         />
       )}
-      {isConfirmOpen && (
-        <ConfirmModal
-          isOpen={isConfirmOpen}
-          onClose={() => setIsConfirmOpen(false)}
-          onConfirm={() => {
-            deleteReviewMutation(selectedReviewId);
-            setIsConfirmOpen(false);
-          }}
-          title="리뷰 삭제"
-          message={SYSTEM_MESSAGES.REVIEW.DELETE_CONFIRM}
-        />
-      )}
+      <ConfirmModal
+        isOpen={isConfirmOpen}
+        onClose={() => setIsConfirmOpen(false)}
+        onConfirm={handleConfirmDelete}
+        title="리뷰 삭제"
+        message={SYSTEM_MESSAGES.REVIEW.DELETE_CONFIRM}
+      />
     </ErrorBoundary>
   );
 };

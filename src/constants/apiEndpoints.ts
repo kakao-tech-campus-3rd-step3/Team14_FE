@@ -25,10 +25,8 @@ const API_ENDPOINTS = {
   DELETE_USER: '/api/users',
   // 내가 작성한 리뷰
   MY_REVIEWS: '/api/reviews/my',
-  // 리뷰 삭제
-  REVIEW_DELETE: '/api/reviews/:reviewId',
-  // 리뷰 수정
-  REVIEW_UPDATE: '/api/reviews/:reviewId',
+  // 리뷰 (조회/수정/삭제)
+  REVIEW_BY_ID: '/api/reviews/:reviewId',
   // 미디어 업로드
   PRESIGNED_URL: '/api/presigned-url',
   // 축제 관리자 신청
@@ -47,6 +45,9 @@ const API_ENDPOINTS = {
   MY_FESTIVAL_PERMISSIONS: '/api/festival-permissions/my',
   // 축제 관리 신청 상세/수정/삭제
   FESTIVAL_PERMISSION_DETAIL: '/api/festival-permissions/:id',
+  // 축제 공지사항 관련
+  FESTIVAL_NOTICE: '/api/festivals/:festivalId/notices',
+  FESTIVAL_NOTICE_DETAIL: '/api/festivals/notices/:id',
 } as const;
 
 export default API_ENDPOINTS;
