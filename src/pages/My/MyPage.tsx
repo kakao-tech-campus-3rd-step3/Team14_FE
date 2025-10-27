@@ -12,9 +12,8 @@ import MyPageChatSection from '@/pages/My/components/MyPageChatSection';
 
 /**
  * 마이페이지
- * 피어리뷰를 위해 우선적으로 UI위주로 구현하였습니다.
- * 사용자 정보를 불러오고 방문 예정과 방문 완료 버튼 기능은 이후 추가적으로 구현할 예정입니다.
- *
+ * 채팅 목록을 조회
+ * 좋아요한 축제와 리뷰 목록 조회
  * @returns 마이페이지
  */
 const MyPage = () => {
@@ -26,7 +25,30 @@ const MyPage = () => {
     <Container>
       <Header variant="mypage" />
       <div className="p-4">
-        <MyPageChatSection />
+        <ErrorBoundary
+          FallbackComponent={() => (
+            <ErrorComponent
+              title="오류가 발생했습니다."
+              message="잠시 후 다시 시도해주세요."
+              showBackButton={true}
+            />
+          )}
+          onError={(error) => {
+            showToastAxiosError(error);
+          }}
+        >
+          <Suspense
+            fallback={
+              <LoadingSpinner
+                size="lg"
+                message="채팅 목록을 불러오는 중..."
+                className="h-[116px]"
+              />
+            }
+          >
+            <MyPageChatSection />
+          </Suspense>
+        </ErrorBoundary>
         <div className="mt-6">
           <div className="flex border-b border-gray-200 w-full">
             <button

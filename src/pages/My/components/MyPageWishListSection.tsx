@@ -11,7 +11,7 @@ const MyPageWishListSection = () => {
     },
     initialPageParam: 0,
   });
-
+  console.log(data);
   const myWishes = data?.pages.flatMap((page) => page.data.content) || [];
 
   if (myWishes.length === 0) {

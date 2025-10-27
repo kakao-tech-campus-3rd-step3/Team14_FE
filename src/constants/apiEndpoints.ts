@@ -23,6 +23,8 @@ const API_ENDPOINTS = {
   LOGOUT: '/api/users/logout',
   // 회원탈퇴
   DELETE_USER: '/api/users',
+  // 내가 참여한 채팅 방 조회
+  MY_CHATS: '/api/chatRooms/me',
   // 내가 좋아요한 축제 조회
   MY_WISHES: '/api/wishes/my',
   // 내가 작성한 리뷰

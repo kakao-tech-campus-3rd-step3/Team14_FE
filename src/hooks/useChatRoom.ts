@@ -128,7 +128,7 @@ const useChatRoom = () => {
       }
 
       // 기존 연결 정리
-      cleanupStompConnection(stompClientRef.current, subscriptionRef.current);
+      cleanupStompConnection(stompClientRef.current, subscriptionRef.current, chatRoom.roomId);
       stompClientRef.current = null;
       subscriptionRef.current = null;
 
@@ -182,7 +182,7 @@ const useChatRoom = () => {
     void initializeConnection();
 
     return () => {
-      cleanupStompConnection(stompClientRef.current, subscriptionRef.current);
+      cleanupStompConnection(stompClientRef.current, subscriptionRef.current, chatRoom.roomId);
       stompClientRef.current = null;
       subscriptionRef.current = null;
       reconnectAttemptsRef.current = 0;
