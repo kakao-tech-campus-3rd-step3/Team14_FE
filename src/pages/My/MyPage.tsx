@@ -1,7 +1,14 @@
 import Container from '@/components/common/Container';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
+import MyPageWishListSection from '@/pages/My/components/MyPageWishListSection';
+import MyPageReviewedSection from '@/pages/My/components/MyPageReviewedSection';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorComponent from '@/components/error/ErrorComponent';
+import { showToastAxiosError } from '@/utils/showToastMessage';
+import LoadingSpinner from '@/components/loading/LoadingSpinner';
+import MyPageChatSection from '@/pages/My/components/MyPageChatSection';
 
 /**
  * 마이페이지
@@ -19,6 +26,7 @@ const MyPage = () => {
     <Container>
       <Header variant="mypage" />
       <div className="p-4">
+        <MyPageChatSection />
         <div className="mt-6">
           <div className="flex border-b border-gray-200 w-full">
             <button
@@ -34,13 +42,30 @@ const MyPage = () => {
               리뷰
             </button>
           </div>
-
-          <div className="mt-4 min-h-64 flex items-center justify-center">
-            <div className="text-gray-400 text-center">
-              <p>아직 방문 예정인 축제가 없습니다.</p>
-              <p className="text-sm mt-1">축제를 찾아보고 방문 계획을 세워보세요!</p>
-            </div>
-          </div>
+          <ErrorBoundary
+            FallbackComponent={() => (
+              <ErrorComponent
+                title="오류가 발생했습니다."
+                message="잠시 후 다시 시도해주세요."
+                showBackButton={true}
+              />
+            )}
+            onError={(error) => {
+              showToastAxiosError(error);
+            }}
+          >
+            <Suspense
+              fallback={
+                <LoadingSpinner
+                  size="lg"
+                  className="min-h-[400px]"
+                  message="좋아요한 축제를 불러오는 중..."
+                />
+              }
+            >
+              {selectedTab === 'wishlist' ? <MyPageWishListSection /> : <MyPageReviewedSection />}
+            </Suspense>
+          </ErrorBoundary>
         </div>
       </div>
       <Footer initialSelected="my" />
