@@ -1,16 +1,9 @@
 import postCreateChatRoom from '@/apis/chat/postCreateChatRoom';
-import { apiBaseUrl, getCurrentToken } from '@/apis/apiInstance';
 import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
-import { useState, useRef, useEffect, useMemo } from 'react';
-import { Client, type StompSubscription } from '@stomp/stompjs';
-import API_ENDPOINTS from '@/constants/apiEndpoints';
+import { useState, useEffect, useMemo } from 'react';
 import getChatRoomMessage from '@/apis/chat/getChatRoomMessage';
-import {
-  createStompConnection,
-  cleanupStompConnection,
-  publishMessage,
-} from '@/utils/stompHelpers';
+import { useWebSocket } from '@/context/WebSocketContext';
 
 const EMPTY_MESSAGE: MessageResponse = {
   id: 0,
@@ -23,9 +16,13 @@ const EMPTY_MESSAGE: MessageResponse = {
 
 const INITIAL_CHAT_ROOM_MESSAGE_SIZE = 20;
 
-const RECONNECT_DELAY_MS = 1000 * 5; // 5초
+const subscribeTopic = (chatRoomId: number) => {
+  return `/sub/${chatRoomId}/messages`;
+};
 
-const MAX_RECONNECT_ATTEMPTS = 3; // 최대 재연결 시도 횟수
+const publishTopic = (chatRoomId: number) => {
+  return `/pub/${chatRoomId}/messages`;
+};
 
 export interface MessageRequest {
   content: string;
@@ -43,8 +40,6 @@ export interface MessageResponse {
   content: string;
   imageUrl: string;
 }
-
-const webSocketUrl = apiBaseUrl + API_ENDPOINTS.CHAT;
 
 /**
  * 채팅방 사용 훅
@@ -94,19 +89,16 @@ const useChatRoom = () => {
 
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState<MessageResponse[]>([]);
-  const stompClientRef = useRef<Client | null>(null);
-  const subscriptionRef = useRef<StompSubscription | null>(null);
-  const reconnectAttemptsRef = useRef<number>(0);
-
+  const { clientRef, connectWebSocket, subscribe, send, unsubscribe } = useWebSocket();
   // 페이지네이션으로 불러온 메시지들을 messages 상태에 동기화
   useEffect(() => {
     setMessages((prevMessages) => {
       // 기존 실시간 메시지들 중 서버에서 불러온 메시지와 중복되지 않는 것들만 필터링
       const serverMessageIds = new Set(allMessages.map((msg) => msg.id));
-      const realtimeMessages = prevMessages.filter((msg) => !serverMessageIds.has(msg.id));
+      const newMessages = prevMessages.filter((msg) => !serverMessageIds.has(msg.id));
 
       // 서버 메시지 + 실시간 메시지 합치기
-      const combinedMessages = [...allMessages, ...realtimeMessages];
+      const combinedMessages = [...allMessages, ...newMessages];
 
       // 메시지가 하나도 없으면 EMPTY_MESSAGE 표시
       if (combinedMessages.length === 0) {
@@ -119,98 +111,46 @@ const useChatRoom = () => {
 
   useEffect(() => {
     const initializeConnection = async () => {
-      // 액세스 토큰 가져오기
-      const token = getCurrentToken();
-      if (!token) {
-        // TODO: 액세스 토큰이 없으면 에러 바운더리 처리
-        console.error('[STOMP] 액세스 토큰이 없습니다.');
-        return;
-      }
-
-      // 기존 연결 정리
-      cleanupStompConnection(stompClientRef.current, subscriptionRef.current, chatRoom.roomId);
-      stompClientRef.current = null;
-      subscriptionRef.current = null;
-
-      try {
-        // 새 연결 생성
-        const { client, subscription } = await createStompConnection({
-          webSocketUrl,
-          token,
-          chatRoomId: chatRoom.roomId,
-          onMessageReceived: (newMessage) => {
-            setMessages((prevMessages) => {
-              // 동일 message ID가 이미 있으면 중복 추가 방지
-              if (prevMessages.some((message) => message.id === newMessage.id)) return prevMessages;
-              return [...prevMessages, newMessage];
-            });
-          },
-          onError: (error) => {
-            console.error('[STOMP] 연결 실패:', error);
-
-            // 최대 재연결 횟수 확인
-            if (reconnectAttemptsRef.current < MAX_RECONNECT_ATTEMPTS) {
-              reconnectAttemptsRef.current += 1;
-              console.log(
-                `[STOMP] 재연결 시도 중... (${reconnectAttemptsRef.current}/${MAX_RECONNECT_ATTEMPTS})`,
-              );
-
-              // 재연결 시도
-              setTimeout(() => {
-                void initializeConnection();
-              }, RECONNECT_DELAY_MS);
-            } else {
-              console.error(
-                `[STOMP] 최대 재연결 횟수(${MAX_RECONNECT_ATTEMPTS})를 초과했습니다. 재연결을 중단합니다.`,
-              );
-              // TODO: 사용자에게 알림 표시 또는 에러 바운더리 처리
-            }
-          },
-        });
-
-        // 연결 성공 시 재연결 카운터 초기화
-        reconnectAttemptsRef.current = 0;
-        stompClientRef.current = client;
-        subscriptionRef.current = subscription;
-      } catch (error) {
-        console.error('[STOMP] 연결 초기화 실패:', error);
-      }
+      await connectWebSocket();
+      subscribe(subscribeTopic(chatRoom.roomId), (message) => {
+        const newMessage: MessageResponse = JSON.parse(message.body || '');
+        setMessages((prevMessages) =>
+          prevMessages.some((msg) => msg.id === newMessage.id)
+            ? prevMessages
+            : [...prevMessages, newMessage],
+        );
+      });
     };
 
-    // 채팅방 변경 시 재연결 카운터 초기화
-    reconnectAttemptsRef.current = 0;
-    void initializeConnection();
+    initializeConnection();
 
     return () => {
-      cleanupStompConnection(stompClientRef.current, subscriptionRef.current, chatRoom.roomId);
-      stompClientRef.current = null;
-      subscriptionRef.current = null;
-      reconnectAttemptsRef.current = 0;
+      unsubscribe(subscribeTopic(chatRoom.roomId));
     };
-  }, [chatRoom.roomId]);
+  }, [chatRoom.roomId, connectWebSocket, subscribe, unsubscribe]);
 
   // 메시지 전송
   const sendMessage = () => {
-    if (!message.trim() || !stompClientRef.current?.connected) return;
+    if (!message.trim() || !clientRef.current || !clientRef.current.connected) return;
 
     const messageRequest: MessageRequest = {
       content: message,
     };
 
-    publishMessage(stompClientRef.current, chatRoom.roomId, JSON.stringify(messageRequest));
+    send(publishTopic(chatRoom.roomId), JSON.stringify(messageRequest));
     setMessage('');
   };
 
   // 이미지 메시지 전송
   const sendImageMessage = (imageInfo: { id: number; presignedUrl: string }) => {
-    if (!imageInfo || !stompClientRef.current?.connected) return;
+    if (!imageInfo || !clientRef.current || !clientRef.current.connected) return;
 
     const messageRequest: MessageRequest = {
       content: '사진을 보냈습니다.',
       imageInfo,
     };
 
-    publishMessage(stompClientRef.current, chatRoom.roomId, JSON.stringify(messageRequest));
+    send(publishTopic(chatRoom.roomId), JSON.stringify(messageRequest));
   };
 
   // 메세지 변경 이벤트 핸들러

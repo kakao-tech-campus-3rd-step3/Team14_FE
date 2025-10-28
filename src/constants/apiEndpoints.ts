@@ -9,7 +9,7 @@ const API_ENDPOINTS = {
   FESTIVAL_CHAT_ROOM_MESSAGES: '/api/chatRooms/:chatRoomId/messages',
   FESTIVAL_SEARCH: '/api/festivals',
   FESTIVAL_PICK: '/api/recommendations',
-  CHAT: '/stomp',
+  STOMP: '/stomp',
   // OAuth 로그인
   GOOGLE_LOGIN: '/oauth2/authorization/google',
   KAKAO_LOGIN: '/oauth2/authorization/kakao',
