@@ -7,12 +7,14 @@ import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
 const MyPageWishFestivalsSection = () => {
   const { data, isFetching, hasNextPage, fetchNextPage } = useSuspenseInfiniteQuery({
-    queryKey: ['myWishes'],
+    queryKey: ['myWishFestivals'],
     queryFn: ({ pageParam = 0 }) => getMyWishFestivals(pageParam, 5),
     getNextPageParam: (lastPage, allPages) => {
       return lastPage.data.last ? undefined : allPages.length;
     },
     initialPageParam: 0,
+    staleTime: 0,
+    gcTime: 0,
   });
   const { ref: observerRef } = useIntersectionObserver(() => {
     if (!isFetching && hasNextPage) {

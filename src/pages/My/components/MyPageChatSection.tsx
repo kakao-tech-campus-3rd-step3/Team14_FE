@@ -14,6 +14,8 @@ const MyPageChatSection = () => {
       return lastPage.data.last ? undefined : allPages.length;
     },
     initialPageParam: 0,
+    staleTime: 0,
+    gcTime: 0,
   });
 
   const { ref: observerRef } = useIntersectionObserver(() => {
