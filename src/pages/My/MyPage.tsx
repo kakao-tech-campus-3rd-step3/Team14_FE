@@ -2,8 +2,8 @@ import Container from '@/components/common/Container';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
 import { Suspense, useState } from 'react';
-import MyPageWishListSection from '@/pages/My/components/MyPageWishListSection';
-import MyPageReviewedSection from '@/pages/My/components/MyPageReviewedSection';
+import MyPageWishFestivalsSection from '@/pages/My/components/MyPageWishFestivalsSection';
+import MyPageReviewFestivalsSection from '@/pages/My/components/MyPageReviewFestivalsSection';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorComponent from '@/components/error/ErrorComponent';
 import { showToastAxiosError } from '@/utils/showToastMessage';
@@ -85,7 +85,11 @@ const MyPage = () => {
                 />
               }
             >
-              {selectedTab === 'wishlist' ? <MyPageWishListSection /> : <MyPageReviewedSection />}
+              {selectedTab === 'wishlist' ? (
+                <MyPageWishFestivalsSection />
+              ) : (
+                <MyPageReviewFestivalsSection />
+              )}
             </Suspense>
           </ErrorBoundary>
         </div>

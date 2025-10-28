@@ -1,14 +1,14 @@
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { getMyWishes } from '@/apis/wish/getMyWishes';
+import { getMyWishFestivals } from '@/apis/wish/getMyWishFestivals';
 import EmptyComponent from '@/components/common/EmptyComponent';
 import MyPageFestivalCard from '@/pages/My/components/MyPageFestivalCard';
 import LoadingSpinner from '@/components/loading/LoadingSpinner';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
-const MyPageWishListSection = () => {
+const MyPageWishFestivalsSection = () => {
   const { data, isFetching, hasNextPage, fetchNextPage } = useSuspenseInfiniteQuery({
     queryKey: ['myWishes'],
-    queryFn: ({ pageParam = 0 }) => getMyWishes(pageParam, 5),
+    queryFn: ({ pageParam = 0 }) => getMyWishFestivals(pageParam, 5),
     getNextPageParam: (lastPage, allPages) => {
       return lastPage.data.last ? undefined : allPages.length;
     },
@@ -40,4 +40,4 @@ const MyPageWishListSection = () => {
   );
 };
 
-export default MyPageWishListSection;
+export default MyPageWishFestivalsSection;
