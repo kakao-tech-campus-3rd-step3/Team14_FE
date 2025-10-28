@@ -3,12 +3,12 @@ import { useQuery } from '@tanstack/react-query';
 import Container from '@/components/common/Container';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
-import LoadingSpinner from '@/components/loading/LoadingSpinner';
-import ErrorComponent from '@/components/common/ErrorComponent';
 import { getFestivalInfo } from '@/apis/festivals/getFestivalInfo';
 import { useAuth } from '@/context/AuthContext';
 import FestivalInfoNoticeEditForm from '@/pages/FestivalInfoNoticeEdit/components/FestivalInfoNoticeEditForm';
 import type { Notice } from '@/types/Notice';
+import ErrorPage from '@/components/error/ErrorPage';
+import LoadingPage from '@/components/loading/LoadingPage';
 
 /**
  * 공지사항 수정 페이지
@@ -30,11 +30,7 @@ const FestivalInfoNoticeEditPage = () => {
 
   if (isLoading) {
     return (
-      <Container>
-        <Header variant="page" title="공지사항 수정" />
-        <LoadingSpinner size="lg" className="min-h-[400px]" message="축제 정보를 불러오는 중..." />
-        <Footer />
-      </Container>
+      <LoadingPage title="공지사항 수정" message="축제 정보를 불러오는 중..." variant="page" />
     );
   }
 
@@ -42,29 +38,21 @@ const FestivalInfoNoticeEditPage = () => {
   const isCurrentUserManager = userInfo?.userId === festivalData?.content?.managerId;
   if (!isCurrentUserManager) {
     return (
-      <Container>
-        <Header variant="page" title="공지사항 수정" />
-        <ErrorComponent
-          title="권한이 없습니다"
-          message="관리자만 공지사항을 수정할 수 있습니다."
-          showBackButton={true}
-        />
-        <Footer />
-      </Container>
+      <ErrorPage
+        title="공지사항 수정"
+        message="관리자만 공지사항을 수정할 수 있습니다."
+        variant="page"
+      />
     );
   }
 
   if (!festivalData?.content || !noticeData) {
     return (
-      <Container>
-        <Header variant="page" title="공지사항 수정" />
-        <ErrorComponent
-          title="데이터를 찾을 수 없습니다"
-          message="축제 또는 공지사항 정보를 찾을 수 없습니다."
-          showBackButton={true}
-        />
-        <Footer />
-      </Container>
+      <ErrorPage
+        title="공지사항 수정"
+        message="축제 또는 공지사항 정보를 찾을 수 없습니다."
+        variant="page"
+      />
     );
   }
 

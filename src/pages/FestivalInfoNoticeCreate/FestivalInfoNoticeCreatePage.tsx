@@ -6,8 +6,8 @@ import { useAuth } from '@/context/AuthContext';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import getFestivalInfo from '@/apis/festivals/getFestivalInfo';
-import LoadingSpinner from '@/components/loading/LoadingSpinner';
-import ErrorComponent from '@/components/common/ErrorComponent';
+import LoadingPage from '@/components/loading/LoadingPage';
+import ErrorPage from '@/components/error/ErrorPage';
 
 /**
  * 공지사항 작성 페이지
@@ -31,35 +31,18 @@ const FestivalInfoNoticeCreatePage = () => {
 
   if (isLoading) {
     return (
-      <Container>
-        <Header variant="page" title="공지사항 작성" />
-        <LoadingSpinner size="lg" message="축제 정보를 불러오는 중..." />
-        <Footer />
-      </Container>
+      <LoadingPage title="공지사항 작성" message="축제 정보를 불러오는 중..." variant="page" />
     );
   }
   if (!festivalData) {
     return (
-      <Container>
-        <Header variant="page" title="공지사항 작성" />
-        <ErrorComponent title="오류" message="축제 정보를 불러오지 못했습니다." />
-        <Footer />
-      </Container>
+      <ErrorPage title="공지사항 작성" message="축제 정보를 불러오지 못했습니다." variant="page" />
     );
   }
   const isCurrentUserManager = userInfo?.userId === festivalData?.content.managerId;
 
   if (!isCurrentUserManager) {
-    return (
-      <Container>
-        <Header variant="page" title="공지사항 작성" />
-        <ErrorComponent
-          title="관리자가 아닙니다."
-          message="관리자만 공지사항을 작성할 수 있습니다."
-        />
-        <Footer />
-      </Container>
-    );
+    return <ErrorPage title="공지사항 작성" message="관리자가 아닙니다." variant="page" />;
   }
 
   return (
