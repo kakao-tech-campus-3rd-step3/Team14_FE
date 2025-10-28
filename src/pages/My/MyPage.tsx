@@ -50,7 +50,7 @@ const MyPage = () => {
           </Suspense>
         </ErrorBoundary>
         <div className="mt-6">
-          <div className="flex border-b border-gray-200 w-full">
+          <div className="flex border-b border-gray-200 w-full mb-4">
             <button
               className={`px-4 py-2 text-gray-500 font-medium ${selectedTab === 'wishlist' ? chooseStyle : notChooseStyle} w-full`}
               onClick={() => setSelectedTab('wishlist')}

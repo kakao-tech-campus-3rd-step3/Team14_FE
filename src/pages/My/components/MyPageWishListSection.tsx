@@ -1,9 +1,12 @@
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { getMyWishes } from '@/apis/wish/getMyWishes';
 import EmptyComponent from '@/components/common/EmptyComponent';
+import MyPageFestivalCard from '@/pages/My/components/MyPageFestivalCard';
+import LoadingSpinner from '@/components/loading/LoadingSpinner';
+import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
 const MyPageWishListSection = () => {
-  const { data } = useSuspenseInfiniteQuery({
+  const { data, isFetching, hasNextPage, fetchNextPage } = useSuspenseInfiniteQuery({
     queryKey: ['myWishes'],
     queryFn: ({ pageParam = 0 }) => getMyWishes(pageParam, 5),
     getNextPageParam: (lastPage, allPages) => {
@@ -11,9 +14,12 @@ const MyPageWishListSection = () => {
     },
     initialPageParam: 0,
   });
-  console.log(data);
+  const { ref: observerRef } = useIntersectionObserver(() => {
+    if (!isFetching && hasNextPage) {
+      fetchNextPage();
+    }
+  });
   const myWishes = data?.pages.flatMap((page) => page.data.content) || [];
-
   if (myWishes.length === 0) {
     return (
       <EmptyComponent
@@ -23,11 +29,15 @@ const MyPageWishListSection = () => {
     );
   }
 
-  return myWishes.map((wish) => (
-    <div key={wish.wishId}>
-      <h3>{wish.title}</h3>
+  return (
+    <div className="grid grid-cols-1 gap-6 px-2">
+      {myWishes.map((festival) => (
+        <MyPageFestivalCard key={festival.id} data={festival} />
+      ))}
+      {isFetching && <LoadingSpinner message="축제를 불러오는 중..." />}
+      {hasNextPage && <div ref={observerRef} className="h-1" />}
     </div>
-  ));
+  );
 };
 
 export default MyPageWishListSection;

@@ -25,8 +25,10 @@ const API_ENDPOINTS = {
   DELETE_USER: '/api/users',
   // 내가 참여한 채팅 방 조회
   MY_CHATS: '/api/chatRooms/me',
-  // 내가 좋아요한 축제 조회
-  MY_WISHES: '/api/wishes/my',
+  // 내가 좋아요한 축제 목록 조회
+  MY_WISHES_FESTIVAL: '/api/festivals/wishedBy/me',
+  // 내가 작성한 리뷰의 축제 목록 조회
+  MY_REVIEWS_FESTIVAL: '/api/festivals/reviewedBy/me',
   // 내가 작성한 리뷰
   MY_REVIEWS: '/api/reviews/my',
   // 리뷰 (조회/수정/삭제)

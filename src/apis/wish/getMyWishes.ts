@@ -4,18 +4,23 @@ import API_ENDPOINTS from '@/constants/apiEndpoints';
 import type { AxiosResponse } from 'axios';
 
 export interface MyWish {
-  wishId: number;
-  festivalId: number;
-  userId: number;
+  id: number;
+  managerId: number;
   title: string;
-  areaCode: number;
+  addr1: string;
+  addr2: string;
+  posterInfo: string;
+  startDate: string;
+  endDate: string;
+  averageScore: number;
+  wishCount: number;
 }
 
 export const getMyWishes = async (
   page = 0,
   size = 5,
 ): Promise<AxiosResponse<ApiResponseList<MyWish>, ApiErrorResponse>> => {
-  return await apiInstance.get(API_ENDPOINTS.MY_WISHES, {
+  return await apiInstance.get(API_ENDPOINTS.MY_WISHES_FESTIVAL, {
     params: { page, size },
   });
 };
