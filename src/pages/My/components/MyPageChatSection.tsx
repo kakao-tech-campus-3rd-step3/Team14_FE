@@ -5,8 +5,10 @@ import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import LoadingSpinner from '@/components/loading/LoadingSpinner';
 import { generatePath, Link } from 'react-router-dom';
 import { ROUTE_PATH } from '@/constants/routes';
+import useChatRead from '@/hooks/useChatRead';
 
 const MyPageChatSection = () => {
+  useChatRead();
   const { data, isFetching, hasNextPage, fetchNextPage } = useSuspenseInfiniteQuery({
     queryKey: ['myChats'],
     queryFn: ({ pageParam = 0 }) => getMyChats(pageParam, 5),
