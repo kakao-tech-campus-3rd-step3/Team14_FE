@@ -27,11 +27,11 @@ const useSearch = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const debouncedQuery = useDebounce(searchQuery, DEBOUNCE_TIME);
 
-  // 리팩토링하여서 React Query로 검색하는걸로 수정
   const {
     data: searchResults = [],
     isLoading,
     error,
+    refetch,
   } = useQuery({
     queryKey: ['search', debouncedQuery],
     queryFn: () => searchFestivals({ keyword: debouncedQuery }),
@@ -39,7 +39,6 @@ const useSearch = () => {
     enabled: debouncedQuery.length >= MIN_LENGTH,
     staleTime: 5 * 60 * 1000,
     gcTime: 10 * 60 * 1000,
-    throwOnError: true,
   });
 
   const canShowResults = debouncedQuery.length >= MIN_LENGTH;
@@ -51,6 +50,7 @@ const useSearch = () => {
     isLoading,
     error,
     canShowResults,
+    refetch,
   };
 };
 export default useSearch;

@@ -11,7 +11,7 @@ import { useQuery } from '@tanstack/react-query';
 import Button from '@/components/common/Button';
 import { ROUTE_PATH } from '@/constants/routes';
 import useNav from '@/hooks/useNav';
-import ErrorComponent from '@/components/common/ErrorComponent';
+import ErrorComponent from '@/components/error/ErrorComponent';
 import { useState } from 'react';
 /**
  * 리뷰작성페이지

@@ -1,5 +1,4 @@
 import Button from '@/components/common/Button';
-import useNav from '@/hooks/useNav';
 
 interface ErrorComponentProps {
   title?: string;
@@ -7,6 +6,7 @@ interface ErrorComponentProps {
   showBackButton?: boolean;
   onRetry?: () => void;
   isGlobal?: boolean;
+  className?: string;
 }
 
 /**
@@ -25,9 +25,8 @@ const ErrorComponent = ({
   showBackButton = true,
   onRetry,
   isGlobal = false,
+  className,
 }: ErrorComponentProps) => {
-  const { goBack } = useNav();
-
   // 기본값 설정
   const displayTitle = title || (isGlobal ? '문제가 발생했습니다' : '오류가 발생했습니다');
   const displayMessage =
@@ -42,7 +41,7 @@ const ErrorComponent = ({
     : 'flex flex-col items-center justify-center h-[calc(100vh-110px)]';
 
   return (
-    <div className={containerClass}>
+    <div className={`${containerClass} ${className}`}>
       <div className="text-center flex flex-col gap-10">
         <div className="flex flex-col gap-1">
           <h2 className="text-xl font-semibold mb-2">{displayTitle}</h2>
@@ -66,7 +65,12 @@ const ErrorComponent = ({
             </Button>
           ) : (
             showBackButton && (
-              <Button variant={onRetry ? 'secondary' : 'primary'} onClick={goBack} fullWidth>
+              <Button
+                variant={onRetry ? 'secondary' : 'primary'}
+                // 에러 컴포넌트가 라우터에서 벗어나면 이전 페이지로 돌아가는 것이 불가능해지므로 이 방법을 사용했습니다.
+                onClick={() => window.history.back()}
+                fullWidth
+              >
                 이전 페이지로 돌아가기
               </Button>
             )

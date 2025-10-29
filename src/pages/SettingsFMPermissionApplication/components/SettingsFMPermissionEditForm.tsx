@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getMyFMPermission } from '@/apis/festivalManager/getMyFMPermission';
 import SettingsFMPermissionApplicationForm from '@/pages/SettingsFMPermissionApplication/components/SettingsFMPermissionApplicationForm';
 import LoadingSpinner from '@/components/loading/LoadingSpinner';
-import ErrorComponent from '@/components/common/ErrorComponent';
+import ErrorComponent from '@/components/error/ErrorComponent';
 
 /**
  * 축제 관리자 신청 수정 폼

@@ -8,7 +8,7 @@ import { ROUTE_PATH } from '@/constants/routes';
 import { Link, useNavigate } from 'react-router-dom';
 import Settings from '@/components/icon/SettingIcon';
 
-interface HeaderProps {
+export interface HeaderProps {
   variant?: 'logo' | 'page' | 'all' | 'mypage';
   title?: string;
 }

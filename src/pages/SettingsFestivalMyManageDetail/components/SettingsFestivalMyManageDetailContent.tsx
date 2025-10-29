@@ -6,7 +6,7 @@ import useNav from '@/hooks/useNav';
 import { ROUTE_PATH } from '@/constants/routes';
 import axios from 'axios';
 import EmptyComponent from '@/components/common/EmptyComponent';
-import ErrorComponent from '@/components/common/ErrorComponent';
+import ErrorComponent from '@/components/error/ErrorComponent';
 import LoadingSpinner from '@/components/loading/LoadingSpinner';
 import FestivalPermissionStatusCard from '@/pages/SettingsFestivalMyManageDetail/components/FestivalPermissionStatusCard';
 import FestivalPermissionInfoCard from '@/pages/SettingsFestivalMyManageDetail/components/FestivalPermissionInfoCard';

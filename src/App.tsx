@@ -6,7 +6,8 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AuthProvider } from '@/context/AuthContext';
 import { ToastContainer } from 'react-toastify';
 import { ErrorBoundary } from 'react-error-boundary';
-import ErrorComponent from './components/common/ErrorComponent';
+import ErrorComponent from '@/components/error/ErrorComponent';
+import { WebSocketProvider } from '@/context/WebSocketContext';
 
 const App = () => {
   return (
@@ -15,9 +16,11 @@ const App = () => {
     >
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
-          <BrowserRouter>
-            <Routes />
-          </BrowserRouter>
+          <WebSocketProvider>
+            <BrowserRouter>
+              <Routes />
+            </BrowserRouter>
+          </WebSocketProvider>
         </AuthProvider>
         <ToastContainer />
         {import.meta.env.VITE_ENABLE_RQ_DEVTOOLS === 'true' && <ReactQueryDevtools />}

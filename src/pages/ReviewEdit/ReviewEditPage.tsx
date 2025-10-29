@@ -9,8 +9,8 @@ import { getSingleReview } from '@/apis/review/getSingleReview';
 import { putReview } from '@/apis/review/putReview';
 import { showToastSuccessMessage, showToastAxiosError } from '@/utils/showToastMessage';
 import type { ReviewUpdateRequest } from '@/apis/review/putReview';
-import LoadingSpinner from '@/components/loading/LoadingSpinner';
-import ErrorComponent from '@/components/common/ErrorComponent';
+import LoadingPage from '@/components/loading/LoadingPage';
+import ErrorPage from '@/components/error/ErrorPage';
 import useNav from '@/hooks/useNav';
 import type { UserInfoResponse } from '@/types/UserType';
 
@@ -51,25 +51,11 @@ const ReviewEditPage = () => {
   });
 
   if (isLoading)
-    return (
-      <Container>
-        <Header variant="page" title="리뷰 수정" />
-        <LoadingSpinner size="lg" className="min-h-[400px]" message="리뷰를 불러오는 중..." />
-        <Footer />
-      </Container>
-    );
+    return <LoadingPage title="리뷰 수정" message="리뷰를 불러오는 중..." variant="page" />;
 
   if (!reviewData?.data.content)
     return (
-      <Container>
-        <Header variant="page" title="리뷰 수정" />
-        <ErrorComponent
-          title="리뷰를 찾을 수 없습니다"
-          message="요청하신 리뷰를 찾을 수 없습니다."
-          showBackButton={true}
-        />
-        <Footer />
-      </Container>
+      <ErrorPage title="리뷰 수정" message="요청하신 리뷰를 찾을 수 없습니다." variant="page" />
     );
 
   return (

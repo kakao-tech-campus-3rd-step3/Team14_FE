@@ -5,7 +5,6 @@ import Container from '@/components/common/Container';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
 import LoadingSpinner from '@/components/loading/LoadingSpinner';
-import ErrorComponent from '@/components/common/ErrorComponent';
 import EmptyComponent from '@/components/common/EmptyComponent';
 import { getFestivalNotices } from '@/apis/notice/getFestivalNotices';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
@@ -17,6 +16,8 @@ import ConfirmModal from '@/components/modal/ConfirmModal';
 import { FestivalInfoNoticeCard } from '@/pages/FestivalInfoNoticeList/components/FestivalInfoNoticeCard';
 import { useDeleteWithConfirm } from '@/hooks/useDeleteWithConfirm';
 import { useNoticeNavigationHandlers } from '@/hooks/useNoticeNavigationHandlers';
+import ErrorPage from '@/components/error/ErrorPage';
+import LoadingPage from '@/components/loading/LoadingPage';
 
 const FestivalInfoNoticeListPage = () => {
   const { festivalId } = useParams();
@@ -103,24 +104,12 @@ const FestivalInfoNoticeListPage = () => {
 
   // 로딩 상태
   if (isLoading) {
-    return (
-      <Container>
-        <Header variant="page" title="공지사항" />
-        <LoadingSpinner size="lg" className="min-h-[400px]" message="공지사항을 불러오는 중..." />
-        <Footer />
-      </Container>
-    );
+    return <LoadingPage title="공지사항" message="공지사항을 불러오는 중..." variant="page" />;
   }
 
   // 에러 상태
   if (error) {
-    return (
-      <Container>
-        <Header variant="page" title="공지사항" />
-        <ErrorComponent title="오류가 발생했습니다" message={error.message} showBackButton={true} />
-        <Footer />
-      </Container>
-    );
+    return <ErrorPage title="공지사항" message={error.message} variant="page" />;
   }
 
   // 공지사항이 없을 때

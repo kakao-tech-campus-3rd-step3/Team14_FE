@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { getMyReviews, type MyReview } from '@/apis/review/getMyReviews';
 import { ErrorBoundary } from 'react-error-boundary';
-import ErrorComponent from '@/components/common/ErrorComponent';
+import ErrorComponent from '@/components/error/ErrorComponent';
 import { deleteReview } from '@/apis/review/deleteReview';
 import ImageModal, { type MediaItem } from '@/components/modal/ImageModal';
 import SettingsMyReviewsCard from '@/pages/SettingsFestivalMyReview/components/SettingsFestivalMyReviewsCard';
