@@ -80,7 +80,8 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }
             reconnectDelay: STOMP_CONFIG.RECONNECT_DELAY_MS,
             heartbeatIncoming: STOMP_CONFIG.HEARTBEAT_INCOMING_MS,
             heartbeatOutgoing: STOMP_CONFIG.HEARTBEAT_OUTGOING_MS,
-            debug: (msg: string) => console.log('[STOMP]:', msg),
+            // 디버그 로그
+            // debug: (msg: string) => console.log('[STOMP]:', msg),
           });
 
           stompClient.onConnect = () => {
