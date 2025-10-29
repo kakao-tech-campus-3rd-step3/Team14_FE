@@ -177,7 +177,11 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }
       pendingDisconnectTimerRef.current = window.setTimeout(async () => {
         pendingDisconnectTimerRef.current = null;
         if (destinationEntriesRef.current.size === 0) {
-          await disconnect();
+          try {
+            await disconnect();
+          } catch {
+            showToastErrorMessage(SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.NETWORK_ERROR);
+          }
         }
       }, NO_SUBS_GRACE_MS);
     }

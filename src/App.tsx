@@ -6,8 +6,8 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AuthProvider } from '@/context/AuthContext';
 import { ToastContainer } from 'react-toastify';
 import { ErrorBoundary } from 'react-error-boundary';
-import ErrorComponent from './components/error/ErrorComponent';
-import { WebSocketProvider } from './context/WebSocketContext';
+import ErrorComponent from '@/components/error/ErrorComponent';
+import { WebSocketProvider } from '@/context/WebSocketContext';
 
 const App = () => {
   return (

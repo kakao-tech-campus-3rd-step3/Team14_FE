@@ -59,7 +59,7 @@ const useChatRead = () => {
   }, [connectWebSocket, subscribe, onUnread, onRead]);
 
   useEffect(() => {
-    initializeConnection();
+    void initializeConnection();
 
     return () => {
       unsubscribe(UNREAD_TOPIC);
