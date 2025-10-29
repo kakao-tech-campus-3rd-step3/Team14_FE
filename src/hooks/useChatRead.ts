@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useQueryClient, type InfiniteData } from '@tanstack/react-query';
 import { useWebSocket } from '@/context/WebSocketContext';
 import type { Message } from '@stomp/stompjs';
@@ -13,48 +13,59 @@ const useChatRead = () => {
   const queryClient = useQueryClient();
   const { connectWebSocket, subscribe, unsubscribe } = useWebSocket();
 
-  useEffect(() => {
-    const initializeConnection = async () => {
-      await connectWebSocket();
-      subscribe(UNREAD_TOPIC, onUnread);
-      subscribe(READ_TOPIC, onRead);
-    };
+  const applyToggle = useCallback(
+    (roomId: number, isUnread: boolean) => {
+      queryClient.setQueriesData(
+        { queryKey: ['myChats'], exact: false },
+        (data: InfiniteData<AxiosResponse<ApiResponseList<MyChat>>> | undefined) => {
+          if (!data?.pages) return data;
+          return {
+            ...data,
+            pages: data.pages.map((page) => ({
+              ...page,
+              data: {
+                ...page.data,
+                content: page.data.content.map((room) =>
+                  room.roomId === roomId ? { ...room, existNewMessage: isUnread } : room,
+                ),
+              },
+            })),
+          };
+        },
+      );
+    },
+    [queryClient],
+  );
 
-    initializeConnection();
-
-    const applyToggle = (roomId: number, isUnread: boolean) => {
-      queryClient.setQueriesData({ queryKey: ['myChats'], exact: false }, (old) => {
-        const data = old as InfiniteData<AxiosResponse<ApiResponseList<MyChat>>> | undefined;
-        if (!data?.pages) return old;
-        return {
-          ...data,
-          pages: data.pages.map((page) => ({
-            ...page,
-            data: {
-              ...page.data,
-              content: page.data.content.map((room) =>
-                room.roomId === roomId ? { ...room, existNewMessage: isUnread } : room,
-              ),
-            },
-          })),
-        };
-      });
-    };
-
-    const onUnread = (msg: Message) => {
+  const onUnread = useCallback(
+    (msg: Message) => {
       const { chatRoomId } = JSON.parse((msg.body || '').replace(/\0$/, ''));
       if (chatRoomId) applyToggle(chatRoomId, true);
-    };
-    const onRead = (msg: Message) => {
+    },
+    [applyToggle],
+  );
+  const onRead = useCallback(
+    (msg: Message) => {
       const { chatRoomId } = JSON.parse((msg.body || '').replace(/\0$/, ''));
       if (chatRoomId) applyToggle(chatRoomId, false);
-    };
+    },
+    [applyToggle],
+  );
+
+  const initializeConnection = useCallback(async () => {
+    await connectWebSocket();
+    subscribe(UNREAD_TOPIC, onUnread);
+    subscribe(READ_TOPIC, onRead);
+  }, [connectWebSocket, subscribe, onUnread, onRead]);
+
+  useEffect(() => {
+    initializeConnection();
 
     return () => {
       unsubscribe(UNREAD_TOPIC);
       unsubscribe(READ_TOPIC);
     };
-  }, [connectWebSocket, subscribe, unsubscribe, queryClient]);
+  }, [initializeConnection, unsubscribe]);
 };
 
 export default useChatRead;

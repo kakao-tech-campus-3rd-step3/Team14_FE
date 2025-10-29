@@ -14,9 +14,9 @@ export const STOMP_CONFIG = {
   // 재연결 시도 딜레이
   RECONNECT_DELAY_MS: 1000 * 5,
   // 하트비트 수신 딜레이(수신이 없을 때 연결 이상으로 판단)
-  HEARTBEAT_INCOMING_MS: 1000 * 4,
+  HEARTBEAT_INCOMING_MS: 1000 * 15,
   // 하트비트 송신 딜레이(송신이 없을 때 연결 이상으로 판단)
-  HEARTBEAT_OUTGOING_MS: 1000 * 4,
+  HEARTBEAT_OUTGOING_MS: 1000 * 15,
 } as const;
 
 /**
@@ -62,8 +62,9 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }
       }
     >(),
   );
-  const totalRefCountRef = useRef(0);
-
+  // 구독이 0개일 때 즉시 종료하지 않고 잠시 대기 후 종료하기 위한 타이머
+  const NO_SUBS_GRACE_MS = 1200;
+  const pendingDisconnectTimerRef = useRef<number | null>(null);
   const connectWebSocket = () => {
     if (clientRef.current && clientRef.current.connected) return Promise.resolve();
     return new Promise<void>((resolve, reject) => {
@@ -122,11 +123,16 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }
       return;
     }
 
+    // 새 구독이 들어오면 종료 예약 취소
+    if (pendingDisconnectTimerRef.current) {
+      clearTimeout(pendingDisconnectTimerRef.current);
+      pendingDisconnectTimerRef.current = null;
+    }
+
     const existing = destinationEntriesRef.current.get(destination);
     if (existing) {
       existing.handlers.add(callback);
       existing.refCount += 1;
-      totalRefCountRef.current += 1;
       return;
     }
 
@@ -145,44 +151,34 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }
       refCount: 1,
     };
     destinationEntriesRef.current.set(destination, entry);
-    // 유지: 호환을 위해 원래 배열에도 저장하되, id가 destination이 아님을 감안
     subscriptionsRef.current.push(entry.subscription!);
-    totalRefCountRef.current += 1;
   };
 
   const unsubscribe = (destination: string) => {
     const entry = destinationEntriesRef.current.get(destination);
     if (!entry) return;
-    // 핸들러 1개만 등록되어 있다는 가정 하에서는 바로 해제
-    entry.refCount -= 1;
-    totalRefCountRef.current = Math.max(0, totalRefCountRef.current - 1);
-    if (entry.refCount <= 0) {
-      try {
-        entry.subscription?.unsubscribe({ destination });
-      } finally {
-        destinationEntriesRef.current.delete(destination);
-        subscriptionsRef.current = subscriptionsRef.current.filter(
-          (sub) => sub !== entry.subscription,
-        );
-      }
+
+    // 항상 destination 전체를 해제 (단일 컴포넌트만 하나의 destination을 구독한다고 가정)
+    entry.handlers.clear();
+    entry.refCount = 0;
+
+    try {
+      entry.subscription?.unsubscribe({ destination });
+    } finally {
+      destinationEntriesRef.current.delete(destination);
+      subscriptionsRef.current = subscriptionsRef.current.filter(
+        (sub) => sub !== entry.subscription,
+      );
     }
 
-    // 모든 구독이 해제되면 연결 종료
-    if (totalRefCountRef.current === 0) {
-      const client = clientRef.current;
-      if (client) {
-        for (const [dest, ent] of destinationEntriesRef.current.entries()) {
-          try {
-            ent.subscription?.unsubscribe({ destination: dest });
-          } catch {
-            throw new Error('구독 해제에 실패했습니다.');
-          }
+    // 모든 구독이 해제되면 즉시 종료하지 말고 유예 후 종료 예약
+    if (destinationEntriesRef.current.size === 0 && !pendingDisconnectTimerRef.current) {
+      pendingDisconnectTimerRef.current = window.setTimeout(async () => {
+        pendingDisconnectTimerRef.current = null;
+        if (destinationEntriesRef.current.size === 0) {
+          await disconnect();
         }
-        destinationEntriesRef.current.clear();
-        subscriptionsRef.current = [];
-        client.deactivate();
-        clientRef.current = null;
-      }
+      }, NO_SUBS_GRACE_MS);
     }
   };
 
@@ -192,19 +188,29 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }
     client.publish({ destination, body: message });
   };
 
-  const disconnect = () => {
+  const disconnect = async () => {
     const client = clientRef.current;
     if (!client) return;
-    for (const [destination, entry] of destinationEntriesRef.current.entries()) {
-      try {
-        entry.subscription?.unsubscribe({ destination });
-      } catch {
-        throw new Error('구독 해제에 실패했습니다.');
-      }
+
+    // 종료 예약이 있으면 취소
+    if (pendingDisconnectTimerRef.current) {
+      clearTimeout(pendingDisconnectTimerRef.current);
+      pendingDisconnectTimerRef.current = null;
     }
+
+    // 모든 구독 명시적 해제
+    for (const [destination, entry] of destinationEntriesRef.current.entries()) {
+      await entry.subscription?.unsubscribe({ destination });
+    }
+
+    // 클라이언트 비활성화 (타이머 포함 완전 종료)
+    if (client.connected) {
+      await client.deactivate();
+    }
+
+    // 메모리 정리
     destinationEntriesRef.current.clear();
     subscriptionsRef.current = [];
-    client.deactivate();
     clientRef.current = null;
   };
 

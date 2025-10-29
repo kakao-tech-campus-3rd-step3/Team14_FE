@@ -16,7 +16,7 @@ const MyPageChatSection = () => {
       return lastPage.data.last ? undefined : allPages.length;
     },
     initialPageParam: 0,
-    staleTime: 0,
+    staleTime: 1000 * 60 * 1,
     gcTime: 0,
   });
 

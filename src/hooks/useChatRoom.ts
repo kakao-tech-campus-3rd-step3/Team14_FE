@@ -1,7 +1,7 @@
 import postCreateChatRoom from '@/apis/chat/postCreateChatRoom';
 import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import getChatRoomMessage from '@/apis/chat/getChatRoomMessage';
 import { useWebSocket } from '@/context/WebSocketContext';
 
@@ -127,10 +127,10 @@ const useChatRoom = () => {
     return () => {
       unsubscribe(subscribeTopic(chatRoom.roomId));
     };
-  }, [chatRoom.roomId, connectWebSocket, subscribe, unsubscribe]);
+  }, [unsubscribe, chatRoom.roomId, connectWebSocket, subscribe]);
 
   // 메시지 전송
-  const sendMessage = () => {
+  const sendMessage = useCallback(() => {
     if (!message.trim() || !clientRef.current || !clientRef.current.connected) return;
 
     const messageRequest: MessageRequest = {
@@ -139,34 +139,40 @@ const useChatRoom = () => {
 
     send(publishTopic(chatRoom.roomId), JSON.stringify(messageRequest));
     setMessage('');
-  };
+  }, [message, clientRef, send, chatRoom.roomId]);
 
   // 이미지 메시지 전송
-  const sendImageMessage = (imageInfo: { id: number; presignedUrl: string }) => {
-    if (!imageInfo || !clientRef.current || !clientRef.current.connected) return;
+  const sendImageMessage = useCallback(
+    (imageInfo: { id: number; presignedUrl: string }) => {
+      if (!imageInfo || !clientRef.current || !clientRef.current.connected) return;
 
-    const messageRequest: MessageRequest = {
-      content: '사진을 보냈습니다.',
-      imageInfo,
-    };
+      const messageRequest: MessageRequest = {
+        content: '사진을 보냈습니다.',
+        imageInfo,
+      };
 
-    send(publishTopic(chatRoom.roomId), JSON.stringify(messageRequest));
-  };
+      send(publishTopic(chatRoom.roomId), JSON.stringify(messageRequest));
+    },
+    [clientRef, send, chatRoom.roomId],
+  );
 
   // 메세지 변경 이벤트 핸들러
-  const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleMessageChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value);
-  };
+  }, []);
 
   // 키 누르기 이벤트 핸들러
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key !== 'Enter') return;
-    // IME 조합 중이거나 키 반복이면 무시
-    if (e.nativeEvent.isComposing) return;
-    if (e.repeat) return;
-    e.preventDefault();
-    sendMessage();
-  };
+  const handleKeyPress = useCallback(
+    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      if (e.key !== 'Enter') return;
+      // IME 조합 중이거나 키 반복이면 무시
+      if (e.nativeEvent.isComposing) return;
+      if (e.repeat) return;
+      e.preventDefault();
+      sendMessage();
+    },
+    [sendMessage],
+  );
 
   return {
     chatRoom,
