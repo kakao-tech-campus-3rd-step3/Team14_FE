@@ -42,7 +42,7 @@ const MyPage = () => {
               <LoadingSpinner
                 size="lg"
                 message="채팅 목록을 불러오는 중..."
-                className="h-[116px]"
+                className="h-[123px] w-full flex items-center justify-center"
               />
             }
           >
