@@ -15,4 +15,5 @@ export interface FestivalInfo extends Festival {
   overView: string;
   homePage: string;
   imageInfos: string[];
+  isMyWish: boolean;
 }

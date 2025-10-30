@@ -10,10 +10,11 @@ import Divider from '@/components/common/Divider';
 import FestivalContentInfoSection from '@/pages/FestivalInfo/components/FestivalContentInfoSection';
 import FestivalContentOverviewSection from '@/pages/FestivalInfo/components/FestivalContentOverviewSection';
 import FestivalContentReviewSection from '@/pages/FestivalInfo/components/FestivalContentReviewSection';
-import Footer from '@/components/common/Footer';
 import getReview from '@/apis/review/getReview';
 import FestivalContentManagerSection from '@/pages/FestivalInfo/components/FestivalContentManagerSection';
 import FestivalContentNoticeSection from '@/pages/FestivalInfo/components/FestivalContentNoticeSection';
+import LoadingPage from '@/components/loading/LoadingPage';
+import ErrorPage from '@/components/error/ErrorPage';
 
 const FestivalInfoPage = () => {
   const { festivalId } = useParams();
@@ -29,27 +30,18 @@ const FestivalInfoPage = () => {
     queryFn: () => getReview({ festivalId: festivalId || '' }),
     select: (data) => data.data,
   });
-  // Todo:
-  // 로딩,에러 페이지 통일하기
 
   if (isPending) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-300"></div>
-        <p className="mt-4 text-lg text-gray-600">축제 정보를 불러오는 중</p>
-      </div>
-    );
+    return <LoadingPage title="축제 정보" message="축제 정보를 불러오는 중" variant="page" />;
   }
 
   if (isError || !festivalId) {
     return (
-      <Container>
-        <Header variant="page" />
-        <div className="flex items-center justify-center h-64">
-          <div className="text-red-500">축제 정보를 불러오는 중 오류가 발생했습니다.</div>
-        </div>
-        <Footer initialSelected="my" />
-      </Container>
+      <ErrorPage
+        title="축제 정보"
+        message="축제 정보를 불러오는 중 오류가 발생했습니다."
+        variant="page"
+      />
     );
   }
 
@@ -63,7 +55,7 @@ const FestivalInfoPage = () => {
           title={data.content.title}
         />
         <div className="w-full h-full p-4 gap-4 flex flex-col">
-          <FestivalBannerSection url={data.content.homePage} />
+          <FestivalBannerSection url={data.content.homePage} isMyWish={data.content.isMyWish} />
           <Divider height="1px" />
           <FestivalContentInfoSection content={data.content} reviewsData={reviewsData?.content} />
           <Divider height="1px" />

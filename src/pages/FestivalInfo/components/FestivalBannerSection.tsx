@@ -1,11 +1,11 @@
 import FestivalHostInfo from '@/pages/FestivalInfo/components/FestivalHostInfo';
 import FestivalWish from '@/pages/FestivalInfo/components/FestivalWish';
 
-const FestivalBannerSection = ({ url }: { url: string }) => {
+const FestivalBannerSection = ({ url, isMyWish }: { url: string; isMyWish: boolean }) => {
   return (
     <div className="w-full h-full flex justify-between">
       <FestivalHostInfo url={url} />
-      <FestivalWish />
+      <FestivalWish isMyWish={isMyWish} />
     </div>
   );
 };
