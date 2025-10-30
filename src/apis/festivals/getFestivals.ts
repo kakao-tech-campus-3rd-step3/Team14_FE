@@ -8,9 +8,12 @@ import { generatePath } from 'react-router-dom';
 
 export const getFestivals = async (params: {
   areaId: string;
+  size: number;
+  page: number;
 }): Promise<AxiosResponse<ApiResponseList<Festival>, ApiErrorResponse>> => {
   return await apiInstance.get<ApiResponseList<Festival>>(
     generatePath(API_ENDPOINTS.FESTIVALS, { areaId: params.areaId }),
+    { params: { size: params.size ?? 5, page: params.page ?? 0 } as const },
   );
 };
 
