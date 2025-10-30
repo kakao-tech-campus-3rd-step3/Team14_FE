@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 
-const FestivalWish = ({ isMyWish }: { isMyWish: boolean }) => {
+const FestivalWish = ({ isMyWish, wishCount }: { isMyWish: boolean; wishCount: number }) => {
   const [isWish, setIsWish] = useState(isMyWish);
   const { festivalId } = useParams();
   const queryClient = useQueryClient();
@@ -31,11 +31,14 @@ const FestivalWish = ({ isMyWish }: { isMyWish: boolean }) => {
   });
 
   return (
-    <div
-      onClick={() => (isWish ? deleteWishMutation() : postWishMutation())}
-      className="cursor-pointer"
-    >
-      <Heart fill={isWish} />
+    <div className="flex items-center gap-2">
+      <div className="text-sm text-gray-900">{wishCount}</div>
+      <div
+        onClick={() => (isWish ? deleteWishMutation() : postWishMutation())}
+        className="cursor-pointer"
+      >
+        <Heart fill={isWish} />
+      </div>
     </div>
   );
 };

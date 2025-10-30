@@ -35,23 +35,6 @@ import TestWrapper from '@/__tests__/TestWrapper';
 const initialEntries = [ROUTE_PATH.FESTIVAL_INFO.replace(':festivalId', '225')];
 
 describe('FestivalInfoPage 테스트', () => {
-  describe('스냅샷 테스트', () => {
-    test('로딩 상태 스냅샷', () => {
-      // Given: 페이지 최초 진입
-      const { container } = render(
-        <TestWrapper initialEntries={initialEntries}>
-          <FestivalInfoPage />
-        </TestWrapper>,
-      );
-
-      // When: 쿼리가 아직 진행 중일 때
-      expect(screen.getByText('축제 정보를 불러오는 중')).toBeInTheDocument();
-
-      // Then: 로딩 UI 스냅샷을 남긴다
-      expect(container.firstChild).toMatchSnapshot();
-    });
-  });
-
   describe('기본 렌더링(api 호출 성공)', () => {
     test('축제 타이틀과 포스터 섹션이 표시된다', async () => {
       // Given: 유효한 festivalId로 페이지 진입

@@ -8,11 +8,11 @@ import ConfirmModal from '@/components/modal/ConfirmModal';
 import PickIcon from '@/components/common/PickIcon';
 import { PICK_ICONS } from '@/constants/pickIcons';
 import { ROUTE_PATH } from '@/constants/routes';
-import { generatePath } from 'react-router-dom';
+import { generatePath, useParams } from 'react-router-dom';
 import useNav from '@/hooks/useNav';
 
 interface FestivalContentReviewSectionProps {
-  reviewsData: Review[] | undefined;
+  reviewsData: Review[];
   festivalTitle: string;
 }
 /**
@@ -27,11 +27,11 @@ const FestivalContentReviewSection = ({
 }: FestivalContentReviewSectionProps) => {
   const { userInfo } = useAuth();
   const { goTo } = useNav();
-
+  const { festivalId } = useParams();
   const { isConfirmOpen, handleDelete, handleConfirmDelete, setIsConfirmOpen } =
     useDeleteWithConfirm(
       deleteReview,
-      ['reviews'],
+      [['reviews'], ['festival', festivalId]],
       '리뷰가 삭제되었습니다.',
       '리뷰 삭제에 실패했습니다.',
     );

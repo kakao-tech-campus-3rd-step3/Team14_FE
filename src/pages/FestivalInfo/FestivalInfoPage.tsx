@@ -18,24 +18,32 @@ import ErrorPage from '@/components/error/ErrorPage';
 
 const FestivalInfoPage = () => {
   const { festivalId } = useParams();
-  const { data, isPending, isError } = useQuery({
+  const {
+    data: festivalData,
+    isPending: isFestivalPending,
+    isError: isFestivalError,
+  } = useQuery({
     queryKey: ['festival', festivalId],
     queryFn: () => getFestivalInfo({ festivalId: festivalId || '' }),
     select: (data) => data.data,
     enabled: !!festivalId,
   });
 
-  const { data: reviewsData } = useQuery({
+  const {
+    data: reviewsData,
+    isPending: isReviewsPending,
+    isError: isReviewsError,
+  } = useQuery({
     queryKey: ['reviews', festivalId],
     queryFn: () => getReview({ festivalId: festivalId || '' }),
     select: (data) => data.data,
   });
 
-  if (isPending) {
+  if (isFestivalPending || isReviewsPending) {
     return <LoadingPage title="축제 정보" message="축제 정보를 불러오는 중" variant="page" />;
   }
 
-  if (isError || !festivalId) {
+  if (isFestivalError || isReviewsError || !festivalId) {
     return (
       <ErrorPage
         title="축제 정보"
@@ -50,30 +58,38 @@ const FestivalInfoPage = () => {
       <Header variant="all" />
       <div className="flex flex-col items-center w-full h-full">
         <FestivalPoster
-          posterUrl={data.content.posterInfo}
-          imageUrls={data.content.imageInfos}
-          title={data.content.title}
+          posterUrl={festivalData.content.posterInfo}
+          imageUrls={festivalData.content.imageInfos}
+          title={festivalData.content.title}
         />
         <div className="w-full h-full p-4 gap-4 flex flex-col">
-          <FestivalBannerSection url={data.content.homePage} isMyWish={data.content.isMyWish} />
+          <FestivalBannerSection
+            url={festivalData.content.homePage}
+            isMyWish={festivalData.content.isMyWish}
+            wishCount={festivalData.content.wishCount}
+          />
           <Divider height="1px" />
-          <FestivalContentInfoSection content={data.content} reviewsData={reviewsData?.content} />
+          <FestivalContentInfoSection
+            content={festivalData.content}
+            averageScore={festivalData.content.averageScore ?? 0}
+            reviewCount={reviewsData.totalElements}
+          />
           <Divider height="1px" />
-          <FestivalContentOverviewSection overview={data.content.overView} />
+          <FestivalContentOverviewSection overview={festivalData.content.overView} />
           <Divider height="1px" />
           <FestivalContentNoticeSection
             festivalId={festivalId}
-            managerId={data.content.managerId}
+            managerId={festivalData.content.managerId}
           />
           <Divider height="1px" />
           <FestivalContentManagerSection
             festivalId={festivalId}
-            managerId={data.content.managerId}
+            managerId={festivalData.content.managerId}
           />
           <Divider height="1px" />
           <FestivalContentReviewSection
-            reviewsData={reviewsData?.content}
-            festivalTitle={data.content.title}
+            reviewsData={reviewsData.content}
+            festivalTitle={festivalData.content.title}
           />
         </div>
       </div>
