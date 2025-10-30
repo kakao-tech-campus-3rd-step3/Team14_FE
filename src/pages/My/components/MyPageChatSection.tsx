@@ -1,4 +1,4 @@
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { getMyChats } from '@/apis/chat/getMyChats';
 import EmptyComponent from '@/components/common/EmptyComponent';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
@@ -6,10 +6,11 @@ import LoadingSpinner from '@/components/loading/LoadingSpinner';
 import { generatePath, Link } from 'react-router-dom';
 import { ROUTE_PATH } from '@/constants/routes';
 import useChatRead from '@/hooks/useChatRead';
+import { useEffect } from 'react';
 
 const MyPageChatSection = () => {
   useChatRead();
-  const { data, isFetching, hasNextPage, fetchNextPage } = useSuspenseInfiniteQuery({
+  const { data, isFetching, hasNextPage, fetchNextPage, refetch } = useInfiniteQuery({
     queryKey: ['myChats'],
     queryFn: ({ pageParam = 0 }) => getMyChats(pageParam, 5),
     getNextPageParam: (lastPage, allPages) => {
@@ -18,7 +19,13 @@ const MyPageChatSection = () => {
     initialPageParam: 0,
     staleTime: 1000 * 60 * 1,
     gcTime: 0,
+    enabled: false, // 페이지 로드 이후에 요청하도록 지연
   });
+
+  // 페이지 로드 완료 후 최초 1회 refetch
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   const { ref: observerRef } = useIntersectionObserver(() => {
     if (isFetching || !hasNextPage) return;
@@ -36,8 +43,14 @@ const MyPageChatSection = () => {
     return cleanedName;
   };
 
-  if (myChats.length === 0) {
-    return <EmptyComponent title="채팅 목록이 없습니다." description="대화를 시작해보세요!" />;
+  if (data && myChats.length === 0 && !isFetching) {
+    return (
+      <EmptyComponent
+        title="채팅 목록이 없습니다."
+        description="대화를 시작해보세요!"
+        className="h-[123px] w-full flex flex-col items-center justify-center"
+      />
+    );
   }
 
   return (
@@ -67,7 +80,9 @@ const MyPageChatSection = () => {
           </Link>
         ))}
         {isFetching && (
-          <div className="flex-shrink-0 flex items-center justify-center min-w-12">
+          <div
+            className={`flex-shrink-0 flex items-center justify-center h-[123px]  ${!data ? 'w-full' : ''}`}
+          >
             <LoadingSpinner />
           </div>
         )}

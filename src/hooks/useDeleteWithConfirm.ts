@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import type { QueryKey } from '@tanstack/react-query';
 import { showToastSuccessMessage, showToastErrorMessage } from '@/utils/showToastMessage';
 /**
  * 삭제 확인 훅
  * 삭제와 관련된 부분들에서 사용할 수 있도록 핸들러를 구현하였습니다.
  * @param deleteFn - 삭제 함수
- * @param queryKey - 쿼리 키
+ * @param queryKeyOrKeys - 무효화할 쿼리 키 또는 쿼리 키 배열
  * @param successMessage - 성공 메시지
  * @param errorMessage - 에러 메시지
  * @returns {Object}
@@ -19,7 +20,7 @@ import { showToastSuccessMessage, showToastErrorMessage } from '@/utils/showToas
  */
 export const useDeleteWithConfirm = (
   deleteFn: (id: number) => Promise<void>,
-  queryKey: string[],
+  queryKeys: QueryKey | QueryKey[],
   successMessage: string,
   errorMessage: string,
 ) => {
@@ -30,7 +31,12 @@ export const useDeleteWithConfirm = (
   const deleteMutation = useMutation({
     mutationFn: deleteFn,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey });
+      const keys = Array.isArray(queryKeys) ? queryKeys : [queryKeys];
+
+      keys.forEach((key: QueryKey) => {
+        queryClient.invalidateQueries({ queryKey: key });
+      });
+
       showToastSuccessMessage(successMessage);
       setIsConfirmOpen(false);
       setSelectedId(null);

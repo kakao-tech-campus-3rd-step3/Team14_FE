@@ -1,20 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`FestivalInfoPage 테스트 > 스냅샷 테스트 > 로딩 상태 스냅샷 1`] = `
-<div
-  class="flex flex-col items-center justify-center min-h-screen"
->
-  <div
-    class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-300"
-  />
-  <p
-    class="mt-4 text-lg text-gray-600"
-  >
-    축제 정보를 불러오는 중
-  </p>
-</div>
-`;
-
 exports[`FestivalPoster 컴포넌트 > 스냅샷 테스트 > 네비게이션 버튼 스냅샷 > next-button 1`] = `
 <button
   aria-label="다음 이미지"

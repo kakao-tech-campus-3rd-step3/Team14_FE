@@ -3,7 +3,7 @@ const API_ENDPOINTS = {
   FESTIVALS: '/api/festivals/area/:areaId',
   FESTIVAL_INFO: '/api/festivals/:festivalId',
   FESTIVAL_WISH: '/api/festivals/:festivalId/wishes',
-  FESTIVAL_WISH_DELETE: '/api/wishes/:wishId',
+  FESTIVAL_WISH_DELETE: '/api/festivals/:festivalId/wishes/my',
   FESTIVAL_REVIEWS: '/api/festivals/:festivalId/reviews',
   FESTIVAL_CHAT_ROOMS: '/api/festivals/:festivalId/chatRooms',
   FESTIVAL_CHAT_ROOM_MESSAGES: '/api/chatRooms/:chatRoomId/messages',

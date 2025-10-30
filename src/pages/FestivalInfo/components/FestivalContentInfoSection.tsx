@@ -3,19 +3,20 @@ import FestivalContentTitle from '@/pages/FestivalInfo/components/FestivalConten
 import FestivalContentDuration from '@/pages/FestivalInfo/components/FestivalContentDuration';
 import FestivalContentAddress from '@/pages/FestivalInfo/components/FestivalContentAddress';
 import FestivalContentStarAndReviewCount from '@/pages/FestivalInfo/components/FestivalContentStarAndReviewCount';
-import type { Review } from '@/apis/review/getReview';
 
 const FestivalContentInfoSection = ({
   content,
-  reviewsData,
+  averageScore,
+  reviewCount,
 }: {
   content: FestivalInfo;
-  reviewsData: Review[] | undefined;
+  averageScore: number;
+  reviewCount: number;
 }) => {
   return (
     <div className="w-full h-full flex flex-col gap-2">
       <FestivalContentTitle title={content.title} />
-      <FestivalContentStarAndReviewCount reviewsData={reviewsData} />
+      <FestivalContentStarAndReviewCount averageScore={averageScore} reviewCount={reviewCount} />
       <FestivalContentDuration startDate={content.startDate} endDate={content.endDate} />
       <FestivalContentAddress address1={content.addr1} address2={content.addr2} />
     </div>

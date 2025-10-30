@@ -84,7 +84,7 @@ const useChatRoom = () => {
 
   // 페이지네이션된 메시지들을 올바른 순서로 정렬
   const allMessages = useMemo(() => {
-    return previousMessages?.pages.flatMap((page) => page.data.content.reverse()).reverse() ?? [];
+    return previousMessages?.pages.flatMap((page) => page.data.content).reverse() ?? [];
   }, [previousMessages?.pages]);
 
   const [message, setMessage] = useState('');
@@ -92,21 +92,11 @@ const useChatRoom = () => {
   const { clientRef, connectWebSocket, subscribe, send, unsubscribe } = useWebSocket();
   // 페이지네이션으로 불러온 메시지들을 messages 상태에 동기화
   useEffect(() => {
-    setMessages((prevMessages) => {
-      // 기존 실시간 메시지들 중 서버에서 불러온 메시지와 중복되지 않는 것들만 필터링
-      const serverMessageIds = new Set(allMessages.map((msg) => msg.id));
-      const newMessages = prevMessages.filter((msg) => !serverMessageIds.has(msg.id));
-
-      // 서버 메시지 + 실시간 메시지 합치기
-      const combinedMessages = [...allMessages, ...newMessages];
-
-      // 메시지가 하나도 없으면 EMPTY_MESSAGE 표시
-      if (combinedMessages.length === 0) {
-        return [EMPTY_MESSAGE];
-      }
-
-      return combinedMessages;
-    });
+    if (allMessages.length === 0) {
+      setMessages([EMPTY_MESSAGE]);
+    } else {
+      setMessages(allMessages);
+    }
   }, [allMessages]);
 
   useEffect(() => {
