@@ -29,6 +29,24 @@ export const FESTIVAL_PERMISSION_STATUS_LIST = [
     message: '신청이 거절되었습니다.',
     detailedMessage: '신청이 거절되었습니다. 다시 신청하실 수 있습니다.',
   },
+  {
+    state: 'APPROVED' as const,
+    color: 'bg-green-100 text-green-800 border-green-300',
+    badgeColor: 'bg-green-500',
+    icon: PICK_ICONS.CHECK,
+    label: '승인됨',
+    message: '축제 등록이 승인되었습니다!',
+    detailedMessage: '축제 등록이 승인되었습니다!',
+  },
+  {
+    state: 'PROCESSING' as const,
+    color: 'bg-yellow-100 text-yellow-800 border-yellow-300',
+    badgeColor: 'bg-yellow-500',
+    icon: PICK_ICONS.TIME,
+    label: '심사 중',
+    message: '신청서가 검토 중입니다.',
+    detailedMessage: '신청서가 검토 중입니다. 영업일 기준 3~5일이 소요됩니다.',
+  },
 ] as const;
 
 // 축제 관련 신청 상태 기본값

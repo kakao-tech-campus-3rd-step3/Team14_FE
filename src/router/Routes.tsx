@@ -28,6 +28,7 @@ import FestivalInfoNoticeListPage from '@/pages/FestivalInfoNoticeList/FestivalI
 import NotFoundPage from '@/pages/NotFound/NotFoundPage';
 import ReviewEditPage from '@/pages/ReviewEdit/ReviewEditPage';
 import FestivalInfoEditPage from '@/pages/FestivalInfoEdit/FestivalInfoEditPage';
+import SettingsFestivalMyRegisteredApplicationPage from '@/pages/SettingsFestivalMyRegisteredApplication/SettingsFestivalMyRegisteredApplicationPage';
 
 /**
  * 라우터 컴포넌트
@@ -77,6 +78,7 @@ const protectedRoutes = [
   { path: ROUTE_PATH.FM_PERMISSION_STATUS, component: SettingsFMPermissionStatusPage },
   { path: ROUTE_PATH.MY_REVIEWS, component: SettingsFestivalMyReviewsPage },
   { path: ROUTE_PATH.FESTIVAL_REGISTER, component: SettingsFestivalRegisterPage },
+  { path: ROUTE_PATH.FESTIVAL_MY_REGISTERED_APPLICATION, component: SettingsFestivalMyRegisteredApplicationPage },
   { path: ROUTE_PATH.FESTIVAL_MY_MANAGE, component: SettingsFestivalMyManagePage },
   { path: ROUTE_PATH.FESTIVAL_MY_MANAGE_APPLICATION, component: SettingsFestivalMyManageApplicationPage },
   { path: ROUTE_PATH.FESTIVAL_MY_MANAGE_DETAIL, component: SettingsFestivalMyManageDetailPage },

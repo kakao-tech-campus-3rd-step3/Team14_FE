@@ -4,4 +4,4 @@ export interface FMPermissionRequest {
   documents: MediaInfo[];
 }
 
-export type ApplicationState = 'PENDING' | 'ACCEPTED' | 'DENIED';
+export type ApplicationState = 'PENDING' | 'ACCEPTED' | 'DENIED' | 'APPROVED' | 'PROCESSING';

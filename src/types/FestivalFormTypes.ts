@@ -1,4 +1,5 @@
 import type { MediaInfo } from '@/types/Media/MediaInfo';
+import type { ApplicationState } from '@/types/FMPermissionsRequest';
 
 export interface FestivalFormData {
   title: string;
@@ -22,3 +23,11 @@ export interface FestivalCardProps {
   ) => void;
   isSubmitting: boolean;
 }
+
+export interface FestivalRegistrationApplication {
+  id: number;
+  title: string;
+  updatedDate: string;
+  state: FestivalRegistrationApplicationState;
+}
+export type FestivalRegistrationApplicationState = ApplicationState;
