@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getMyFestivalPermissionDetail } from '@/apis/festivalManager/getMyFestivalPermissionDetail';
+import { getMyFestivalPermissionDetail }from '@/apis/festivalManager/getMyFestivalPermissionDetail';
 import { deleteMyFestivalPermission } from '@/apis/festivalManager/deleteMyFestivalPermission';
 import useNav from '@/hooks/useNav';
 import { ROUTE_PATH } from '@/constants/routes';
@@ -16,10 +16,11 @@ import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 import ConfirmModal from '@/components/modal/ConfirmModal';
 import { useDeleteWithConfirm } from '@/hooks/useDeleteWithConfirm';
 
+
 /**
- * 축제 관리자 신청 상세 내용 컴포넌트
- * @returns 축제 관리자 신청 상세 내용 컴포넌트
- * 축제 관리자 신청 상세 정보를 표시합니다.
+ * 축제 관리 신청 상세 내용 컴포넌트
+ * @returns 축제 관리 신청 상세 내용 컴포넌트
+ * 축제 관리 신청 상세 정보를 표시합니다.
  */
 const SettingsFestivalMyManageDetailContent = () => {
   const { id } = useParams<{ id: string }>();
@@ -47,6 +48,9 @@ const SettingsFestivalMyManageDetailContent = () => {
     queryFn: () => getMyFestivalPermissionDetail(id!),
     enabled: !!id,
     retry: false,
+    staleTime: 0,
+    gcTime: 0,
+    refetchOnMount: 'always',
   });
 
   const handleEdit = () => {
