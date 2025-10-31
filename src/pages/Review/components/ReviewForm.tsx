@@ -83,6 +83,9 @@ const ReviewForm = ({
   const queryClient = useQueryClient();
   useEffect(() => {
     if (initialData && isEditing) {
+      setImageInfos([]);
+      setVideoInfo(null);
+      
       const existingImages =
         initialData.imageUrls?.map((url, index) => ({
           id: index + 1,
