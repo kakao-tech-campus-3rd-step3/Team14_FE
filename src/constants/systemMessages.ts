@@ -74,6 +74,7 @@ export const SYSTEM_MESSAGES = {
     HAS_APPLIED_TITLE: '신청 내역이 있습니다',
     HAS_APPLIED_MESSAGE: '이미 이 축제에 관리자 신청을 하셨습니다.\n승인을 기다려주세요.',
     CHECK_ERROR: '확인 중 오류가 발생했습니다. 다시 시도해주세요.',
+    GET_APPLICATION_ERROR: '축제 관리 신청 내역을 가져오는데 실패했습니다.',
   },
 
   // 축제 관리 신청 수정

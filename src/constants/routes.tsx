@@ -18,6 +18,7 @@ export const ROUTE_PATH = {
   FESTIVAL_REGISTER: '/settings/festival-register',
   FESTIVAL_MY_REGISTERED: '/settings/festival-my-registered',
   FESTIVAL_MY_MANAGE: '/settings/festival-my-manage',
+  FESTIVAL_MY_MANAGE_APPLICATION: '/settings/festival-my-manage-application',
   FESTIVAL_MY_MANAGE_DETAIL: '/settings/festival-my-manage/:id',
   FESTIVAL_MY_MANAGE_EDIT: '/settings/festival-my-manage/:id/edit',
   FESTIVAL_MY_REGISTERED_APPLICATION: '/settings/festival-my-registered-application',

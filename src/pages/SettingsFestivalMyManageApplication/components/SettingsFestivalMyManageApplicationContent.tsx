@@ -3,15 +3,17 @@ import { getMyFestivalPermissions } from '@/apis/festivalManager/getMyFestivalPe
 import type { FestivalPermissionItem } from '@/apis/festivalManager/getMyFestivalPermissions';
 import EmptyComponent from '@/components/common/EmptyComponent';
 import LoadingSpinner from '@/components/loading/LoadingSpinner';
-import FestivalPermissionCard from '@/pages/SettingsFestivalMyManage/components/FestivalPermissionCard';
+import FestivalPermissionCard from '@/pages/SettingsFestivalMyManageApplication/components/FestivalPermissionCard';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
+import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
+import { showToastErrorMessage } from '@/utils/showToastMessage';
 
 /**
- * 축제 관리자 신청 내역 컴포넌트
- * @returns 축제 관리자 신청 내역 컴포넌트
- * 축제 관리자 신청 내역을 표시합니다.
+ * 축제 관리 신청 내역 컴포넌트
+ * @returns 축제 관리 신청 내역 컴포넌트
+ * 축제 관리 신청 내역을 표시합니다.
  */
-const SettingsFestivalMyManageContent = () => {
+const SettingsFestivalMyManageApplicationContent = () => {
   const [permissions, setPermissions] = useState<FestivalPermissionItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
@@ -31,7 +33,7 @@ const SettingsFestivalMyManageContent = () => {
 
       setHasMore(!response.data.last);
     } catch (err) {
-      console.error('신청 내역을 가져오는데 실패했습니다:', err);
+      showToastErrorMessage(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.GET_APPLICATION_ERROR);
     } finally {
       setLoading(false);
     }
@@ -85,4 +87,4 @@ const SettingsFestivalMyManageContent = () => {
   );
 };
 
-export default SettingsFestivalMyManageContent;
+export default SettingsFestivalMyManageApplicationContent;

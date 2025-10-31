@@ -15,7 +15,7 @@ import SettingsPage from '@/pages/Settings/SettingsPage';
 import SettingsFestivalMyReviewsPage from '@/pages/SettingsFestivalMyReview/SettingsFestivalMyReviewsPage';
 import SettingsFMPermissionApplicationPage from '@/pages/SettingsFMPermissionApplication/SettingsFMPermissionApplicationPage';
 import SettingsFMPermissionStatusPage from '@/pages/SettingsFMPermissionStatus/SettingsFMPermissionStatusPage';
-import SettingsFestivalMyManagePage from '@/pages/SettingsFestivalMyManage/SettingsFestivalMyManagePage';
+import SettingsFestivalMyManagePage from '@/pages/SettingsFestivalMyManageApplication/SettingsFestivalMyManageApplicationPage';
 import SettingsFestivalMyRegisteredPage from '@/pages/SettingsFestivalMyRegistered/SettingsFestivalMyRegisteredPage';
 import SettingsFestivalRegisterPage from '@/pages/SettingsFestivalRegister/SettingsFestivalRegisterPage';
 import FestivalManagerApplyPage from '@/pages/FestivalInfoManagerApply/FestivalInfoManagerApplyPage';
