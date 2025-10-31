@@ -6,10 +6,11 @@ import API_ENDPOINTS from '@/constants/apiEndpoints';
 import { generatePath } from 'react-router-dom';
 
 export interface CheckFestivalManagerExistResponse {
-    content:boolean;
-  }
-
-export async function checkFestivalManagerExist(festivalId: string) {
-  return await apiInstance.get<CheckFestivalManagerExistResponse>(generatePath(API_ENDPOINTS.FESTIVAL_MANAGER_EXIST, { festivalId }));
+  content: boolean;
 }
 
+export async function checkFestivalManagerExist(festivalId: string) {
+  return await apiInstance.get<CheckFestivalManagerExistResponse>(
+    generatePath(API_ENDPOINTS.FESTIVAL_MANAGER_EXIST, { festivalId }),
+  );
+}
