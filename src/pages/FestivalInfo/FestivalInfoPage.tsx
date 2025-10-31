@@ -19,6 +19,7 @@ import { useAuth } from '@/context/AuthContext';
 
 const FestivalInfoPage = () => {
   const { festivalId } = useParams();
+  const { isInitialized } = useAuth();
   const {
     data: festivalData,
     isPending: isFestivalPending,
@@ -27,7 +28,7 @@ const FestivalInfoPage = () => {
     queryKey: ['festival', festivalId],
     queryFn: () => getFestivalInfo({ festivalId: festivalId || '' }),
     select: (data) => data.data,
-    enabled: !!festivalId,
+    enabled: !!festivalId && isInitialized,
     staleTime: 0, 
     refetchOnMount: 'always', 
   });
