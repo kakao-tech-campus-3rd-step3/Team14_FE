@@ -47,8 +47,9 @@ const MyPageChatSection = () => {
   }
 
   return (
-    <div className="overflow-x-auto pb-2 snap-x snap-mandatory">
-      <section className="flex gap-4">
+    <section className="flex flex-col gap-2">
+      <h1 className="text-lg font-bold mb-1">채팅방</h1>
+      <div className="flex gap-4 overflow-x-auto pb-2 snap-x snap-mandatory">
         {myChats.map((chat) => (
           <Link
             to={generatePath(ROUTE_PATH.CHAT, { festivalId: chat.festivalId.toString() })}
@@ -82,8 +83,8 @@ const MyPageChatSection = () => {
         {!isFetching && hasNextPage && (
           <div ref={observerRef} className="flex-shrink-0 min-w-12 h-1" />
         )}
-      </section>
-    </div>
+      </div>
+    </section>
   );
 };
 
