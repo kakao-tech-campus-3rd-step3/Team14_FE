@@ -54,6 +54,8 @@ const API_ENDPOINTS = {
   // 축제 공지사항 관련
   FESTIVAL_NOTICE: '/api/festivals/:festivalId/notices',
   FESTIVAL_NOTICE_DETAIL: '/api/festivals/notices/:id',
+  // 축제 관리자 존재 여부 조회
+  FESTIVAL_MANAGER_EXIST: '/api/festivals/:festivalId/check-manager',
 } as const;
 
 export default API_ENDPOINTS;

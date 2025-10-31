@@ -63,6 +63,7 @@ export const SYSTEM_MESSAGES = {
   FESTIVAL_MANAGER_APPLY: {
     SUCCESS: '축제 관리 신청이 완료되었습니다!',
     ALREADY_APPLIED: '이미 이 축제의 관리자 신청이 존재합니다.',
+    MANAGER_ALREADY_EXISTS: '이미 이 축제의 관리자가 존재합니다.',
     INVALID_REQUEST: '신청할 수 없습니다. 입력값을 확인해주세요.',
     NO_PERMISSION: '축제 관리자 권한이 필요합니다.',
     ERROR: '신청 제출에 실패했습니다. 다시 시도해주세요.',

@@ -9,6 +9,7 @@ import { generatePath } from 'react-router-dom';
 import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 import { checkFestivalManagerApply } from '@/apis/festivalManager/checkFestivalManagerApply';
 import { showToastErrorMessage, showToastAxiosError } from '@/utils/showToastMessage';
+import { checkFestivalManagerExist } from '@/apis/festivalManager/checkFestivalManagerExist';
 
 interface FestivalContentManagerSectionProps {
   festivalId: string;
@@ -17,6 +18,16 @@ interface FestivalContentManagerSectionProps {
 
 /**
  * 축제 관리자로 나를 신청할 수 있는 섹션
+ * 두단계의 검증을 거칩니다.
+ * 1. 축제 관리자 권한 확인
+ *  유저가 해당 권한을 가진 role인지 확인합니다.
+ * 2. 축제 관리자 존재 확인
+ *  해당 축제에 관리자가 이미 존재하는 지 확인합니다.
+ *  이미 존재하는 경우 예외처리를 합니다.
+ * 3. 축제 관리자 신청 확인
+ *  해당 축제에 관리자 신청이 이미 존재하는 지 확인합니다.
+ *  이미 존재하는 경우 예외처리를 합니다.
+ *  신청이 없는 경우 신청 페이지로 이동합니다.
  * @returns 축제 관리자 섹션 컴포넌트
  */
 const FestivalContentManagerSection = ({
@@ -55,8 +66,8 @@ const FestivalContentManagerSection = ({
       if (!isFestivalManager) {
         // 축제 관리자 권한이 없는 경우
         setModalContent({
-          title: '권한이 필요해요',
-          message: '축제 관리자만 축제를 관리할 수 있습니다.\n축제 관리자 권한을 신청해주세요.',
+          title: SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.NEED_FM_PERMISSION_TITLE,
+          message: SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.NEED_FM_PERMISSION_MESSAGE,
           confirmText: '신청하러 가기',
           cancelText: '취소',
           onConfirm: () => {
@@ -67,7 +78,18 @@ const FestivalContentManagerSection = ({
         setShowModal(true);
         return;
       }
-
+      try {
+        const checkResponse = await checkFestivalManagerExist(festivalId);
+        const exists = checkResponse.data.content;
+        // 관리자가 이미 존재하는 경우 예외처리
+        if (exists) {
+          showToastErrorMessage(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.MANAGER_ALREADY_EXISTS);
+          return;
+        }
+      } catch (error) {
+        showToastAxiosError(error);
+        return;
+      }
       // 2차: 중복 신청 확인
       const checkResponse = await checkFestivalManagerApply(festivalId);
       const hasAlreadyApplied = checkResponse.data.content;
@@ -75,8 +97,8 @@ const FestivalContentManagerSection = ({
       if (hasAlreadyApplied) {
         // 이미 신청한 경우
         setModalContent({
-          title: '신청 내역이 있습니다',
-          message: '이미 이 축제에 관리자 신청을 하셨습니다.\n승인을 기다려주세요.',
+          title: SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.HAS_APPLIED_TITLE,
+          message: SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.HAS_APPLIED_MESSAGE,
           confirmText: '신청내역보러가기',
           cancelText: '취소',
           onConfirm: () => {
