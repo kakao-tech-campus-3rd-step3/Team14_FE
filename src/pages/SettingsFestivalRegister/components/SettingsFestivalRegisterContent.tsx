@@ -8,6 +8,8 @@ import {
 import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 import { useMutation } from '@tanstack/react-query';
 import useNav from '@/hooks/useNav';
+import type { PostFestivalRequest } from '@/apis/festivals/postFestival';
+import { cleanUrl } from '@/utils/s3Upload';
 /**
  * 축제 등록 내용 컴포넌트
  * @returns 축제 등록 내용 컴포넌트
@@ -16,7 +18,7 @@ import useNav from '@/hooks/useNav';
 const SettingsFestivalRegisterContent = () => {
   const { goBack } = useNav();
   const { mutate: submitCreate, isPending } = useMutation({
-    mutationFn: (body: any) => postFestival(body),
+    mutationFn: (body: PostFestivalRequest) => postFestival(body),
     onSuccess: () => {
       showToastSuccessMessage(SYSTEM_MESSAGES.FESTIVAL_REGISTER.SUCCESS);
       goBack();
@@ -37,8 +39,14 @@ const SettingsFestivalRegisterContent = () => {
           areaCode: Number(formData.areaCode),
           addr1: formData.addr1,
           addr2: formData.addr2,
-          posterInfo,
-          imageInfos,
+          posterInfo:{
+            id: posterInfo.id,
+            presignedUrl: cleanUrl(posterInfo.presignedUrl), 
+          },
+          imageInfos: imageInfos.map((image) => ({
+            id: image.id,
+            presignedUrl: cleanUrl(image.presignedUrl),
+          })),
           startDate: formData.startDate,
           endDate: formData.endDate,
           homePage: formData.homePage,

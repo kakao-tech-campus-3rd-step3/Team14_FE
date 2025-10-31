@@ -176,7 +176,9 @@ const SettingsContent = () => {
           </Button>
           <Button
             variant="text"
-            onClick={() => handleFestivalManagementClick(ROUTE_PATH.FESTIVAL_MY_REGISTERED_APPLICATION)}
+            onClick={() =>
+              handleFestivalManagementClick(ROUTE_PATH.FESTIVAL_MY_REGISTERED_APPLICATION)
+            }
           >
             축제 등록 신청 내역
           </Button>

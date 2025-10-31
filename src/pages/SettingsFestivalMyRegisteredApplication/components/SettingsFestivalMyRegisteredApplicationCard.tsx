@@ -16,9 +16,11 @@ const SettingsFestivalMyRegisteredApplicationCard = ({
   const statusInfo = getFestivalPermissionStatusInfo(application.state);
 
   const handleClick = () => {
-    goTo(generatePath(ROUTE_PATH.FESTIVAL_INFO, {
-      festivalId: application.id.toString(),
-    }));
+    goTo(
+      generatePath(ROUTE_PATH.FESTIVAL_INFO, {
+        festivalId: application.id.toString(),
+      }),
+    );
   };
 
   return (

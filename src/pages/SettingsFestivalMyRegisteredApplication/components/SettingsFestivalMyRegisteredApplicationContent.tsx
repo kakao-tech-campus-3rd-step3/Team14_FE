@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { getMyCustomFestivals } from '@/apis/festivals/getMyCustomFestivals';
 import type { FestivalRegistrationApplication } from '@/types/FestivalFormTypes';
@@ -76,7 +75,10 @@ const SettingsFestivalMyRegisteredApplicationContent = () => {
     <div className="p-4">
       <div className="space-y-3 pb-20">
         {applications.map((application) => (
-          <SettingsFestivalMyRegisteredApplicationCard key={application.id} application={application} />
+          <SettingsFestivalMyRegisteredApplicationCard
+            key={application.id}
+            application={application}
+          />
         ))}
       </div>
 

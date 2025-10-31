@@ -59,7 +59,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setAccessToken(null);
     setUserInfoState(null);
   };
-  // 토큰복구보다 먼저 실행되어서 새로고침 등과 같은 상황에서 Authorization 헤더에 토큰이 누락되는 문제 해결 위해 실행 순서 조정함
+  // 토큰복구보다 먼저 실행되어서 새로고침 등과 같은 상황에서 헤더의 Authorization이 실종되는 문제 해결 위해 실행 순서 조정함
   // apiInstance와 연결
   useEffect(() => {
     setAuthCallbacks(getAccessToken, setAccessToken);
@@ -111,8 +111,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       isMounted = false;
     };
   }, []);
-
-  
 
   const isLoggedIn = !!accessToken;
 

@@ -33,6 +33,8 @@ const SettingsFestivalMyManageApplicationContent = () => {
 
       setHasMore(!response.data.last);
     } catch (err) {
+      // lint 문제로 일단 console.error 사용
+      console.error(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.GET_APPLICATION_ERROR, err);
       showToastErrorMessage(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.GET_APPLICATION_ERROR);
     } finally {
       setLoading(false);

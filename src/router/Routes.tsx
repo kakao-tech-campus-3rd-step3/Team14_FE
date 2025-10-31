@@ -78,9 +78,15 @@ const protectedRoutes = [
   { path: ROUTE_PATH.FM_PERMISSION_STATUS, component: SettingsFMPermissionStatusPage },
   { path: ROUTE_PATH.MY_REVIEWS, component: SettingsFestivalMyReviewsPage },
   { path: ROUTE_PATH.FESTIVAL_REGISTER, component: SettingsFestivalRegisterPage },
-  { path: ROUTE_PATH.FESTIVAL_MY_REGISTERED_APPLICATION, component: SettingsFestivalMyRegisteredApplicationPage },
+  {
+    path: ROUTE_PATH.FESTIVAL_MY_REGISTERED_APPLICATION,
+    component: SettingsFestivalMyRegisteredApplicationPage,
+  },
   { path: ROUTE_PATH.FESTIVAL_MY_MANAGE, component: SettingsFestivalMyManagePage },
-  { path: ROUTE_PATH.FESTIVAL_MY_MANAGE_APPLICATION, component: SettingsFestivalMyManageApplicationPage },
+  {
+    path: ROUTE_PATH.FESTIVAL_MY_MANAGE_APPLICATION,
+    component: SettingsFestivalMyManageApplicationPage,
+  },
   { path: ROUTE_PATH.FESTIVAL_MY_MANAGE_DETAIL, component: SettingsFestivalMyManageDetailPage },
   { path: ROUTE_PATH.FESTIVAL_MY_MANAGE_EDIT, component: SettingsFestivalMyManageEditPage },
   { path: ROUTE_PATH.FAQ, component: SettingsFAQPage },

@@ -29,8 +29,8 @@ const FestivalInfoPage = () => {
     queryFn: () => getFestivalInfo({ festivalId: festivalId || '' }),
     select: (data) => data.data,
     enabled: !!festivalId && isInitialized,
-    staleTime: 0, 
-    refetchOnMount: 'always', 
+    staleTime: 0,
+    refetchOnMount: 'always',
   });
 
   const {

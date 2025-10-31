@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getMyFestivalPermissionDetail }from '@/apis/festivalManager/getMyFestivalPermissionDetail';
+import { getMyFestivalPermissionDetail } from '@/apis/festivalManager/getMyFestivalPermissionDetail';
 import { deleteMyFestivalPermission } from '@/apis/festivalManager/deleteMyFestivalPermission';
 import useNav from '@/hooks/useNav';
 import { ROUTE_PATH } from '@/constants/routes';
@@ -15,7 +15,6 @@ import FestivalPermissionButtons from '@/pages/SettingsFestivalMyManageDetail/co
 import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 import ConfirmModal from '@/components/modal/ConfirmModal';
 import { useDeleteWithConfirm } from '@/hooks/useDeleteWithConfirm';
-
 
 /**
  * 축제 관리 신청 상세 내용 컴포넌트

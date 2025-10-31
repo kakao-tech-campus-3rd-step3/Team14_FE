@@ -11,14 +11,8 @@ import { useInfiniteQuery } from '@tanstack/react-query';
  * 내가 관리하는 축제 목록을 표시합니다.
  */
 const SettingsFestivalMyManageContent = () => {
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetching,
-    isLoading,
-  } = useInfiniteQuery({
-    queryKey: ['my-festivals'], 
+  const { data, fetchNextPage, hasNextPage, isFetching, isLoading } = useInfiniteQuery({
+    queryKey: ['my-festivals'],
     queryFn: ({ pageParam = 0 }) => getMyFestivals(pageParam, 5),
     getNextPageParam: (lastPage) => {
       if (!lastPage.data.last) {
@@ -31,13 +25,12 @@ const SettingsFestivalMyManageContent = () => {
 
   const festivals = data?.pages.flatMap((page) => page.data.content) ?? [];
 
-
   const { ref: observerRef } = useIntersectionObserver(() => {
     if (isLoading || !hasNextPage) return;
     fetchNextPage();
   });
 
-  if (isLoading ) {
+  if (isLoading) {
     return <LoadingSpinner size="md" className="h-64" message="축제를 불러오는 중..." />;
   }
 

@@ -15,6 +15,8 @@ import { queryClient } from '@/utils/queryClient';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { generatePath, useParams } from 'react-router-dom';
 import { useState } from 'react';
+import type { FestivalUpdateRequest } from '@/types/FestivalFormTypes';
+import { cleanUrl } from '@/utils/s3Upload';
 /**
  * 축제 정보 수정 내용 컴포넌트
  * 기존에 축제 등록 페이지에서 활용하던 컴포넌트들을 공용으로 옮긴 뒤 재사용해서 구성하였습니다.
@@ -34,7 +36,7 @@ const FestivalInfoEditContent = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { goTo } = useNav();
   const { mutate: submitEdit } = useMutation({
-    mutationFn: (body: unknown) => patchFestival(festivalId!, body as any),
+    mutationFn: (body: FestivalUpdateRequest) => patchFestival(festivalId!, body),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['festival', festivalId] });
       queryClient.invalidateQueries({ queryKey: ['festivals'] });
@@ -70,8 +72,14 @@ const FestivalInfoEditContent = () => {
         areaCode: Number(payload.formData.areaCode),
         addr1: payload.formData.addr1,
         addr2: payload.formData.addr2,
-        posterInfo: payload.posterInfo,
-        imageInfos: payload.imageInfos,
+        posterInfo: {
+          id: payload.posterInfo.id,
+          presignedUrl: cleanUrl(payload.posterInfo.presignedUrl),
+        },
+        imageInfos: payload.imageInfos.map((image) => ({
+          id: image.id,
+          presignedUrl: cleanUrl(image.presignedUrl),
+        })),
         startDate: payload.formData.startDate,
         endDate: payload.formData.endDate,
         homePage: payload.formData.homePage,

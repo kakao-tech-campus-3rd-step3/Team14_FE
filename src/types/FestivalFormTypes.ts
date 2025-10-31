@@ -12,7 +12,8 @@ export interface FestivalFormData {
   overView: string;
 }
 
-export interface FestivalUpdateRequest extends FestivalFormData {
+export interface FestivalUpdateRequest extends Omit<FestivalFormData, 'areaCode'> {
+  areaCode: number;
   posterInfo: MediaInfo;
   imageInfos: MediaInfo[];
 }
