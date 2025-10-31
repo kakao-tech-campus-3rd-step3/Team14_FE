@@ -41,7 +41,7 @@ const MyPageChatSection = () => {
       <EmptyComponent
         title="채팅 목록이 없습니다."
         description="대화를 시작해보세요!"
-        className="h-[123px] w-full flex flex-col items-center justify-center"
+        className="h-[156px] w-full flex flex-col items-center justify-center"
       />
     );
   }
@@ -75,7 +75,7 @@ const MyPageChatSection = () => {
         ))}
         {isFetching && (
           <div
-            className={`flex-shrink-0 flex flex-col items-center justify-center${!data ? 'w-full h-[123px]' : ''}`}
+            className={`flex-shrink-0 flex flex-col items-center justify-center${!data ? 'w-full h-[156px]' : ''}`}
           >
             <LoadingSpinner />
           </div>
