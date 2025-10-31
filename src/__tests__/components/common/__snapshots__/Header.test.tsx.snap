@@ -81,7 +81,7 @@ exports[`Header 컴포넌트 > 스냅샷 테스트 - 핵심 요소별 > all vari
 
 exports[`Header 컴포넌트 > 스냅샷 테스트 - 핵심 요소별 > logo variant - 로고 영역 스냅샷 > logo-svg 1`] = `
 <svg
-  class="size-10"
+  class="size-9"
   viewBox="0 0 206.68 235.04"
   xmlns="http://www.w3.org/2000/svg"
 >

@@ -33,8 +33,8 @@ const Header = ({ variant = 'logo', title = '' }: HeaderProps) => {
   if (variant === 'logo') {
     return (
       <div className={containerClasses}>
-        <div className={`${baseClasses} gap-2`}>
-          <Logo className="size-10" />
+        <div className={`${baseClasses} gap-2 pl-3`}>
+          <Logo className="size-9" />
           <h1 className="text-xl font-bold">FestaPick</h1>
         </div>
       </div>
