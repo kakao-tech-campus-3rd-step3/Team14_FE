@@ -19,7 +19,7 @@ exports[`FestivalsPage 테스트 > 스냅샷 테스트 > AI 추천 섹션과 일
     class="p-4"
   >
     <h3
-      class="text-lg font-bold text-gray-900 mb-3 line-clamp-2 min-h-[3.5rem]"
+      class="text-lg font-bold text-gray-900 line-clamp-2 leading-tight min-h-[3rem]"
     >
       안동국제탈춤페스티벌
     </h3>
@@ -63,7 +63,7 @@ exports[`FestivalsPage 테스트 > 스냅샷 테스트 > AI 추천 섹션과 일
     class="p-4"
   >
     <h3
-      class="text-lg font-bold text-gray-900 mb-3 line-clamp-2 min-h-[3.5rem]"
+      class="text-lg font-bold text-gray-900 line-clamp-2 leading-tight min-h-[3rem]"
     >
       한옥마을전통연희 퍼레이드-노상놀이야
     </h3>
@@ -107,7 +107,7 @@ exports[`FestivalsPage 테스트 > 스냅샷 테스트 > AI 추천이 없을 때
     class="p-4"
   >
     <h3
-      class="text-lg font-bold text-gray-900 mb-3 line-clamp-2 min-h-[3.5rem]"
+      class="text-lg font-bold text-gray-900 line-clamp-2 leading-tight min-h-[3rem]"
     >
       한옥마을전통연희 퍼레이드-노상놀이야
     </h3>

@@ -24,7 +24,7 @@ const FestivalCard = ({ data, highlight = false }: FestivalCardProps) => {
 
       {/* 콘텐츠 섹션 */}
       <div className="p-4">
-        <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2 min-h-[3.5rem]">
+        <h3 className="text-lg font-bold text-gray-900 line-clamp-2 leading-tight min-h-[3rem]">
           {data.title}
         </h3>
 
