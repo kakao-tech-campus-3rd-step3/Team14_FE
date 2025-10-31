@@ -30,11 +30,11 @@ const FestivalContentOverviewSection = ({ festivalId, overview, isManager }: Fes
         <h3 className="text-sm text-gray-900 font-bold">상세정보</h3>
         {isManager && (
           <div className="flex items-center gap-2">
-            <Button variant="tertiary" size="sm" onClick={handleEditClick}>
-              수정
+            <Button variant="text" className="!text-blue-500" size="sm" onClick={handleEditClick}>
+              축제 정보 수정
             </Button>
-            <Button variant="tertiary" size="sm" onClick={handleDeleteClick}>
-              삭제
+            <Button variant="text" className="text-red-500" size="sm" onClick={handleDeleteClick}>
+              축제 정보 삭제
             </Button>
           </div>
         )}
