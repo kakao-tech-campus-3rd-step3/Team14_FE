@@ -71,27 +71,25 @@ describe('FestivalsPage 테스트', () => {
       // Given: AI 추천 데이터가 있을 때
       mockLocationState = { requestData: mockRequestData };
 
-      const { container } = render(
+      render(
         <TestWrapper initialEntries={initialEntriesWithAI}>
           <FestivalsPage />
         </TestWrapper>,
       );
 
-      // Suspense가 끝나고 섹션이 나타날 때까지 기다림
-      await waitFor(() => {
-        const sections = container.querySelectorAll('section');
-        expect(sections.length).toBeGreaterThanOrEqual(2);
-      });
+      // Suspense fallbacks가 아닌 실제 섹션 제목이 나타날 때까지 대기
+      await screen.findByRole('heading', { name: '맞춤 AI Pick 축제' });
+      await screen.findByRole('heading', { name: '지역의 축제' });
 
-      const sections = container.querySelectorAll('section');
-      const [aiPickSection, festivalsSection] = sections;
+      const aiPickHeading = screen.getByRole('heading', { name: '맞춤 AI Pick 축제' });
+      const aiPickSection = aiPickHeading.closest('section');
+      const festivalsHeading = screen.getByRole('heading', { name: '지역의 축제' });
+      const festivalsSection = festivalsHeading.closest('section');
 
-      // AI Pick 첫 카드 스냅샷
-      const aiGrid = aiPickSection.querySelector('.grid');
+      const aiGrid = aiPickSection?.querySelector('.grid');
       expect(aiGrid?.children[0]).toMatchSnapshot('ai-pick-first-card');
 
-      // Festivals 첫 카드 스냅샷
-      const festivalsGrid = festivalsSection.querySelector('.grid');
+      const festivalsGrid = festivalsSection?.querySelector('.grid');
       expect(festivalsGrid?.children[0]).toMatchSnapshot('festivals-first-card');
     });
 
@@ -105,16 +103,12 @@ describe('FestivalsPage 테스트', () => {
         </TestWrapper>,
       );
 
-      // Suspense가 끝나고 섹션이 나타날 때까지 기다림
-      await waitFor(() => {
-        const sections = container.querySelectorAll('section');
-        expect(sections.length).toBeGreaterThanOrEqual(1);
-      });
+      // 실제 섹션 제목 로드까지 대기
+      await screen.findByRole('heading', { name: '지역의 축제' });
 
       const sections = container.querySelectorAll('section');
       const [festivalsSection] = sections;
 
-      // Festivals 첫 카드 스냅샷
       const festivalsGrid = festivalsSection.querySelector('.grid');
       expect(festivalsGrid?.children[0]).toMatchSnapshot('festivals-only-first-card');
     });
@@ -175,7 +169,7 @@ describe('FestivalsPage 테스트', () => {
 
       // Then: 일반 Festivals 섹션이 로드될 때까지 기다림
       await waitFor(() => {
-        expect(screen.getByRole('heading', { name: 'Festivals' })).toBeInTheDocument();
+        expect(screen.getByRole('heading', { name: '지역의 축제' })).toBeInTheDocument();
       });
 
       // AI Pick 제목이 없어야 함
@@ -201,11 +195,12 @@ describe('FestivalsPage 테스트', () => {
 
       // Then: 에러가 발생하지 않고 일반 Festivals 섹션은 표시되어야 한다
       await waitFor(() => {
-        expect(screen.getByRole('heading', { name: 'Festivals' })).toBeInTheDocument();
+        expect(screen.getByRole('heading', { name: '지역의 축제' })).toBeInTheDocument();
+        // AI Pick 섹션은 표시되지 않아야 함
+        expect(
+          screen.queryByRole('heading', { name: '맞춤 AI Pick 축제' }),
+        ).not.toBeInTheDocument();
       });
-
-      // AI Pick 섹션은 표시되지 않아야 함
-      expect(screen.queryByRole('heading', { name: '맞춤 AI Pick 축제' })).not.toBeInTheDocument();
     });
   });
 });
@@ -228,7 +223,7 @@ describe('축제 목록 섹션', () => {
     });
 
     // "Festivals" 섹션을 기준으로 범위를 한정해 중복 매치를 방지한다
-    const festivalsHeading = await screen.findByRole('heading', { name: 'Festivals' });
+    const festivalsHeading = await screen.findByRole('heading', { name: '지역의 축제' });
     const festivalsSection = festivalsHeading.closest('section');
     expect(festivalsSection).toBeTruthy();
 
@@ -291,7 +286,7 @@ test('로딩 상태가 올바르게 표시된다', async () => {
   });
 });
 
-test('API 에러 상태가 올바르게 처리된다 (ErrorBoundary가 null을 렌더링)', async () => {
+test('API 에러 상태가 올바르게 처리된다 (ErrorBoundary가 렌더링되므로 해당 섹션 텍스트가 나타나지 않는다)', async () => {
   // Given: API 호출이 실패할 때
   const getFestivalsMock = await import('@/apis/festivals/getFestivals');
   vi.mocked(getFestivalsMock.default).mockRejectedValueOnce(new Error('API Error'));
@@ -302,8 +297,8 @@ test('API 에러 상태가 올바르게 처리된다 (ErrorBoundary가 null을 �
     </TestWrapper>,
   );
 
-  // Then: ErrorBoundary가 null을 렌더링하므로 해당 섹션 텍스트가 나타나지 않는다
+  // Then: ErrorBoundary가 렌더링되므로 해당 섹션 텍스트가 나타나지 않는다
   await waitFor(() => {
-    expect(screen.queryByText('Festivals')).not.toBeInTheDocument();
+    expect(screen.queryByText('지역의 축제')).not.toBeInTheDocument();
   });
 });

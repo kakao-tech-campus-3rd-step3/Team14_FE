@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import LoadingSpinner from '@/components/loading/LoadingSpinner';
 import EmptyComponent from '@/components/common/EmptyComponent';
+import MAP_PINS from '@/constants/mapPins';
 
 const FestivalsAreaSection = () => {
   const { areaId } = useParams();
@@ -26,6 +27,9 @@ const FestivalsAreaSection = () => {
 
   const festivals = data?.pages.flatMap((page) => page.data.content) || [];
 
+  const area = MAP_PINS.find((pin) => pin.areaId === areaId);
+  const areaName = area?.name ?? '지역';
+
   if (festivals.length === 0) {
     return (
       <div className="w-full h-full flex flex-col items-center justify-center">
@@ -39,7 +43,7 @@ const FestivalsAreaSection = () => {
   }
   return (
     <div>
-      <FestivalsSection title="Festivals" data={festivals} />
+      <FestivalsSection title={`${areaName}의 축제`} data={festivals} />
       {hasNextPage && <div ref={observerRef} className="h-1" />}
       {isFetching && <LoadingSpinner className="mt-8" />}
     </div>
