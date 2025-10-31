@@ -28,5 +28,7 @@ export const ROUTE_PATH = {
   FESTIVAL_NOTICE_CREATE: '/festival/:festivalId/notice/create',
   FESTIVAL_NOTICE_EDIT: '/festival/:festivalId/notice/:noticeId/edit',
 
+  FESTIVAL_EDIT: '/festival/:festivalId/overview/edit',
+  FESTIVAL_DELETE: '/festival/:festivalId/overview/delete',
   NOT_FOUND: '*',
 } as const;
