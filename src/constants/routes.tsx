@@ -32,5 +32,7 @@ export const ROUTE_PATH = {
 
   FESTIVAL_EDIT: '/festival/:festivalId/overview/edit',
   FESTIVAL_DELETE: '/festival/:festivalId/overview/delete',
+
+  AI_RECOMMENDATION_HISTORIES: '/pick/histories',
   NOT_FOUND: '*',
 } as const;
