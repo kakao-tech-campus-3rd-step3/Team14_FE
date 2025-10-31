@@ -5,6 +5,7 @@ import Button from '@/components/common/Button';
 import type { Pin } from '@/types/Pin';
 import { ROUTE_PATH } from '@/constants/routes';
 import DIALECT_MESSAGES from '@/constants/dialectMessages';
+import Map from '@/components/icon/MapIcon';
 
 interface Props {
   close: () => void;
@@ -45,9 +46,11 @@ const Modal = ({ close, isOpen, pin }: Props) => {
         }
       }}
     >
-      <div className="max-w-[720px] px-[7px] py-[10px] gap-[9px] bg-white shadow-lg max-w-md w-full mx-4 justify-center flex flex-col items-center justify-center h-auto">
-        <p className="text-xl font-semibold">AI Pick Festival</p>
-        <p className="text-6xl font-bold text-primary-400 mt-1">{pin?.name}</p>
+      <div className="max-w-[720px] gap-2 bg-white shadow-lg m-3 max-w-md w-full justify-center flex flex-col items-center justify-center rounded-2xl">
+        <div className="flex items-center justify-center gap-2 text-5xl font-bold text-primary-400 pt-10">
+          <Map className="size-12" />
+          <p>{pin?.name}</p>
+        </div>
         <p className="mt-2 text-sm text-center whitespace-pre-line">{message}</p>
 
         {pin?.icon ? (
@@ -57,30 +60,33 @@ const Modal = ({ close, isOpen, pin }: Props) => {
             <ModalLogo className="size-12" />
           </div>
         )}
-
-        <Button
-          className="mt-4 px-5 py-3 w-[180px]"
-          onClick={() => {
-            if (pin?.areaId) {
-              navigate(generatePath(ROUTE_PATH.PICK, { areaId: pin.areaId }));
-            }
-            close();
-          }}
-        >
-          나만의 지역 축제 찾기
-        </Button>
-        <Button
-          variant="link"
-          className="mt-1"
-          onClick={() => {
-            if (pin?.areaId) {
-              navigate(generatePath(ROUTE_PATH.FESTIVALS, { areaId: pin.areaId }));
-            }
-            close();
-          }}
-        >
-          건너뛰기
-        </Button>
+        <div className="flex flex-col items-center justify-center gap-3 w-full px-15 pt-2 pb-10">
+          <Button
+            className="flex-1"
+            fullWidth
+            onClick={() => {
+              if (pin?.areaId) {
+                navigate(generatePath(ROUTE_PATH.PICK, { areaId: pin.areaId }));
+              }
+              close();
+            }}
+          >
+            나만의 지역 축제 찾기
+          </Button>
+          <Button
+            variant="secondary"
+            className="flex-1"
+            fullWidth
+            onClick={() => {
+              if (pin?.areaId) {
+                navigate(generatePath(ROUTE_PATH.FESTIVALS, { areaId: pin.areaId }));
+              }
+              close();
+            }}
+          >
+            지역 축제 둘러보기
+          </Button>
+        </div>
       </div>
     </div>
   );
