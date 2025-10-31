@@ -31,7 +31,7 @@ const LoginContent = () => {
         <div className="flex flex-col items-center">
           <div className="flex items-center gap-3 mb-6">
             <Logo className="w-16 h-16" />
-            <h1 className="text-7xl text-gray-900">FestaPICK</h1>
+            <h1 className="text-7xl text-gray-900">FestaPick</h1>
           </div>
           <p className="text-lg text-gray-700 text-center">소셜로그인으로 빠르게 시작하세요!</p>
         </div>
