@@ -6,6 +6,7 @@ import type { Pin } from '@/types/Pin';
 import { ROUTE_PATH } from '@/constants/routes';
 import DIALECT_MESSAGES from '@/constants/dialectMessages';
 import Map from '@/components/icon/MapIcon';
+import Close from '@/components/icon/CloseIcon';
 
 interface Props {
   close: () => void;
@@ -46,8 +47,12 @@ const Modal = ({ close, isOpen, pin }: Props) => {
         }
       }}
     >
-      <div className="max-w-[720px] gap-2 bg-white shadow-lg m-3 max-w-md w-full justify-center flex flex-col items-center justify-center rounded-2xl">
-        <div className="flex items-center justify-center gap-2 text-5xl font-bold text-primary-400 pt-10">
+      <div className="relative max-w-[720px] gap-2 bg-white shadow-lg m-3 max-w-md w-full flex flex-col items-center justify-center rounded-2xl">
+        <Button variant="icon" className="absolute top-2 right-2" onClick={close}>
+          <Close className="size-6" strokeWidth={3} />
+        </Button>
+
+        <div className="flex items-center justify-center gap-2 text-5xl font-bold text-primary-400 pt-12">
           <Map className="size-12" />
           <p>{pin?.name}</p>
         </div>
