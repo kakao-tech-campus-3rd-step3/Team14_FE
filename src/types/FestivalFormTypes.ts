@@ -1,4 +1,4 @@
-import type { MediaInfo } from "@/types/Media/MediaInfo";
+import type { MediaInfo } from '@/types/Media/MediaInfo';
 
 export interface FestivalFormData {
   title: string;

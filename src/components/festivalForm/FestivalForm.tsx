@@ -33,7 +33,12 @@ interface FestivalFormProps {
  * @returns 축제 등록,수정 폼 컴포넌트
  * 축제 등록,수정 폼을 표시합니다.
  */
-const FestivalForm = ({ initial, isSubmitting, submitLabel = '등록하기', onSubmit }: FestivalFormProps) => {
+const FestivalForm = ({
+  initial,
+  isSubmitting,
+  submitLabel = '등록하기',
+  onSubmit,
+}: FestivalFormProps) => {
   const {
     formData,
     handleInputChange,
@@ -59,12 +64,36 @@ const FestivalForm = ({ initial, isSubmitting, submitLabel = '등록하기', onS
   return (
     <div className="p-4">
       <div className="flex flex-col gap-6">
-        <FestivalFormNameCard formData={formData} handleInputChange={handleInputChange} isSubmitting={isSubmitting} />
-        <FestivalFormAreaCard formData={formData} handleInputChange={handleInputChange} isSubmitting={isSubmitting} />
-        <FestivalFormAddressCard formData={formData} handleInputChange={handleInputChange} isSubmitting={isSubmitting} />
-        <FestivalFormPeriodCard formData={formData} handleInputChange={handleInputChange} isSubmitting={isSubmitting} />
-        <FestivalFormHomePageCard formData={formData} handleInputChange={handleInputChange} isSubmitting={isSubmitting} />
-        <FestivalFormOverviewCard formData={formData} handleInputChange={handleInputChange} isSubmitting={isSubmitting} />
+        <FestivalFormNameCard
+          formData={formData}
+          handleInputChange={handleInputChange}
+          isSubmitting={isSubmitting}
+        />
+        <FestivalFormAreaCard
+          formData={formData}
+          handleInputChange={handleInputChange}
+          isSubmitting={isSubmitting}
+        />
+        <FestivalFormAddressCard
+          formData={formData}
+          handleInputChange={handleInputChange}
+          isSubmitting={isSubmitting}
+        />
+        <FestivalFormPeriodCard
+          formData={formData}
+          handleInputChange={handleInputChange}
+          isSubmitting={isSubmitting}
+        />
+        <FestivalFormHomePageCard
+          formData={formData}
+          handleInputChange={handleInputChange}
+          isSubmitting={isSubmitting}
+        />
+        <FestivalFormOverviewCard
+          formData={formData}
+          handleInputChange={handleInputChange}
+          isSubmitting={isSubmitting}
+        />
         <FestivalFormPosterCard
           posterInfo={posterInfo}
           setPosterInfo={setPosterInfo}
@@ -105,5 +134,3 @@ const FestivalForm = ({ initial, isSubmitting, submitLabel = '등록하기', onS
 };
 
 export default FestivalForm;
-
-

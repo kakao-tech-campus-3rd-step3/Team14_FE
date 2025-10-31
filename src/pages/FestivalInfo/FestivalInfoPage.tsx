@@ -1,7 +1,7 @@
 import Header from '@/components/common/Header';
 import Container from '@/components/common/Container';
 import FestivalInfoFooter from '@/pages/FestivalInfo/components/FestivalInfoFooter';
-import {useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import getFestivalInfo from '@/apis/festivals/getFestivalInfo';
 import { useQuery } from '@tanstack/react-query';
 import FestivalPoster from '@/pages/FestivalInfo/components/FestivalPoster';
@@ -79,17 +79,15 @@ const FestivalInfoPage = () => {
             reviewCount={reviewsData.totalElements}
           />
           <Divider height="1px" />
-          <FestivalContentOverviewSection festivalId={festivalId} overview={festivalData.content.overView} isManager={isManager} />
-          <Divider height="1px" />
-          <FestivalContentNoticeSection
+          <FestivalContentOverviewSection
             festivalId={festivalId}
+            overview={festivalData.content.overView}
             isManager={isManager}
           />
           <Divider height="1px" />
-          <FestivalContentManagerSection
-            festivalId={festivalId}
-            isManager={isManager}
-          />
+          <FestivalContentNoticeSection festivalId={festivalId} isManager={isManager} />
+          <Divider height="1px" />
+          <FestivalContentManagerSection festivalId={festivalId} isManager={isManager} />
           <Divider height="1px" />
           <FestivalContentReviewSection
             reviewsData={reviewsData.content}

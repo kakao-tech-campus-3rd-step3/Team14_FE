@@ -85,5 +85,3 @@ export function useFestivalForm(initial?: UseFestivalFormInitialData): UseFestiv
 }
 
 export default useFestivalForm;
-
-

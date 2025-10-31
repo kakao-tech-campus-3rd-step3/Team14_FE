@@ -1,4 +1,3 @@
-
 import { apiInstance } from '@/apis/apiInstance';
 import API_ENDPOINTS from '@/constants/apiEndpoints';
 import type { AxiosResponse } from 'axios';

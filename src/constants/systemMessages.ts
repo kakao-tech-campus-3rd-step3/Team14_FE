@@ -10,6 +10,11 @@ export const SYSTEM_MESSAGES = {
     SUCCESS: '축제가 수정되었습니다.',
     ERROR: '축제 수정에 실패했습니다. 다시 시도해주세요.',
   },
+  // 축제 삭제 관련
+  FESTIVAL_DELETE: {
+    SUCCESS: '축제 정보가 삭제되었습니다.',
+    ERROR: '축제 정보 삭제에 실패했습니다. 다시 시도해주세요.',
+  },
   // 입력 관련
   INPUT_FORM: {
     TITLE_REQUIRED: '제목을 입력해주세요.',

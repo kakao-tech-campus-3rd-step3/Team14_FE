@@ -10,11 +10,7 @@ import type { FestivalCardProps } from '@/types/FestivalFormTypes';
  * @returns 축제 등록,수정 폼 지역 카드 컴포넌트
  * 축제 등록,수정 폼 지역을 표시합니다.
  */
-const FestivalFormAreaCard = ({
-  formData,
-  handleInputChange,
-  isSubmitting,
-}: FestivalCardProps) => {
+const FestivalFormAreaCard = ({ formData, handleInputChange, isSubmitting }: FestivalCardProps) => {
   // 사용자가 축제를 등록할때는 지역에서 전국은 선택할 수 없도록 제외하였습니다.
   const filteredAreaOptions = AREA_OPTIONS.filter((option) => option.value !== '0');
 

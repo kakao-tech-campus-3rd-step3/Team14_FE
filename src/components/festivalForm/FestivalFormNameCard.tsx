@@ -9,11 +9,7 @@ import type { FestivalCardProps } from '@/types/FestivalFormTypes';
  * @returns 축제 등록,수정 폼 제목 카드 컴포넌트
  * 축제 등록,수정 폼 제목을 표시합니다.
  */
-const FestivalFormNameCard = ({
-  formData,
-  handleInputChange,
-  isSubmitting,
-}: FestivalCardProps) => {
+const FestivalFormNameCard = ({ formData, handleInputChange, isSubmitting }: FestivalCardProps) => {
   return (
     <BorderCardComponent>
       <div className="flex flex-col gap-2">
