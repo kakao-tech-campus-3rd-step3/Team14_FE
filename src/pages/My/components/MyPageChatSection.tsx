@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { getMyChats } from '@/apis/chat/getMyChats';
 import EmptyComponent from '@/components/common/EmptyComponent';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
@@ -6,11 +6,10 @@ import LoadingSpinner from '@/components/loading/LoadingSpinner';
 import { generatePath, Link } from 'react-router-dom';
 import { ROUTE_PATH } from '@/constants/routes';
 import useChatRead from '@/hooks/useChatRead';
-import { useEffect } from 'react';
 
 const MyPageChatSection = () => {
   useChatRead();
-  const { data, isFetching, hasNextPage, fetchNextPage, refetch } = useInfiniteQuery({
+  const { data, isFetching, hasNextPage, fetchNextPage } = useSuspenseInfiniteQuery({
     queryKey: ['myChats'],
     queryFn: ({ pageParam = 0 }) => getMyChats(pageParam, 5),
     getNextPageParam: (lastPage, allPages) => {
@@ -19,13 +18,7 @@ const MyPageChatSection = () => {
     initialPageParam: 0,
     staleTime: 1000 * 60 * 1,
     gcTime: 0,
-    enabled: false, // 페이지 로드 이후에 요청하도록 지연
   });
-
-  // 페이지 로드 완료 후 최초 1회 refetch
-  useEffect(() => {
-    refetch();
-  }, [refetch]);
 
   const { ref: observerRef } = useIntersectionObserver(() => {
     if (isFetching || !hasNextPage) return;
@@ -81,7 +74,7 @@ const MyPageChatSection = () => {
         ))}
         {isFetching && (
           <div
-            className={`flex-shrink-0 flex items-center justify-center h-[123px]  ${!data ? 'w-full' : ''}`}
+            className={`flex-shrink-0 flex flex-col items-center justify-center${!data ? 'w-full h-[123px]' : ''}`}
           >
             <LoadingSpinner />
           </div>
