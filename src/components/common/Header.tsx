@@ -79,7 +79,7 @@ const Header = ({ variant = 'logo', title = '' }: HeaderProps) => {
         </div>
         <div className="flex-1 flex justify-end">
           {variant === 'all' ? (
-            <div className="flex-1 flex justify-end items-center ">
+            <div className="flex-1 flex justify-end items-center gap-3">
               <Button
                 variant="icon"
                 className="h-6 w-6 !p-0 rounded-lg flex items-center justify-center"
