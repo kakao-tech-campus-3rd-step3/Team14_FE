@@ -1,7 +1,7 @@
 import Header from '@/components/common/Header';
 import Container from '@/components/common/Container';
 import FestivalInfoFooter from '@/pages/FestivalInfo/components/FestivalInfoFooter';
-import { generatePath, useParams } from 'react-router-dom';
+import {useParams } from 'react-router-dom';
 import getFestivalInfo from '@/apis/festivals/getFestivalInfo';
 import { useQuery } from '@tanstack/react-query';
 import FestivalPoster from '@/pages/FestivalInfo/components/FestivalPoster';
@@ -16,8 +16,6 @@ import FestivalContentNoticeSection from '@/pages/FestivalInfo/components/Festiv
 import LoadingPage from '@/components/loading/LoadingPage';
 import ErrorPage from '@/components/error/ErrorPage';
 import { useAuth } from '@/context/AuthContext';
-import useNav from '@/hooks/useNav';
-import { ROUTE_PATH } from '@/constants/routes';
 
 const FestivalInfoPage = () => {
   const { festivalId } = useParams();

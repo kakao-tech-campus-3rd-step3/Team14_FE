@@ -1,12 +1,12 @@
 import useNav from '@/hooks/useNav';
 import { useState } from 'react';
-import RegisterFestivalNameCard from '@/pages/SettingsFestivalRegister/components/RegisterFestivalNameCard';
-import RegisterFestivalAreaCard from '@/pages/SettingsFestivalRegister/components/RegisterFestivalAreaCard';
-import RegisterFestivalAddressCard from '@/pages/SettingsFestivalRegister/components/RegisterFestivalAddressCard';
-import RegisterFestivalPeriodCard from '@/pages/SettingsFestivalRegister/components/RegisterFestivalPeriodCard';
-import RegisterFestivalHomePageCard from '@/pages/SettingsFestivalRegister/components/RegisterFestivalHomePageCard';
-import RegisterFestivalOverviewCard from '@/pages/SettingsFestivalRegister/components/RegisterFestivalOverviewCard';
-import RegisterFestivalPosterCard from '@/pages/SettingsFestivalRegister/components/RegisterFestivalPosterCard';
+import FestivalFormNameCard  from '@/components/festivalForm/FestivalformNameCard';
+import FestivalFormAreaCard from '@/components/festivalForm/FestivalFormAreaCard';
+import FestivalFormAddressCard from '@/components/festivalForm/FestivalFormAddressCard';
+import FestivalFormPeriodCard from '@/components/festivalForm/FestivalFormPeriodCard';
+import FestivalFormHomePageCard from '@/components/festivalForm/FestivalFormHomePageCard';
+import FestivalFormOverviewCard from '@/components/festivalForm/FestivalFormOverviewCard';
+import FestivalFormPosterCard from '@/components/festivalForm/FestivalFormPosterCard';
 import FormSubmitButtons from '@/components/common/FormSubmitButtons';
 import { useMediaUpload } from '@/hooks/useMediaUpload';
 import { validateFestivalForm } from '@/utils/festivalValidation';
@@ -107,43 +107,43 @@ const SettingsFestivalRegisterContent = () => {
   return (
     <div className="p-4">
       <div className="flex flex-col gap-6">
-        <RegisterFestivalNameCard
+        <FestivalFormNameCard
           formData={formData}
           handleInputChange={handleInputChange}
           isSubmitting={isSubmitting}
         />
 
-        <RegisterFestivalAreaCard
+        <FestivalFormAreaCard
           formData={formData}
           handleInputChange={handleInputChange}
           isSubmitting={isSubmitting}
         />
 
-        <RegisterFestivalAddressCard
+        <FestivalFormAddressCard
           formData={formData}
           handleInputChange={handleInputChange}
           isSubmitting={isSubmitting}
         />
 
-        <RegisterFestivalPeriodCard
+        <FestivalFormPeriodCard
           formData={formData}
           handleInputChange={handleInputChange}
           isSubmitting={isSubmitting}
         />
 
-        <RegisterFestivalHomePageCard
+        <FestivalFormHomePageCard
           formData={formData}
           handleInputChange={handleInputChange}
           isSubmitting={isSubmitting}
         />
 
-        <RegisterFestivalOverviewCard
+        <FestivalFormOverviewCard
           formData={formData}
           handleInputChange={handleInputChange}
           isSubmitting={isSubmitting}
         />
 
-        <RegisterFestivalPosterCard
+        <FestivalFormPosterCard
           posterInfo={posterInfo}
           setPosterInfo={setPosterInfo}
           posterPreview={posterPreview}
