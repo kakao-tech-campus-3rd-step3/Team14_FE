@@ -27,6 +27,7 @@ import FestivalInfoNoticeEditPage from '@/pages/FestivalInfoNoticeEdit/FestivalI
 import FestivalInfoNoticeListPage from '@/pages/FestivalInfoNoticeList/FestivalInfoNoticeListPage';
 import NotFoundPage from '@/pages/NotFound/NotFoundPage';
 import ReviewEditPage from '@/pages/ReviewEdit/ReviewEditPage';
+import FestivalInfoEditPage from '@/pages/FestivalInfoEdit/FestivalInfoEditPage';
 
 /**
  * 라우터 컴포넌트
@@ -86,4 +87,5 @@ const protectedRoutes = [
   { path: ROUTE_PATH.FESTIVAL_NOTICES, component: FestivalInfoNoticeListPage },
   { path: ROUTE_PATH.FESTIVAL_NOTICE_EDIT, component: FestivalInfoNoticeEditPage },
   { path: ROUTE_PATH.REVIEW_EDIT, component: ReviewEditPage },
+  { path: ROUTE_PATH.FESTIVAL_EDIT, component: FestivalInfoEditPage },
 ];

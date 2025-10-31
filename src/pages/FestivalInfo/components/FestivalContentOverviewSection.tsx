@@ -1,20 +1,28 @@
 import { useState } from 'react';
 import Button from '@/components/common/Button';
-
+import useNav from '@/hooks/useNav';
+import { generatePath } from 'react-router-dom';
+import { ROUTE_PATH } from '@/constants/routes';
 interface FestivalContentOverviewSectionProps {
+  festivalId: string;
   overview: string;
-  isManager?: boolean;
-  onEditClick?: () => void;
-  onDeleteClick?: () => void;
+  isManager: boolean;
 }
-const FestivalContentOverviewSection = ({ overview, isManager, onEditClick, onDeleteClick }: FestivalContentOverviewSectionProps) => {
+const FestivalContentOverviewSection = ({ festivalId, overview, isManager }: FestivalContentOverviewSectionProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
-
   // 5-6줄 정도의 길이를 대략적으로 계산 (한 줄당 약 50자로 가정)
   const maxLength = 250;
   const shouldShowButton = overview.length > maxLength;
+  
   const displayText =
     isExpanded || !shouldShowButton ? overview : overview.slice(0, maxLength) + '...';
+    const { goTo } = useNav();
+    const handleEditClick = () => {
+      goTo(generatePath(ROUTE_PATH.FESTIVAL_EDIT, { festivalId: festivalId || '' }));
+    };
+    const handleDeleteClick = () => {
+      goTo(generatePath(ROUTE_PATH.FESTIVAL_DELETE, { festivalId: festivalId || '' }));
+    };
 
   return (
     <div className="w-full h-full flex flex-col gap-2">
@@ -22,10 +30,10 @@ const FestivalContentOverviewSection = ({ overview, isManager, onEditClick, onDe
         <h3 className="text-sm text-gray-900 font-bold">상세정보</h3>
         {isManager && (
           <div className="flex items-center gap-2">
-            <Button variant="tertiary" size="sm" onClick={onEditClick}>
+            <Button variant="tertiary" size="sm" onClick={handleEditClick}>
               수정
             </Button>
-            <Button variant="tertiary" size="sm" onClick={onDeleteClick}>
+            <Button variant="tertiary" size="sm" onClick={handleDeleteClick}>
               삭제
             </Button>
           </div>

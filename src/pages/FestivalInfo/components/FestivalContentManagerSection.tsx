@@ -12,7 +12,7 @@ import { showToastErrorMessage, showToastAxiosError } from '@/utils/showToastMes
 
 interface FestivalContentManagerSectionProps {
   festivalId: string;
-  managerId: number | null;
+  isManager: boolean;
 }
 
 /**
@@ -21,9 +21,9 @@ interface FestivalContentManagerSectionProps {
  */
 const FestivalContentManagerSection = ({
   festivalId,
-  managerId,
+  isManager,
 }: FestivalContentManagerSectionProps) => {
-  const { userInfo, isLoggedIn } = useAuth();
+  const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState({
@@ -42,7 +42,7 @@ const FestivalContentManagerSection = ({
     }
 
     // 이미 이 축제의 관리자인 경우
-    if (managerId === userInfo?.userId) {
+    if (isManager) {
       showToastErrorMessage(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.ALREADY_MANAGER);
       return;
     }

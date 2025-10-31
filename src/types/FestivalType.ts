@@ -9,6 +9,7 @@ export interface Festival {
   endDate: string;
   averageScore: number | null;
   wishCount: number;
+  areaCode?: number | null;
 }
 
 export interface FestivalInfo extends Festival {
