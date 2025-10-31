@@ -58,7 +58,7 @@ const Header = ({ variant = 'logo', title = '' }: HeaderProps) => {
                 variant="icon"
                 className="h-6 w-6 !p-0 rounded-lg flex items-center justify-center mr-5"
               >
-                <Settings className="size-6" />
+                <Settings className="size-7" strokeWidth={2} />
               </Button>
             </Link>
           </div>
