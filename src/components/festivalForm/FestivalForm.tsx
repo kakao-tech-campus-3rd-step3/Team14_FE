@@ -1,4 +1,4 @@
-import FestivalFormNameCard from '@/components/festivalForm/FestivalformNameCard';
+import FestivalFormNameCard from '@/components/festivalForm/FestivalFormNameCard';
 import FestivalFormAreaCard from '@/components/festivalForm/FestivalFormAreaCard';
 import FestivalFormAddressCard from '@/components/festivalForm/FestivalFormAddressCard';
 import FestivalFormPeriodCard from '@/components/festivalForm/FestivalFormPeriodCard';

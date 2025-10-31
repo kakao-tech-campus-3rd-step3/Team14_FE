@@ -7,11 +7,11 @@ import LoadingSpinner from '@/components/loading/LoadingSpinner';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
 /**
- * 내가 등록한 축제 내용 컴포넌트
- * @returns 내가 등록한 축제 내용 컴포넌트
- * 내가 등록한 축제 목록을 표시합니다.
+ * 내가 관리하는 축제 내용 컴포넌트
+ * @returns 내가 관리하는 축제 내용 컴포넌트
+ * 내가 관리하는 축제 목록을 표시합니다.
  */
-const SettingsFestivalMyRegisteredContent = () => {
+const SettingsFestivalMyManageContent = () => {
   const [festivals, setFestivals] = useState<Festival[]>([]);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
@@ -80,4 +80,4 @@ const SettingsFestivalMyRegisteredContent = () => {
   );
 };
 
-export default SettingsFestivalMyRegisteredContent;
+export default SettingsFestivalMyManageContent;

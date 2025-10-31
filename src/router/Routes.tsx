@@ -15,8 +15,8 @@ import SettingsPage from '@/pages/Settings/SettingsPage';
 import SettingsFestivalMyReviewsPage from '@/pages/SettingsFestivalMyReview/SettingsFestivalMyReviewsPage';
 import SettingsFMPermissionApplicationPage from '@/pages/SettingsFMPermissionApplication/SettingsFMPermissionApplicationPage';
 import SettingsFMPermissionStatusPage from '@/pages/SettingsFMPermissionStatus/SettingsFMPermissionStatusPage';
-import SettingsFestivalMyManagePage from '@/pages/SettingsFestivalMyManageApplication/SettingsFestivalMyManageApplicationPage';
-import SettingsFestivalMyRegisteredPage from '@/pages/SettingsFestivalMyRegistered/SettingsFestivalMyRegisteredPage';
+import SettingsFestivalMyManageApplicationPage from '@/pages/SettingsFestivalMyManageApplication/SettingsFestivalMyManageApplicationPage';
+import SettingsFestivalMyManagePage from '@/pages/SettingsFestivalMyManage/SettingsFestivalMyManagePage';
 import SettingsFestivalRegisterPage from '@/pages/SettingsFestivalRegister/SettingsFestivalRegisterPage';
 import FestivalManagerApplyPage from '@/pages/FestivalInfoManagerApply/FestivalInfoManagerApplyPage';
 import SettingsFestivalMyManageDetailPage from '@/pages/SettingsFestivalMyManageDetail/SettingsFestivalMyManageDetailPage';
@@ -77,8 +77,8 @@ const protectedRoutes = [
   { path: ROUTE_PATH.FM_PERMISSION_STATUS, component: SettingsFMPermissionStatusPage },
   { path: ROUTE_PATH.MY_REVIEWS, component: SettingsFestivalMyReviewsPage },
   { path: ROUTE_PATH.FESTIVAL_REGISTER, component: SettingsFestivalRegisterPage },
-  { path: ROUTE_PATH.FESTIVAL_MY_REGISTERED, component: SettingsFestivalMyRegisteredPage },
   { path: ROUTE_PATH.FESTIVAL_MY_MANAGE, component: SettingsFestivalMyManagePage },
+  { path: ROUTE_PATH.FESTIVAL_MY_MANAGE_APPLICATION, component: SettingsFestivalMyManageApplicationPage },
   { path: ROUTE_PATH.FESTIVAL_MY_MANAGE_DETAIL, component: SettingsFestivalMyManageDetailPage },
   { path: ROUTE_PATH.FESTIVAL_MY_MANAGE_EDIT, component: SettingsFestivalMyManageEditPage },
   { path: ROUTE_PATH.FAQ, component: SettingsFAQPage },
