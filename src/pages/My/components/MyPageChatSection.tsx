@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { getMyChats } from '@/apis/chat/getMyChats';
 import EmptyComponent from '@/components/common/EmptyComponent';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
@@ -6,11 +6,10 @@ import LoadingSpinner from '@/components/loading/LoadingSpinner';
 import { generatePath, Link } from 'react-router-dom';
 import { ROUTE_PATH } from '@/constants/routes';
 import useChatRead from '@/hooks/useChatRead';
-import { useEffect } from 'react';
 
 const MyPageChatSection = () => {
   useChatRead();
-  const { data, isFetching, hasNextPage, fetchNextPage, refetch } = useInfiniteQuery({
+  const { data, isFetching, hasNextPage, fetchNextPage } = useSuspenseInfiniteQuery({
     queryKey: ['myChats'],
     queryFn: ({ pageParam = 0 }) => getMyChats(pageParam, 5),
     getNextPageParam: (lastPage, allPages) => {
@@ -19,13 +18,7 @@ const MyPageChatSection = () => {
     initialPageParam: 0,
     staleTime: 1000 * 60 * 1,
     gcTime: 0,
-    enabled: false, // 페이지 로드 이후에 요청하도록 지연
   });
-
-  // 페이지 로드 완료 후 최초 1회 refetch
-  useEffect(() => {
-    refetch();
-  }, [refetch]);
 
   const { ref: observerRef } = useIntersectionObserver(() => {
     if (isFetching || !hasNextPage) return;
@@ -48,14 +41,15 @@ const MyPageChatSection = () => {
       <EmptyComponent
         title="채팅 목록이 없습니다."
         description="대화를 시작해보세요!"
-        className="h-[123px] w-full flex flex-col items-center justify-center"
+        className="h-[156px] w-full flex flex-col items-center justify-center"
       />
     );
   }
 
   return (
-    <div className="overflow-x-auto pb-2 snap-x snap-mandatory">
-      <section className="flex gap-4">
+    <section className="flex flex-col gap-2">
+      <h1 className="text-lg font-bold mb-1">채팅방</h1>
+      <div className="flex gap-4 overflow-x-auto pb-2 snap-x snap-mandatory">
         {myChats.map((chat) => (
           <Link
             to={generatePath(ROUTE_PATH.CHAT, { festivalId: chat.festivalId.toString() })}
@@ -81,7 +75,7 @@ const MyPageChatSection = () => {
         ))}
         {isFetching && (
           <div
-            className={`flex-shrink-0 flex items-center justify-center h-[123px]  ${!data ? 'w-full' : ''}`}
+            className={`flex-shrink-0 flex flex-col items-center justify-center${!data ? 'w-full h-[156px]' : ''}`}
           >
             <LoadingSpinner />
           </div>
@@ -89,8 +83,8 @@ const MyPageChatSection = () => {
         {!isFetching && hasNextPage && (
           <div ref={observerRef} className="flex-shrink-0 min-w-12 h-1" />
         )}
-      </section>
-    </div>
+      </div>
+    </section>
   );
 };
 

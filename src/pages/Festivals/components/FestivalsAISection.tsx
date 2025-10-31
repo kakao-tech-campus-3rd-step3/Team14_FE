@@ -51,7 +51,7 @@ const FestivalsAISection = () => {
   if (festivalData) {
     const title = '맞춤 AI Pick 축제';
     const festivalsData = festivalData.data?.content || [];
-    return <FestivalsSection title={title} data={festivalsData} />;
+    return <FestivalsSection title={title} data={festivalsData} highlight />;
   }
 
   return null;

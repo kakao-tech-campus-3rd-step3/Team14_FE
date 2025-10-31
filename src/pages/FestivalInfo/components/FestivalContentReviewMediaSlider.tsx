@@ -29,7 +29,7 @@ const FestivalContentReviewMediaSlider = ({
   return (
     <>
       <div className="relative w-full h-full">
-        <div className="flex overflow-x-scroll gap-2 pb-2 h-full md:pb-4">
+        <div className="flex overflow-x-auto pb-2 gap-2 h-full sm:pb-0">
           {mediaItems.map((item, index) => (
             <div key={index} className="relative flex-shrink-0 size-32 rounded-lg overflow-hidden">
               {item.type === 'video' ? (

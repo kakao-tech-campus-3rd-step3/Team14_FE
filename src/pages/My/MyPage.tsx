@@ -42,57 +42,55 @@ const MyPage = () => {
               <LoadingSpinner
                 size="lg"
                 message="채팅 목록을 불러오는 중..."
-                className="h-[123px] w-full flex items-center justify-center"
+                className="h-[156px] w-full flex items-center justify-center"
               />
             }
           >
             <MyPageChatSection />
           </Suspense>
         </ErrorBoundary>
-        <div className="mt-6">
-          <div className="flex border-b border-gray-200 w-full mb-4">
-            <button
-              className={`px-4 py-2 text-gray-500 font-medium ${selectedTab === 'wishlist' ? chooseStyle : notChooseStyle} w-full`}
-              onClick={() => setSelectedTab('wishlist')}
-            >
-              좋아요
-            </button>
-            <button
-              className={`px-4 py-2 text-gray-500 font-medium ${selectedTab === 'reviewed' ? chooseStyle : notChooseStyle} w-full`}
-              onClick={() => setSelectedTab('reviewed')}
-            >
-              리뷰
-            </button>
-          </div>
-          <ErrorBoundary
-            FallbackComponent={() => (
-              <ErrorComponent
-                title="오류가 발생했습니다."
-                message="잠시 후 다시 시도해주세요."
-                showBackButton={true}
-              />
-            )}
-            onError={(error) => {
-              showToastAxiosError(error);
-            }}
+        <div className="flex border-b border-gray-200 w-full mb-4">
+          <button
+            className={`px-4 py-2 text-gray-500 font-medium ${selectedTab === 'wishlist' ? chooseStyle : notChooseStyle} w-full`}
+            onClick={() => setSelectedTab('wishlist')}
           >
-            <Suspense
-              fallback={
-                <LoadingSpinner
-                  size="lg"
-                  className="min-h-[400px]"
-                  message="좋아요한 축제를 불러오는 중..."
-                />
-              }
-            >
-              {selectedTab === 'wishlist' ? (
-                <MyPageWishFestivalsSection />
-              ) : (
-                <MyPageReviewFestivalsSection />
-              )}
-            </Suspense>
-          </ErrorBoundary>
+            좋아요
+          </button>
+          <button
+            className={`px-4 py-2 text-gray-500 font-medium ${selectedTab === 'reviewed' ? chooseStyle : notChooseStyle} w-full`}
+            onClick={() => setSelectedTab('reviewed')}
+          >
+            리뷰
+          </button>
         </div>
+        <ErrorBoundary
+          FallbackComponent={() => (
+            <ErrorComponent
+              title="오류가 발생했습니다."
+              message="잠시 후 다시 시도해주세요."
+              showBackButton={true}
+            />
+          )}
+          onError={(error) => {
+            showToastAxiosError(error);
+          }}
+        >
+          <Suspense
+            fallback={
+              <LoadingSpinner
+                size="lg"
+                className="min-h-[400px]"
+                message="좋아요한 축제를 불러오는 중..."
+              />
+            }
+          >
+            {selectedTab === 'wishlist' ? (
+              <MyPageWishFestivalsSection />
+            ) : (
+              <MyPageReviewFestivalsSection />
+            )}
+          </Suspense>
+        </ErrorBoundary>
       </div>
       <Footer initialSelected="my" />
     </Container>
