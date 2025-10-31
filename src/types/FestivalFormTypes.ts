@@ -1,3 +1,5 @@
+import type { MediaInfo } from "@/types/Media/MediaInfo";
+
 export interface FestivalFormData {
   title: string;
   areaCode: string;
@@ -9,6 +11,10 @@ export interface FestivalFormData {
   overView: string;
 }
 
+export interface FestivalUpdateRequest extends FestivalFormData {
+  posterInfo: MediaInfo;
+  imageInfos: MediaInfo[];
+}
 export interface FestivalCardProps {
   formData: FestivalFormData;
   handleInputChange: (
