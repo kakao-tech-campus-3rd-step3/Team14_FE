@@ -31,7 +31,9 @@ export const useDeleteWithConfirm = (
   const deleteMutation = useMutation({
     mutationFn: deleteFn,
     onSuccess: () => {
-      const keys = Array.isArray(queryKeys) ? queryKeys : [queryKeys];
+      const keys: QueryKey[] = Array.isArray(queryKeys[0])
+        ? (queryKeys as QueryKey[])
+        : [queryKeys as QueryKey];
 
       keys.forEach((key: QueryKey) => {
         queryClient.invalidateQueries({ queryKey: key });

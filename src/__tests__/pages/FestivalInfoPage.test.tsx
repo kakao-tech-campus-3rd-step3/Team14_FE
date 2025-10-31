@@ -526,7 +526,7 @@ describe('리뷰 섹션 컴포넌트', () => {
     const reviewCard = reviewer.closest('div')?.parentElement; // 카드 컨테이너
 
     // 리뷰 미디어 슬라이더 내의 이미지를 찾기
-    const mediaSlider = reviewCard?.querySelector('[class*="overflow-x-scroll"]');
+    const mediaSlider = reviewCard?.querySelector('[class*="overflow-x-auto"]');
     const firstImage = mediaSlider?.querySelector('img');
 
     expect(firstImage).toBeTruthy();
