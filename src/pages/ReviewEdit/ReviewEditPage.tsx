@@ -42,6 +42,7 @@ const ReviewEditPage = () => {
     mutationFn: (body: ReviewUpdateRequest) => putReview(Number(reviewId), body),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['reviews'] });
+      queryClient.invalidateQueries({ queryKey: ['review', reviewId] });
       showToastSuccessMessage('리뷰가 수정되었습니다.');
       goBack();
     },
