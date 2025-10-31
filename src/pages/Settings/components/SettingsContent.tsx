@@ -174,6 +174,12 @@ const SettingsContent = () => {
           >
             축제 관리 신청 내역
           </Button>
+          <Button
+            variant="text"
+            onClick={() => handleFestivalManagementClick(ROUTE_PATH.FESTIVAL_MY_MANAGE)}
+          >
+            축제 등록 신청 내역
+          </Button>
         </div>
       </SettingsSection>
       <SettingsSection title="계정">

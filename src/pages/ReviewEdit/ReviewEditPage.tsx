@@ -30,8 +30,8 @@ const ReviewEditPage = () => {
     queryKey: ['review', reviewId, 'edit'],
     queryFn: () => getSingleReview(Number(reviewId)),
     enabled: !!reviewId,
-    staleTime: 0,       
-    gcTime: 0,         
+    staleTime: 0,
+    gcTime: 0,
     refetchOnMount: true,
   });
 
@@ -45,7 +45,7 @@ const ReviewEditPage = () => {
     mutationFn: (body: ReviewUpdateRequest) => putReview(Number(reviewId), body),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['reviews'] });
-      queryClient.invalidateQueries({ queryKey: ['review', reviewId] }); 
+      queryClient.invalidateQueries({ queryKey: ['review', reviewId] });
       queryClient.invalidateQueries({ queryKey: ['review', reviewId, 'edit'] });
       showToastSuccessMessage('리뷰가 수정되었습니다.');
       goBack();
