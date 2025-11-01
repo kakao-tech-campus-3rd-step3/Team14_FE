@@ -11,7 +11,7 @@ const READ_TOPIC = '/user/queue/reads';
 
 const useChatRead = () => {
   const queryClient = useQueryClient();
-  const { connectWebSocket, subscribe, unsubscribe } = useWebSocket();
+  const { connectWebSocket, subscribe, unsubscribe, getUnsubscribedChatRoomId } = useWebSocket();
 
   const applyToggle = useCallback(
     (roomId: number, isUnread: boolean) => {
@@ -60,12 +60,16 @@ const useChatRead = () => {
 
   useEffect(() => {
     void initializeConnection();
-
+    const chatRoomId = getUnsubscribedChatRoomId();
+    if (chatRoomId !== null && chatRoomId !== 0) {
+      console.log('chatRoomId', chatRoomId);
+      applyToggle(chatRoomId, false);
+    }
     return () => {
       unsubscribe(UNREAD_TOPIC);
       unsubscribe(READ_TOPIC);
     };
-  }, [initializeConnection, unsubscribe]);
+  }, [initializeConnection, unsubscribe, getUnsubscribedChatRoomId, applyToggle]);
 };
 
 export default useChatRead;
