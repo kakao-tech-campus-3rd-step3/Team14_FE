@@ -13,14 +13,15 @@ import PICK_STYLES from '@/constants/pickStyles';
  * @returns AI 추천 내역 콘텐츠
  */
 const AiRecommendationHistoriesContent = () => {
-
   const { isInitialized } = useAuth();
-  
+
   const { data, isLoading, isError } = useQuery({
     queryKey: ['ai-recommendation-histories'],
     queryFn: getRecommendationHistories,
     select: (response) => response.data.content,
-    enabled: isInitialized, 
+    enabled: isInitialized,
+    staleTime: 0,
+    refetchOnMount: 'always',
   });
 
   if (isLoading) {
@@ -54,23 +55,16 @@ const AiRecommendationHistoriesContent = () => {
       {formData && <AiRecommendationSummaryCard formData={formData} />}
 
       {festivals.length === 0 ? (
-        <EmptyComponent
-          title="추천 내역이 없습니다"
-          description="AI 추천을 받아보세요!"
-        />
+        <EmptyComponent title="추천 내역이 없습니다" description="AI 추천을 받아보세요!" />
       ) : (
         <div>
-          {/* 제목 */}
           <div className="flex items-center gap-2 mb-4">
-            <h3 className="font-bold text-xl text-gray-900">
-              맞춤 추천 축제
-            </h3>
+            <h3 className="font-bold text-xl text-gray-900">맞춤 추천 축제</h3>
             <span className="bg-primary-100 text-primary-700 px-2 py-1 rounded-full text-sm font-bold">
               {festivals.length}
             </span>
           </div>
 
-          {/* 축제 카드 그리드 */}
           <div className="grid grid-cols-1 gap-6">
             {festivals.map((festival, index) => (
               <AiRecommendationFestivalCard
@@ -90,8 +84,7 @@ const AiRecommendationHistoriesContent = () => {
                 // TODO: API 응답에 recommendationReason 필드가 추가되면 여기에 전달
                 recommendationReason={
                   // 임시 예시 - API 응답으로 대체 필요
-                  (festival as Festival & { recommendationReason?: string })
-                    .recommendationReason ||
+                  (festival as Festival & { recommendationReason?: string }).recommendationReason ||
                   `당신이 선택한 ${formData?.styles?.[0] ? getStyleName(formData.styles[0]) : '스타일'}과 잘 어울리는 축제입니다`
                 }
                 rank={index + 1}
@@ -106,4 +99,3 @@ const AiRecommendationHistoriesContent = () => {
 };
 
 export default AiRecommendationHistoriesContent;
-

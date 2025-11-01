@@ -24,9 +24,7 @@ interface AiRecommendationSummaryCardProps {
  * @param formData 추천 조건 데이터
  * @returns AI 추천 조건 요약 카드
  */
-const AiRecommendationSummaryCard = ({
-  formData,
-}: AiRecommendationSummaryCardProps) => {
+const AiRecommendationSummaryCard = ({ formData }: AiRecommendationSummaryCardProps) => {
   // 헬퍼 함수들
   const getAreaIcon = (areaCode: number) => {
     const area = MAP_PINS.find((pin) => pin.areaId === String(areaCode));
@@ -58,11 +56,8 @@ const AiRecommendationSummaryCard = ({
         </h3>
       </div>
 
-      {/* 내용 */}
       <div className="p-4 space-y-4">
-        {/* 2x2 그리드: 지역 + 스타일 */}
         <div className="grid grid-cols-2 gap-3">
-          {/* 지역 카드 */}
           <AiRecommendationIconInfoCard
             label="지역"
             icon={getAreaIcon(formData.areaCode)}
@@ -70,7 +65,6 @@ const AiRecommendationSummaryCard = ({
             value={getAreaName(formData.areaCode)}
           />
 
-          {/* 스타일 카드들 (최대 3개) */}
           {formData.styles?.slice(0, 3).map((styleId) => (
             <AiRecommendationIconInfoCard
               key={styleId}
@@ -82,7 +76,6 @@ const AiRecommendationSummaryCard = ({
           ))}
         </div>
 
-        {/* 추가 스타일이 있는 경우 추가 표시 */}
         {formData.styles && formData.styles.length > 3 && (
           <div className="bg-primary-50 rounded-lg p-3 border border-primary-100">
             <div className="text-sm text-primary-700">
@@ -95,14 +88,12 @@ const AiRecommendationSummaryCard = ({
           </div>
         )}
 
-        {/* festapick이 주목한 키워드 */}
         <div>
           <div className="flex items-center gap-2 mb-3">
-            <p className="font-bold text-sm text-primary-500">
-              festapick이 주목한 키워드
-            </p>
+            <p className="font-bold text-sm text-primary-500">festapick이 주목한 키워드</p>
           </div>
           <div className="flex flex-wrap gap-2">
+            {/* TODO: API 응답에 내려오는 스타일이 변경되면 수정 필요 */}
             {formData.isNewPlace && (
               <span className="px-3 py-1.5 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
                 새로운 장소
@@ -126,7 +117,6 @@ const AiRecommendationSummaryCard = ({
           </div>
         </div>
 
-        {/* 추가 정보 */}
         {formData.additionalInfo && (
           <div className="bg-primary-50 rounded-lg p-3 border border-primary-100">
             <span className="text-gray-600 font-semibold text-sm">추가 정보</span>

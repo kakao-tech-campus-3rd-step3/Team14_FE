@@ -19,11 +19,11 @@ interface AiRecommendationFestivalCardProps {
  * @param reviewCount 리뷰 수
  * @returns AI 추천 축제 카드
  */
-const AiRecommendationFestivalCard = ({ 
-  data, 
+const AiRecommendationFestivalCard = ({
+  data,
   recommendationReason,
   rank,
-  reviewCount 
+  reviewCount,
 }: AiRecommendationFestivalCardProps) => {
   return (
     <Link
@@ -99,4 +99,3 @@ const AiRecommendationFestivalCard = ({
 };
 
 export default AiRecommendationFestivalCard;
-

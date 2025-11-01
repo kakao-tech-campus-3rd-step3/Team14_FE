@@ -45,4 +45,3 @@ const AiRecommendationIconInfoCard = ({
 };
 
 export default AiRecommendationIconInfoCard;
-

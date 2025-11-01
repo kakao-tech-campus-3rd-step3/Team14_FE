@@ -39,9 +39,9 @@ const SettingsFestivalRegisterContent = () => {
           areaCode: Number(formData.areaCode),
           addr1: formData.addr1,
           addr2: formData.addr2,
-          posterInfo:{
+          posterInfo: {
             id: posterInfo.id,
-            presignedUrl: cleanUrl(posterInfo.presignedUrl), 
+            presignedUrl: cleanUrl(posterInfo.presignedUrl),
           },
           imageInfos: imageInfos.map((image) => ({
             id: image.id,

@@ -6,6 +6,6 @@ export interface RecommendationFormResponse extends PostFestivalsPickBody {
 }
 
 export interface AIRecommendationHistoryResponse {
-  recommendedFestivals: Festival[]; 
+  recommendedFestivals: Festival[];
   recommendationFormResponse: RecommendationFormResponse;
 }
