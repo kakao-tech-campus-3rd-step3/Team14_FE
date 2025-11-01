@@ -2,12 +2,17 @@ import { useQuery } from '@tanstack/react-query';
 import { getRecommendationHistories } from '@/apis/ai/getRecommendationHistories';
 import LoadingSpinner from '@/components/loading/LoadingSpinner';
 import EmptyComponent from '@/components/common/EmptyComponent';
-import FestivalCard from '@/pages/Festivals/components/FestivalCard';
-
-import useNav from '@/hooks/useNav';
-import { useAuth } from '@/context/AuthContext'; 
-
-const AIRecommendationHistoriesContent = () => {
+import { useAuth } from '@/context/AuthContext';
+import type { Festival } from '@/types/FestivalType';
+import AiRecommendationFestivalCard from '@/pages/AiRecommendationHistories/components/AiRecommendationFestivalCard';
+import AiRecommendationSummaryCard from '@/pages/AiRecommendationHistories/components/AiRecommendationSummaryCard';
+import PICK_STYLES from '@/constants/pickStyles';
+/**
+ * AI 추천 내역 콘텐츠
+ * 사용자가 받았던 최신 AI 추천 내역을 확인할 수 있습니다.
+ * @returns AI 추천 내역 콘텐츠
+ */
+const AiRecommendationHistoriesContent = () => {
 
   const { isInitialized } = useAuth();
   
@@ -38,48 +43,37 @@ const AIRecommendationHistoriesContent = () => {
   const festivals = data.recommendedFestivals || [];
   const formData = data.recommendationFormResponse;
 
+  // 스타일 이름 찾기 (추천 이유 생성용)
+  const getStyleName = (styleId: string) => {
+    const style = PICK_STYLES.find((s) => s.id === styleId);
+    return style?.name || styleId;
+  };
+
   return (
     <div className="p-4 space-y-6 pb-20">
-      {/* 추천 폼 정보 섹션 */}
-      {formData && (
-        <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
-          <h3 className="font-bold text-lg mb-3">추천 조건</h3>
-          <div className="space-y-2 text-sm">
-            <div>
-              <span className="font-semibold">지역:</span> {formData.areaCode}
-            </div>
-            {formData.styles && formData.styles.length > 0 && (
-              <div>
-                <span className="font-semibold">스타일:</span> {formData.styles.join(', ')}
-              </div>
-            )}
-            <div className="flex flex-wrap gap-2">
-              {formData.isNewPlace && <span className="px-2 py-1 bg-blue-100 rounded">새로운 장소</span>}
-              {formData.isSolo && <span className="px-2 py-1 bg-green-100 rounded">혼자</span>}
-              {formData.prefersEnjoyment && <span className="px-2 py-1 bg-yellow-100 rounded">즐거움 선호</span>}
-              {formData.isSpontaneous && <span className="px-2 py-1 bg-purple-100 rounded">즉흥적</span>}
-            </div>
-            {formData.additionalInfo && (
-              <div>
-                <span className="font-semibold">추가 정보:</span> {formData.additionalInfo}
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+      {formData && <AiRecommendationSummaryCard formData={formData} />}
 
-      {/* 추천된 축제 목록 */}
       {festivals.length === 0 ? (
         <EmptyComponent
           title="추천 내역이 없습니다"
           description="AI 추천을 받아보세요!"
         />
       ) : (
-        <>
-          <h3 className="font-bold text-lg">추천된 축제 ({festivals.length})</h3>
-          <div className="grid grid-cols-2 gap-6">
-            {festivals.map((festival) => (
-              <FestivalCard
+        <div>
+          {/* 제목 */}
+          <div className="flex items-center gap-2 mb-4">
+            <h3 className="font-bold text-xl text-gray-900">
+              맞춤 추천 축제
+            </h3>
+            <span className="bg-primary-100 text-primary-700 px-2 py-1 rounded-full text-sm font-bold">
+              {festivals.length}
+            </span>
+          </div>
+
+          {/* 축제 카드 그리드 */}
+          <div className="grid grid-cols-1 gap-6">
+            {festivals.map((festival, index) => (
+              <AiRecommendationFestivalCard
                 key={festival.id}
                 data={{
                   id: festival.id,
@@ -93,13 +87,23 @@ const AIRecommendationHistoriesContent = () => {
                   averageScore: festival.averageScore,
                   wishCount: festival.wishCount,
                 }}
+                // TODO: API 응답에 recommendationReason 필드가 추가되면 여기에 전달
+                recommendationReason={
+                  // 임시 예시 - API 응답으로 대체 필요
+                  (festival as Festival & { recommendationReason?: string })
+                    .recommendationReason ||
+                  `당신이 선택한 ${formData?.styles?.[0] ? getStyleName(formData.styles[0]) : '스타일'}과 잘 어울리는 축제입니다`
+                }
+                rank={index + 1}
+                reviewCount={(festival as Festival & { reviewCount?: number }).reviewCount} // 리뷰 수 추가
               />
             ))}
           </div>
-        </>
+        </div>
       )}
     </div>
   );
 };
 
-export default AIRecommendationHistoriesContent;
+export default AiRecommendationHistoriesContent;
+
