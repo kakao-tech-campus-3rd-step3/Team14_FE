@@ -4,8 +4,15 @@ import Header from '@/components/common/Header';
 import useChatRoom from '@/hooks/useChatRoom';
 import ChatSendSection from '@/pages/Chat/components/ChatSendSection';
 import ChatMessageSection from '@/pages/Chat/components/ChatMessageSection';
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react';
 import LoadingSpinner from '@/components/loading/LoadingSpinner';
+import useNav from '@/hooks/useNav';
+import deleteChatRoom from '@/apis/chat/deleteChatRoom';
+import { useMutation } from '@tanstack/react-query';
+import ConfirmModal from '@/components/modal/ConfirmModal';
+import { showToastErrorMessage } from '@/utils/showToastMessage';
+import { subscribeTopic } from '@/hooks/useChatRoom';
+import { useWebSocket } from '@/context/WebSocketContext';
 
 /**
  * 채팅 페이지
@@ -28,13 +35,32 @@ const ChatPage = () => {
     fetchNextPage,
   } = useChatRoom();
 
+  const { unsubscribe } = useWebSocket();
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const { goBack } = useNav();
+  const { mutate: deleteChatRoomMutation } = useMutation({
+    mutationFn: deleteChatRoom,
+    onSuccess: () => {
+      goBack();
+    },
+    onError: () => {
+      showToastErrorMessage('채팅방 나가기에 실패했습니다.');
+    },
+  });
+
+  const handleDeleteChatRoom = () => {
+    deleteChatRoomMutation(chatRoom.roomId);
+    unsubscribe(subscribeTopic(chatRoom.roomId));
+  };
+
   return (
     <Container>
       <Header
-        variant="page"
+        variant="chat"
         title={
           chatRoom.roomName.length > 16 ? `${chatRoom.roomName.slice(0, 16)}...` : chatRoom.roomName
         }
+        onClick={() => setIsConfirmOpen(true)}
       />
       <div className="flex flex-col px-4 py-2 gap-1 h-[calc(100dvh-110px)]">
         <Suspense fallback={<LoadingSpinner />}>
@@ -53,6 +79,13 @@ const ChatPage = () => {
           sendImageMessage={sendImageMessage}
         />
       </div>
+      <ConfirmModal
+        isOpen={isConfirmOpen}
+        onClose={() => setIsConfirmOpen(false)}
+        onConfirm={handleDeleteChatRoom}
+        title="채팅방 나가기"
+        message="채팅방을 나가시겠습니까?"
+      />
       <Footer initialSelected="none" />
     </Container>
   );

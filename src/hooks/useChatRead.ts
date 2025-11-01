@@ -62,7 +62,6 @@ const useChatRead = () => {
     void initializeConnection();
     const chatRoomId = getUnsubscribedChatRoomId();
     if (chatRoomId !== null && chatRoomId !== 0) {
-      console.log('chatRoomId', chatRoomId);
       applyToggle(chatRoomId, false);
     }
     return () => {

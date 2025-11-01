@@ -16,11 +16,11 @@ const EMPTY_MESSAGE: MessageResponse = {
 
 const INITIAL_CHAT_ROOM_MESSAGE_SIZE = 20;
 
-const subscribeTopic = (chatRoomId: number) => {
+export const subscribeTopic = (chatRoomId: number) => {
   return `/sub/${chatRoomId}/messages`;
 };
 
-const publishTopic = (chatRoomId: number) => {
+export const publishTopic = (chatRoomId: number) => {
   return `/pub/${chatRoomId}/messages`;
 };
 

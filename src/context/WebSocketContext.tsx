@@ -83,7 +83,7 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }
             heartbeatIncoming: STOMP_CONFIG.HEARTBEAT_INCOMING_MS,
             heartbeatOutgoing: STOMP_CONFIG.HEARTBEAT_OUTGOING_MS,
             // 디버그 로그
-            debug: (msg: string) => console.log('[STOMP]:', msg),
+            // debug: (msg: string) => console.log('[STOMP]:', msg),
           });
 
           stompClient.onConnect = () => {
@@ -105,9 +105,8 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }
             resolve();
           };
 
-          stompClient.onStompError = () => {
-            showToastErrorMessage(SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.NETWORK_ERROR);
-            reject(new Error('STOMP Error'));
+          stompClient.onStompError = (error) => {
+            console.error('STOMP Error', error);
           };
 
           stompClient.activate();
