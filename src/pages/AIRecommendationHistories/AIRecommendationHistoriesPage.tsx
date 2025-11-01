@@ -10,7 +10,7 @@ import AiRecommendationHistoriesContent from '@/pages/AiRecommendationHistories/
 const AiRecommendationHistoriesPage = () => {
   return (
     <Container>
-      <Header variant="page" title="AI 추천 내역" />
+      <Header variant="page" title="AI PICK" />
       <AiRecommendationHistoriesContent />
       <Footer initialSelected="pick" />
     </Container>
