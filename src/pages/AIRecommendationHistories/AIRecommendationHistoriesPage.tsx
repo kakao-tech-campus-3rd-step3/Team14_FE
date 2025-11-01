@@ -7,7 +7,7 @@ import AiRecommendationHistoriesContent from '@/pages/AiRecommendationHistories/
  * 사용자가 받았던 최신 AI 추천 내역을 확인할 수 있습니다.
  * @returns AI 추천 내역 페이지
  */
-const AIRecommendationHistoriesPage = () => {
+const AiRecommendationHistoriesPage = () => {
   return (
     <Container>
       <Header variant="page" title="AI PICK" />
@@ -17,4 +17,4 @@ const AIRecommendationHistoriesPage = () => {
   );
 };
 
-export default AIRecommendationHistoriesPage;
+export default AiRecommendationHistoriesPage;
