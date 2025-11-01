@@ -5,7 +5,7 @@ export interface RecommendationFormResponse extends PostFestivalsPickBody {
   userId: number;
 }
 
-export interface AIRecommendationHistoryResponse {
+export interface AiRecommendationHistoryResponse {
   recommendedFestivals: Festival[];
   recommendationFormResponse: RecommendationFormResponse;
 }
