@@ -29,7 +29,7 @@ import NotFoundPage from '@/pages/NotFound/NotFoundPage';
 import ReviewEditPage from '@/pages/ReviewEdit/ReviewEditPage';
 import FestivalInfoEditPage from '@/pages/FestivalInfoEdit/FestivalInfoEditPage';
 import SettingsFestivalMyRegisteredApplicationPage from '@/pages/SettingsFestivalMyRegisteredApplication/SettingsFestivalMyRegisteredApplicationPage';
-import AiRecommendationHistoriesPage from '@/pages/AIRecommendationHistories/AiRecommendationHistoriesPage';
+import AIRecommendationHistoriesPage from '@/pages/AIRecommendationHistories/AIRecommendationHistoriesPage';
 
 /**
  * 라우터 컴포넌트
@@ -97,5 +97,5 @@ const protectedRoutes = [
   { path: ROUTE_PATH.FESTIVAL_NOTICE_EDIT, component: FestivalInfoNoticeEditPage },
   { path: ROUTE_PATH.REVIEW_EDIT, component: ReviewEditPage },
   { path: ROUTE_PATH.FESTIVAL_EDIT, component: FestivalInfoEditPage },
-  { path: ROUTE_PATH.AI_RECOMMENDATION_HISTORIES, component: AiRecommendationHistoriesPage },
+  { path: ROUTE_PATH.AI_RECOMMENDATION_HISTORIES, component: AIRecommendationHistoriesPage },
 ];
