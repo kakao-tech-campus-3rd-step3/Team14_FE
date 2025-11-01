@@ -75,19 +75,6 @@ const AiRecommendationSummaryCard = ({ formData }: AiRecommendationSummaryCardPr
             />
           ))}
         </div>
-
-        {formData.styles && formData.styles.length > 3 && (
-          <div className="bg-primary-50 rounded-lg p-3 border border-primary-100">
-            <div className="text-sm text-primary-700">
-              <span className="font-semibold">기타 스타일: </span>
-              {formData.styles
-                .slice(3)
-                .map((styleId) => getStyleName(styleId))
-                .join(', ')}
-            </div>
-          </div>
-        )}
-
         <div>
           <div className="flex items-center gap-2 mb-3">
             <p className="font-bold text-sm text-primary-500">festapick이 주목한 키워드</p>

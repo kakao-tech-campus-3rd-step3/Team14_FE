@@ -65,7 +65,6 @@ const AiRecommendationFestivalCard = ({
           {data.title}
         </h3>
 
-        {/* 별점과 리뷰 수 */}
         {(data.averageScore !== null || reviewCount) && (
           <div className="flex items-center gap-2 mt-2 mb-2 text-sm text-gray-700">
             {data.averageScore !== null && (
