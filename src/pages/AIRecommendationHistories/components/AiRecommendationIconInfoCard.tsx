@@ -1,4 +1,4 @@
-interface AIRecommendationIconInfoCardProps {
+interface AiRecommendationIconInfoCardProps {
   label: string;
   icon?: string;
   iconAlt?: string;
@@ -16,13 +16,13 @@ interface AIRecommendationIconInfoCardProps {
  * @param iconSize 아이콘 크기
  * @returns AI 추천 아이콘 정보 카드
  */
-const AIRecommendationIconInfoCard = ({
+const AiRecommendationIconInfoCard = ({
   label,
   icon,
   iconAlt = '',
   value,
   iconSize = 'md',
-}: AIRecommendationIconInfoCardProps) => {
+}: AiRecommendationIconInfoCardProps) => {
   const sizeClasses = {
     sm: 'w-12 h-12',
     md: 'w-16 h-16',
@@ -44,4 +44,4 @@ const AIRecommendationIconInfoCard = ({
   );
 };
 
-export default AIRecommendationIconInfoCard;
+export default AiRecommendationIconInfoCard;

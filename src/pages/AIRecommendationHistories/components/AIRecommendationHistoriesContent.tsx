@@ -4,15 +4,15 @@ import LoadingSpinner from '@/components/loading/LoadingSpinner';
 import EmptyComponent from '@/components/common/EmptyComponent';
 import { useAuth } from '@/context/AuthContext';
 import type { Festival } from '@/types/FestivalType';
-import AIRecommendationFestivalCard from '@/pages/AIRecommendationHistories/components/AIRecommendationFestivalCard';
-import AIRecommendationSummaryCard from '@/pages/AIRecommendationHistories/components/AIRecommendationSummaryCard';
+import AiRecommendationFestivalCard from '@/pages/AiRecommendationHistories/components/AiRecommendationFestivalCard';
+import AiRecommendationSummaryCard from '@/pages/AiRecommendationHistories/components/AiRecommendationSummaryCard';
 import PICK_STYLES from '@/constants/pickStyles';
 /**
  * AI 추천 내역 콘텐츠
  * 사용자가 받았던 최신 AI 추천 내역을 확인할 수 있습니다.
  * @returns AI 추천 내역 콘텐츠
  */
-const AIRecommendationHistoriesContent = () => {
+const AiRecommendationHistoriesContent = () => {
   const { isInitialized } = useAuth();
 
   const { data, isLoading, isError } = useQuery({
@@ -52,7 +52,7 @@ const AIRecommendationHistoriesContent = () => {
 
   return (
     <div className="p-4 space-y-6 pb-20">
-      {formData && <AIRecommendationSummaryCard formData={formData} />}
+      {formData && <AiRecommendationSummaryCard formData={formData} />}
 
       {festivals.length === 0 ? (
         <EmptyComponent title="추천 내역이 없습니다" description="AI 추천을 받아보세요!" />
@@ -67,7 +67,7 @@ const AIRecommendationHistoriesContent = () => {
 
           <div className="grid grid-cols-1 gap-6">
             {festivals.map((festival, index) => (
-              <AIRecommendationFestivalCard
+              <AiRecommendationFestivalCard
                 key={festival.id}
                 data={{
                   id: festival.id,
@@ -98,4 +98,4 @@ const AIRecommendationHistoriesContent = () => {
   );
 };
 
-export default AIRecommendationHistoriesContent;
+export default AiRecommendationHistoriesContent;
