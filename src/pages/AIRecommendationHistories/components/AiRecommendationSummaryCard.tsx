@@ -2,10 +2,10 @@ import PickIcon from '@/components/common/PickIcon';
 import { PICK_ICONS } from '@/constants/pickIcons';
 import MAP_PINS from '@/constants/mapPins';
 import PICK_STYLES from '@/constants/pickStyles';
-import AiRecommendationIconInfoCard from '@/pages/AiRecommendationHistories/components/AiRecommendationIconInfoCard';
+import AIRecommendationIconInfoCard from '@/pages/AIRecommendationHistories/components/AIRecommendationIconInfoCard';
 import type { RecommendationFormResponse } from '@/types/AiRecommendationTypes';
 
-interface AiRecommendationSummaryCardProps {
+interface AIRecommendationSummaryCardProps {
   formData: RecommendationFormResponse;
 }
 
@@ -15,7 +15,7 @@ interface AiRecommendationSummaryCardProps {
  * @param formData 추천 조건 데이터
  * @returns AI 추천 조건 요약 카드
  */
-const AiRecommendationSummaryCard = ({ formData }: AiRecommendationSummaryCardProps) => {
+const AIRecommendationSummaryCard = ({ formData }: AIRecommendationSummaryCardProps) => {
   // 헬퍼 함수들
   const getAreaIcon = (areaCode: number) => {
     const area = MAP_PINS.find((pin) => pin.areaId === String(areaCode));
@@ -49,7 +49,7 @@ const AiRecommendationSummaryCard = ({ formData }: AiRecommendationSummaryCardPr
 
       <div className="p-4 space-y-4">
         <div className="grid grid-cols-2 gap-3">
-          <AiRecommendationIconInfoCard
+          <AIRecommendationIconInfoCard
             label="지역"
             icon={getAreaIcon(formData.areaCode)}
             iconAlt={getAreaName(formData.areaCode)}
@@ -57,7 +57,7 @@ const AiRecommendationSummaryCard = ({ formData }: AiRecommendationSummaryCardPr
           />
 
           {formData.styles?.slice(0, 3).map((styleId) => (
-            <AiRecommendationIconInfoCard
+            <AIRecommendationIconInfoCard
               key={styleId}
               label="스타일"
               icon={getStyleIcon(styleId)}
@@ -106,4 +106,4 @@ const AiRecommendationSummaryCard = ({ formData }: AiRecommendationSummaryCardPr
   );
 };
 
-export default AiRecommendationSummaryCard;
+export default AIRecommendationSummaryCard;

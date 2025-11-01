@@ -29,7 +29,7 @@ import NotFoundPage from '@/pages/NotFound/NotFoundPage';
 import ReviewEditPage from '@/pages/ReviewEdit/ReviewEditPage';
 import FestivalInfoEditPage from '@/pages/FestivalInfoEdit/FestivalInfoEditPage';
 import SettingsFestivalMyRegisteredApplicationPage from '@/pages/SettingsFestivalMyRegisteredApplication/SettingsFestivalMyRegisteredApplicationPage';
-import AiRecommendationHistoriesPage from '@/pages/AiRecommendationHistories/AiRecommendationHistoriesPage';
+import AiRecommendationHistoriesPage from '@/pages/AIRecommendationHistories/AiRecommendationHistoriesPage';
 
 /**
  * 라우터 컴포넌트

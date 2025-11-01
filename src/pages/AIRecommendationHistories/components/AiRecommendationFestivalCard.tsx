@@ -3,7 +3,7 @@ import type { Festival } from '@/types/FestivalType';
 import { generatePath, Link } from 'react-router-dom';
 import StarRating from '@/components/common/StarRating';
 
-interface AiRecommendationFestivalCardProps {
+interface AIRecommendationFestivalCardProps {
   data: Festival;
   recommendationReason?: string; // TODO: API에서 내려올 추천 이유 확인 후 수정
   rank?: number; // 추천 순위
@@ -19,12 +19,12 @@ interface AiRecommendationFestivalCardProps {
  * @param reviewCount 리뷰 수
  * @returns AI 추천 축제 카드
  */
-const AiRecommendationFestivalCard = ({
+const AIRecommendationFestivalCard = ({
   data,
   recommendationReason,
   rank,
   reviewCount,
-}: AiRecommendationFestivalCardProps) => {
+}: AIRecommendationFestivalCardProps) => {
   return (
     <Link
       className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02] cursor-pointer border-2 border-primary-300"
@@ -97,4 +97,4 @@ const AiRecommendationFestivalCard = ({
   );
 };
 
-export default AiRecommendationFestivalCard;
+export default AIRecommendationFestivalCard;
