@@ -5,7 +5,7 @@ import EmptyComponent from '@/components/common/EmptyComponent';
 import { useAuth } from '@/context/AuthContext';
 import type { Festival } from '@/types/FestivalType';
 import AIRecommendationFestivalCard from '@/pages/AIRecommendationHistories/components/AIRecommendationFestivalCard';
-import AIRecommendationSummaryCard from '@/pages/AIRecommendationHistories/components/AIRecommendationSummaryCard.tsx';
+import AIRecommendationSummaryCard from '@/pages/AIRecommendationHistories/components/AIRecommendationSummaryCard';
 import PICK_STYLES from '@/constants/pickStyles';
 /**
  * AI 추천 내역 콘텐츠
