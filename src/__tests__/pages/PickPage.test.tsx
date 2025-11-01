@@ -153,7 +153,7 @@ describe('PickPage 테스트', () => {
       );
 
       // Then: Footer에서 'AI 추천' 라벨이 볼드 처리되어야 한다
-      const aiLabel = screen.getByText('AI 추천');
+      const aiLabel = screen.getByText('AI PICK');
       expect(aiLabel).toHaveClass('font-bold');
     });
 
