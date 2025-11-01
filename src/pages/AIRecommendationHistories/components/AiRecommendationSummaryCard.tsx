@@ -3,19 +3,10 @@ import { PICK_ICONS } from '@/constants/pickIcons';
 import MAP_PINS from '@/constants/mapPins';
 import PICK_STYLES from '@/constants/pickStyles';
 import AiRecommendationIconInfoCard from '@/pages/AiRecommendationHistories/components/AiRecommendationIconInfoCard';
-
-interface RecommendationFormData {
-  areaCode: number;
-  styles: string[];
-  isNewPlace?: boolean;
-  isSolo?: boolean;
-  prefersEnjoyment?: boolean;
-  isSpontaneous?: boolean;
-  additionalInfo?: string;
-}
+import type { RecommendationFormResponse } from '@/types/AiRecommendationTypes';
 
 interface AiRecommendationSummaryCardProps {
-  formData: RecommendationFormData;
+  formData: RecommendationFormResponse;
 }
 
 /**
