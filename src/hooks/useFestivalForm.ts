@@ -45,7 +45,7 @@ export function useFestivalForm(initial?: UseFestivalFormInitialData): UseFestiv
     ...defaultForm,
     ...(initial?.form ?? {}),
   });
-
+  // posterInfo 초기화
   const [posterInfo, setPosterInfo] = useState<MediaInfo | null>(
     initial?.posterUrl ? { id: 0, presignedUrl: initial.posterUrl } : null,
   );
@@ -57,10 +57,11 @@ export function useFestivalForm(initial?: UseFestivalFormInitialData): UseFestiv
     removeImage,
     isUploading: isUploadingImages,
   } = useMediaUpload({ maxImages: 10, enableVideo: false });
-
+  
+  // 수정모드일때 기존에 있었던 이미지들을 가져올때 id:index+1 imageInfos 초기화
   useEffect(() => {
     if (initial?.imageUrls && initial.imageUrls.length > 0) {
-      setImageInfos(initial.imageUrls.map((url) => ({ id: 0, presignedUrl: url })));
+      setImageInfos(initial.imageUrls.map((url, index) => ({ id: index + 1, presignedUrl: url })));
     }
   }, [initial?.imageUrls, setImageInfos]);
 
