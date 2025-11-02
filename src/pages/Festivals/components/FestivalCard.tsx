@@ -43,7 +43,7 @@ const FestivalCard = ({ data, highlight = false }: FestivalCardProps) => {
                 filled
                 className={`${data.averageScore !== null ? 'text-yellow-400' : 'text-gray-300'} size-4`}
               />
-              <span className="text-sm sm:text-xs  text-gray-700">{data.averageScore ?? '-'}</span>
+              <span className="text-sm sm:text-xs text-gray-700">{data.averageScore ?? '-'}</span>
             </div>
             <div className="flex items-center gap-1">
               <Heart fill className="size-3" />

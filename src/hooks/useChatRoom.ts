@@ -111,15 +111,17 @@ const useChatRoom = () => {
         );
       });
     };
-    document.addEventListener('visibilitychange', () => {
+    const handleVisibilityChange = () => {
       if (document.hidden) {
         void disconnect();
       } else {
         location.reload();
       }
-    });
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
     void initializeConnection();
     return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       unsubscribe(subscribeTopic(chatRoom.roomId));
     };
   }, [unsubscribe, chatRoom.roomId, connectWebSocket, subscribe, disconnect]);

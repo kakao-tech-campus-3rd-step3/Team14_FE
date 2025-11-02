@@ -65,14 +65,16 @@ const useChatRead = () => {
     if (chatRoomId !== null && chatRoomId !== 0) {
       applyToggle(chatRoomId, false);
     }
-    document.addEventListener('visibilitychange', () => {
+    const handleVisibilityChange = () => {
       if (document.hidden) {
         void disconnect();
       } else {
         location.reload();
       }
-    });
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
     return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       unsubscribe(UNREAD_TOPIC);
       unsubscribe(READ_TOPIC);
     };
