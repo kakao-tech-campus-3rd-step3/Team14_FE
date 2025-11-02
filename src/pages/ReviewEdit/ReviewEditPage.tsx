@@ -27,9 +27,12 @@ const ReviewEditPage = () => {
   const [currentScore, setCurrentScore] = useState(0);
 
   const { data: reviewData, isLoading } = useQuery({
-    queryKey: ['review', reviewId],
+    queryKey: ['review', reviewId, 'edit'],
     queryFn: () => getSingleReview(Number(reviewId)),
     enabled: !!reviewId,
+    staleTime: 0,
+    gcTime: 0,
+    refetchOnMount: true,
   });
 
   useEffect(() => {
@@ -43,6 +46,7 @@ const ReviewEditPage = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['reviews'] });
       queryClient.invalidateQueries({ queryKey: ['review', reviewId] });
+      queryClient.invalidateQueries({ queryKey: ['review', reviewId, 'edit'] });
       showToastSuccessMessage('리뷰가 수정되었습니다.');
       goBack();
     },

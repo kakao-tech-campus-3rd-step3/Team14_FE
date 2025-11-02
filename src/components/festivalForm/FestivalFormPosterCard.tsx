@@ -5,7 +5,7 @@ import MAX_MEDIA_SIZE from '@/constants/maxMediaSize';
 import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 import { showToastErrorMessage, showToastAxiosError } from '@/utils/showToastMessage';
 /**
- * 축제 등록 포스터 카드
+ * 축제 등록,수정 폼 포스터 카드
  * @param posterInfo - 포스터 정보
  * @param setPosterInfo - 포스터 정보 설정 핸들러
  * @param posterPreview - 포스터 미리보기
@@ -14,10 +14,10 @@ import { showToastErrorMessage, showToastAxiosError } from '@/utils/showToastMes
  * @param setIsUploadingPoster - 포스터 업로드 중 여부 설정 핸들러
  * @param isSubmitting - 제출 중 여부
  * @param isUploading - 업로드 중 여부
- * @returns 축제 등록 포스터 카드 컴포넌트
- * 축제 등록 포스터를 표시합니다.
+ * @returns 축제 등록,수정 폼 포스터 카드 컴포넌트
+ * 축제 등록,수정 폼 포스터를 표시합니다.
  */
-interface RegisterFestivalPosterCardProps {
+interface FestivalFormPosterCardProps {
   posterInfo: { id: number; presignedUrl: string } | null;
   setPosterInfo: (info: { id: number; presignedUrl: string } | null) => void;
   posterPreview: string | null;
@@ -28,7 +28,7 @@ interface RegisterFestivalPosterCardProps {
   isUploading: boolean;
 }
 
-const RegisterFestivalPosterCard = ({
+const FestivalFormPosterCard = ({
   posterInfo,
   setPosterInfo,
   posterPreview,
@@ -37,7 +37,7 @@ const RegisterFestivalPosterCard = ({
   setIsUploadingPoster,
   isSubmitting,
   isUploading,
-}: RegisterFestivalPosterCardProps) => {
+}: FestivalFormPosterCardProps) => {
   const handlePosterUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -124,4 +124,4 @@ const RegisterFestivalPosterCard = ({
   );
 };
 
-export default RegisterFestivalPosterCard;
+export default FestivalFormPosterCard;

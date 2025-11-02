@@ -7,7 +7,6 @@ import LoadingSpinner from '@/components/loading/LoadingSpinner';
 import PickIcon from '@/components/common/PickIcon';
 import { PICK_ICONS } from '@/constants/pickIcons';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
-import { useAuth } from '@/context/AuthContext';
 import Button from '@/components/common/Button';
 import { useSlider } from '@/hooks/useSlider';
 import LeftArrow from '@/components/icon/LeftArrowIcon';
@@ -17,7 +16,7 @@ import FestivalContentNoticeSectionCard from '@/pages/FestivalInfo/components/Fe
 
 interface FestivalContentNoticeSectionProps {
   festivalId: string;
-  managerId: number | null;
+  isManager: boolean;
 }
 /**
  * 공지사항 섹션
@@ -27,15 +26,14 @@ interface FestivalContentNoticeSectionProps {
  * 관리자인 경우 공지사항 작성 버튼을 표시해줍니다.
  * 관리자가 아닌 경우 공지사항 작성 버튼을 표시하지 않습니다.
  * @param festivalId - 축제 ID
- * @param managerId - 관리자 ID
+ * @param isManager - 관리자 여부
  * @returns 공지사항 섹션
  */
 const FestivalContentNoticeSection = ({
   festivalId,
-  managerId,
+  isManager,
 }: FestivalContentNoticeSectionProps) => {
-  const { userInfo } = useAuth();
-  const isCurrentUserManager = userInfo?.userId === managerId;
+  const isCurrentUserManager = isManager;
 
   const { handleCreateNotice, handleNoticeClick } = useNoticeNavigationHandlers(festivalId);
 

@@ -17,9 +17,9 @@ import ConfirmModal from '@/components/modal/ConfirmModal';
 import { useDeleteWithConfirm } from '@/hooks/useDeleteWithConfirm';
 
 /**
- * 축제 관리자 신청 상세 내용 컴포넌트
- * @returns 축제 관리자 신청 상세 내용 컴포넌트
- * 축제 관리자 신청 상세 정보를 표시합니다.
+ * 축제 관리 신청 상세 내용 컴포넌트
+ * @returns 축제 관리 신청 상세 내용 컴포넌트
+ * 축제 관리 신청 상세 정보를 표시합니다.
  */
 const SettingsFestivalMyManageDetailContent = () => {
   const { id } = useParams<{ id: string }>();
@@ -47,6 +47,9 @@ const SettingsFestivalMyManageDetailContent = () => {
     queryFn: () => getMyFestivalPermissionDetail(id!),
     enabled: !!id,
     retry: false,
+    staleTime: 0,
+    gcTime: 0,
+    refetchOnMount: 'always',
   });
 
   const handleEdit = () => {

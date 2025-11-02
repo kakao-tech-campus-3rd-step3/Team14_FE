@@ -1,86 +1,57 @@
-import { useState, useEffect } from 'react';
-import { getMyFestivalPermissions } from '@/apis/festivalManager/getMyFestivalPermissions';
-import type { FestivalPermissionItem } from '@/apis/festivalManager/getMyFestivalPermissions';
+import { getMyFestivals } from '@/apis/festivals/getMyFestivals';
 import EmptyComponent from '@/components/common/EmptyComponent';
+import FestivalCard from '@/pages/Festivals/components/FestivalCard';
 import LoadingSpinner from '@/components/loading/LoadingSpinner';
-import FestivalPermissionCard from '@/pages/SettingsFestivalMyManage/components/FestivalPermissionCard';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 /**
- * 축제 관리자 신청 내역 컴포넌트
- * @returns 축제 관리자 신청 내역 컴포넌트
- * 축제 관리자 신청 내역을 표시합니다.
+ * 내가 관리하는 축제 내용 컴포넌트
+ * @returns 내가 관리하는 축제 내용 컴포넌트
+ * 내가 관리하는 축제 목록을 표시합니다.
  */
 const SettingsFestivalMyManageContent = () => {
-  const [permissions, setPermissions] = useState<FestivalPermissionItem[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
-  const [currentPage, setCurrentPage] = useState(0);
-
-  const loadPermissions = async (page: number) => {
-    try {
-      setLoading(true);
-      const response = await getMyFestivalPermissions(page, 10);
-      const newPermissions = response.data.content || [];
-
-      if (page === 0) {
-        setPermissions(newPermissions);
-      } else {
-        setPermissions((prev) => [...prev, ...newPermissions]);
+  const { data, fetchNextPage, hasNextPage, isFetching, isLoading } = useInfiniteQuery({
+    queryKey: ['my-festivals'],
+    queryFn: ({ pageParam = 0 }) => getMyFestivals(pageParam, 5),
+    getNextPageParam: (lastPage) => {
+      if (!lastPage.data.last) {
+        return (lastPage.data.number ?? 0) + 1;
       }
-
-      setHasMore(!response.data.last);
-    } catch (err) {
-      console.error('신청 내역을 가져오는데 실패했습니다:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    loadPermissions(0);
-  }, []);
-
-  const fetchMore = () => {
-    if (!loading && hasMore) {
-      const nextPage = currentPage + 1;
-      setCurrentPage(nextPage);
-      loadPermissions(nextPage);
-    }
-  };
-
-  const { ref: observerRef } = useIntersectionObserver(() => {
-    if (loading || !hasMore) return;
-    fetchMore();
+      return undefined;
+    },
+    initialPageParam: 0,
   });
 
-  if (loading && permissions.length === 0) {
-    return (
-      <LoadingSpinner size="lg" className="min-h-[400px]" message="신청 내역을 불러오는 중..." />
-    );
+  const festivals = data?.pages.flatMap((page) => page.data.content) ?? [];
+
+  const { ref: observerRef } = useIntersectionObserver(() => {
+    if (isLoading || !hasNextPage) return;
+    fetchNextPage();
+  });
+
+  if (isLoading) {
+    return <LoadingSpinner size="md" className="h-64" message="축제를 불러오는 중..." />;
   }
 
-  if (permissions.length === 0) {
+  if (festivals.length === 0) {
     return (
       <div className="p-4">
-        <EmptyComponent
-          title="신청한 축제가 없습니다"
-          description="축제 상세 페이지에서 관리 신청을 해보세요!"
-        />
+        <EmptyComponent title="등록한 축제가 없습니다." description="새로운 축제를 등록해보세요!" />
       </div>
     );
   }
 
   return (
     <div className="p-4">
-      <div className="space-y-3 pb-20">
-        {permissions.map((permission) => (
-          <FestivalPermissionCard key={permission.id} permission={permission} />
+      <div className="grid grid-cols-2 gap-6 pb-20">
+        {festivals.map((festival) => (
+          <FestivalCard key={festival.id} data={festival} />
         ))}
       </div>
 
-      {loading && <LoadingSpinner size="md" className="h-64" message="불러오는 중..." />}
-      {hasMore && <div ref={observerRef} className="h-10" />}
+      {isFetching && <LoadingSpinner size="md" className="h-64" message="축제를 불러오는 중..." />}
+      {hasNextPage && <div ref={observerRef} className="h-10" />}
     </div>
   );
 };

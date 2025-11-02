@@ -2,7 +2,6 @@ import Container from '@/components/common/Container';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
 import SettingsFestivalMyManageContent from '@/pages/SettingsFestivalMyManage/components/SettingsFestivalMyManageContent';
-
 /**
  * 내가 관리하는 축제 페이지
  * @returns 내가 관리하는 축제 페이지 컴포넌트

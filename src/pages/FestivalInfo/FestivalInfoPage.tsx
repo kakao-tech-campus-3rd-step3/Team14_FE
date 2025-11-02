@@ -15,9 +15,11 @@ import FestivalContentManagerSection from '@/pages/FestivalInfo/components/Festi
 import FestivalContentNoticeSection from '@/pages/FestivalInfo/components/FestivalContentNoticeSection';
 import LoadingPage from '@/components/loading/LoadingPage';
 import ErrorPage from '@/components/error/ErrorPage';
+import { useAuth } from '@/context/AuthContext';
 
 const FestivalInfoPage = () => {
   const { festivalId } = useParams();
+  const { isInitialized } = useAuth();
   const {
     data: festivalData,
     isPending: isFestivalPending,
@@ -26,7 +28,9 @@ const FestivalInfoPage = () => {
     queryKey: ['festival', festivalId],
     queryFn: () => getFestivalInfo({ festivalId: festivalId || '' }),
     select: (data) => data.data,
-    enabled: !!festivalId,
+    enabled: !!festivalId && isInitialized,
+    staleTime: 0,
+    refetchOnMount: 'always',
   });
 
   const {
@@ -38,6 +42,9 @@ const FestivalInfoPage = () => {
     queryFn: () => getReview({ festivalId: festivalId || '' }),
     select: (data) => data.data,
   });
+  const { userInfo } = useAuth();
+
+  const isManager = userInfo?.userId === festivalData?.content.managerId;
 
   if (isFestivalPending || isReviewsPending) {
     return <LoadingPage title="축제 정보" message="축제 정보를 불러오는 중" variant="page" />;
@@ -75,17 +82,15 @@ const FestivalInfoPage = () => {
             reviewCount={reviewsData.totalElements}
           />
           <Divider height="1px" />
-          <FestivalContentOverviewSection overview={festivalData.content.overView} />
-          <Divider height="1px" />
-          <FestivalContentNoticeSection
+          <FestivalContentOverviewSection
             festivalId={festivalId}
-            managerId={festivalData.content.managerId}
+            overview={festivalData.content.overView}
+            isManager={isManager}
           />
           <Divider height="1px" />
-          <FestivalContentManagerSection
-            festivalId={festivalId}
-            managerId={festivalData.content.managerId}
-          />
+          <FestivalContentNoticeSection festivalId={festivalId} isManager={isManager} />
+          <Divider height="1px" />
+          <FestivalContentManagerSection festivalId={festivalId} isManager={isManager} />
           <Divider height="1px" />
           <FestivalContentReviewSection
             reviewsData={reviewsData.content}

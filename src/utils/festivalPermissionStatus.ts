@@ -3,7 +3,7 @@ import { PICK_ICONS } from '@/constants/pickIcons';
 
 export const FESTIVAL_PERMISSION_STATUS_LIST = [
   {
-    state: 'PENDING' as const,
+    state: 'PENDING',
     color: 'bg-yellow-100 text-yellow-800 border-yellow-300',
     badgeColor: 'bg-yellow-500',
     icon: PICK_ICONS.TIME,
@@ -12,7 +12,7 @@ export const FESTIVAL_PERMISSION_STATUS_LIST = [
     detailedMessage: '신청서가 검토 중입니다. 영업일 기준 3~5일이 소요됩니다.',
   },
   {
-    state: 'ACCEPTED' as const,
+    state: 'ACCEPTED',
     color: 'bg-green-100 text-green-800 border-green-300',
     badgeColor: 'bg-green-500',
     icon: PICK_ICONS.CHECK,
@@ -21,13 +21,31 @@ export const FESTIVAL_PERMISSION_STATUS_LIST = [
     detailedMessage: '축제 관리자로 승인되었습니다!',
   },
   {
-    state: 'DENIED' as const,
+    state: 'DENIED',
     color: 'bg-red-100 text-red-800 border-red-300',
     badgeColor: 'bg-red-500',
     icon: PICK_ICONS.NONE,
     label: '거절됨',
     message: '신청이 거절되었습니다.',
     detailedMessage: '신청이 거절되었습니다. 다시 신청하실 수 있습니다.',
+  },
+  {
+    state: 'APPROVED',
+    color: 'bg-green-100 text-green-800 border-green-300',
+    badgeColor: 'bg-green-500',
+    icon: PICK_ICONS.CHECK,
+    label: '승인됨',
+    message: '축제 등록이 승인되었습니다!',
+    detailedMessage: '축제 등록이 승인되었습니다!',
+  },
+  {
+    state: 'PROCESSING',
+    color: 'bg-yellow-100 text-yellow-800 border-yellow-300',
+    badgeColor: 'bg-yellow-500',
+    icon: PICK_ICONS.TIME,
+    label: '심사 중',
+    message: '신청서가 검토 중입니다.',
+    detailedMessage: '신청서가 검토 중입니다. 영업일 기준 3~5일이 소요됩니다.',
   },
 ] as const;
 

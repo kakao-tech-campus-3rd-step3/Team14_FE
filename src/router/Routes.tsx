@@ -15,8 +15,8 @@ import SettingsPage from '@/pages/Settings/SettingsPage';
 import SettingsFestivalMyReviewsPage from '@/pages/SettingsFestivalMyReview/SettingsFestivalMyReviewsPage';
 import SettingsFMPermissionApplicationPage from '@/pages/SettingsFMPermissionApplication/SettingsFMPermissionApplicationPage';
 import SettingsFMPermissionStatusPage from '@/pages/SettingsFMPermissionStatus/SettingsFMPermissionStatusPage';
+import SettingsFestivalMyManageApplicationPage from '@/pages/SettingsFestivalMyManageApplication/SettingsFestivalMyManageApplicationPage';
 import SettingsFestivalMyManagePage from '@/pages/SettingsFestivalMyManage/SettingsFestivalMyManagePage';
-import SettingsFestivalMyRegisteredPage from '@/pages/SettingsFestivalMyRegistered/SettingsFestivalMyRegisteredPage';
 import SettingsFestivalRegisterPage from '@/pages/SettingsFestivalRegister/SettingsFestivalRegisterPage';
 import FestivalManagerApplyPage from '@/pages/FestivalInfoManagerApply/FestivalInfoManagerApplyPage';
 import SettingsFestivalMyManageDetailPage from '@/pages/SettingsFestivalMyManageDetail/SettingsFestivalMyManageDetailPage';
@@ -27,6 +27,9 @@ import FestivalInfoNoticeEditPage from '@/pages/FestivalInfoNoticeEdit/FestivalI
 import FestivalInfoNoticeListPage from '@/pages/FestivalInfoNoticeList/FestivalInfoNoticeListPage';
 import NotFoundPage from '@/pages/NotFound/NotFoundPage';
 import ReviewEditPage from '@/pages/ReviewEdit/ReviewEditPage';
+import FestivalInfoEditPage from '@/pages/FestivalInfoEdit/FestivalInfoEditPage';
+import SettingsFestivalMyRegisteredApplicationPage from '@/pages/SettingsFestivalMyRegisteredApplication/SettingsFestivalMyRegisteredApplicationPage';
+import AiRecommendationHistoriesPage from '@/pages/AiRecommendationHistories/AiRecommendationHistoriesPage';
 
 /**
  * 라우터 컴포넌트
@@ -76,8 +79,15 @@ const protectedRoutes = [
   { path: ROUTE_PATH.FM_PERMISSION_STATUS, component: SettingsFMPermissionStatusPage },
   { path: ROUTE_PATH.MY_REVIEWS, component: SettingsFestivalMyReviewsPage },
   { path: ROUTE_PATH.FESTIVAL_REGISTER, component: SettingsFestivalRegisterPage },
-  { path: ROUTE_PATH.FESTIVAL_MY_REGISTERED, component: SettingsFestivalMyRegisteredPage },
+  {
+    path: ROUTE_PATH.FESTIVAL_MY_REGISTERED_APPLICATION,
+    component: SettingsFestivalMyRegisteredApplicationPage,
+  },
   { path: ROUTE_PATH.FESTIVAL_MY_MANAGE, component: SettingsFestivalMyManagePage },
+  {
+    path: ROUTE_PATH.FESTIVAL_MY_MANAGE_APPLICATION,
+    component: SettingsFestivalMyManageApplicationPage,
+  },
   { path: ROUTE_PATH.FESTIVAL_MY_MANAGE_DETAIL, component: SettingsFestivalMyManageDetailPage },
   { path: ROUTE_PATH.FESTIVAL_MY_MANAGE_EDIT, component: SettingsFestivalMyManageEditPage },
   { path: ROUTE_PATH.FAQ, component: SettingsFAQPage },
@@ -86,4 +96,6 @@ const protectedRoutes = [
   { path: ROUTE_PATH.FESTIVAL_NOTICES, component: FestivalInfoNoticeListPage },
   { path: ROUTE_PATH.FESTIVAL_NOTICE_EDIT, component: FestivalInfoNoticeEditPage },
   { path: ROUTE_PATH.REVIEW_EDIT, component: ReviewEditPage },
+  { path: ROUTE_PATH.FESTIVAL_EDIT, component: FestivalInfoEditPage },
+  { path: ROUTE_PATH.AI_RECOMMENDATION_HISTORIES, component: AiRecommendationHistoriesPage },
 ];

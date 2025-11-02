@@ -12,7 +12,7 @@ type FooterSelected = 'home' | 'search' | 'pick' | 'my' | 'none';
 const navigationItems = [
   { id: 'home', icon: Home, label: '홈', path: ROUTE_PATH.HOME },
   { id: 'search', icon: Search, label: '검색', path: ROUTE_PATH.SEARCH },
-  { id: 'pick', icon: Pick, label: 'AI 추천', path: ROUTE_PATH.PICK },
+  { id: 'pick', icon: Pick, label: 'AI PICK', path: ROUTE_PATH.AI_RECOMMENDATION_HISTORIES },
   { id: 'my', icon: Profile, label: 'My', path: ROUTE_PATH.MY },
 ] as const;
 

@@ -41,7 +41,7 @@ const API_ENDPOINTS = {
   FM_PERMISSION_MY: '/api/fm-permissions/my',
   // 축제 등록
   FESTIVAL_REGISTER: '/api/festivals',
-  // 내가 등록한 축제 조회
+  // 내가 관리하는 축제 조회
   MY_FESTIVALS: '/api/festivals/my',
   // 축제 관리 신청
   FESTIVAL_MANAGER_APPLY: '/api/festival-permissions/festival/:festivalId',
@@ -54,6 +54,12 @@ const API_ENDPOINTS = {
   // 축제 공지사항 관련
   FESTIVAL_NOTICE: '/api/festivals/:festivalId/notices',
   FESTIVAL_NOTICE_DETAIL: '/api/festivals/notices/:id',
+  // 축제 관리자 존재 여부 조회
+  FESTIVAL_MANAGER_EXIST: '/api/festivals/:festivalId/check-manager',
+  // 내가 등록 신청한 축제 조회
+  MY_CUSTOM_FESTIVALS: '/api/festivals/my/custom',
+  // ai추천 내역 조회
+  AI_RECOMMENDATION_HISTORIES: '/api/recommendations/histories',
 } as const;
 
 export default API_ENDPOINTS;

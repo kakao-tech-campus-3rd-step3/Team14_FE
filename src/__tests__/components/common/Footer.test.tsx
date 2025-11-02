@@ -14,7 +14,7 @@ describe('Footer 컴포넌트', () => {
       // 각 버튼이 존재하는지 확인
       expect(screen.getByText('홈')).toBeInTheDocument();
       expect(screen.getByText('검색')).toBeInTheDocument();
-      expect(screen.getByText('AI 추천')).toBeInTheDocument();
+      expect(screen.getByText('AI PICK')).toBeInTheDocument();
       expect(screen.getByText('My')).toBeInTheDocument();
     });
 
@@ -50,7 +50,7 @@ describe('Footer 컴포넌트', () => {
     test.each([
       ['home', '홈'],
       ['search', '검색'],
-      ['pick', 'AI 추천'],
+      ['pick', 'AI PICK'],
       ['my', 'My'],
     ] as const)('initialSelected가 %s일 때 해당 버튼이 선택된다', (selected, buttonText) => {
       // Given: 특정 initialSelected가 주어졌을 때
@@ -81,7 +81,7 @@ describe('Footer 컴포넌트', () => {
 
       // Then: 선택되지 않은 버튼들은 font-normal 클래스를 가져야 한다
       expect(screen.getByText('검색')).toHaveClass('font-normal');
-      expect(screen.getByText('AI 추천')).toHaveClass('font-normal');
+      expect(screen.getByText('AI PICK')).toHaveClass('font-normal');
       expect(screen.getByText('My')).toHaveClass('font-normal');
     });
   });
@@ -133,7 +133,7 @@ describe('Footer 컴포넌트', () => {
       );
 
       // When: 각 버튼을 순차적으로 클릭하면
-      const buttonLabels = ['홈', 'AI 추천', 'My'];
+      const buttonLabels = ['홈', 'AI PICK', 'My'];
 
       buttonLabels.forEach((label) => {
         const button = screen.getByText(label);

@@ -5,6 +5,16 @@
  */
 
 export const SYSTEM_MESSAGES = {
+  // 축제 수정 관련
+  FESTIVAL_EDIT: {
+    SUCCESS: '축제가 수정되었습니다.',
+    ERROR: '축제 수정에 실패했습니다. 다시 시도해주세요.',
+  },
+  // 축제 삭제 관련
+  FESTIVAL_DELETE: {
+    SUCCESS: '축제 정보가 삭제되었습니다.',
+    ERROR: '축제 정보 삭제에 실패했습니다. 다시 시도해주세요.',
+  },
   // 입력 관련
   INPUT_FORM: {
     TITLE_REQUIRED: '제목을 입력해주세요.',
@@ -53,6 +63,7 @@ export const SYSTEM_MESSAGES = {
   FESTIVAL_MANAGER_APPLY: {
     SUCCESS: '축제 관리 신청이 완료되었습니다!',
     ALREADY_APPLIED: '이미 이 축제의 관리자 신청이 존재합니다.',
+    MANAGER_ALREADY_EXISTS: '이미 이 축제의 관리자가 존재합니다.',
     INVALID_REQUEST: '신청할 수 없습니다. 입력값을 확인해주세요.',
     NO_PERMISSION: '축제 관리자 권한이 필요합니다.',
     ERROR: '신청 제출에 실패했습니다. 다시 시도해주세요.',
@@ -63,6 +74,7 @@ export const SYSTEM_MESSAGES = {
     HAS_APPLIED_TITLE: '신청 내역이 있습니다',
     HAS_APPLIED_MESSAGE: '이미 이 축제에 관리자 신청을 하셨습니다.\n승인을 기다려주세요.',
     CHECK_ERROR: '확인 중 오류가 발생했습니다. 다시 시도해주세요.',
+    GET_APPLICATION_ERROR: '축제 관리 신청 내역을 가져오는데 실패했습니다.',
   },
 
   // 축제 관리 신청 수정

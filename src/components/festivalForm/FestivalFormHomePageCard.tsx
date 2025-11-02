@@ -1,15 +1,15 @@
 import BorderCardComponent from '@/components/common/BorderCardComponent';
-import type { FestivalCardProps } from '../../../types/FestivalFormTypes';
+import type { FestivalCardProps } from '@/types/FestivalFormTypes';
 
 /**
- * 축제 등록 홈페이지 카드
+ * 축제 등록,수정 폼 홈페이지 카드
  * @param formData - 폼 데이터
  * @param handleInputChange - 입력 변경 핸들러
  * @param isSubmitting - 제출 중 여부
- * @returns 축제 등록 홈페이지 카드 컴포넌트
- * 축제 등록 홈페이지를 표시합니다.
+ * @returns 축제 등록,수정 폼 홈페이지 카드 컴포넌트
+ * 축제 등록,수정 폼 홈페이지를 표시합니다.
  */
-const RegisterFestivalHomePageCard = ({
+const FestivalFormHomePageCard = ({
   formData,
   handleInputChange,
   isSubmitting,
@@ -35,4 +35,4 @@ const RegisterFestivalHomePageCard = ({
   );
 };
 
-export default RegisterFestivalHomePageCard;
+export default FestivalFormHomePageCard;

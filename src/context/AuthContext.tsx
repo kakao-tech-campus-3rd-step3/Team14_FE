@@ -59,7 +59,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setAccessToken(null);
     setUserInfoState(null);
   };
-
+  // 토큰복구보다 먼저 실행되어서 새로고침 등과 같은 상황에서 헤더의 Authorization이 실종되는 문제 해결 위해 실행 순서 조정함
+  // apiInstance와 연결
+  useEffect(() => {
+    setAuthCallbacks(getAccessToken, setAccessToken);
+  }, []);
   // 새로고침 시 자동 토큰 복구
   useEffect(() => {
     let isMounted = true; // cleanup을 위한 플래그
@@ -106,11 +110,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return () => {
       isMounted = false;
     };
-  }, []);
-
-  // apiInstance와 연결
-  useEffect(() => {
-    setAuthCallbacks(getAccessToken, setAccessToken);
   }, []);
 
   const isLoggedIn = !!accessToken;
