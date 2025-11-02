@@ -74,7 +74,6 @@ const AiRecommendationHistoriesContent = () => {
                   averageScore: festival.averageScore,
                   wishCount: festival.wishCount,
                 }}
-
                 rank={index + 1}
                 reviewCount={(festival as Festival & { reviewCount?: number }).reviewCount} // 리뷰 수 추가
               />
