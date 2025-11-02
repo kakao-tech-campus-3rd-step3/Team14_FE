@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter } from 'react-router-dom';
 import { AuthProvider } from '@/context/AuthContext';
+import { WebSocketProvider } from '@/context/WebSocketContext';
 
 const TestWrapper = ({
   children,
@@ -25,9 +26,11 @@ const TestWrapper = ({
   });
   return (
     <AuthProvider>
-      <MemoryRouter initialEntries={initialEntries}>
-        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      </MemoryRouter>
+      <WebSocketProvider>
+        <MemoryRouter initialEntries={initialEntries}>
+          <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+        </MemoryRouter>
+      </WebSocketProvider>
     </AuthProvider>
   );
 };

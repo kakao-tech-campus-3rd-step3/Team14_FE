@@ -25,6 +25,8 @@ const API_ENDPOINTS = {
   DELETE_USER: '/api/users',
   // 내가 참여한 채팅 방 조회
   MY_CHATS: '/api/chatRooms/me',
+  // 채팅 방 나가기
+  LEAVE_CHAT_ROOM: '/api/chatRooms/:roomId/me',
   // 내가 좋아요한 축제 목록 조회
   MY_WISHES_FESTIVAL: '/api/festivals/wishedBy/me',
   // 내가 작성한 리뷰의 축제 목록 조회

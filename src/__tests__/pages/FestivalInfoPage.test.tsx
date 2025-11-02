@@ -429,8 +429,8 @@ describe('FestivalPoster 컴포넌트', () => {
       const prevButton = screen.getByLabelText('이전 이미지');
       const nextButton = screen.getByLabelText('다음 이미지');
 
-      expect(prevButton).toHaveClass('hidden', 'md:flex');
-      expect(nextButton).toHaveClass('hidden', 'md:flex');
+      expect(prevButton).toHaveClass('hidden', 'sm:flex');
+      expect(nextButton).toHaveClass('hidden', 'sm:flex');
     });
   });
 });
@@ -574,9 +574,9 @@ describe('리뷰 섹션 컴포넌트', () => {
     expect(videoEl).toBeTruthy();
     videoEl && fireEvent.click(videoEl);
 
-    // Then: 모달이 열리고 화살표는 hidden md:flex 클래스를 가진다
+    // Then: 모달이 열리고 화살표는 hidden sm:flex 클래스를 가진다
     const nextBtn = await screen.findByLabelText('다음 미디어');
-    expect(nextBtn).toHaveClass('hidden', 'md:flex');
+    expect(nextBtn).toHaveClass('hidden', 'sm:flex');
     expect(screen.getByText(/\d+ \/ \d+/)).toBeInTheDocument();
 
     // And: 모달 닫기 가능

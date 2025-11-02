@@ -1,3 +1,5 @@
+import Heart from '@/components/icon/HeartIcon';
+import StarIcon from '@/components/icon/StarIcon';
 import { ROUTE_PATH } from '@/constants/routes';
 import type { Festival } from '@/types/FestivalType';
 import { generatePath, Link } from 'react-router-dom';
@@ -35,6 +37,19 @@ const FestivalCard = ({ data, highlight = false }: FestivalCardProps) => {
           <p className="text-sm sm:text-xs text-gray-500" title={data.addr1}>
             {data.addr1.split(' ').slice(0, 2).join(' ')}
           </p>
+          <div className="flex items-center gap-2 justify-end font-bold">
+            <div className="flex items-center gap-1">
+              <StarIcon
+                filled
+                className={`${data.averageScore !== null ? 'text-yellow-400' : 'text-gray-300'} size-4`}
+              />
+              <span className="text-sm sm:text-xs text-gray-700">{data.averageScore ?? '-'}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <Heart fill className="size-3" />
+              <span className="text-sm sm:text-xs text-gray-700">{data.wishCount}</span>
+            </div>
+          </div>
         </div>
       </div>
     </Link>

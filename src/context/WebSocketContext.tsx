@@ -17,6 +17,8 @@ export const STOMP_CONFIG = {
   HEARTBEAT_INCOMING_MS: 1000 * 15,
   // 하트비트 송신 딜레이(송신이 없을 때 연결 이상으로 판단)
   HEARTBEAT_OUTGOING_MS: 1000 * 15,
+  // 연결 타임아웃
+  CONNECTION_TIMEOUT_MS: 1000 * 30,
 } as const;
 
 /**
@@ -32,6 +34,7 @@ interface WebSocketContextType {
   unsubscribe: (destination: string) => void;
   send: (destination: string, message: string) => void;
   disconnect: () => void;
+  getUnsubscribedChatRoomId: () => number | null;
 }
 
 const WebSocketContext = createContext<WebSocketContextType | undefined>(undefined);
@@ -62,6 +65,7 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }
       }
     >(),
   );
+  const unsubscribedChatRoomIdRef = useRef<number | null>(null);
   // 구독이 0개일 때 즉시 종료하지 않고 잠시 대기 후 종료하기 위한 타이머
   const NO_SUBS_GRACE_MS = 1200;
   const pendingDisconnectTimerRef = useRef<number | null>(null);
@@ -72,14 +76,16 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }
         try {
           const token = await getCurrentToken();
           if (!token) throw new Error('토큰이 없습니다.');
-
-          const socket = new SockJS(STOMP_URL);
+          const socket = new SockJS(STOMP_URL, null, {
+            transports: ['websocket', 'xhr-polling'],
+          });
           const stompClient = new Client({
             webSocketFactory: () => socket,
             connectHeaders: { Authorization: `Bearer ${token}` },
             reconnectDelay: STOMP_CONFIG.RECONNECT_DELAY_MS,
             heartbeatIncoming: STOMP_CONFIG.HEARTBEAT_INCOMING_MS,
             heartbeatOutgoing: STOMP_CONFIG.HEARTBEAT_OUTGOING_MS,
+            connectionTimeout: STOMP_CONFIG.CONNECTION_TIMEOUT_MS,
             // 디버그 로그
             // debug: (msg: string) => console.log('[STOMP]:', msg),
           });
@@ -88,7 +94,7 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }
             clientRef.current = stompClient;
             // 재연결 시 기존 목적지 재구독
             for (const [destination, entry] of destinationEntriesRef.current.entries()) {
-              if (entry.refCount > 0) {
+              try {
                 entry.subscription = stompClient.subscribe(
                   destination,
                   (message) => {
@@ -98,14 +104,15 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }
                   },
                   { id: `sub-${destination}`, ack: 'auto' },
                 );
+              } catch (e) {
+                console.error('STOMP Subscribe Error', e);
               }
             }
             resolve();
           };
 
-          stompClient.onStompError = () => {
-            showToastErrorMessage(SYSTEM_MESSAGES.DEFAULT_ERROR_MESSAGES.NETWORK_ERROR);
-            reject(new Error('STOMP Error'));
+          stompClient.onStompError = (error) => {
+            console.error('STOMP Error', error);
           };
 
           stompClient.activate();
@@ -159,6 +166,12 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }
     const entry = destinationEntriesRef.current.get(destination);
     if (!entry) return;
 
+    // 채팅방 구독 해제 시 채팅방 ID 저장
+    const chatRoomIdMatch = destination.match(/^\/sub\/(\d+)\/messages$/);
+    if (chatRoomIdMatch) {
+      unsubscribedChatRoomIdRef.current = Number.parseInt(chatRoomIdMatch[1], 10);
+    }
+
     // 항상 destination 전체를 해제 (단일 컴포넌트만 하나의 destination을 구독한다고 가정)
     entry.handlers.clear();
     entry.refCount = 0;
@@ -185,6 +198,10 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }
         }
       }, NO_SUBS_GRACE_MS);
     }
+  };
+
+  const getUnsubscribedChatRoomId = () => {
+    return unsubscribedChatRoomIdRef.current;
   };
 
   const send = (destination: string, message: string) => {
@@ -228,6 +245,7 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }
   const value: WebSocketContextType = {
     clientRef,
     subscriptionsRef,
+    getUnsubscribedChatRoomId,
     connectWebSocket,
     subscribe,
     unsubscribe,

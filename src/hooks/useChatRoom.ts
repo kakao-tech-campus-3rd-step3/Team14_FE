@@ -16,11 +16,11 @@ const EMPTY_MESSAGE: MessageResponse = {
 
 const INITIAL_CHAT_ROOM_MESSAGE_SIZE = 20;
 
-const subscribeTopic = (chatRoomId: number) => {
+export const subscribeTopic = (chatRoomId: number) => {
   return `/sub/${chatRoomId}/messages`;
 };
 
-const publishTopic = (chatRoomId: number) => {
+export const publishTopic = (chatRoomId: number) => {
   return `/pub/${chatRoomId}/messages`;
 };
 
@@ -89,7 +89,7 @@ const useChatRoom = () => {
 
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState<MessageResponse[]>([]);
-  const { clientRef, connectWebSocket, subscribe, send, unsubscribe } = useWebSocket();
+  const { clientRef, connectWebSocket, subscribe, send, unsubscribe, disconnect } = useWebSocket();
   // 페이지네이션으로 불러온 메시지들을 messages 상태에 동기화
   useEffect(() => {
     if (allMessages.length === 0) {
@@ -111,17 +111,24 @@ const useChatRoom = () => {
         );
       });
     };
-
-    initializeConnection();
-
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        void disconnect();
+      } else {
+        location.reload();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    void initializeConnection();
     return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       unsubscribe(subscribeTopic(chatRoom.roomId));
     };
-  }, [unsubscribe, chatRoom.roomId, connectWebSocket, subscribe]);
+  }, [unsubscribe, chatRoom.roomId, connectWebSocket, subscribe, disconnect]);
 
   // 메시지 전송
   const sendMessage = useCallback(() => {
-    if (!message.trim() || !clientRef.current || !clientRef.current.connected) return;
+    if (!message.trim()) return;
 
     const messageRequest: MessageRequest = {
       content: message,
@@ -129,7 +136,7 @@ const useChatRoom = () => {
 
     send(publishTopic(chatRoom.roomId), JSON.stringify(messageRequest));
     setMessage('');
-  }, [message, clientRef, send, chatRoom.roomId]);
+  }, [message, send, chatRoom.roomId]);
 
   // 이미지 메시지 전송
   const sendImageMessage = useCallback(
