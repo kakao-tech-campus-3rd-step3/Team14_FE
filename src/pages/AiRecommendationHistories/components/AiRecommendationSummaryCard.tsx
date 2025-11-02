@@ -68,28 +68,49 @@ const AiRecommendationSummaryCard = ({ formData }: AiRecommendationSummaryCardPr
         </div>
         <div>
           <div className="flex items-center gap-2 mb-3">
-            <p className="font-bold text-sm text-primary-500">festapick이 주목한 키워드</p>
+            <p className="font-bold text-sm text-primary-500">당신의 여행 MBTI</p>
           </div>
           <div className="flex flex-wrap gap-2">
-            {/* TODO: API 응답에 내려오는 스타일이 변경되면 수정 필요 */}
-            {formData.isNewPlace && (
+            {/* TODO: API 응답에 내려오는 스타일이 변경되면 수정 필요
+            새로운 장소 - 익숙한 장소
+            혼자 - 함께
+            즐거움을 - 유익함을
+            즉흥적으로 계획적으로
+            */}
+            {formData.isNewPlace ? (
               <span className="px-3 py-1.5 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
                 새로운 장소
               </span>
+            ) : (
+              <span className="px-3 py-1.5 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+                익숙한 장소
+              </span>
             )}
-            {formData.isSolo && (
+            {formData.isSolo ? (
               <span className="px-3 py-1.5 bg-green-100 text-green-700 rounded-full text-sm font-medium">
                 혼자
               </span>
+            ) : (
+              <span className="px-3 py-1.5 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+                함께
+              </span>
             )}
-            {formData.prefersEnjoyment && (
+            {formData.prefersEnjoyment ? (
               <span className="px-3 py-1.5 bg-yellow-100 text-yellow-700 rounded-full text-sm font-medium">
                 즐거움 선호
               </span>
+            ) : (
+              <span className="px-3 py-1.5 bg-yellow-100 text-yellow-700 rounded-full text-sm font-medium">
+                유익함을
+              </span>
             )}
-            {formData.isSpontaneous && (
+            {formData.isSpontaneous ? (
               <span className="px-3 py-1.5 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
                 즉흥적
+              </span>
+            ) : (
+              <span className="px-3 py-1.5 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
+                계획적으로
               </span>
             )}
           </div>

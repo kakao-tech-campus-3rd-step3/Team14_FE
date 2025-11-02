@@ -6,7 +6,6 @@ import { useAuth } from '@/context/AuthContext';
 import type { Festival } from '@/types/FestivalType';
 import AiRecommendationFestivalCard from '@/pages/AiRecommendationHistories/components/AiRecommendationFestivalCard';
 import AiRecommendationSummaryCard from '@/pages/AiRecommendationHistories/components/AiRecommendationSummaryCard';
-import PICK_STYLES from '@/constants/pickStyles';
 /**
  * AI 추천 내역 콘텐츠
  * 사용자가 받았던 최신 AI 추천 내역을 확인할 수 있습니다.
@@ -44,12 +43,6 @@ const AiRecommendationHistoriesContent = () => {
   const festivals = data.recommendedFestivals || [];
   const formData = data.recommendationFormResponse;
 
-  // 스타일 이름 찾기 (추천 이유 생성용)
-  const getStyleName = (styleId: string) => {
-    const style = PICK_STYLES.find((s) => s.id === styleId);
-    return style?.name || styleId;
-  };
-
   return (
     <div className="p-4 space-y-6 pb-20">
       {formData && <AiRecommendationSummaryCard formData={formData} />}
@@ -81,12 +74,7 @@ const AiRecommendationHistoriesContent = () => {
                   averageScore: festival.averageScore,
                   wishCount: festival.wishCount,
                 }}
-                // TODO: API 응답에 recommendationReason 필드가 추가되면 여기에 전달
-                recommendationReason={
-                  // 임시 예시 - API 응답으로 대체 필요
-                  (festival as Festival & { recommendationReason?: string }).recommendationReason ||
-                  `당신이 선택한 ${formData?.styles?.[0] ? getStyleName(formData.styles[0]) : '스타일'}과 잘 어울리는 축제입니다`
-                }
+
                 rank={index + 1}
                 reviewCount={(festival as Festival & { reviewCount?: number }).reviewCount} // 리뷰 수 추가
               />

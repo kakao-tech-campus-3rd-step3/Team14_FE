@@ -5,7 +5,6 @@ import StarRating from '@/components/common/StarRating';
 
 interface AiRecommendationFestivalCardProps {
   data: Festival;
-  recommendationReason?: string; // TODO: API에서 내려올 추천 이유 확인 후 수정
   rank?: number; // 추천 순위
   reviewCount?: number; // 리뷰 수 (옵션)
 }
@@ -21,7 +20,6 @@ interface AiRecommendationFestivalCardProps {
  */
 const AiRecommendationFestivalCard = ({
   data,
-  recommendationReason,
   rank,
   reviewCount,
 }: AiRecommendationFestivalCardProps) => {
@@ -42,14 +40,6 @@ const AiRecommendationFestivalCard = ({
           </div>
         </div>
       </div>
-
-      {recommendationReason && (
-        <div className="bg-primary-50 px-4 py-3 border-b border-primary-100">
-          <p className="text-sm text-primary-700 font-medium leading-relaxed">
-            {recommendationReason}
-          </p>
-        </div>
-      )}
 
       <div className="aspect-[3/2] w-full relative">
         <img
