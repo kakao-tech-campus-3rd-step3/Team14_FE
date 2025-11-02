@@ -46,7 +46,7 @@ const ImageModal = ({ mediaItems, selectedMediaIndex, onClose, title }: ImageMod
   });
 
   const arrowButtonClasses =
-    'absolute top-1/2 transform -translate-y-1/2 text-white w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200 z-20 hidden md:flex';
+    'absolute top-1/2 transform -translate-y-1/2 text-white w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200 z-20 hidden sm:flex';
 
   return (
     <div

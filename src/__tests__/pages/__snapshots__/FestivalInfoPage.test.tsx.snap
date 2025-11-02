@@ -3,7 +3,7 @@
 exports[`FestivalPoster 컴포넌트 > 스냅샷 테스트 > 네비게이션 버튼 스냅샷 > next-button 1`] = `
 <button
   aria-label="다음 이미지"
-  class="absolute top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hidden md:flex right-4"
+  class="absolute top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hidden sm:flex right-4"
 >
   <svg
     class="stroke-white"
@@ -25,7 +25,7 @@ exports[`FestivalPoster 컴포넌트 > 스냅샷 테스트 > 네비게이션 버
 exports[`FestivalPoster 컴포넌트 > 스냅샷 테스트 > 네비게이션 버튼 스냅샷 > prev-button 1`] = `
 <button
   aria-label="이전 이미지"
-  class="absolute top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hidden md:flex left-4"
+  class="absolute top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hidden sm:flex left-4"
 >
   <svg
     class="stroke-white"

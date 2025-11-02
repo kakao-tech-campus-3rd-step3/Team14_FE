@@ -25,7 +25,7 @@ const FestivalPoster = ({
   } = useSlider({ itemCount: allImages.length });
 
   const arrowButtonClasses =
-    'absolute top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hidden md:flex';
+    'absolute top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hidden sm:flex';
 
   return (
     <div className="w-full relative">

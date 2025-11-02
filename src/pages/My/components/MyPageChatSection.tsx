@@ -9,6 +9,7 @@ import useChatRead from '@/hooks/useChatRead';
 
 const MyPageChatSection = () => {
   useChatRead();
+
   const { data, isFetching, hasNextPage, fetchNextPage } = useSuspenseInfiniteQuery({
     queryKey: ['myChats'],
     queryFn: ({ pageParam = 0 }) => getMyChats(pageParam, 5),

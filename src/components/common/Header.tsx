@@ -7,10 +7,12 @@ import useNav from '@/hooks/useNav';
 import { ROUTE_PATH } from '@/constants/routes';
 import { Link, useNavigate } from 'react-router-dom';
 import Settings from '@/components/icon/SettingIcon';
+import Leave from '@/components/icon/LeaveIcon';
 
 export interface HeaderProps {
-  variant?: 'logo' | 'page' | 'all' | 'mypage';
+  variant?: 'logo' | 'page' | 'all' | 'mypage' | 'chat';
   title?: string;
+  onClick?: () => void;
 }
 
 /**
@@ -21,8 +23,9 @@ export interface HeaderProps {
  *   - all: 뒤로가기, 제목, 홈/프로필 버튼을 모두 표시
  *   - mypage: 뒤로가기, 제목, 설정 버튼을 표시
  * @param title - 페이지 제목 (variant가 'page' 또는 'all'일 때 사용)
+ * @param onClick - 버튼 이벤트 (variant가 'mypage' 또는 'chat'일 때 사용)
  */
-const Header = ({ variant = 'logo', title = '' }: HeaderProps) => {
+const Header = ({ variant = 'logo', title = '', onClick }: HeaderProps) => {
   const containerClasses =
     'w-full mx-auto flex flex-col items-center fixed top-0 left-0 z-999 bg-gray-100';
   const baseClasses =
@@ -40,7 +43,7 @@ const Header = ({ variant = 'logo', title = '' }: HeaderProps) => {
       </div>
     );
   }
-  if (variant === 'mypage') {
+  if (variant === 'mypage' || variant === 'chat') {
     return (
       <div className={containerClasses}>
         <div className={`${baseClasses} justify-between`}>
@@ -50,17 +53,25 @@ const Header = ({ variant = 'logo', title = '' }: HeaderProps) => {
             </Button>
           </div>
           <div className="flex-2 flex justify-center">
-            <h1 className="text-md font-bold text-center">{'마이페이지'}</h1>
+            <h1 className="text-md font-bold text-center">
+              {variant === 'mypage' ? '마이페이지' : title}
+            </h1>
           </div>
           <div className="flex-1 flex justify-end">
-            <Link to={ROUTE_PATH.SETTINGS}>
-              <Button
-                variant="icon"
-                className="h-6 w-6 !p-0 rounded-lg flex items-center justify-center mr-5"
-              >
-                <Settings className="size-7" strokeWidth={2} />
+            {variant === 'mypage' ? (
+              <Link to={ROUTE_PATH.SETTINGS}>
+                <Button
+                  variant="icon"
+                  className="h-6 w-6 !p-0 rounded-lg flex items-center justify-center mr-5"
+                >
+                  <Settings className="size-7" strokeWidth={2} />
+                </Button>
+              </Link>
+            ) : (
+              <Button variant="icon" onClick={onClick}>
+                <Leave className="size-6" />
               </Button>
-            </Link>
+            )}
           </div>
         </div>
       </div>
