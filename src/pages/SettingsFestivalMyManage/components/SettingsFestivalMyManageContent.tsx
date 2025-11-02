@@ -37,7 +37,10 @@ const SettingsFestivalMyManageContent = () => {
   if (festivals.length === 0) {
     return (
       <div className="p-4">
-        <EmptyComponent title="등록한 축제가 없습니다." description="새로운 축제를 등록해보세요!" />
+        <EmptyComponent
+          title="관리하는 축제가 없습니다."
+          description="축제 상세 페이지에서 관리 신청을 해보세요!"
+        />
       </div>
     );
   }
