@@ -57,7 +57,6 @@ export function useFestivalForm(initial?: UseFestivalFormInitialData): UseFestiv
     removeImage,
     isUploading: isUploadingImages,
   } = useMediaUpload({ maxImages: 10, enableVideo: false });
-  
   // 수정모드일때 기존에 있었던 이미지들을 가져올때 id:index+1 imageInfos 초기화
   useEffect(() => {
     if (initial?.imageUrls && initial.imageUrls.length > 0) {
