@@ -58,7 +58,7 @@ exports[`FestivalsPage 테스트 > 스냅샷 테스트 > AI 추천 섹션과 일
             />
           </svg>
           <span
-            class="text-sm sm:text-xs  text-gray-700"
+            class="text-sm sm:text-xs text-gray-700"
           >
             -
           </span>
@@ -153,7 +153,7 @@ exports[`FestivalsPage 테스트 > 스냅샷 테스트 > AI 추천 섹션과 일
             />
           </svg>
           <span
-            class="text-sm sm:text-xs  text-gray-700"
+            class="text-sm sm:text-xs text-gray-700"
           >
             -
           </span>
@@ -246,7 +246,7 @@ exports[`FestivalsPage 테스트 > 스냅샷 테스트 > AI 추천이 없을 때
             />
           </svg>
           <span
-            class="text-sm sm:text-xs  text-gray-700"
+            class="text-sm sm:text-xs text-gray-700"
           >
             -
           </span>
