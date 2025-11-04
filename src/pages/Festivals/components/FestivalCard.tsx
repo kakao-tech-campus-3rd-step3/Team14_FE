@@ -9,19 +9,34 @@ interface FestivalCardProps {
   highlight?: boolean;
 }
 
+const isInProgress = (endDateData: string): boolean => {
+  const endDate = new Date(endDateData);
+  const today = new Date();
+  const diffTime = endDate.getTime() - today.getTime();
+  return diffTime >= 0;
+};
+
 const FestivalCard = ({ data, highlight = false }: FestivalCardProps) => {
+  const isInProgressFestival = isInProgress(data.endDate);
   return (
     <Link
       className={`bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-100 hover:scale-[1.02] cursor-pointer ${highlight ? 'ring-3 ring-primary-300' : ''}`}
       to={generatePath(ROUTE_PATH.FESTIVAL_INFO, { festivalId: data.id.toString() })}
     >
       {/* 이미지 섹션 */}
-      <div className="aspect-[3/2] w-full">
+      <div
+        className={`aspect-[3/2] w-full relative ${!isInProgressFestival ? 'brightness-40' : ''}`}
+      >
         <img
           src={data.posterInfo}
           alt={`${data.title} 축제 이미지`}
           className="w-full h-full object-cover"
         />
+        {isInProgressFestival && (
+          <div className="absolute top-0 right-0 p-2 bg-primary-400 rounded-bl-xl">
+            <span className="text-white text-sm font-bold">진행 중</span>
+          </div>
+        )}
       </div>
 
       {/* 콘텐츠 섹션 */}

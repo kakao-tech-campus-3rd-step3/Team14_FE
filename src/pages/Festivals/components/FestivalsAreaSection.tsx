@@ -1,19 +1,35 @@
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import getFestivals from '@/apis/festivals/getFestivals';
 import FestivalsSection from '@/pages/Festivals/components/FestivalsSection';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import LoadingSpinner from '@/components/loading/LoadingSpinner';
-import EmptyComponent from '@/components/common/EmptyComponent';
 import MAP_PINS from '@/constants/mapPins';
 
 const FestivalsAreaSection = () => {
   const { areaId } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const showCurrent = (searchParams.get('current') ?? 'true') === 'true';
+  const handleCurrentFilter = () => {
+    setSearchParams(
+      (prev) => {
+        const current = (prev.get('current') ?? 'true') === 'true' ? 'false' : 'true';
+        prev.set('current', current);
+        return prev;
+      },
+      { replace: true },
+    );
+  };
 
   const { data, isFetching, hasNextPage, fetchNextPage } = useSuspenseInfiniteQuery({
-    queryKey: ['festivals', areaId],
+    queryKey: ['festivals', areaId, showCurrent],
     queryFn: ({ pageParam = 0 }) =>
-      getFestivals({ areaId: areaId || '', size: 6, page: pageParam }),
+      getFestivals({
+        areaId: areaId || '',
+        size: 6,
+        page: pageParam,
+        current: showCurrent,
+      }),
     getNextPageParam: (lastPage, allPages) => {
       return lastPage.data.last ? undefined : allPages.length;
     },
@@ -30,20 +46,28 @@ const FestivalsAreaSection = () => {
   const area = MAP_PINS.find((pin) => pin.areaId === areaId);
   const areaName = area?.name ?? '지역';
 
-  if (festivals.length === 0) {
-    return (
-      <div className="w-full h-full flex flex-col items-center justify-center">
-        <img src="/lost404.svg" alt="no festivals" className="w-64 h-64 mt-12 drop-shadow-lg" />
-        <EmptyComponent
-          title="해당 지역의 축제가 없습니다."
-          description="다른 지역의 축제를 찾아보세요!"
-        />
-      </div>
-    );
-  }
   return (
-    <div>
-      <FestivalsSection title={`${areaName}의 축제`} data={festivals} />
+    <div className="w-full h-full">
+      <FestivalsSection
+        title={`${areaName}의 축제`}
+        data={festivals}
+        rightAction={
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-gray-800">진행 중</span>
+            <button
+              type="button"
+              role="switch"
+              aria-checked={showCurrent}
+              onClick={handleCurrentFilter}
+              className={`relative inline-flex h-7 w-11 items-center rounded-2xl transition-colors ${showCurrent ? 'bg-primary-300' : 'bg-gray-200'}`}
+            >
+              <span
+                className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow transition-transform duration-200 ease-out ${showCurrent ? 'translate-x-5' : 'translate-x-1'}`}
+              />
+            </button>
+          </div>
+        }
+      />
       {hasNextPage && <div ref={observerRef} className="h-1" />}
       {isFetching && <LoadingSpinner className="mt-8" />}
     </div>
