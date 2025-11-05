@@ -50,7 +50,7 @@ const FestivalsAISection = () => {
   // mutation 성공 데이터가 있으면 사용
   if (festivalData) {
     const title = '맞춤 AI Pick 축제';
-    const festivalsData = festivalData.data?.content || [];
+    const festivalsData = (festivalData.data?.content || []).slice(0, 2);
     return <FestivalsSection title={title} data={festivalsData} highlight />;
   }
 

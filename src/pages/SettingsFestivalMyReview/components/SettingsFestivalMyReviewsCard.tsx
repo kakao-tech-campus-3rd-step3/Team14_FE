@@ -5,6 +5,7 @@ import { PICK_ICONS } from '@/constants/pickIcons';
 
 interface SettingsMyReviewsCardProps {
   review: MyReview;
+  handleEditReview: (reviewId: number) => void;
   handleDeleteReview: (reviewId: number) => void;
   handleMediaClick: (review: MyReview, index: number) => void;
 }
@@ -18,6 +19,7 @@ interface SettingsMyReviewsCardProps {
  */
 const SettingsMyReviewsCard = ({
   review,
+  handleEditReview,
   handleDeleteReview,
   handleMediaClick,
 }: SettingsMyReviewsCardProps) => {
@@ -59,13 +61,22 @@ const SettingsMyReviewsCard = ({
       <p className="text-gray-700 mb-3 whitespace-pre-wrap">{review.content}</p>
       <div className="flex justify-between items-center">
         <div className="text-sm text-gray-500">작성자: {review.reviewerName}</div>
-        <button
-          onClick={() => handleDeleteReview(review.reviewId)}
-          className="text-red-500 p-1 rounded-full"
-          aria-label="리뷰 삭제"
-        >
-          <PickIcon name={PICK_ICONS.DELETE} size={40} />
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={() => handleEditReview(review.reviewId)}
+            className="text-blue-500 p-1 rounded-full"
+            aria-label="리뷰 수정"
+          >
+            <PickIcon name={PICK_ICONS.EDIT} size={40} />
+          </button>
+          <button
+            onClick={() => handleDeleteReview(review.reviewId)}
+            className="text-red-500 p-1 rounded-full"
+            aria-label="리뷰 삭제"
+          >
+            <PickIcon name={PICK_ICONS.DELETE} size={45} />
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -13,12 +13,15 @@ import { showToastAxiosError } from '@/utils/showToastMessage';
 import LoadingSpinner from '@/components/loading/LoadingSpinner';
 import ConfirmModal from '@/components/modal/ConfirmModal';
 import { useDeleteWithConfirm } from '@/hooks/useDeleteWithConfirm';
+import { generatePath } from 'react-router-dom';
+import { ROUTE_PATH } from '@/constants/routes';
+import useNav from '@/hooks/useNav';
 
 const SettingsMyReviewsContent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMediaItems, setModalMediaItems] = useState<MediaItem[]>([]);
   const [selectedMediaIndex, setSelectedMediaIndex] = useState(0);
-
+  const { goTo } = useNav();
   const {
     isConfirmOpen,
     handleDelete: handleDeleteReview,
@@ -55,6 +58,10 @@ const SettingsMyReviewsContent = () => {
     setModalMediaItems(mediaItems);
     setSelectedMediaIndex(clickedIndex);
     setIsModalOpen(true);
+  };
+
+  const handleEditReview = (reviewId: number) => {
+    goTo(generatePath(ROUTE_PATH.REVIEW_EDIT, { reviewId: reviewId.toString() }));
   };
 
   const fetchMore = useCallback(() => {
@@ -112,6 +119,7 @@ const SettingsMyReviewsContent = () => {
             <SettingsMyReviewsCard
               key={review.reviewId}
               review={review}
+              handleEditReview={handleEditReview}
               handleDeleteReview={handleDeleteReview}
               handleMediaClick={handleMediaClick}
             />
