@@ -59,7 +59,7 @@ const AiRecommendationHistoriesContent = () => {
           </div>
 
           <div className="grid grid-cols-1 gap-6">
-            {festivals.slice(0,2).map((festival, index) => (
+            {festivals.slice(0, 2).map((festival, index) => (
               <AiRecommendationFestivalCard
                 key={festival.id}
                 data={{
