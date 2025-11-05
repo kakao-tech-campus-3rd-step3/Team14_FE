@@ -376,6 +376,23 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 3�
 </div>
 `;
 
+exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 3개 선택 후 상태 스냅샷 > style-card-3-휴식-selected 1`] = `
+<div
+  class="w-full h-full flex flex-col items-center justify-center gap-3"
+>
+  <img
+    alt="휴식"
+    class="size-[100px] rounded-lg border-3 border-primary-300 object-cover bg-transparent border-2 border-gray-900"
+    src="/pickStyle/resting.svg"
+  />
+  <p
+    class="text-lg font-bold"
+  >
+    휴식
+  </p>
+</div>
+`;
+
 exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 3개 선택 후 상태 스냅샷 > style-card-4-자연/경관-unselected 1`] = `
 <div
   class="w-full h-full flex flex-col items-center justify-center gap-3"
@@ -400,12 +417,29 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 3�
   <img
     alt="체험/참여"
     class="size-[100px] rounded-lg  object-cover bg-transparent border-2 border-gray-900"
-    src="/pickStyle/experience.svg"
+    src="/pickStyle/activity.svg"
   />
   <p
     class="text-lg "
   >
     체험/참여
+  </p>
+</div>
+`;
+
+exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 3개 선택 후 상태 스냅샷 > style-card-6-도시-unselected 1`] = `
+<div
+  class="w-full h-full flex flex-col items-center justify-center gap-3"
+>
+  <img
+    alt="도시"
+    class="size-[100px] rounded-lg  object-cover bg-transparent border-2 border-gray-900"
+    src="/pickStyle/city.svg"
+  />
+  <p
+    class="text-lg "
+  >
+    도시
   </p>
 </div>
 `;
@@ -423,6 +457,23 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 3�
     class="text-lg "
   >
     트렌디
+  </p>
+</div>
+`;
+
+exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 3개 선택 후 상태 스냅샷 > style-card-7-사진촬영-unselected 1`] = `
+<div
+  class="w-full h-full flex flex-col items-center justify-center gap-3"
+>
+  <img
+    alt="사진촬영"
+    class="size-[100px] rounded-lg  object-cover bg-transparent border-2 border-gray-900"
+    src="/pickStyle/photoshot.svg"
+  />
+  <p
+    class="text-lg "
+  >
+    사진촬영
   </p>
 </div>
 `;
@@ -474,6 +525,23 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 3�
     class="text-lg "
   >
     국제
+  </p>
+</div>
+`;
+
+exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 3개 선택 후 상태 스냅샷 > style-card-9-짜릿한 경험-unselected 1`] = `
+<div
+  class="w-full h-full flex flex-col items-center justify-center gap-3"
+>
+  <img
+    alt="짜릿한 경험"
+    class="size-[100px] rounded-lg  object-cover bg-transparent border-2 border-gray-900"
+    src="/pickStyle/funexperience.svg"
+  />
+  <p
+    class="text-lg "
+  >
+    짜릿한 경험
   </p>
 </div>
 `;
@@ -539,6 +607,23 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - �
 </div>
 `;
 
+exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 초기 상태 스냅샷 > style-card-3-휴식-initial 1`] = `
+<div
+  class="w-full h-full flex flex-col items-center justify-center gap-3"
+>
+  <img
+    alt="휴식"
+    class="size-[100px] rounded-lg  object-cover bg-transparent border-2 border-gray-900"
+    src="/pickStyle/resting.svg"
+  />
+  <p
+    class="text-lg "
+  >
+    휴식
+  </p>
+</div>
+`;
+
 exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 초기 상태 스냅샷 > style-card-4-자연/경관-initial 1`] = `
 <div
   class="w-full h-full flex flex-col items-center justify-center gap-3"
@@ -563,12 +648,29 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - �
   <img
     alt="체험/참여"
     class="size-[100px] rounded-lg  object-cover bg-transparent border-2 border-gray-900"
-    src="/pickStyle/experience.svg"
+    src="/pickStyle/activity.svg"
   />
   <p
     class="text-lg "
   >
     체험/참여
+  </p>
+</div>
+`;
+
+exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 초기 상태 스냅샷 > style-card-6-도시-initial 1`] = `
+<div
+  class="w-full h-full flex flex-col items-center justify-center gap-3"
+>
+  <img
+    alt="도시"
+    class="size-[100px] rounded-lg  object-cover bg-transparent border-2 border-gray-900"
+    src="/pickStyle/city.svg"
+  />
+  <p
+    class="text-lg "
+  >
+    도시
   </p>
 </div>
 `;
@@ -586,6 +688,23 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - �
     class="text-lg "
   >
     트렌디
+  </p>
+</div>
+`;
+
+exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 초기 상태 스냅샷 > style-card-7-사진촬영-initial 1`] = `
+<div
+  class="w-full h-full flex flex-col items-center justify-center gap-3"
+>
+  <img
+    alt="사진촬영"
+    class="size-[100px] rounded-lg  object-cover bg-transparent border-2 border-gray-900"
+    src="/pickStyle/photoshot.svg"
+  />
+  <p
+    class="text-lg "
+  >
+    사진촬영
   </p>
 </div>
 `;
@@ -637,6 +756,23 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - �
     class="text-lg "
   >
     국제
+  </p>
+</div>
+`;
+
+exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 초기 상태 스냅샷 > style-card-9-짜릿한 경험-initial 1`] = `
+<div
+  class="w-full h-full flex flex-col items-center justify-center gap-3"
+>
+  <img
+    alt="짜릿한 경험"
+    class="size-[100px] rounded-lg  object-cover bg-transparent border-2 border-gray-900"
+    src="/pickStyle/funexperience.svg"
+  />
+  <p
+    class="text-lg "
+  >
+    짜릿한 경험
   </p>
 </div>
 `;
