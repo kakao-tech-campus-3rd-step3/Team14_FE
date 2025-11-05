@@ -1,12 +1,16 @@
 import FestivalsSection from '@/pages/Festivals/components/FestivalsSection';
-import { useMutation } from '@tanstack/react-query';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import postFestivalsPick, { type PostFestivalsPickBody } from '@/apis/festivals/postFestivalsPick';
 import { useEffect } from 'react';
+import type { ApiResponseList } from '@/apis/apiResponse';
+import type { Festival } from '@/types/FestivalType';
+import type { AxiosResponse } from 'axios';
 
 const FestivalsAISection = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { areaId } = useParams();
 
   // Pick 페이지에서 전달된 요청 데이터
   const requestData = location.state?.requestData as PostFestivalsPickBody;
@@ -28,7 +32,9 @@ const FestivalsAISection = () => {
     }
   }, [requestData, location.pathname, location.search, location.state, navigate]);
 
-  // API 호출을 위한 mutation
+  const queryClient = useQueryClient();
+
+  // API 호출을 위한 mutation (성공 시 캐시에 저장)
   const {
     mutate: mutateFestivalPick,
     isPending,
@@ -38,19 +44,35 @@ const FestivalsAISection = () => {
     onError: (error) => {
       console.error(error);
     },
+    onSuccess: (data, variables) => {
+      const cacheKey = ['aiPick', variables.areaCode];
+      queryClient.setQueryData(cacheKey, data);
+    },
   });
 
-  // requestData가 있으면 API 호출
+  // requestData가 있으면 요청을 우선 수행
   useEffect(() => {
     if (requestData && !isPending) {
       mutateFestivalPick(requestData);
     }
-  }, [requestData, isPending, mutateFestivalPick]);
+  }, [requestData, isPending, mutateFestivalPick, queryClient]);
 
-  // mutation 성공 데이터가 있으면 사용
-  if (festivalData) {
-    const title = '맞춤 AI Pick 축제';
-    const festivalsData = (festivalData.data?.content || []).slice(0, 2);
+  // requestData가 있으면 해당 응답만 사용,
+  const title = '맞춤 AI Pick 축제';
+  if (requestData) {
+    if (festivalData) {
+      const festivalsData = (festivalData.data.content || []).slice(0, 2);
+      return <FestivalsSection title={title} data={festivalsData} highlight />;
+    }
+    return null;
+  }
+  // 캐시가 있으면 areaId와 동일한 최근 캐시 사용
+  const cachedEntries = queryClient.getQueriesData<AxiosResponse<ApiResponseList<Festival>>>({
+    queryKey: ['aiPick', Number(areaId)],
+  });
+  const cachedLatest = cachedEntries.at(-1)?.[1];
+  if (cachedLatest) {
+    const festivalsData = (cachedLatest.data.content || []).slice(0, 2);
     return <FestivalsSection title={title} data={festivalsData} highlight />;
   }
 
