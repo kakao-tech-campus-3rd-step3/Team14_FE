@@ -7,7 +7,7 @@ exports[`FestivalsPage 테스트 > 스냅샷 테스트 > AI 추천 섹션과 일
   href="/festival/143"
 >
   <div
-    class="aspect-[3/2] w-full"
+    class="aspect-[3/2] w-full relative brightness-40"
   >
     <img
       alt="안동국제탈춤페스티벌 축제 이미지"
@@ -102,7 +102,7 @@ exports[`FestivalsPage 테스트 > 스냅샷 테스트 > AI 추천 섹션과 일
   href="/festival/2583"
 >
   <div
-    class="aspect-[3/2] w-full"
+    class="aspect-[3/2] w-full relative brightness-40"
   >
     <img
       alt="한옥마을전통연희 퍼레이드-노상놀이야 축제 이미지"
@@ -195,7 +195,7 @@ exports[`FestivalsPage 테스트 > 스냅샷 테스트 > AI 추천이 없을 때
   href="/festival/2583"
 >
   <div
-    class="aspect-[3/2] w-full"
+    class="aspect-[3/2] w-full relative brightness-40"
   >
     <img
       alt="한옥마을전통연희 퍼레이드-노상놀이야 축제 이미지"
