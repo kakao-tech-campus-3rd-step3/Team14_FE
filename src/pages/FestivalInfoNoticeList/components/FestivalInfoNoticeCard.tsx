@@ -52,9 +52,7 @@ export const FestivalInfoNoticeCard = ({
             {new Date(notice.updatedDate).toLocaleDateString()}
           </span>
         </div>
-        <p className="text-gray-700 mb-3 break-all whitespace-pre-wrap min-w-0">
-          {notice.content}
-        </p>
+        <p className="text-gray-700 mb-3 break-all whitespace-pre-wrap min-w-0">{notice.content}</p>
         {notice.images && notice.images.length > 0 && (
           <div className="mt-3 flex gap-2 flex-wrap">
             {notice.images.map((image, index) => (
