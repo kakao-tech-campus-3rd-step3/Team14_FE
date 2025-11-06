@@ -103,7 +103,7 @@ const FestivalContentManagerSection = ({
           cancelText: '취소',
           onConfirm: () => {
             setShowModal(false);
-            navigate(ROUTE_PATH.FESTIVAL_MY_MANAGE);
+            navigate(ROUTE_PATH.FESTIVAL_MY_MANAGE_APPLICATION);
           },
         });
         setShowModal(true);
