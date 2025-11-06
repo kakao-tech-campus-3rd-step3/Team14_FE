@@ -1,6 +1,7 @@
 import type { ApplicationState } from '@/types/FMPermissionsRequest';
 import { getFestivalPermissionStatusInfo } from '@/utils/festivalPermissionStatus';
 import PickIcon from '@/components/common/PickIcon';
+import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 
 interface FestivalPermissionStatusCardProps {
   state: ApplicationState;
@@ -21,6 +22,9 @@ const FestivalPermissionStatusCard = ({ state }: FestivalPermissionStatusCardPro
         <div>
           <h3 className="font-bold text-lg">{statusInfo.label}</h3>
           <p className="text-sm">{statusInfo.message}</p>
+          {state === 'DENIED' && (
+            <p className="text-sm">{SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.DENIED_REAPPLY}</p>
+          )}
         </div>
       </div>
     </div>

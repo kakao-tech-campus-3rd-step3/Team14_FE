@@ -8,6 +8,7 @@ interface ConfirmModalProps {
   message: string;
   confirmText?: string;
   cancelText?: string;
+  isDelete?: boolean;
 }
 
 const ConfirmModal = ({
@@ -18,6 +19,7 @@ const ConfirmModal = ({
   message,
   confirmText = '확인',
   cancelText = '취소',
+  isDelete = false,
 }: ConfirmModalProps) => {
   if (!isOpen) return null;
 
@@ -31,7 +33,11 @@ const ConfirmModal = ({
         onClick={(e) => e.stopPropagation()}
       >
         <h3 className="text-lg font-bold text-gray-900 mb-2">{title}</h3>
-        <p className="text-sm text-gray-700 mb-6 whitespace-pre-line">{message}</p>
+        {isDelete ? (
+          <p className="text-sm text-red-700 mb-6 whitespace-pre-line">{message}</p>
+        ) : (
+          <p className="text-sm text-gray-700 mb-6 whitespace-pre-line">{message}</p>
+        )}
         <div className="flex gap-2 justify-center">
           <Button variant="secondary" className="flex-1" onClick={onClose}>
             {cancelText}
