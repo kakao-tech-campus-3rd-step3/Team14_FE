@@ -4,12 +4,13 @@ import { generatePath, Link } from 'react-router-dom';
 
 interface FestivalCardProps {
   data: Festival;
+  highlight?: boolean;
 }
 
-const FestivalCard = ({ data }: FestivalCardProps) => {
+const FestivalCard = ({ data, highlight = false }: FestivalCardProps) => {
   return (
     <Link
-      className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-100 hover:scale-[1.02] cursor-pointer"
+      className={`bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-100 hover:scale-[1.02] cursor-pointer ${highlight ? 'ring-3 ring-primary-300' : ''}`}
       to={generatePath(ROUTE_PATH.FESTIVAL_INFO, { festivalId: data.id.toString() })}
     >
       {/* 이미지 섹션 */}
@@ -23,7 +24,7 @@ const FestivalCard = ({ data }: FestivalCardProps) => {
 
       {/* 콘텐츠 섹션 */}
       <div className="p-4">
-        <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2 min-h-[3.5rem]">
+        <h3 className="text-lg font-bold text-gray-900 line-clamp-2 leading-tight min-h-[3rem]">
           {data.title}
         </h3>
 

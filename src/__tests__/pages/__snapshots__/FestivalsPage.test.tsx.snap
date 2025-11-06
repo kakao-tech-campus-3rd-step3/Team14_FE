@@ -2,7 +2,7 @@
 
 exports[`FestivalsPage 테스트 > 스냅샷 테스트 > AI 추천 섹션과 일반 섹션 스냅샷 > ai-pick-first-card 1`] = `
 <a
-  class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-100 hover:scale-[1.02] cursor-pointer"
+  class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-100 hover:scale-[1.02] cursor-pointer ring-3 ring-primary-300"
   data-discover="true"
   href="/festival/143"
 >
@@ -19,7 +19,7 @@ exports[`FestivalsPage 테스트 > 스냅샷 테스트 > AI 추천 섹션과 일
     class="p-4"
   >
     <h3
-      class="text-lg font-bold text-gray-900 mb-3 line-clamp-2 min-h-[3.5rem]"
+      class="text-lg font-bold text-gray-900 line-clamp-2 leading-tight min-h-[3rem]"
     >
       안동국제탈춤페스티벌
     </h3>
@@ -45,77 +45,89 @@ exports[`FestivalsPage 테스트 > 스냅샷 테스트 > AI 추천 섹션과 일
 `;
 
 exports[`FestivalsPage 테스트 > 스냅샷 테스트 > AI 추천 섹션과 일반 섹션 스냅샷 > festivals-first-card 1`] = `
-<div
-  class="bg-white rounded-xl overflow-hidden shadow-lg"
+<a
+  class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-100 hover:scale-[1.02] cursor-pointer "
+  data-discover="true"
+  href="/festival/2583"
 >
   <div
     class="aspect-[3/2] w-full"
   >
-    <div
-      class="bg-gray-200 animate-pulse rounded w-full h-full"
+    <img
+      alt="한옥마을전통연희 퍼레이드-노상놀이야 축제 이미지"
+      class="w-full h-full object-cover"
+      src="http://tong.visitkorea.or.kr/cms/resource/68/3485868_image2_1.jpg"
     />
   </div>
   <div
-    class="p-4 space-y-3"
+    class="p-4"
   >
-    <div
-      class="space-y-2"
+    <h3
+      class="text-lg font-bold text-gray-900 line-clamp-2 leading-tight min-h-[3rem]"
     >
-      <div
-        class="bg-gray-200 animate-pulse rounded h-5 w-full"
-      />
-      <div
-        class="bg-gray-200 animate-pulse rounded h-5 w-3/4"
-      />
-    </div>
+      한옥마을전통연희 퍼레이드-노상놀이야
+    </h3>
     <div
       class="space-y-1"
     >
-      <div
-        class="bg-gray-200 animate-pulse rounded h-4 w-2/3"
-      />
-      <div
-        class="bg-gray-200 animate-pulse rounded h-4 w-1/2"
-      />
+      <p
+        class="text-sm sm:text-xs text-gray-600 font-medium whitespace-nowrap overflow-hidden"
+      >
+        2025-04-12
+         ~ 
+        2025-10-25
+      </p>
+      <p
+        class="text-sm sm:text-xs text-gray-500"
+        title="전북특별자치도 전주시 완산구 태조로 44 (풍남동3가)"
+      >
+        전북특별자치도 전주시
+      </p>
     </div>
   </div>
-</div>
+</a>
 `;
 
 exports[`FestivalsPage 테스트 > 스냅샷 테스트 > AI 추천이 없을 때 일반 섹션만 스냅샷 > festivals-only-first-card 1`] = `
-<div
-  class="bg-white rounded-xl overflow-hidden shadow-lg"
+<a
+  class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-100 hover:scale-[1.02] cursor-pointer "
+  data-discover="true"
+  href="/festival/2583"
 >
   <div
     class="aspect-[3/2] w-full"
   >
-    <div
-      class="bg-gray-200 animate-pulse rounded w-full h-full"
+    <img
+      alt="한옥마을전통연희 퍼레이드-노상놀이야 축제 이미지"
+      class="w-full h-full object-cover"
+      src="http://tong.visitkorea.or.kr/cms/resource/68/3485868_image2_1.jpg"
     />
   </div>
   <div
-    class="p-4 space-y-3"
+    class="p-4"
   >
-    <div
-      class="space-y-2"
+    <h3
+      class="text-lg font-bold text-gray-900 line-clamp-2 leading-tight min-h-[3rem]"
     >
-      <div
-        class="bg-gray-200 animate-pulse rounded h-5 w-full"
-      />
-      <div
-        class="bg-gray-200 animate-pulse rounded h-5 w-3/4"
-      />
-    </div>
+      한옥마을전통연희 퍼레이드-노상놀이야
+    </h3>
     <div
       class="space-y-1"
     >
-      <div
-        class="bg-gray-200 animate-pulse rounded h-4 w-2/3"
-      />
-      <div
-        class="bg-gray-200 animate-pulse rounded h-4 w-1/2"
-      />
+      <p
+        class="text-sm sm:text-xs text-gray-600 font-medium whitespace-nowrap overflow-hidden"
+      >
+        2025-04-12
+         ~ 
+        2025-10-25
+      </p>
+      <p
+        class="text-sm sm:text-xs text-gray-500"
+        title="전북특별자치도 전주시 완산구 태조로 44 (풍남동3가)"
+      >
+        전북특별자치도 전주시
+      </p>
     </div>
   </div>
-</div>
+</a>
 `;

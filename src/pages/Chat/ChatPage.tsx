@@ -4,6 +4,8 @@ import Header from '@/components/common/Header';
 import useChatRoom from '@/hooks/useChatRoom';
 import ChatSendSection from '@/pages/Chat/components/ChatSendSection';
 import ChatMessageSection from '@/pages/Chat/components/ChatMessageSection';
+import { Suspense } from 'react';
+import LoadingSpinner from '@/components/loading/LoadingSpinner';
 
 /**
  * 채팅 페이지
@@ -17,10 +19,13 @@ const ChatPage = () => {
     chatRoom,
     sendMessage,
     sendImageMessage,
-    messages,
     message,
     handleMessageChange,
     handleKeyPress,
+    messages,
+    isFetching,
+    hasNextPage,
+    fetchNextPage,
   } = useChatRoom();
 
   return (
@@ -32,7 +37,14 @@ const ChatPage = () => {
         }
       />
       <div className="flex flex-col px-4 py-2 gap-1 h-[calc(100dvh-110px)]">
-        <ChatMessageSection messages={messages} />
+        <Suspense fallback={<LoadingSpinner />}>
+          <ChatMessageSection
+            messages={messages}
+            isFetching={isFetching}
+            hasNextPage={hasNextPage}
+            fetchNextPage={fetchNextPage}
+          />
+        </Suspense>
         <ChatSendSection
           message={message}
           handleMessageChange={handleMessageChange}

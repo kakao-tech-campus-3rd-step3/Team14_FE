@@ -52,6 +52,8 @@ const ImageModal = ({ mediaItems, selectedMediaIndex, onClose, title }: ImageMod
     <div
       className="fixed inset-0 bg-black flex items-center justify-center z-[1000]"
       onClick={onClose}
+      role="dialog"
+      aria-modal="true"
     >
       <div className="relative w-full h-full max-w-[480px] p-2 flex items-center justify-center">
         <div
@@ -69,7 +71,7 @@ const ImageModal = ({ mediaItems, selectedMediaIndex, onClose, title }: ImageMod
             {mediaItems.map((item, index) => (
               <div
                 key={index}
-                className="w-full h-full flex-shrink-0 flex items-center justify-center"
+                className="w-full h-full flex-shrink-0 flex items-center justify-center p-3"
               >
                 {item.type === 'video' ? (
                   <div className="relative w-full h-full flex items-center justify-center bg-black">

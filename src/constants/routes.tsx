@@ -7,11 +7,26 @@ export const ROUTE_PATH = {
   FESTIVALS: '/festivals/:areaId',
   FESTIVAL_INFO: '/festival/:festivalId',
   REVIEW: '/review/:festivalId',
+  REVIEW_EDIT: '/review/:reviewId/edit',
   CHAT: '/chat/:festivalId',
   LOGIN_CHECK: '/login/check',
   SETTINGS: '/settings',
-  //세팅 페이지 내 마이리뷰 보기 기능 추가 - 중첩라우팅으로 변경 여지 있음
-  MY_REVIEWS: '/settings/my-reviews',
 
-  SEARCH: '/search', // 검색 추가 예정
+  MY_REVIEWS: '/settings/my-reviews',
+  FM_PERMISSION_APPLICATION: '/settings/fm-permission-application',
+  FM_PERMISSION_STATUS: '/settings/fm-permission-status',
+  FESTIVAL_REGISTER: '/settings/festival-register',
+  FESTIVAL_MY_REGISTERED: '/settings/festival-my-registered',
+  FESTIVAL_MY_MANAGE: '/settings/festival-my-manage',
+  FESTIVAL_MY_MANAGE_DETAIL: '/settings/festival-my-manage/:id',
+  FESTIVAL_MY_MANAGE_EDIT: '/settings/festival-my-manage/:id/edit',
+  FAQ: '/settings/faq',
+  SEARCH: '/search',
+  FESTIVAL_MANAGER_APPLY: '/festival/:festivalId/manager-apply',
+  FESTIVAL_NOTICES: '/festival/:festivalId/notices',
+  FESTIVAL_NOTICE_DETAIL: '/festival/:festivalId/notice/:noticeId',
+  FESTIVAL_NOTICE_CREATE: '/festival/:festivalId/notice/create',
+  FESTIVAL_NOTICE_EDIT: '/festival/:festivalId/notice/:noticeId/edit',
+
+  NOT_FOUND: '*',
 } as const;

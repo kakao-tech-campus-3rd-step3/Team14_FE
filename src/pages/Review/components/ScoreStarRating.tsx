@@ -1,0 +1,38 @@
+import { useState } from 'react';
+import StarIcon from '@/components/icon/StarIcon';
+
+/**
+ * 별점 평가 컴포넌트
+ * @param value - 현재 별점
+ * @param onChange - 별점 변경 핸들러
+ * @returns 별점 평가 컴포넌트
+ */
+const ScoreStarRating = ({ value, onChange }: { value: number; onChange: (v: number) => void }) => {
+  const [hover, setHover] = useState<number | null>(null);
+
+  return (
+    <div className="flex gap-2 justify-center">
+      {[1, 2, 3, 4, 5].map((star) => {
+        const filled = (hover ?? value) >= star;
+        return (
+          <button
+            key={star}
+            type="button"
+            onClick={() => onChange(star)}
+            onMouseEnter={() => setHover(star)}
+            onMouseLeave={() => setHover(null)}
+            className="text-2xl"
+            aria-label={`${star}점`}
+          >
+            <StarIcon
+              className={`w-8 h-8 ${filled ? 'text-yellow-400' : 'text-gray-300'}`}
+              filled={filled}
+            />
+          </button>
+        );
+      })}
+    </div>
+  );
+};
+
+export default ScoreStarRating;

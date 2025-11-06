@@ -4,9 +4,10 @@ import Container from '@/components/common/Container';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
 import { useAuth } from '@/context/AuthContext';
-import LoginContent from './components/LoginContent';
+import LoginContent from '@/pages/Login/components/LoginContent';
 import { ROUTE_PATH } from '@/constants/routes';
 import { safePath } from '@/utils/safePath';
+import LoadingPage from '@/components/loading/LoadingPage';
 /**
  * 로그인 페이지
  * 로그인이 되어있지 않으면 로그인 페이지로 리다이렉트
@@ -32,12 +33,7 @@ const LoginPage = () => {
 
   // 초기화가 완료되지 않았으면 로딩 표시
   if (!isInitialized) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-300"></div>
-        <p className="mt-4 text-lg text-gray-600">로그인 상태 확인 중...</p>
-      </div>
-    );
+    return <LoadingPage variant="logo" message="로그인 상태 확인 중..." />;
   }
 
   return (

@@ -10,44 +10,46 @@ import Divider from '@/components/common/Divider';
 import FestivalContentInfoSection from '@/pages/FestivalInfo/components/FestivalContentInfoSection';
 import FestivalContentOverviewSection from '@/pages/FestivalInfo/components/FestivalContentOverviewSection';
 import FestivalContentReviewSection from '@/pages/FestivalInfo/components/FestivalContentReviewSection';
-import Footer from '@/components/common/Footer';
 import getReview from '@/apis/review/getReview';
+import FestivalContentManagerSection from '@/pages/FestivalInfo/components/FestivalContentManagerSection';
+import FestivalContentNoticeSection from '@/pages/FestivalInfo/components/FestivalContentNoticeSection';
+import LoadingPage from '@/components/loading/LoadingPage';
+import ErrorPage from '@/components/error/ErrorPage';
 
 const FestivalInfoPage = () => {
   const { festivalId } = useParams();
-  const { data, isPending, isError } = useQuery({
+  const {
+    data: festivalData,
+    isPending: isFestivalPending,
+    isError: isFestivalError,
+  } = useQuery({
     queryKey: ['festival', festivalId],
     queryFn: () => getFestivalInfo({ festivalId: festivalId || '' }),
     select: (data) => data.data,
     enabled: !!festivalId,
   });
 
-  const { data: reviewsData } = useQuery({
+  const {
+    data: reviewsData,
+    isPending: isReviewsPending,
+    isError: isReviewsError,
+  } = useQuery({
     queryKey: ['reviews', festivalId],
     queryFn: () => getReview({ festivalId: festivalId || '' }),
     select: (data) => data.data,
   });
-  // Todo:
-  // 로딩,에러 페이지 통일하기
 
-  if (isPending) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-300"></div>
-        <p className="mt-4 text-lg text-gray-600">축제 정보를 불러오는 중</p>
-      </div>
-    );
+  if (isFestivalPending || isReviewsPending) {
+    return <LoadingPage title="축제 정보" message="축제 정보를 불러오는 중" variant="page" />;
   }
 
-  if (isError || !festivalId) {
+  if (isFestivalError || isReviewsError || !festivalId) {
     return (
-      <Container>
-        <Header variant="page" />
-        <div className="flex items-center justify-center h-64">
-          <div className="text-red-500">축제 정보를 불러오는 중 오류가 발생했습니다.</div>
-        </div>
-        <Footer initialSelected="my" />
-      </Container>
+      <ErrorPage
+        title="축제 정보"
+        message="축제 정보를 불러오는 중 오류가 발생했습니다."
+        variant="page"
+      />
     );
   }
 
@@ -56,20 +58,38 @@ const FestivalInfoPage = () => {
       <Header variant="all" />
       <div className="flex flex-col items-center w-full h-full">
         <FestivalPoster
-          posterUrl={data.content.posterInfo}
-          imageUrls={data.content.imageInfos}
-          title={data.content.title}
+          posterUrl={festivalData.content.posterInfo}
+          imageUrls={festivalData.content.imageInfos}
+          title={festivalData.content.title}
         />
         <div className="w-full h-full p-4 gap-4 flex flex-col">
-          <FestivalBannerSection url={data.content.homePage} />
+          <FestivalBannerSection
+            url={festivalData.content.homePage}
+            isMyWish={festivalData.content.isMyWish}
+            wishCount={festivalData.content.wishCount}
+          />
           <Divider height="1px" />
-          <FestivalContentInfoSection content={data.content} reviewsData={reviewsData?.content} />
+          <FestivalContentInfoSection
+            content={festivalData.content}
+            averageScore={festivalData.content.averageScore ?? 0}
+            reviewCount={reviewsData.totalElements}
+          />
           <Divider height="1px" />
-          <FestivalContentOverviewSection overview={data.content.overView} />
+          <FestivalContentOverviewSection overview={festivalData.content.overView} />
+          <Divider height="1px" />
+          <FestivalContentNoticeSection
+            festivalId={festivalId}
+            managerId={festivalData.content.managerId}
+          />
+          <Divider height="1px" />
+          <FestivalContentManagerSection
+            festivalId={festivalId}
+            managerId={festivalData.content.managerId}
+          />
           <Divider height="1px" />
           <FestivalContentReviewSection
-            reviewsData={reviewsData?.content}
-            festivalTitle={data.content.title}
+            reviewsData={reviewsData.content}
+            festivalTitle={festivalData.content.title}
           />
         </div>
       </div>

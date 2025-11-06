@@ -1,7 +1,7 @@
 import Container from '@/components/common/Container';
 import Footer from '@/components/common/Footer';
 import Header from '@/components/common/Header';
-import HomeContent from './components/HomeContent';
+import HomeContent from '@/pages/Home/components/HomeContent';
 
 const HomePage = () => {
   return (

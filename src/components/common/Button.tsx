@@ -28,12 +28,12 @@ const Button = ({
   disabled = false,
   ...props
 }: ButtonProps) => {
-  const baseClasses = `flex items-center justify-center ${fullWidth ? 'w-full' : 'w-fit'}`;
+  const baseClasses = `flex items-center justify-center hover:opacity-90 transition-opacity duration-100 ${fullWidth ? 'w-full' : 'w-fit'}`;
 
   const variantClasses = {
-    primary: 'bg-primary-300 text-gray-50',
-    secondary: 'bg-primary-50 text-primary-300',
-    tertiary: 'bg-gray-100 text-gray-600',
+    primary: 'bg-primary-300 text-gray-50 active:bg-primary-400',
+    secondary: 'bg-primary-50 text-primary-300 active:bg-primary-100',
+    tertiary: 'bg-gray-100 text-gray-600 active:bg-gray-200',
     icon: 'bg-transparent text-gray-900',
     link: 'bg-transparent text-gray-400 text-sm !p-0 !rounded-none',
     socialLogin: 'border transition-colors duration-200',

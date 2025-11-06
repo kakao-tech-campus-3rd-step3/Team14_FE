@@ -25,7 +25,7 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > MBTI 선택 화면 - 4개 �
     />
   </div>
   <button
-    class="flex items-center justify-center w-full cursor-pointer bg-primary-300 text-gray-50 text-md rounded-xl px-5 py-3 text-lg "
+    class="flex items-center justify-center hover:opacity-90 transition-opacity duration-100 w-full cursor-pointer bg-primary-300 text-gray-50 active:bg-primary-400 text-md rounded-xl px-5 py-3 text-lg "
     type="button"
   >
     추천 받기
@@ -46,13 +46,13 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > MBTI 선택 화면 - 4개 �
     class="flex items-center justify-center gap-4 w-full"
   >
     <button
-      class="flex items-center justify-center w-full cursor-pointer bg-primary-300 text-gray-50 text-md rounded-xl px-5 py-3 flex-1 font-bold "
+      class="flex items-center justify-center hover:opacity-90 transition-opacity duration-100 w-full cursor-pointer bg-primary-300 text-gray-50 active:bg-primary-400 text-md rounded-xl px-5 py-3 flex-1 font-bold "
       type="button"
     >
       새로운 곳
     </button>
     <button
-      class="flex items-center justify-center w-full cursor-pointer bg-gray-100 text-gray-600 text-md rounded-xl px-5 py-3 flex-1 font-bold "
+      class="flex items-center justify-center hover:opacity-90 transition-opacity duration-100 w-full cursor-pointer bg-gray-100 text-gray-600 active:bg-gray-200 text-md rounded-xl px-5 py-3 flex-1 font-bold "
       type="button"
     >
       익숙한 곳
@@ -74,13 +74,13 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > MBTI 선택 화면 - 4개 �
     class="flex items-center justify-center gap-4 w-full"
   >
     <button
-      class="flex items-center justify-center w-full cursor-pointer bg-primary-300 text-gray-50 text-md rounded-xl px-5 py-3 flex-1 font-bold "
+      class="flex items-center justify-center hover:opacity-90 transition-opacity duration-100 w-full cursor-pointer bg-primary-300 text-gray-50 active:bg-primary-400 text-md rounded-xl px-5 py-3 flex-1 font-bold "
       type="button"
     >
       혼자
     </button>
     <button
-      class="flex items-center justify-center w-full cursor-pointer bg-gray-100 text-gray-600 text-md rounded-xl px-5 py-3 flex-1 font-bold "
+      class="flex items-center justify-center hover:opacity-90 transition-opacity duration-100 w-full cursor-pointer bg-gray-100 text-gray-600 active:bg-gray-200 text-md rounded-xl px-5 py-3 flex-1 font-bold "
       type="button"
     >
       함께
@@ -102,13 +102,13 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > MBTI 선택 화면 - 4개 �
     class="flex items-center justify-center gap-4 w-full"
   >
     <button
-      class="flex items-center justify-center w-full cursor-pointer bg-primary-300 text-gray-50 text-md rounded-xl px-5 py-3 flex-1 font-bold "
+      class="flex items-center justify-center hover:opacity-90 transition-opacity duration-100 w-full cursor-pointer bg-primary-300 text-gray-50 active:bg-primary-400 text-md rounded-xl px-5 py-3 flex-1 font-bold "
       type="button"
     >
       즐거움을
     </button>
     <button
-      class="flex items-center justify-center w-full cursor-pointer bg-gray-100 text-gray-600 text-md rounded-xl px-5 py-3 flex-1 font-bold "
+      class="flex items-center justify-center hover:opacity-90 transition-opacity duration-100 w-full cursor-pointer bg-gray-100 text-gray-600 active:bg-gray-200 text-md rounded-xl px-5 py-3 flex-1 font-bold "
       type="button"
     >
       유익함을
@@ -130,13 +130,13 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > MBTI 선택 화면 - 4개 �
     class="flex items-center justify-center gap-4 w-full"
   >
     <button
-      class="flex items-center justify-center w-full cursor-pointer bg-primary-300 text-gray-50 text-md rounded-xl px-5 py-3 flex-1 font-bold "
+      class="flex items-center justify-center hover:opacity-90 transition-opacity duration-100 w-full cursor-pointer bg-primary-300 text-gray-50 active:bg-primary-400 text-md rounded-xl px-5 py-3 flex-1 font-bold "
       type="button"
     >
       즉흥적으로
     </button>
     <button
-      class="flex items-center justify-center w-full cursor-pointer bg-gray-100 text-gray-600 text-md rounded-xl px-5 py-3 flex-1 font-bold "
+      class="flex items-center justify-center hover:opacity-90 transition-opacity duration-100 w-full cursor-pointer bg-gray-100 text-gray-600 active:bg-gray-200 text-md rounded-xl px-5 py-3 flex-1 font-bold "
       type="button"
     >
       계획적으로
@@ -170,7 +170,7 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > MBTI 선택 화면 - 초기 
     />
   </div>
   <button
-    class="flex items-center justify-center w-full cursor-not-allowed bg-primary-300 text-gray-50 text-md rounded-xl px-5 py-3 text-lg opacity-50"
+    class="flex items-center justify-center hover:opacity-90 transition-opacity duration-100 w-full cursor-not-allowed bg-primary-300 text-gray-50 active:bg-primary-400 text-md rounded-xl px-5 py-3 text-lg opacity-50"
     disabled=""
     type="button"
   >
@@ -192,13 +192,13 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > MBTI 선택 화면 - 초기 
     class="flex items-center justify-center gap-4 w-full"
   >
     <button
-      class="flex items-center justify-center w-full cursor-pointer bg-gray-100 text-gray-600 text-md rounded-xl px-5 py-3 flex-1 font-bold "
+      class="flex items-center justify-center hover:opacity-90 transition-opacity duration-100 w-full cursor-pointer bg-gray-100 text-gray-600 active:bg-gray-200 text-md rounded-xl px-5 py-3 flex-1 font-bold "
       type="button"
     >
       새로운 곳
     </button>
     <button
-      class="flex items-center justify-center w-full cursor-pointer bg-gray-100 text-gray-600 text-md rounded-xl px-5 py-3 flex-1 font-bold "
+      class="flex items-center justify-center hover:opacity-90 transition-opacity duration-100 w-full cursor-pointer bg-gray-100 text-gray-600 active:bg-gray-200 text-md rounded-xl px-5 py-3 flex-1 font-bold "
       type="button"
     >
       익숙한 곳
@@ -220,13 +220,13 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > MBTI 선택 화면 - 초기 
     class="flex items-center justify-center gap-4 w-full"
   >
     <button
-      class="flex items-center justify-center w-full cursor-pointer bg-gray-100 text-gray-600 text-md rounded-xl px-5 py-3 flex-1 font-bold "
+      class="flex items-center justify-center hover:opacity-90 transition-opacity duration-100 w-full cursor-pointer bg-gray-100 text-gray-600 active:bg-gray-200 text-md rounded-xl px-5 py-3 flex-1 font-bold "
       type="button"
     >
       혼자
     </button>
     <button
-      class="flex items-center justify-center w-full cursor-pointer bg-gray-100 text-gray-600 text-md rounded-xl px-5 py-3 flex-1 font-bold "
+      class="flex items-center justify-center hover:opacity-90 transition-opacity duration-100 w-full cursor-pointer bg-gray-100 text-gray-600 active:bg-gray-200 text-md rounded-xl px-5 py-3 flex-1 font-bold "
       type="button"
     >
       함께
@@ -248,13 +248,13 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > MBTI 선택 화면 - 초기 
     class="flex items-center justify-center gap-4 w-full"
   >
     <button
-      class="flex items-center justify-center w-full cursor-pointer bg-gray-100 text-gray-600 text-md rounded-xl px-5 py-3 flex-1 font-bold "
+      class="flex items-center justify-center hover:opacity-90 transition-opacity duration-100 w-full cursor-pointer bg-gray-100 text-gray-600 active:bg-gray-200 text-md rounded-xl px-5 py-3 flex-1 font-bold "
       type="button"
     >
       즐거움을
     </button>
     <button
-      class="flex items-center justify-center w-full cursor-pointer bg-gray-100 text-gray-600 text-md rounded-xl px-5 py-3 flex-1 font-bold "
+      class="flex items-center justify-center hover:opacity-90 transition-opacity duration-100 w-full cursor-pointer bg-gray-100 text-gray-600 active:bg-gray-200 text-md rounded-xl px-5 py-3 flex-1 font-bold "
       type="button"
     >
       유익함을
@@ -276,13 +276,13 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > MBTI 선택 화면 - 초기 
     class="flex items-center justify-center gap-4 w-full"
   >
     <button
-      class="flex items-center justify-center w-full cursor-pointer bg-gray-100 text-gray-600 text-md rounded-xl px-5 py-3 flex-1 font-bold "
+      class="flex items-center justify-center hover:opacity-90 transition-opacity duration-100 w-full cursor-pointer bg-gray-100 text-gray-600 active:bg-gray-200 text-md rounded-xl px-5 py-3 flex-1 font-bold "
       type="button"
     >
       즉흥적으로
     </button>
     <button
-      class="flex items-center justify-center w-full cursor-pointer bg-gray-100 text-gray-600 text-md rounded-xl px-5 py-3 flex-1 font-bold "
+      class="flex items-center justify-center hover:opacity-90 transition-opacity duration-100 w-full cursor-pointer bg-gray-100 text-gray-600 active:bg-gray-200 text-md rounded-xl px-5 py-3 flex-1 font-bold "
       type="button"
     >
       계획적으로
@@ -318,7 +318,7 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > MBTI 선택 화면 - 초기 
 
 exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 3개 선택 후 상태 스냅샷 > style-button-section-completed 1`] = `
 <button
-  class="flex items-center justify-center w-full cursor-pointer bg-primary-300 text-gray-50 text-md rounded-xl px-5 py-3 text-lg "
+  class="flex items-center justify-center hover:opacity-90 transition-opacity duration-100 w-full cursor-pointer bg-primary-300 text-gray-50 active:bg-primary-400 text-md rounded-xl px-5 py-3 text-lg "
   type="button"
 >
   다음
@@ -480,7 +480,7 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 3�
 
 exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 초기 상태 스냅샷 > style-button-section-initial 1`] = `
 <button
-  class="flex items-center justify-center w-full cursor-not-allowed bg-primary-300 text-gray-50 text-md rounded-xl px-5 py-3 text-lg opacity-50"
+  class="flex items-center justify-center hover:opacity-90 transition-opacity duration-100 w-full cursor-not-allowed bg-primary-300 text-gray-50 active:bg-primary-400 text-md rounded-xl px-5 py-3 text-lg opacity-50"
   disabled=""
   type="button"
 >

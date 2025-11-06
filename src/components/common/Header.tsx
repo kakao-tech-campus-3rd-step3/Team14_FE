@@ -2,13 +2,13 @@ import Button from '@/components/common/Button';
 import Home from '@/components/icon/HomeIcon';
 import LeftArrow from '@/components/icon/LeftArrowIcon';
 import Profile from '@/components/icon/ProfileIcon';
-import Logo from '../icon/LogoIcon';
+import Logo from '@/components/icon/LogoIcon';
 import useNav from '@/hooks/useNav';
 import { ROUTE_PATH } from '@/constants/routes';
 import { Link, useNavigate } from 'react-router-dom';
 import Settings from '@/components/icon/SettingIcon';
 
-interface HeaderProps {
+export interface HeaderProps {
   variant?: 'logo' | 'page' | 'all' | 'mypage';
   title?: string;
 }
@@ -33,8 +33,8 @@ const Header = ({ variant = 'logo', title = '' }: HeaderProps) => {
   if (variant === 'logo') {
     return (
       <div className={containerClasses}>
-        <div className={`${baseClasses} gap-2`}>
-          <Logo className="size-10" />
+        <div className={`${baseClasses} gap-2 pl-3`}>
+          <Logo className="size-9" />
           <h1 className="text-xl font-bold">FestaPick</h1>
         </div>
       </div>
@@ -58,7 +58,7 @@ const Header = ({ variant = 'logo', title = '' }: HeaderProps) => {
                 variant="icon"
                 className="h-6 w-6 !p-0 rounded-lg flex items-center justify-center mr-5"
               >
-                <Settings className="size-6" />
+                <Settings className="size-7" strokeWidth={2} />
               </Button>
             </Link>
           </div>
@@ -79,7 +79,7 @@ const Header = ({ variant = 'logo', title = '' }: HeaderProps) => {
         </div>
         <div className="flex-1 flex justify-end">
           {variant === 'all' ? (
-            <div className="flex-1 flex justify-end items-center ">
+            <div className="flex-1 flex justify-end items-center gap-3">
               <Button
                 variant="icon"
                 className="h-6 w-6 !p-0 rounded-lg flex items-center justify-center"

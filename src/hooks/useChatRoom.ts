@@ -1,25 +1,29 @@
 import postCreateChatRoom from '@/apis/chat/postCreateChatRoom';
-import { apiBaseUrl, getCurrentToken } from '@/apis/apiInstance';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
-import { useState, useRef, useEffect } from 'react';
-import { Client, type StompSubscription } from '@stomp/stompjs';
-import API_ENDPOINTS from '@/constants/apiEndpoints';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import getChatRoomMessage from '@/apis/chat/getChatRoomMessage';
-import {
-  createStompConnection,
-  cleanupStompConnection,
-  publishMessage,
-} from '@/utils/stompHelpers';
+import { useWebSocket } from '@/context/WebSocketContext';
 
 const EMPTY_MESSAGE: MessageResponse = {
   id: 0,
   userId: 0,
   senderName: 'Pick',
   profileImgUrl: '/logo.svg',
-  content: '채팅방에 처음 오신 것을 환영합니다! 🎉\n하단의 입력창을 통해 채팅을 시작해보세요.',
+  content: '채팅방에 처음 오신 것을 환영합니다!\n하단의 입력창을 통해 채팅을 시작해보세요.',
   imageUrl: '',
 };
+
+const INITIAL_CHAT_ROOM_MESSAGE_SIZE = 20;
+
+const subscribeTopic = (chatRoomId: number) => {
+  return `/sub/${chatRoomId}/messages`;
+};
+
+const publishTopic = (chatRoomId: number) => {
+  return `/pub/${chatRoomId}/messages`;
+};
+
 export interface MessageRequest {
   content: string;
   imageInfo?: {
@@ -37,8 +41,6 @@ export interface MessageResponse {
   imageUrl: string;
 }
 
-const webSocketUrl = apiBaseUrl + API_ENDPOINTS.CHAT;
-
 /**
  * 채팅방 사용 훅
  * 채팅방 생성, 채팅방 메시지 조회, STOMP 연결, 메시지 전송, 이미지 메시지 전송, 메시지 변경 이벤트 핸들러, 키 누르기 이벤트 핸들러를 포함합니다.
@@ -51,6 +53,7 @@ const webSocketUrl = apiBaseUrl + API_ENDPOINTS.CHAT;
  * - message: 메시지 입력 필드
  * - handleMessageChange: 메시지 변경 이벤트 핸들러
  * - handleKeyPress: 키 누르기 이벤트 핸들러
+ * - loader: 로더 컴포넌트로 페이지네이션에서 다음 페이지를 호출하는 영역
  */
 const useChatRoom = () => {
   const { festivalId } = useParams();
@@ -60,107 +63,106 @@ const useChatRoom = () => {
     select: (data) => data.data.content,
   });
 
-  const { data: previousMessages } = useSuspenseQuery({
+  const {
+    data: previousMessages,
+    fetchNextPage,
+    isFetching,
+    hasNextPage,
+  } = useSuspenseInfiniteQuery({
     queryKey: ['chatRoomMessages', chatRoom.roomId],
-    queryFn: () => getChatRoomMessage({ chatRoomId: chatRoom.roomId.toString() }),
-    select: (data) => data.data.content,
+    queryFn: ({ pageParam }) =>
+      getChatRoomMessage({
+        chatRoomId: chatRoom.roomId.toString(),
+        cursor: pageParam,
+        size: INITIAL_CHAT_ROOM_MESSAGE_SIZE,
+      }),
+    getNextPageParam: (lastPage) => (lastPage.data.hasMoreList ? lastPage.data.cursor : undefined),
+    initialPageParam: 0,
+    staleTime: 0,
+    gcTime: 0,
   });
 
-  const initialMessages = previousMessages.length > 0 ? previousMessages : [EMPTY_MESSAGE];
+  // 페이지네이션된 메시지들을 올바른 순서로 정렬
+  const allMessages = useMemo(() => {
+    return previousMessages?.pages.flatMap((page) => page.data.content).reverse() ?? [];
+  }, [previousMessages?.pages]);
 
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState<MessageResponse[]>(initialMessages);
-  const stompClientRef = useRef<Client | null>(null);
-  const subscriptionRef = useRef<StompSubscription | null>(null);
+  const [messages, setMessages] = useState<MessageResponse[]>([]);
+  const { clientRef, connectWebSocket, subscribe, send, unsubscribe } = useWebSocket();
+  // 페이지네이션으로 불러온 메시지들을 messages 상태에 동기화
+  useEffect(() => {
+    if (allMessages.length === 0) {
+      setMessages([EMPTY_MESSAGE]);
+    } else {
+      setMessages(allMessages);
+    }
+  }, [allMessages]);
 
   useEffect(() => {
     const initializeConnection = async () => {
-      // 액세스 토큰 가져오기
-      const token = getCurrentToken();
-      if (!token) {
-        // TODO: 액세스 토큰이 없으면 에러 바운더리 처리
-        console.error('[STOMP] 액세스 토큰이 없습니다.');
-        return;
-      }
-
-      // 기존 연결 정리
-      cleanupStompConnection(stompClientRef.current, subscriptionRef.current);
-      stompClientRef.current = null;
-      subscriptionRef.current = null;
-
-      try {
-        // 새 연결 생성
-        const { client, subscription } = await createStompConnection({
-          webSocketUrl,
-          token,
-          chatRoomId: chatRoom.roomId,
-          onMessageReceived: (newMessage) => {
-            setMessages((prevMessages) => {
-              // 동일 message ID가 이미 있으면 중복 추가 방지
-              if (prevMessages.some((message) => message.id === newMessage.id)) return prevMessages;
-              return [...prevMessages, newMessage];
-            });
-          },
-          onError: (error) => {
-            // TODO: 연결 실패 -> 에러 바운더리 처리
-            console.error('[STOMP] 연결 실패: ', error);
-          },
-        });
-
-        stompClientRef.current = client;
-        subscriptionRef.current = subscription;
-      } catch (error) {
-        console.error('[STOMP] 연결 초기화 실패:', error);
-      }
+      await connectWebSocket();
+      subscribe(subscribeTopic(chatRoom.roomId), (message) => {
+        const newMessage: MessageResponse = JSON.parse(message.body || '');
+        setMessages((prevMessages) =>
+          prevMessages.some((msg) => msg.id === newMessage.id)
+            ? prevMessages
+            : [...prevMessages, newMessage],
+        );
+      });
     };
 
-    void initializeConnection();
+    initializeConnection();
 
     return () => {
-      cleanupStompConnection(stompClientRef.current, subscriptionRef.current);
-      stompClientRef.current = null;
-      subscriptionRef.current = null;
+      unsubscribe(subscribeTopic(chatRoom.roomId));
     };
-  }, [chatRoom.roomId]);
+  }, [unsubscribe, chatRoom.roomId, connectWebSocket, subscribe]);
 
   // 메시지 전송
-  const sendMessage = () => {
-    if (!message.trim() || !stompClientRef.current?.connected) return;
+  const sendMessage = useCallback(() => {
+    if (!message.trim() || !clientRef.current || !clientRef.current.connected) return;
 
     const messageRequest: MessageRequest = {
       content: message,
     };
 
-    publishMessage(stompClientRef.current, chatRoom.roomId, JSON.stringify(messageRequest));
+    send(publishTopic(chatRoom.roomId), JSON.stringify(messageRequest));
     setMessage('');
-  };
+  }, [message, clientRef, send, chatRoom.roomId]);
 
   // 이미지 메시지 전송
-  const sendImageMessage = (imageInfo: { id: number; presignedUrl: string }) => {
-    if (!imageInfo || !stompClientRef.current?.connected) return;
+  const sendImageMessage = useCallback(
+    (imageInfo: { id: number; presignedUrl: string }) => {
+      if (!imageInfo || !clientRef.current || !clientRef.current.connected) return;
 
-    const messageRequest: MessageRequest = {
-      content: '사진을 보냈습니다.',
-      imageInfo,
-    };
+      const messageRequest: MessageRequest = {
+        content: '사진을 보냈습니다.',
+        imageInfo,
+      };
 
-    publishMessage(stompClientRef.current, chatRoom.roomId, JSON.stringify(messageRequest));
-  };
+      send(publishTopic(chatRoom.roomId), JSON.stringify(messageRequest));
+    },
+    [clientRef, send, chatRoom.roomId],
+  );
 
   // 메세지 변경 이벤트 핸들러
-  const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleMessageChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value);
-  };
+  }, []);
 
   // 키 누르기 이벤트 핸들러
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key !== 'Enter') return;
-    // IME 조합 중이거나 키 반복이면 무시
-    if (e.nativeEvent.isComposing) return;
-    if (e.repeat) return;
-    e.preventDefault();
-    sendMessage();
-  };
+  const handleKeyPress = useCallback(
+    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      if (e.key !== 'Enter') return;
+      // IME 조합 중이거나 키 반복이면 무시
+      if (e.nativeEvent.isComposing) return;
+      if (e.repeat) return;
+      e.preventDefault();
+      sendMessage();
+    },
+    [sendMessage],
+  );
 
   return {
     chatRoom,
@@ -170,6 +172,9 @@ const useChatRoom = () => {
     message,
     handleMessageChange,
     handleKeyPress,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
   };
 };
 

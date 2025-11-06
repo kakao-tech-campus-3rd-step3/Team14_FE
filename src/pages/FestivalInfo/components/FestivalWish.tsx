@@ -1,32 +1,29 @@
 import Heart from '@/components/icon/HeartIcon';
 import { postWish } from '@/apis/wish/postWish';
 import { deleteWish } from '@/apis/wish/deleteWish';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 
-const FestivalWish = () => {
-  // Todo:
-  // 축제 찜 여부 조회 api 연결
-  // 축제 찜 여부 조회 api 연결 후 wishId 받아오기
-  const wishId = 1;
-  const [isWish, setIsWish] = useState(false);
+const FestivalWish = ({ isMyWish, wishCount }: { isMyWish: boolean; wishCount: number }) => {
+  const [isWish, setIsWish] = useState(isMyWish);
   const { festivalId } = useParams();
+  const queryClient = useQueryClient();
   const { mutate: postWishMutation } = useMutation({
     mutationFn: () => postWish({ festivalId: festivalId || '' }),
     onSuccess: () => {
       setIsWish(true);
+      queryClient.invalidateQueries({ queryKey: ['festival', festivalId] });
     },
     onError: () => {
       setIsWish(false);
     },
   });
   const { mutate: deleteWishMutation } = useMutation({
-    // Todo:
-    // wishId 타입 수정
-    mutationFn: () => deleteWish({ wishId: wishId.toString() }),
+    mutationFn: () => deleteWish({ festivalId: festivalId || '' }),
     onSuccess: () => {
       setIsWish(false);
+      queryClient.invalidateQueries({ queryKey: ['festival', festivalId] });
     },
     onError: () => {
       setIsWish(true);
@@ -34,11 +31,14 @@ const FestivalWish = () => {
   });
 
   return (
-    <div
-      onClick={() => (isWish ? deleteWishMutation() : postWishMutation())}
-      className="cursor-pointer"
-    >
-      <Heart fill={isWish} />
+    <div className="flex items-center gap-2">
+      <div className="text-sm text-gray-900">{wishCount}</div>
+      <div
+        onClick={() => (isWish ? deleteWishMutation() : postWishMutation())}
+        className="cursor-pointer"
+      >
+        <Heart fill={isWish} />
+      </div>
     </div>
   );
 };

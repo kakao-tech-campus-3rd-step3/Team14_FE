@@ -4,17 +4,28 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from '@/utils/queryClient';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AuthProvider } from '@/context/AuthContext';
+import { ToastContainer } from 'react-toastify';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorComponent from '@/components/error/ErrorComponent';
+import { WebSocketProvider } from '@/context/WebSocketContext';
 
 const App = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <BrowserRouter>
-          <Routes />
-        </BrowserRouter>
-      </AuthProvider>
-      {import.meta.env.VITE_ENABLE_RQ_DEVTOOLS === 'true' && <ReactQueryDevtools />}
-    </QueryClientProvider>
+    <ErrorBoundary
+      FallbackComponent={() => <ErrorComponent isGlobal={true} showBackButton={false} />}
+    >
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <WebSocketProvider>
+            <BrowserRouter>
+              <Routes />
+            </BrowserRouter>
+          </WebSocketProvider>
+        </AuthProvider>
+        <ToastContainer />
+        {import.meta.env.VITE_ENABLE_RQ_DEVTOOLS === 'true' && <ReactQueryDevtools />}
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 };
 

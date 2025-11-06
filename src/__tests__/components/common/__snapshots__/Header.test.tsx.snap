@@ -5,7 +5,7 @@ exports[`Header 컴포넌트 > 스냅샷 테스트 - 핵심 요소별 > all vari
   class="flex-1 flex justify-start"
 >
   <button
-    class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 undefined "
+    class="flex items-center justify-center hover:opacity-90 transition-opacity duration-100 w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 undefined "
     type="button"
   >
     <svg
@@ -31,10 +31,10 @@ exports[`Header 컴포넌트 > 스냅샷 테스트 - 핵심 요소별 > all vari
   class="flex-1 flex justify-end"
 >
   <div
-    class="flex-1 flex justify-end items-center "
+    class="flex-1 flex justify-end items-center gap-3"
   >
     <button
-      class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 h-6 w-6 !p-0 rounded-lg flex items-center justify-center "
+      class="flex items-center justify-center hover:opacity-90 transition-opacity duration-100 w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 h-6 w-6 !p-0 rounded-lg flex items-center justify-center "
       type="button"
     >
       <svg
@@ -55,7 +55,7 @@ exports[`Header 컴포넌트 > 스냅샷 테스트 - 핵심 요소별 > all vari
       </svg>
     </button>
     <button
-      class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 h-6 w-6 !p-0 rounded-lg flex items-center justify-center mr-5 "
+      class="flex items-center justify-center hover:opacity-90 transition-opacity duration-100 w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 h-6 w-6 !p-0 rounded-lg flex items-center justify-center mr-5 "
       type="button"
     >
       <svg
@@ -81,7 +81,7 @@ exports[`Header 컴포넌트 > 스냅샷 테스트 - 핵심 요소별 > all vari
 
 exports[`Header 컴포넌트 > 스냅샷 테스트 - 핵심 요소별 > logo variant - 로고 영역 스냅샷 > logo-svg 1`] = `
 <svg
-  class="size-10"
+  class="size-9"
   viewBox="0 0 206.68 235.04"
   xmlns="http://www.w3.org/2000/svg"
 >
@@ -126,7 +126,7 @@ exports[`Header 컴포넌트 > 스냅샷 테스트 - 핵심 요소별 > logo var
 
 exports[`Header 컴포넌트 > 스냅샷 테스트 - 핵심 요소별 > page variant - 네비게이션 구조 스냅샷 > page-variant-back-button 1`] = `
 <button
-  class="flex items-center justify-center w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 undefined "
+  class="flex items-center justify-center hover:opacity-90 transition-opacity duration-100 w-fit cursor-pointer bg-transparent text-gray-900 text-md rounded-xl px-5 py-3 undefined "
   type="button"
 >
   <svg

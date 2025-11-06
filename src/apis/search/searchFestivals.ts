@@ -19,6 +19,8 @@ export interface SearchParams {
   page?: number;
   size?: number;
 }
+const defaltPage = 0;
+const defaltSize = 5;
 
 export const searchFestivals = async (
   params: SearchParams,
@@ -26,8 +28,8 @@ export const searchFestivals = async (
   return await apiInstance.get<ApiResponseList<Festival>>(API_ENDPOINTS.FESTIVAL_SEARCH, {
     params: {
       keyword: params.keyword,
-      page: params.page ?? 0,
-      size: params.size ?? 5,
+      page: params.page ?? defaltPage,
+      size: params.size ?? defaltSize,
     },
-  });
+  } as const);
 };

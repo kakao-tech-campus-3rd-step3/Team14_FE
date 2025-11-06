@@ -1,102 +1,96 @@
-import { useState, useEffect } from 'react';
 import Container from '@/components/common/Container';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
-import { getUserInfo } from '@/apis/user/getUserInfo';
-import type { UserInfoResponse } from '@/types/UserType';
+import { Suspense, useState } from 'react';
+import MyPageWishFestivalsSection from '@/pages/My/components/MyPageWishFestivalsSection';
+import MyPageReviewFestivalsSection from '@/pages/My/components/MyPageReviewFestivalsSection';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorComponent from '@/components/error/ErrorComponent';
+import { showToastAxiosError } from '@/utils/showToastMessage';
+import LoadingSpinner from '@/components/loading/LoadingSpinner';
+import MyPageChatSection from '@/pages/My/components/MyPageChatSection';
+
 /**
  * 마이페이지
- * 피어리뷰를 위해 우선적으로 UI위주로 구현하였습니다.
- * 사용자 정보를 불러오고 방문 예정과 방문 완료 버튼 기능은 이후 추가적으로 구현할 예정입니다.
- *
+ * 채팅 목록을 조회
+ * 좋아요한 축제와 리뷰 목록 조회
  * @returns 마이페이지
  */
 const MyPage = () => {
-  const [userInfo, setUserInfo] = useState<UserInfoResponse['content'] | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [selectedTab, setSelectedTab] = useState<'wishlist' | 'reviewed'>('wishlist');
 
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        setLoading(true);
-        const response = await getUserInfo();
-        setUserInfo(response.data.content);
-        setError(null);
-      } catch (err) {
-        console.error('사용자 정보를 가져오는데 실패했습니다:', err);
-        setError('사용자 정보를 불러올 수 없습니다.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUserInfo();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-300"></div>
-        <p className="mt-4 text-lg text-gray-600">사용자 정보를 불러오는 중</p>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <Container>
-        <Header variant="mypage" />
-        <div className="flex items-center justify-center h-64">
-          <div className="text-red-500">{error}</div>
-        </div>
-        <Footer initialSelected="my" />
-      </Container>
-    );
-  }
-
+  const chooseStyle = 'border-b-2 border-primary-300 font-bold text-primary-300';
+  const notChooseStyle = 'border-b-2 border-transparent text-gray-500';
   return (
     <Container>
       <Header variant="mypage" />
       <div className="p-4">
-        <div className="bg-white rounded-lg p-6 shadow-sm">
-          <div className="flex items-center space-x-4">
-            {userInfo?.profileImageUrl ? (
-              <img
-                src={userInfo.profileImageUrl}
-                alt="프로필"
-                className="w-16 h-16 rounded-full object-cover"
+        <ErrorBoundary
+          FallbackComponent={() => (
+            <ErrorComponent
+              title="오류가 발생했습니다."
+              message="잠시 후 다시 시도해주세요."
+              showBackButton={true}
+            />
+          )}
+          onError={(error) => {
+            showToastAxiosError(error);
+          }}
+        >
+          <Suspense
+            fallback={
+              <LoadingSpinner
+                size="lg"
+                message="채팅 목록을 불러오는 중..."
+                className="h-[156px] w-full flex items-center justify-center"
               />
+            }
+          >
+            <MyPageChatSection />
+          </Suspense>
+        </ErrorBoundary>
+        <div className="flex border-b border-gray-200 w-full mb-4">
+          <button
+            className={`px-4 py-2 text-gray-500 font-medium ${selectedTab === 'wishlist' ? chooseStyle : notChooseStyle} w-full`}
+            onClick={() => setSelectedTab('wishlist')}
+          >
+            좋아요
+          </button>
+          <button
+            className={`px-4 py-2 text-gray-500 font-medium ${selectedTab === 'reviewed' ? chooseStyle : notChooseStyle} w-full`}
+            onClick={() => setSelectedTab('reviewed')}
+          >
+            리뷰
+          </button>
+        </div>
+        <ErrorBoundary
+          FallbackComponent={() => (
+            <ErrorComponent
+              title="오류가 발생했습니다."
+              message="잠시 후 다시 시도해주세요."
+              showBackButton={true}
+            />
+          )}
+          onError={(error) => {
+            showToastAxiosError(error);
+          }}
+        >
+          <Suspense
+            fallback={
+              <LoadingSpinner
+                size="lg"
+                className="min-h-[400px]"
+                message="좋아요한 축제를 불러오는 중..."
+              />
+            }
+          >
+            {selectedTab === 'wishlist' ? (
+              <MyPageWishFestivalsSection />
             ) : (
-              <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
-                <span className="text-gray-500 text-xl">👤</span>
-              </div>
+              <MyPageReviewFestivalsSection />
             )}
-            <div>
-              <h2 className="text-xl font-semibold text-gray-900">
-                {userInfo?.username}님 안녕하세요!
-              </h2>
-              <p className="text-sm text-gray-500">{userInfo?.email}</p>
-            </div>
-          </div>
-        </div>
-
-        {/* 방문 예정과 방문 완료 버튼 기능은 이후 추가적으로 구현할 예정입니다. */}
-        <div className="mt-6">
-          <div className="flex border-b border-gray-200">
-            <button className="px-4 py-2 text-orange-500 border-b-2 border-orange-500 font-medium">
-              방문예정
-            </button>
-            <button className="px-4 py-2 text-gray-500 font-medium">방문완료</button>
-          </div>
-
-          <div className="mt-4 min-h-64 flex items-center justify-center">
-            <div className="text-gray-400 text-center">
-              <p>아직 방문 예정인 축제가 없습니다.</p>
-              <p className="text-sm mt-1">축제를 찾아보고 방문 계획을 세워보세요!</p>
-            </div>
-          </div>
-        </div>
+          </Suspense>
+        </ErrorBoundary>
       </div>
       <Footer initialSelected="my" />
     </Container>
