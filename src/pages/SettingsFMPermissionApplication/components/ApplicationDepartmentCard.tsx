@@ -1,4 +1,4 @@
-import TextInputWithCounter from "@/components/form/TextInputWithCounter";
+import TextInputWithCounter from '@/components/form/TextInputWithCounter';
 
 interface ApplicationDepartmentCardProps {
   department: string;
