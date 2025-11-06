@@ -14,6 +14,7 @@ const FestivalWish = ({ isMyWish, wishCount }: { isMyWish: boolean; wishCount: n
     onSuccess: () => {
       setIsWish(true);
       queryClient.invalidateQueries({ queryKey: ['festival', festivalId] });
+      queryClient.invalidateQueries({ queryKey: ['festivals'] });
     },
     onError: () => {
       setIsWish(false);
@@ -24,6 +25,7 @@ const FestivalWish = ({ isMyWish, wishCount }: { isMyWish: boolean; wishCount: n
     onSuccess: () => {
       setIsWish(false);
       queryClient.invalidateQueries({ queryKey: ['festival', festivalId] });
+      queryClient.invalidateQueries({ queryKey: ['festivals'] });
     },
     onError: () => {
       setIsWish(true);

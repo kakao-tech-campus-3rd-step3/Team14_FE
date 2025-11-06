@@ -107,6 +107,7 @@ const ReviewForm = ({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['reviews', festivalId] });
       queryClient.invalidateQueries({ queryKey: ['festival', festivalId] });
+      queryClient.invalidateQueries({ queryKey: ['festivals'] });
       showToastSuccessMessage(SYSTEM_MESSAGES.REVIEW.SUBMIT_SUCCESS);
       goBack();
     },

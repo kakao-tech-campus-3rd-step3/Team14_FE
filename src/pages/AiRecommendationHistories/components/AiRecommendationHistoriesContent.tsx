@@ -53,7 +53,7 @@ const AiRecommendationHistoriesContent = () => {
         <div>
           <div className="flex items-center gap-2 mb-4">
             <h3 className="font-bold text-xl text-gray-900">맞춤 추천 축제</h3>
-            <span className="bg-primary-100 text-primary-700 px-2 py-1 rounded-full text-sm font-bold">
+            <span className="bg-primary-100 text-primary-700 px-2.5 py-1 rounded-full text-sm font-bold">
               {festivals.length}
             </span>
           </div>
