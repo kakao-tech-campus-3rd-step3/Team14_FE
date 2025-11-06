@@ -57,6 +57,7 @@ const ChatSendSection = ({
             }}
             placeholder="메시지 입력..."
             rows={1}
+            maxLength={255}
             className="w-full py-2 bg-transparent text-sm outline-none placeholder:text-gray-400 resize-none overflow-hidden whitespace-pre-wrap leading-5"
           />
         ) : (

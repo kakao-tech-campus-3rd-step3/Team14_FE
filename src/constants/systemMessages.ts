@@ -162,4 +162,8 @@ export const SYSTEM_MESSAGES = {
     PARSING_ERROR: '데이터를 처리하는 중 오류가 발생했습니다.',
     URL_INVALID: '유효하지 않은 URL입니다.',
   },
+  // 채팅 관련
+  CHAT: {
+    MAX_MESSAGE_LENGTH: '최대 255자까지 입력 가능합니다.',
+  },
 } as const;
