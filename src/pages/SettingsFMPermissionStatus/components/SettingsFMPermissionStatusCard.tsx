@@ -18,9 +18,7 @@ const SettingsFMPermissionStatusCard = ({ permission }: SettingsFMPermissionStat
           <h3 className="font-bold text-lg">{statusInfo.label}</h3>
           <p className="text-sm">{statusInfo.message}</p>
           {permission.state === 'DENIED' && (
-            <p className="text-sm">
-              {SYSTEM_MESSAGES.FM_APPLICATION.DENIED_REAPPLY}
-            </p>
+            <p className="text-sm">{SYSTEM_MESSAGES.FM_APPLICATION.DENIED_REAPPLY}</p>
           )}
         </div>
       </div>

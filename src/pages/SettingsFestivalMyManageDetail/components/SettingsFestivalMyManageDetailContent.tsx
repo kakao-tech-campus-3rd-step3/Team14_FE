@@ -87,15 +87,15 @@ const SettingsFestivalMyManageDetailContent = () => {
   const permission = data?.data.content;
   if (!permission) return null;
 
-  const {  message } = (() => {
+  const { message } = (() => {
     switch (permission.state) {
       case 'ACCEPTED':
-        return {  message: SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.APPROVED_DELETE_CONFIRM };
+        return { message: SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.APPROVED_DELETE_CONFIRM };
       default:
         return { message: SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.DELETE_CONFIRM };
     }
   })();
-  
+
   return (
     <div className="p-4 space-y-4 pb-20">
       <FestivalPermissionStatusCard state={permission.state} />

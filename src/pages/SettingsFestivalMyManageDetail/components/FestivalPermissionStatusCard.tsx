@@ -23,9 +23,7 @@ const FestivalPermissionStatusCard = ({ state }: FestivalPermissionStatusCardPro
           <h3 className="font-bold text-lg">{statusInfo.label}</h3>
           <p className="text-sm">{statusInfo.message}</p>
           {state === 'DENIED' && (
-            <p className="text-sm">
-              {SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.DENIED_REAPPLY}
-            </p>
+            <p className="text-sm">{SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.DENIED_REAPPLY}</p>
           )}
         </div>
       </div>

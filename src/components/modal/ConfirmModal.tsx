@@ -34,9 +34,7 @@ const ConfirmModal = ({
       >
         <h3 className="text-lg font-bold text-gray-900 mb-2">{title}</h3>
         {isDelete ? (
-          <p className="text-sm text-red-700 mb-6 whitespace-pre-line">
-            {message}
-          </p>
+          <p className="text-sm text-red-700 mb-6 whitespace-pre-line">{message}</p>
         ) : (
           <p className="text-sm text-gray-700 mb-6 whitespace-pre-line">{message}</p>
         )}

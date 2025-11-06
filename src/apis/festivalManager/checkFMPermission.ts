@@ -6,8 +6,7 @@ import type { AxiosResponse } from 'axios';
 interface CheckFMPermissionResponse {
   content: boolean;
 }
-export const checkFMPermission = async (
-): Promise<AxiosResponse<CheckFMPermissionResponse>> => {
+export const checkFMPermission = async (): Promise<AxiosResponse<CheckFMPermissionResponse>> => {
   return await apiInstance.get<CheckFMPermissionResponse>(
     generatePath(API_ENDPOINTS.FM_PERMISSION_CHECK),
   );
