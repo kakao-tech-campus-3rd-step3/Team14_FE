@@ -59,7 +59,7 @@ exports[`리뷰 섹션 컴포넌트 > 기본 렌더링 > 리뷰 섹션 스냅샷
 
 exports[`리뷰 섹션 컴포넌트 > 기본 렌더링 > 첫 번째 리뷰 카드 구성 요소별 스냅샷 > first-review-content 1`] = `
 <p
-  class="text-sm text-gray-700"
+  class="text-sm text-gray-700 break-all"
 >
   꽃이 예뻐요.
 </p>
@@ -77,7 +77,7 @@ exports[`리뷰 섹션 컴포넌트 > 기본 렌더링 > 첫 번째 리뷰 카�
 
 exports[`리뷰 섹션 컴포넌트 > 기본 렌더링 > 첫 번째 리뷰 카드 구성 요소별 스냅샷 > first-review-reviewer-name 1`] = `
 <p
-  class="font-medium text-gray-900"
+  class="font-medium text-gray-900 break-all"
 >
   홍길동
 </p>
