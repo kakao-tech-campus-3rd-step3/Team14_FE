@@ -47,12 +47,14 @@ export const FestivalInfoNoticeCard = ({
       >
         <div className="flex justify-between items-start mb-2">
           <PickIcon name={PICK_ICONS.NOTICE} size={20} className="mt-1 mr-2" />
-          <h3 className="font-semibold text-lg text-gray-900 flex-1">{notice.title}</h3>
+          <h3 className="font-semibold text-lg text-gray-900 flex-1 break-all">{notice.title}</h3>
           <span className="text-sm text-gray-500 ml-2">
             {new Date(notice.updatedDate).toLocaleDateString()}
           </span>
         </div>
-        <p className="text-gray-700 mb-3">{notice.content}</p>
+        <p className="text-gray-700 mb-3 break-all whitespace-pre-wrap min-w-0">
+          {notice.content}
+        </p>
         {notice.images && notice.images.length > 0 && (
           <div className="mt-3 flex gap-2 flex-wrap">
             {notice.images.map((image, index) => (

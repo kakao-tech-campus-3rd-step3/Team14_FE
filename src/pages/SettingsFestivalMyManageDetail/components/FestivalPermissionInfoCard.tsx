@@ -25,7 +25,7 @@ const FestivalPermissionInfoCard = ({ permission }: FestivalPermissionInfoCardPr
 
         <div>
           <label className="text-sm text-gray-600">축제명</label>
-          <p className="font-medium text-lg">{permission.title}</p>
+          <p className="font-medium text-lg break-all">{permission.title}</p>
         </div>
 
         <div>

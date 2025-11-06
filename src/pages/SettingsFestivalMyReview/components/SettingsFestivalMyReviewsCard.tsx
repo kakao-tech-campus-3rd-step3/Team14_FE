@@ -26,7 +26,7 @@ const SettingsMyReviewsCard = ({
   return (
     <div key={review.reviewId} className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
       <div className="flex justify-between items-start mb-2">
-        <h3 className="text-lg font-semibold text-gray-900">{review.festivalTitle}</h3>
+        <h3 className="text-lg font-semibold text-gray-900 break-all">{review.festivalTitle}</h3>
         <StarRating rating={review.score} showScore />
       </div>
 
@@ -58,9 +58,9 @@ const SettingsMyReviewsCard = ({
           />
         </div>
       )}
-      <p className="text-gray-700 mb-3 whitespace-pre-wrap">{review.content}</p>
+      <p className="text-gray-700 mb-3 whitespace-pre-wrap break-all">{review.content}</p>
       <div className="flex justify-between items-center">
-        <div className="text-sm text-gray-500">작성자: {review.reviewerName}</div>
+        <div className="text-sm text-gray-500 break-all">작성자: {review.reviewerName}</div>
         <div className="flex gap-2">
           <button
             onClick={() => handleEditReview(review.reviewId)}
