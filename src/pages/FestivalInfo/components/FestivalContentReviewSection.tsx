@@ -31,7 +31,7 @@ const FestivalContentReviewSection = ({
   const { isConfirmOpen, handleDelete, handleConfirmDelete, setIsConfirmOpen } =
     useDeleteWithConfirm(
       deleteReview,
-      [['reviews'], ['festival', festivalId]],
+      [['reviews'], ['festival', festivalId], ['festivals']],
       '리뷰가 삭제되었습니다.',
       '리뷰 삭제에 실패했습니다.',
     );

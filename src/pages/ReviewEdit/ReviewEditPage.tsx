@@ -50,6 +50,7 @@ const ReviewEditPage = () => {
 
       queryClient.invalidateQueries({ queryKey: ['myReviews'] });
       queryClient.invalidateQueries({ queryKey: ['festival'] });
+      queryClient.invalidateQueries({ queryKey: ['festivals'] });
 
       showToastSuccessMessage('리뷰가 수정되었습니다.');
       goBack();
