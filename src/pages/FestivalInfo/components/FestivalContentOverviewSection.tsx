@@ -62,7 +62,9 @@ const FestivalContentOverviewSection = ({
           </div>
         )}
       </div>
-      <p className="text-sm text-gray-900 leading-relaxed whitespace-pre-wrap">{displayText}</p>
+      <p className="text-sm text-gray-900 leading-relaxed whitespace-pre-wrap break-words">
+        {displayText}
+      </p>
       {shouldShowButton && (
         <div className="flex justify-center">
           <Button variant="tertiary" size="sm" fullWidth onClick={() => setIsExpanded(!isExpanded)}>
