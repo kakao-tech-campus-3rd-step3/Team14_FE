@@ -150,7 +150,7 @@ FestaPick은 **축제 참여자**와 **축제 관리자(주최측)** 모두가 �
   <img src="https://img.shields.io/badge/STOMP-7.2-2C3E50?style=for-the-badge" />
   <img src="https://img.shields.io/badge/SockJS-1.6-2C3E50?style=for-the-badge" />
 </p>
----
+
 
 ## 시스템 아키텍쳐
 
