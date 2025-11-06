@@ -24,9 +24,9 @@ export const FestivalInfoNoticeCard = ({
   handleDeleteNotice,
   isDeleting,
 }: FestivalInfoNoticeCardProps) => {
-  if (!notice) return null;
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  if (!notice) return null;
   const mediaItems: MediaItem[] = notice.images.map((image) => ({ type: 'image', url: image }));
 
   const handleImageClick = (index: number) => {
