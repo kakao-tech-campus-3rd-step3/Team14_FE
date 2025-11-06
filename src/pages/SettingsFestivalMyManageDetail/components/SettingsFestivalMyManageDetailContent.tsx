@@ -87,6 +87,15 @@ const SettingsFestivalMyManageDetailContent = () => {
   const permission = data?.data.content;
   if (!permission) return null;
 
+  const {  message } = (() => {
+    switch (permission.state) {
+      case 'ACCEPTED':
+        return {  message: SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.APPROVED_DELETE_CONFIRM };
+      default:
+        return { message: SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.DELETE_CONFIRM };
+    }
+  })();
+  
   return (
     <div className="p-4 space-y-4 pb-20">
       <FestivalPermissionStatusCard state={permission.state} />
@@ -106,7 +115,8 @@ const SettingsFestivalMyManageDetailContent = () => {
         onClose={() => setIsConfirmOpen(false)}
         onConfirm={handleConfirmDelete}
         title="신청서 삭제"
-        message={SYSTEM_MESSAGES.FM_APPLICATION.DELETE_CONFIRM}
+        message={message}
+        isDelete={true}
       />
     </div>
   );

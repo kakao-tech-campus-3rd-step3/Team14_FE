@@ -41,7 +41,9 @@ export const SYSTEM_MESSAGES = {
     UPDATE_ERROR: '신청서 수정에 실패했습니다. 다시 시도해주세요.',
     DELETE_SUCCESS: '신청서가 삭제되었습니다.',
     DELETE_ERROR: '신청서 삭제에 실패했습니다.',
-    DELETE_CONFIRM: '정말 신청서를 삭제하시겠습니까?',
+    APPROVED_DELETE_CONFIRM: '정말 신청서를 삭제하시겠습니까?\n삭제 시 관리자의 권한이 취소됩니다.',
+    DELETE_CONFIRM: '정말 신청서를 삭제하시겠습니까?\n삭제 시 신청서는 복구할 수 없습니다.',
+    DENIED_REAPPLY: '신청서 수정 시 재심사가 진행됩니다.',
   },
 
   // 신청서 유효성 검사
@@ -75,6 +77,10 @@ export const SYSTEM_MESSAGES = {
     HAS_APPLIED_MESSAGE: '이미 이 축제에 관리자 신청을 하셨습니다.\n승인을 기다려주세요.',
     CHECK_ERROR: '확인 중 오류가 발생했습니다. 다시 시도해주세요.',
     GET_APPLICATION_ERROR: '축제 관리 신청 내역을 가져오는데 실패했습니다.',
+    APPROVED_DELETE_CONFIRM: '정말 신청서를 삭제하시겠습니까?\n삭제 시 이 축제의 관리자 권한이 취소됩니다.',
+    DELETE_CONFIRM: '정말 신청서를 삭제하시겠습니까?\n삭제 시 신청서는 복구할 수 없습니다.',
+    DENIED_REAPPLY: '신청서 수정 시 재심사가 진행됩니다.',
+    ALREADY_HAS_PERMISSION: '축제 관리자를 신청한 내역이 있습니다.',
   },
 
   // 축제 관리 신청 수정

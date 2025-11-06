@@ -62,6 +62,8 @@ const API_ENDPOINTS = {
   MY_CUSTOM_FESTIVALS: '/api/festivals/my/custom',
   // ai추천 내역 조회
   AI_RECOMMENDATION_HISTORIES: '/api/recommendations/histories',
+  // 축제 관리자 신청 조회
+  FM_PERMISSION_CHECK: '/api/fm-permissions/check',
 } as const;
 
 export default API_ENDPOINTS;

@@ -55,6 +55,10 @@ const SettingsFMPermissionButton = ({
         </>
       )}
       {permission.state === 'DENIED' && (
+        <>
+                  <Button variant="secondary" className="flex-1" onClick={handleEdit}>
+                  수정
+                </Button>
         <Button
           variant="secondary"
           className="flex-1 text-red-600 border-red-300 hover:bg-red-50"
@@ -63,8 +67,10 @@ const SettingsFMPermissionButton = ({
         >
           {isDeleting ? '삭제 중...' : '삭제'}
         </Button>
+        </>
       )}
     </div>
+    
   );
 };
 export default SettingsFMPermissionButton;

@@ -78,7 +78,14 @@ const SettingsFMPermissionStatusContent = () => {
 
   const permission = data?.data.content;
   if (!permission) return null;
-
+  const { message } = (() => {
+    switch (permission.state) {
+      case 'ACCEPTED':
+        return { message: SYSTEM_MESSAGES.FM_APPLICATION.APPROVED_DELETE_CONFIRM };
+      default:
+        return { message: SYSTEM_MESSAGES.FM_APPLICATION.DELETE_CONFIRM };
+    }
+  })();
   return (
     <div className="p-4 space-y-4">
       <SettingsFMPermissionStatusCard permission={permission} />
@@ -98,7 +105,8 @@ const SettingsFMPermissionStatusContent = () => {
         onClose={() => setIsConfirmOpen(false)}
         onConfirm={handleConfirmDelete}
         title="신청서 삭제"
-        message={SYSTEM_MESSAGES.FM_APPLICATION.DELETE_CONFIRM}
+        message={message}
+        isDelete={true}
       />
     </div>
   );
