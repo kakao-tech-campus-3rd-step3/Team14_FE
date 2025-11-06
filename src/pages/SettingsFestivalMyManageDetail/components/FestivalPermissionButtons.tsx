@@ -25,11 +25,15 @@ const FestivalPermissionButtons = ({
       <Button variant="secondary" className="flex-1" onClick={goBack}>
         돌아가기
       </Button>
-     {state === 'ACCEPTED' && (
-      <Button variant="secondary" className="flex-1 text-red-600 border-red-300 hover:bg-red-50" onClick={handleDelete}>
-        삭제
-      </Button>
-     )}
+      {state === 'ACCEPTED' && (
+        <Button
+          variant="secondary"
+          className="flex-1 text-red-600 border-red-300 hover:bg-red-50"
+          onClick={handleDelete}
+        >
+          삭제
+        </Button>
+      )}
       {/* PENDING 상태: 수정/삭제 가능 */}
       {state === 'PENDING' && (
         <>
