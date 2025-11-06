@@ -134,17 +134,22 @@ FestaPick은 **축제 참여자**와 **축제 관리자(주최측)** 모두가 �
   <img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" />
 </p>
 <P align="center">
-  <img src="https://img.shields.io/badge/Zod-3E67B1?style=for-the-badge&logoColor=white" />
   <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white" />
   <img src="https://img.shields.io/badge/React_Error_Boundary-CC0000?style=for-the-badge&logo=react&logoColor=white" />
+  <img src="https://img.shields.io/badge/React_Toastify-11-4E9A06?style=for-the-badge" />
 </p>
 <P align="center">
   <img src="https://img.shields.io/badge/Vitest-6E9F18?style=for-the-badge&logo=vitest&logoColor=white" />
+  <img src="https://img.shields.io/badge/Testing_Library-16-E33332?style=for-the-badge&logo=testinglibrary&logoColor=white" />
+  <img src="https://img.shields.io/badge/JSDOM-26-1A73E8?style=for-the-badge" />
   <img src="https://img.shields.io/badge/MSW-FF6A33?style=for-the-badge&logo=mock-service-worker&logoColor=white" />
   <img src="https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white" />
   <img src="https://img.shields.io/badge/Prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E" />
 </p>
-
+<p align="center">
+  <img src="https://img.shields.io/badge/STOMP-7.2-2C3E50?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/SockJS-1.6-2C3E50?style=for-the-badge" />
+</p>
 ---
 
 ## 시스템 아키텍쳐
@@ -152,35 +157,7 @@ FestaPick은 **축제 참여자**와 **축제 관리자(주최측)** 모두가 �
 <img width="2614" height="1470" alt="Group 82" src="https://github.com/user-attachments/assets/87624179-0cde-4bed-b789-e3fd031770c8" />
 
 
-## ERD
 
-<div align="center">
-
-<img src="https://github.com/user-attachments/assets/e7ba25ba-68ce-4be3-a3a4-6be5d4b5099b" alt="ERD" width="800" />
-
-<table width="800" align="center">
-  <thead>
-    <tr>
-      <th><b>엔티티(Entity)</b></th>
-      <th><b>설명(Description)</b></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td><b>ChatMessage</b></td><td>사용자가 보낸 채팅 메시지를 저장합니다.</td></tr>
-    <tr><td><b>ChatParticipant</b></td><td>사용자가 어느 채팅방에 들어갔는지, 채팅방의 채팅을 어디까지 읽었는지 저장합니다.</td></tr>
-    <tr><td><b>ChatRoom</b></td><td>각 축제별 채팅방 정보를 저장합니다.</td></tr>
-    <tr><td><b>Festival</b></td><td>축제에 대한 상세 정보를 저장합니다.</td></tr>
-    <tr><td><b>FestivalNotice</b></td><td>축제 관리자(Festival Manager)가 작성한 공지사항을 저장합니다.</td></tr>
-    <tr><td><b>FestivalPermission</b></td><td>축제(TourAPI를 통해 등록된 축제)에 대한 관리 신청서를 저장합니다.</td></tr>
-    <tr><td><b>FMPermission</b></td><td>축제 관리자(Festival Manager) 신청서를 저장합니다.</td></tr>
-    <tr><td><b>RecommendationHistory</b></td><td>사용자가 가장 최근에 받았던 AI 추천 내역을 저장합니다.</td></tr>
-    <tr><td><b>Review</b></td><td>사용자가 등록한 축제의 리뷰를 저장합니다.</td></tr>
-    <tr><td><b>users</b></td><td>사용자 정보를 저장합니다.</td></tr>
-    <tr><td><b>Wish</b></td><td>사용자의 축제 좋아요 기록을 저장합니다.</td></tr>
-  </tbody>
-</table>
-
-</div>
 
 
 
