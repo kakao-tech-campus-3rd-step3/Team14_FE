@@ -55,6 +55,7 @@ exports[`ChatPage > 스냅샷 - 전송 컴포넌트 > chat-send-section 1`] = `
   >
     <textarea
       class="w-full py-2 bg-transparent text-sm outline-none placeholder:text-gray-400 resize-none overflow-hidden whitespace-pre-wrap leading-5"
+      maxlength="255"
       placeholder="메시지 입력..."
       rows="1"
       style="height: 0px;"
