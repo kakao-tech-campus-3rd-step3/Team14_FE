@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import getChatRoomMessage from '@/apis/chat/getChatRoomMessage';
 import { useWebSocket } from '@/context/WebSocketContext';
+import { showToastErrorMessage } from '@/utils/showToastMessage';
+import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 
 const EMPTY_MESSAGE: MessageResponse = {
   id: 0,
@@ -129,6 +131,10 @@ const useChatRoom = () => {
   // 메시지 전송
   const sendMessage = useCallback(() => {
     if (!message.trim()) return;
+    if (message.length > MAX_MESSAGE_LENGTH) {
+      showToastErrorMessage(SYSTEM_MESSAGES.CHAT.MAX_MESSAGE_LENGTH);
+      return;
+    }
 
     const messageRequest: MessageRequest = {
       content: message,
@@ -152,10 +158,22 @@ const useChatRoom = () => {
     },
     [clientRef, send, chatRoom.roomId],
   );
+  // 채팅 글자수를 255자로 제한
+  const MAX_MESSAGE_LENGTH = 255;
 
   // 메세지 변경 이벤트 핸들러
+  /**
+   * 255자 이상 입력시 상태가 변하지 않게 하여서 그 이상의 입력을 제한하였습니다.
+   * 또한 혹시 모를 에러를 대비해서 만약에 토스트 메시지를 표시하는 것을 추가하였습니다.(그치만 입력 자체를 안받기 때문에 무관할 것 같습니다.)
+   * 또한 textarea의 maxLength 속성을 사용하여서 그 이상의 입력을 제한하였습니다.
+   * @param e - 메시지 변경 이벤트
+   * @returns void
+   */
   const handleMessageChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setMessage(e.target.value);
+    const value = e.target.value;
+    if (value.length <= MAX_MESSAGE_LENGTH) {
+      setMessage(value);
+    }
   }, []);
 
   // 키 누르기 이벤트 핸들러

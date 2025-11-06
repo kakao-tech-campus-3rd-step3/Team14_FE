@@ -135,7 +135,11 @@ const SettingsFMPermissionApplicationForm = ({
   };
   return (
     <div className="bg-white rounded-lg p-4 m-4 shadow-sm">
-      <ApplicationDepartmentCard department={department} setDepartment={setDepartment} />
+      <ApplicationDepartmentCard
+        department={department}
+        setDepartment={setDepartment}
+        disabled={isEdit}
+      />
 
       <ApplicationDocumentCard
         documents={documents}

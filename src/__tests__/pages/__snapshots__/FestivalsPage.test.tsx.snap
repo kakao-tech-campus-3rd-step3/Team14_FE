@@ -19,7 +19,7 @@ exports[`FestivalsPage 테스트 > 스냅샷 테스트 > AI 추천 섹션과 일
     class="p-4"
   >
     <h3
-      class="text-lg font-bold text-gray-900 line-clamp-2 leading-tight min-h-[3rem]"
+      class="text-lg font-bold text-gray-900 line-clamp-2 leading-tight min-h-[3rem] break-all"
     >
       안동국제탈춤페스티벌
     </h3>
@@ -34,7 +34,7 @@ exports[`FestivalsPage 테스트 > 스냅샷 테스트 > AI 추천 섹션과 일
         2025-10-05
       </p>
       <p
-        class="text-sm sm:text-xs text-gray-500"
+        class="text-sm sm:text-xs text-gray-500 break-all"
         title="경상북도 안동시 육사로 239 (운흥동)"
       >
         경상북도 안동시
@@ -114,7 +114,7 @@ exports[`FestivalsPage 테스트 > 스냅샷 테스트 > AI 추천 섹션과 일
     class="p-4"
   >
     <h3
-      class="text-lg font-bold text-gray-900 line-clamp-2 leading-tight min-h-[3rem]"
+      class="text-lg font-bold text-gray-900 line-clamp-2 leading-tight min-h-[3rem] break-all"
     >
       한옥마을전통연희 퍼레이드-노상놀이야
     </h3>
@@ -129,7 +129,7 @@ exports[`FestivalsPage 테스트 > 스냅샷 테스트 > AI 추천 섹션과 일
         2025-10-25
       </p>
       <p
-        class="text-sm sm:text-xs text-gray-500"
+        class="text-sm sm:text-xs text-gray-500 break-all"
         title="전북특별자치도 전주시 완산구 태조로 44 (풍남동3가)"
       >
         전북특별자치도 전주시
@@ -207,7 +207,7 @@ exports[`FestivalsPage 테스트 > 스냅샷 테스트 > AI 추천이 없을 때
     class="p-4"
   >
     <h3
-      class="text-lg font-bold text-gray-900 line-clamp-2 leading-tight min-h-[3rem]"
+      class="text-lg font-bold text-gray-900 line-clamp-2 leading-tight min-h-[3rem] break-all"
     >
       한옥마을전통연희 퍼레이드-노상놀이야
     </h3>
@@ -222,7 +222,7 @@ exports[`FestivalsPage 테스트 > 스냅샷 테스트 > AI 추천이 없을 때
         2025-10-25
       </p>
       <p
-        class="text-sm sm:text-xs text-gray-500"
+        class="text-sm sm:text-xs text-gray-500 break-all"
         title="전북특별자치도 전주시 완산구 태조로 44 (풍남동3가)"
       >
         전북특별자치도 전주시

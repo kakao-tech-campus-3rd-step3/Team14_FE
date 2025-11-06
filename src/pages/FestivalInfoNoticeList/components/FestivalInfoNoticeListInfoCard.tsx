@@ -19,7 +19,7 @@ const FestivalInfoNoticeListInfoCard = ({
   return (
     <div className="mb-6 p-4 bg-gray-50 rounded-lg cursor-pointer" onClick={onClick}>
       <div className="flex justify-between items-center mb-2">
-        <h3 className="font-semibold text-lg">{title || '공지사항을 작성할 축제'}</h3>
+        <h3 className="font-semibold text-lg break-all">{title || '공지사항을 작성할 축제'}</h3>
         {showCreateButton && onCreateNotice && (
           <Button
             variant="text"
@@ -42,8 +42,8 @@ const FestivalInfoNoticeListInfoCard = ({
           />
         )}
         <div className="flex-1">
-          <p className="font-medium text-gray-900">{festivalData?.title}</p>
-          <p className="text-sm text-gray-600 mt-1">{festivalData?.addr1}</p>
+          <p className="font-medium text-gray-900 break-all">{festivalData?.title}</p>
+          <p className="text-sm text-gray-600 mt-1 break-all">{festivalData?.addr1}</p>
           <p className="text-sm text-gray-500 mt-1">
             {festivalData?.startDate} ~ {festivalData?.endDate}
           </p>

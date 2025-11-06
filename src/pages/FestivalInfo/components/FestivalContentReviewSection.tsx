@@ -63,7 +63,7 @@ const FestivalContentReviewSection = ({
           className="p-3 border border-gray-200 rounded-lg flex flex-col gap-2"
         >
           <div className="flex items-center justify-between">
-            <p className="font-medium text-gray-900">{review.reviewerName}</p>
+            <p className="font-medium text-gray-900 break-all">{review.reviewerName}</p>
             <div className="flex items-center gap-2">
               <StarRating rating={review.score} />
               {isMyReview(review) && (
@@ -80,7 +80,7 @@ const FestivalContentReviewSection = ({
           </div>
 
           <FestivalContentReviewMediaSlider review={review} festivalTitle={festivalTitle} />
-          <p className="text-sm text-gray-700">{review.content}</p>
+          <p className="text-sm text-gray-700 break-all">{review.content}</p>
         </div>
       ))}
 

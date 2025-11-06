@@ -3,6 +3,9 @@ import type { FestivalCardProps } from '@/types/FestivalFormTypes';
 import TextInputWithCounter from '@/components/form/TextInputWithCounter';
 /**
  * 축제 등록,수정 폼 개요 카드
+ * 축제 개요는 최소 30자 이상 입력 가능합니다.
+ * 축제 개요는 최대 5000자까지 입력 가능합니다.
+ * 축제 개요는 textarea로 입력 가능합니다.
  * @param formData - 폼 데이터
  * @param handleInputChange - 입력 변경 핸들러
  * @param isSubmitting - 제출 중 여부

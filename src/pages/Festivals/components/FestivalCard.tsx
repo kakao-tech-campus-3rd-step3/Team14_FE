@@ -41,7 +41,7 @@ const FestivalCard = ({ data, highlight = false }: FestivalCardProps) => {
 
       {/* 콘텐츠 섹션 */}
       <div className="p-4">
-        <h3 className="text-lg font-bold text-gray-900 line-clamp-2 leading-tight min-h-[3rem]">
+        <h3 className="text-lg font-bold text-gray-900 line-clamp-2 leading-tight min-h-[3rem] break-all">
           {data.title}
         </h3>
 
@@ -49,7 +49,7 @@ const FestivalCard = ({ data, highlight = false }: FestivalCardProps) => {
           <p className="text-sm sm:text-xs text-gray-600 font-medium whitespace-nowrap overflow-hidden">
             {data.startDate} ~ {data.endDate}
           </p>
-          <p className="text-sm sm:text-xs text-gray-500" title={data.addr1}>
+          <p className="text-sm sm:text-xs text-gray-500 break-all" title={data.addr1}>
             {data.addr1.split(' ').slice(0, 2).join(' ')}
           </p>
           <div className="flex items-center gap-2 justify-end font-bold">

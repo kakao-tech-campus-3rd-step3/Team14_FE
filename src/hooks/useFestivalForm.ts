@@ -31,7 +31,7 @@ export interface UseFestivalFormReturn {
 
 const defaultForm: FestivalFormData = {
   title: '',
-  areaCode: '0',
+  areaCode: '1', // 축제 등록시 default로 나오는 값이 서울이기 때문에 해당 지역으로 매핑하였습니다.
   addr1: '',
   addr2: '',
   startDate: '',

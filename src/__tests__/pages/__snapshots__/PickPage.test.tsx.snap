@@ -359,23 +359,6 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 3�
 </div>
 `;
 
-exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 3개 선택 후 상태 스냅샷 > style-card-3-먹거리-selected 1`] = `
-<div
-  class="w-full h-full flex flex-col items-center justify-center gap-3"
->
-  <img
-    alt="먹거리"
-    class="size-[100px] rounded-lg border-3 border-primary-300 object-cover bg-transparent border-2 border-gray-900"
-    src="/pickStyle/food.svg"
-  />
-  <p
-    class="text-lg font-bold"
-  >
-    먹거리
-  </p>
-</div>
-`;
-
 exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 3개 선택 후 상태 스냅샷 > style-card-3-휴식-selected 1`] = `
 <div
   class="w-full h-full flex flex-col items-center justify-center gap-3"
@@ -444,23 +427,6 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 3�
 </div>
 `;
 
-exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 3개 선택 후 상태 스냅샷 > style-card-6-트렌디-unselected 1`] = `
-<div
-  class="w-full h-full flex flex-col items-center justify-center gap-3"
->
-  <img
-    alt="트렌디"
-    class="size-[100px] rounded-lg  object-cover bg-transparent border-2 border-gray-900"
-    src="/pickStyle/trendy.svg"
-  />
-  <p
-    class="text-lg "
-  >
-    트렌디
-  </p>
-</div>
-`;
-
 exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 3개 선택 후 상태 스냅샷 > style-card-7-사진촬영-unselected 1`] = `
 <div
   class="w-full h-full flex flex-col items-center justify-center gap-3"
@@ -478,23 +444,6 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 3�
 </div>
 `;
 
-exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 3개 선택 후 상태 스냅샷 > style-card-7-커뮤니티-unselected 1`] = `
-<div
-  class="w-full h-full flex flex-col items-center justify-center gap-3"
->
-  <img
-    alt="커뮤니티"
-    class="size-[100px] rounded-lg  object-cover bg-transparent border-2 border-gray-900"
-    src="/pickStyle/community.svg"
-  />
-  <p
-    class="text-lg "
-  >
-    커뮤니티
-  </p>
-</div>
-`;
-
 exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 3개 선택 후 상태 스냅샷 > style-card-8-지역특색-unselected 1`] = `
 <div
   class="w-full h-full flex flex-col items-center justify-center gap-3"
@@ -508,23 +457,6 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 3�
     class="text-lg "
   >
     지역특색
-  </p>
-</div>
-`;
-
-exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 3개 선택 후 상태 스냅샷 > style-card-9-국제-unselected 1`] = `
-<div
-  class="w-full h-full flex flex-col items-center justify-center gap-3"
->
-  <img
-    alt="국제"
-    class="size-[100px] rounded-lg  object-cover bg-transparent border-2 border-gray-900"
-    src="/pickStyle/international.svg"
-  />
-  <p
-    class="text-lg "
-  >
-    국제
   </p>
 </div>
 `;
@@ -586,23 +518,6 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - �
     class="text-lg "
   >
     예술/공연
-  </p>
-</div>
-`;
-
-exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 초기 상태 스냅샷 > style-card-3-먹거리-initial 1`] = `
-<div
-  class="w-full h-full flex flex-col items-center justify-center gap-3"
->
-  <img
-    alt="먹거리"
-    class="size-[100px] rounded-lg  object-cover bg-transparent border-2 border-gray-900"
-    src="/pickStyle/food.svg"
-  />
-  <p
-    class="text-lg "
-  >
-    먹거리
   </p>
 </div>
 `;
@@ -675,23 +590,6 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - �
 </div>
 `;
 
-exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 초기 상태 스냅샷 > style-card-6-트렌디-initial 1`] = `
-<div
-  class="w-full h-full flex flex-col items-center justify-center gap-3"
->
-  <img
-    alt="트렌디"
-    class="size-[100px] rounded-lg  object-cover bg-transparent border-2 border-gray-900"
-    src="/pickStyle/trendy.svg"
-  />
-  <p
-    class="text-lg "
-  >
-    트렌디
-  </p>
-</div>
-`;
-
 exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 초기 상태 스냅샷 > style-card-7-사진촬영-initial 1`] = `
 <div
   class="w-full h-full flex flex-col items-center justify-center gap-3"
@@ -709,23 +607,6 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - �
 </div>
 `;
 
-exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 초기 상태 스냅샷 > style-card-7-커뮤니티-initial 1`] = `
-<div
-  class="w-full h-full flex flex-col items-center justify-center gap-3"
->
-  <img
-    alt="커뮤니티"
-    class="size-[100px] rounded-lg  object-cover bg-transparent border-2 border-gray-900"
-    src="/pickStyle/community.svg"
-  />
-  <p
-    class="text-lg "
-  >
-    커뮤니티
-  </p>
-</div>
-`;
-
 exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 초기 상태 스냅샷 > style-card-8-지역특색-initial 1`] = `
 <div
   class="w-full h-full flex flex-col items-center justify-center gap-3"
@@ -739,23 +620,6 @@ exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - �
     class="text-lg "
   >
     지역특색
-  </p>
-</div>
-`;
-
-exports[`PickPage 테스트 > 스냅샷 테스트 > 스타일 선택 화면 - 초기 상태 스냅샷 > style-card-9-국제-initial 1`] = `
-<div
-  class="w-full h-full flex flex-col items-center justify-center gap-3"
->
-  <img
-    alt="국제"
-    class="size-[100px] rounded-lg  object-cover bg-transparent border-2 border-gray-900"
-    src="/pickStyle/international.svg"
-  />
-  <p
-    class="text-lg "
-  >
-    국제
   </p>
 </div>
 `;
