@@ -1,3 +1,5 @@
+import TextInputWithCounter from "@/components/form/TextInputWithCounter";
+
 interface ApplicationDepartmentCardProps {
   department: string;
   setDepartment: (department: string) => void;
@@ -17,13 +19,16 @@ const ApplicationDepartmentCard = ({
       <label htmlFor="department" className="block font-semibold mb-2">
         소속 <span className="text-red-500">*</span>
       </label>
-      <input
-        id="department"
-        type="text"
+      <TextInputWithCounter
+        name="department"
+        type="input"
         value={department}
         onChange={(e) => setDepartment(e.target.value)}
         placeholder="예: 부산대학교 축제기획위원회"
         className="w-full p-3 bg-gray-50 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-300"
+        showMinLengthMessage={true}
+        minLengthMessage="최소 2자 이상 입력해주세요"
+        minLength={2}
         maxLength={50}
       />
       <p className="text-xs text-gray-500 mt-1">
