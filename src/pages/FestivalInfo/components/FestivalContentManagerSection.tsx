@@ -10,7 +10,6 @@ import { SYSTEM_MESSAGES } from '@/constants/systemMessages';
 import { checkFestivalManagerApply } from '@/apis/festivalManager/checkFestivalManagerApply';
 import { showToastErrorMessage, showToastAxiosError } from '@/utils/showToastMessage';
 import { checkFestivalManagerExist } from '@/apis/festivalManager/checkFestivalManagerExist';
-import { checkFMPermission } from '@/apis/festivalManager/checkFMPermission';
 
 interface FestivalContentManagerSectionProps {
   festivalId: string;
@@ -64,14 +63,6 @@ const FestivalContentManagerSection = ({
       const roleResponse = await getUserRole();
       const isFestivalManager = roleResponse.data.content.isFestivalManagerOrAdmin;
 
-      // 축제 관리자가 이미 존재하는 지 확인
-      const checkFMPermissionResponse = await checkFMPermission();
-      const existsPermission = checkFMPermissionResponse.data.content;
-
-      if (existsPermission) {
-        showToastErrorMessage(SYSTEM_MESSAGES.FESTIVAL_MANAGER_APPLY.ALREADY_HAS_PERMISSION);
-        return;
-      }
       if (!isFestivalManager) {
         // 축제 관리자 권한이 없는 경우
         setModalContent({
