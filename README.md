@@ -6,7 +6,7 @@
     🎉 <b>모두가 함께 만들어가는 축제 플랫폼</b> 🎊
   </h3>
 
-  <img 
+<img 
     src="https://github.com/user-attachments/assets/f1c3b239-52a7-4329-accf-f17bb096b77e" 
     alt="FestaPick_hero_image" 
     width="60%" 
@@ -33,7 +33,8 @@
 </div>
 
 ## 소개
-FestaPick은 **축제 참여자**와 **축제 관리자(주최측)** 모두가 함께 쓰는 플랫폼입니다.  
+
+FestaPick은 **축제 참여자**와 **축제 관리자(주최측)** 모두가 함께 쓰는 플랫폼입니다.
 
 - 💬 축제별 채팅방을 통해 참여자 간 정보 공유
 - 🧭 여행 MBTI 입력으로 사용자 맞춤 축제 추천
@@ -46,76 +47,86 @@ FestaPick은 **축제 참여자**와 **축제 관리자(주최측)** 모두가 �
 
 ### 👤 사용자 기능
 
-#### 🎯 성향 기반 축제 맞춤 추천  
+#### 🎯 성향 기반 축제 맞춤 추천
+
 <p>
   <img src="https://github.com/user-attachments/assets/36242224-b7eb-495c-8c09-ef2c9dbf77c9" alt="성향 추천 1" width="200" />
 </p>
 
-- 지도에 있는 픽픽(PickPick)을 선택해 지역을 설정하고, 여행 MBTI를 입력하면 사용자의 성향에 맞는 축제를 추천받을 수 있습니다.  
-- 추천받은 축제 중 마음에 드는 축제를 클릭하면 상세 정보를 조회할 수 있습니다.  
+- 지도에 있는 픽픽(PickPick)을 선택해 지역을 설정하고, 여행 MBTI를 입력하면 사용자의 성향에 맞는 축제를 추천받을 수 있습니다.
+- 추천받은 축제 중 마음에 드는 축제를 클릭하면 상세 정보를 조회할 수 있습니다.
 
-#### ❤️ 좋아요 / 리뷰 작성  
+#### ❤️ 좋아요 / 리뷰 작성
+
 <p>
   <img src="https://github.com/user-attachments/assets/08948c0b-01f2-46c9-a625-bf34e61ddccb" alt="좋아요/리뷰" width="200" />
 </p>
 
-- 마음에 드는 축제는 좋아요를 눌러 저장할 수 있습니다.  
+- 마음에 드는 축제는 좋아요를 눌러 저장할 수 있습니다.
 - 다녀온 축제에 대해서는 리뷰를 작성해 다른 사용자와 경험을 공유할 수 있습니다.
-  
-#### 💬 채팅 / 채팅 알람 기능  
+
+#### 💬 채팅 / 채팅 알람 기능
+
 <p>
   <img src="https://github.com/user-attachments/assets/84806e0d-bbd9-415b-8206-aa160b995829" alt="채팅 1" width="180" />
   <img src="https://github.com/user-attachments/assets/1706acdc-b6fc-482c-9df0-563fde81d03a" alt="채팅 2" width="180" />
 </p>
 
-- 각 축제별 채팅방에서 참여자들과 실시간으로 정보를 공유할 수 있습니다.  
-- 마이페이지에서는 참여 중인 채팅방의 알림 여부를 확인할 수 있습니다.  
+- 각 축제별 채팅방에서 참여자들과 실시간으로 정보를 공유할 수 있습니다.
+- 마이페이지에서는 참여 중인 채팅방의 알림 여부를 확인할 수 있습니다.
 
 ### 🧩 관리자 기능
 
-#### 🧑‍💼 축제 관리자 등업 신청  
+#### 🧑‍💼 축제 관리자 등업 신청
+
 <p>
   <img src="https://github.com/user-attachments/assets/92c33993-3595-4701-a4ac-5774093dc4da" alt="관리자 등업 신청" width="200" />
 </p>
 
-- 축제를 직접 관리하고 싶다면 관리자 등업을 신청할 수 있습니다.  
-- 신청 시 소속 정보와 관련 서류를 제출합니다.  
+- 축제를 직접 관리하고 싶다면 관리자 등업을 신청할 수 있습니다.
+- 신청 시 소속 정보와 관련 서류를 제출합니다.
 - Admin 승인 후 등업 여부가 결정됩니다.
 
-#### 🛂 등록된 축제에 대한 관리자 신청  
+#### 🛂 등록된 축제에 대한 관리자 신청
+
 <p>
   <img src="https://github.com/user-attachments/assets/f4d85b13-0e71-4d09-bfce-fbd2a0a5bcd5" alt="기존 축제 관리자 신청" width="200" />
 </p>
 
-- 관광공사(TourAPI)에 등록된 축제에 대해 관리자 권한을 신청할 수 있습니다.  
-- Admin 승인 후, 해당 축제에 대한 수정·삭제·공지사항 등록 권한을 획득합니다.  
+- 관광공사(TourAPI)에 등록된 축제에 대해 관리자 권한을 신청할 수 있습니다.
+- Admin 승인 후, 해당 축제에 대한 수정·삭제·공지사항 등록 권한을 획득합니다.
 
-#### 📝 나의 축제 등록하기  
+#### 📝 나의 축제 등록하기
+
 <p>
   <img src="https://github.com/user-attachments/assets/2e20b0f3-0989-4b2e-b5a2-444f1a8fd892" alt="나의 축제 등록" width="200" />
 </p>
 
-- 축제 관리자는 새로운 축제를 등록할 수 있습니다.  
-- 등록된 축제는 Admin의 승인 후 일반 사용자에게 노출됩니다.  
+- 축제 관리자는 새로운 축제를 등록할 수 있습니다.
+- 등록된 축제는 Admin의 승인 후 일반 사용자에게 노출됩니다.
 
-#### 🗂️ 등록 축제 관리  
+#### 🗂️ 등록 축제 관리
+
 <p>
   <img src="https://github.com/user-attachments/assets/b27bd4a4-3e6f-4822-af47-f3a5baa95baa" alt="등록 축제 관리" width="200" />
 </p>
 
-- 자신이 등록한 축제에 대해 공지사항을 등록할 수 있습니다.  
-- 축제 정보를 수정 및 삭제할 수 있습니다.  
+- 자신이 등록한 축제에 대해 공지사항을 등록할 수 있습니다.
+- 축제 정보를 수정 및 삭제할 수 있습니다.
 
 ---
 
 ## 모니터링
+
 #### 🔎 ELK(ElasticSearch, Logstash, Kibana), Filebeat를 활용한 로그 모니터링
+
 <img width="2926" height="1202" alt="image" src="https://github.com/user-attachments/assets/fc873a53-5af8-4f0f-a025-ec43984f9217" />
 
 - 로그를 직접 서버 인스턴스에 접속해서 확인하는게 아닌 전문 검색을 통해서 로그를 확인할 수 있습니다.
 - 예외가 발생한 REQUEST/RESPONSE에 대해서는 UUID를 저장한 로그를 남겨 어떤 엔드포인트에서 어떤 예외가 발생했는지 확인할 수 있습니다.
 
 #### 📊 Prometheus, Grafana를 활용한 메트릭 모니터링
+
 <img width="1468" height="805" alt="스크린샷 2025-11-06 오후 11 06 46" src="https://github.com/user-attachments/assets/983bea0c-1ac4-4cef-97d5-97b059dacffb" />
 
 - Prometheus를 통해 Spring Boot 서버의 메트릭을 수집하고 Grafana를 통해서 시각화하여 대시보드를 제공합니다.
@@ -151,16 +162,9 @@ FestaPick은 **축제 참여자**와 **축제 관리자(주최측)** 모두가 �
   <img src="https://img.shields.io/badge/SockJS-1.6-2C3E50?style=for-the-badge" />
 </p>
 
-
 ## 시스템 아키텍쳐
 
 <img width="2614" height="1470" alt="Group 82" src="https://github.com/user-attachments/assets/87624179-0cde-4bed-b789-e3fd031770c8" />
-
-
-
-
-
-
 
 ## 팀원 소개
 
