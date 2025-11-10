@@ -17,7 +17,7 @@ const MyPageFestivalCard = ({ data }: MyPageFestivalCardProps) => {
         <img
           src={data.posterInfo}
           alt={`${data.title} 축제 이미지`}
-          className="h-full object-cover"
+          className="h-full aspect-[4/5] object-cover"
         />
       </div>
 
