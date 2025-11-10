@@ -1,5 +1,5 @@
-import { apiInstance, type ApiErrorResponse } from '@/apis/apiInstance';
-import type { ApiResponseList } from '@/apis/apiResponse';
+import { apiInstance } from '@/apis/apiInstance';
+import type { ApiResponseList, ApiErrorResponse } from '@/apis/apiResponse';
 import API_ENDPOINTS from '@/constants/apiEndpoints';
 import type { Festival } from '@/types/FestivalType';
 import type { AxiosResponse } from 'axios';

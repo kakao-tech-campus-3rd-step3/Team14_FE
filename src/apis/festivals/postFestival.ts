@@ -1,6 +1,6 @@
 import { apiInstance } from '@/apis/apiInstance';
 import API_ENDPOINTS from '@/constants/apiEndpoints';
-import type { ApiErrorResponse } from '@/apis/apiInstance';
+import type { ApiErrorResponse } from '@/apis/apiResponse';
 import type { AxiosResponse } from 'axios';
 
 export interface PostFestivalRequest {

@@ -5,10 +5,6 @@ import type { AuthToken } from '@/types/Auth/AuthToken';
 import type { TokenGetter } from '@/types/Auth/TokenGetter';
 import type { TokenSetter } from '@/types/Auth/TokenSetter';
 
-export interface ApiErrorResponse {
-  status: number;
-  message: string;
-}
 /**
  * env 파일은 2개의 파일로 구성되어 있습니다.
  *  .env.development 파일과 .env.production 파일이 있습니다.
