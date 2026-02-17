@@ -2,6 +2,9 @@ import { apiInstance } from '@/apis/apiInstance';
 import type { ApiResponseList } from '@/apis/apiResponse';
 import API_ENDPOINTS from '@/constants/apiEndpoints';
 
+const DEFAULT_PAGE = 0;
+const DEFAULT_SIZE = 5;
+
 export interface MyReview {
   reviewId: number;
   reviewerName: string;
@@ -13,8 +16,8 @@ export interface MyReview {
 }
 
 export const getMyReviews = async (
-  page = 0,
-  size = 5,
+  page = DEFAULT_PAGE,
+  size = DEFAULT_SIZE,
 ): Promise<{ data: ApiResponseList<MyReview> }> => {
   const data = await apiInstance.get(API_ENDPOINTS.MY_REVIEWS, {
     params: { page, size },

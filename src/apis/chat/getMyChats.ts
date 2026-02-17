@@ -3,6 +3,9 @@ import type { ApiResponseList, ApiErrorResponse } from '@/apis/apiResponse';
 import API_ENDPOINTS from '@/constants/apiEndpoints';
 import type { AxiosResponse } from 'axios';
 
+const DEFAULT_PAGE = 0;
+const DEFAULT_SIZE = 5;
+
 export interface MyChat {
   roomId: number;
   roomName: string;
@@ -12,8 +15,8 @@ export interface MyChat {
 }
 
 export const getMyChats = async (
-  page = 0,
-  size = 5,
+  page = DEFAULT_PAGE,
+  size = DEFAULT_SIZE,
 ): Promise<AxiosResponse<ApiResponseList<MyChat>, ApiErrorResponse>> => {
   return await apiInstance.get<ApiResponseList<MyChat>>(API_ENDPOINTS.MY_CHATS, {
     params: {

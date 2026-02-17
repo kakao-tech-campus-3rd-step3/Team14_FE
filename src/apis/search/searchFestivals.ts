@@ -4,6 +4,9 @@ import API_ENDPOINTS from '@/constants/apiEndpoints';
 import type { Festival } from '@/types/FestivalType';
 import type { AxiosResponse } from 'axios';
 
+const DEFAULT_PAGE = 0;
+const DEFAULT_SIZE = 5;
+
 /**
  * 페스티벌 검색
  * @param params 검색 파라미터
@@ -12,15 +15,11 @@ import type { AxiosResponse } from 'axios';
  * Required request parameter 'keyword' for method parameter type String is not present
  * 따라서 axios의 params 옵션 사용.
  */
-// apis/search/searchFestivals.ts
-
 export interface SearchParams {
   keyword: string;
   page?: number;
   size?: number;
 }
-const defaltPage = 0;
-const defaltSize = 5;
 
 export const searchFestivals = async (
   params: SearchParams,
@@ -28,8 +27,8 @@ export const searchFestivals = async (
   return await apiInstance.get<ApiResponseList<Festival>>(API_ENDPOINTS.FESTIVAL_SEARCH, {
     params: {
       keyword: params.keyword,
-      page: params.page ?? defaltPage,
-      size: params.size ?? defaltSize,
+      page: params.page ?? DEFAULT_PAGE,
+      size: params.size ?? DEFAULT_SIZE,
     },
   } as const);
 };
