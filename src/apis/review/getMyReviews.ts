@@ -1,9 +1,7 @@
 import { apiInstance } from '@/apis/apiInstance';
 import type { ApiResponseList } from '@/apis/apiResponse';
 import API_ENDPOINTS from '@/constants/apiEndpoints';
-
-const DEFAULT_PAGE = 0;
-const DEFAULT_SIZE = 5;
+import { DEFAULT_PAGE, DEFAULT_SIZE } from '@/constants/pagination';
 
 export interface MyReview {
   reviewId: number;

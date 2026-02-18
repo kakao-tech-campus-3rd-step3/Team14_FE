@@ -1,10 +1,8 @@
 import { apiInstance } from '@/apis/apiInstance';
 import API_ENDPOINTS from '@/constants/apiEndpoints';
+import { DEFAULT_PAGE, DEFAULT_SIZE } from '@/constants/pagination';
 import type { ApiResponseList } from '@/apis/apiResponse';
 import type { Festival } from '@/types/FestivalType';
-
-const DEFAULT_PAGE = 0;
-const DEFAULT_SIZE = 5;
 
 export const getMyFestivals = async (
   page = DEFAULT_PAGE,
