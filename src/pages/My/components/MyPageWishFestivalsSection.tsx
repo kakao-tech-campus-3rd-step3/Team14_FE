@@ -13,8 +13,8 @@ const MyPageWishFestivalsSection = () => {
       return lastPage.data.last ? undefined : allPages.length;
     },
     initialPageParam: 0,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
   });
   const { ref: observerRef } = useIntersectionObserver(() => {
     if (!isFetching && hasNextPage) {
