@@ -2,9 +2,7 @@ import { apiInstance } from '@/apis/apiInstance';
 import type { ApiResponseList, ApiErrorResponse } from '@/apis/apiResponse';
 import API_ENDPOINTS from '@/constants/apiEndpoints';
 import type { AxiosResponse } from 'axios';
-
-const DEFAULT_PAGE = 0;
-const DEFAULT_SIZE = 5;
+import { DEFAULT_PAGE, DEFAULT_SIZE } from '@/constants/pagination';
 
 export interface MyChat {
   roomId: number;
