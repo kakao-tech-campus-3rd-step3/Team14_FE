@@ -31,7 +31,6 @@ export interface ApiResponseItem<T> {
 }
 
 export interface ApiErrorResponse {
-  // 수정 필요
   status: number;
   message: string;
 }

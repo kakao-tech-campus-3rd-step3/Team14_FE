@@ -94,11 +94,8 @@ const useChatRoom = () => {
   const { clientRef, connectWebSocket, subscribe, send, unsubscribe, disconnect } = useWebSocket();
   // 페이지네이션으로 불러온 메시지들을 messages 상태에 동기화
   useEffect(() => {
-    if (allMessages.length === 0) {
-      setMessages([EMPTY_MESSAGE]);
-    } else {
-      setMessages(allMessages);
-    }
+    const initialMessages = allMessages.length === 0 ? [EMPTY_MESSAGE] : allMessages;
+    setMessages(initialMessages);
   }, [allMessages]);
 
   useEffect(() => {

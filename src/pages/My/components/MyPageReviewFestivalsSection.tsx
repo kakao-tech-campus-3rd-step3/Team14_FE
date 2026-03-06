@@ -15,6 +15,8 @@ const MyPageReviewFestivalsSection = () => {
     initialPageParam: 0,
     staleTime: 0,
     gcTime: 0,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
   });
   const { ref: observerRef } = useIntersectionObserver(() => {
     if (!isFetching && hasNextPage) {

@@ -4,6 +4,8 @@ import type { AxiosResponse } from 'axios';
 import type { ApiResponseList } from '@/apis/apiResponse';
 import { generatePath } from 'react-router-dom';
 import type { Notice } from '@/types/Notice';
+import { DEFAULT_PAGE, DEFAULT_SIZE } from '@/constants/pagination';
+
 /**
  * 축제를 기준으로 공지사항 목록을 조회하는 API 함수입니다.
  * @param festivalId 축제 ID
@@ -13,8 +15,8 @@ import type { Notice } from '@/types/Notice';
  */
 export const getFestivalNotices = async (
   festivalId: string,
-  page: number = 0,
-  size: number = 5,
+  page: number = DEFAULT_PAGE,
+  size: number = DEFAULT_SIZE,
 ): Promise<AxiosResponse<ApiResponseList<Notice>>> => {
   return await apiInstance.get<ApiResponseList<Notice>>(
     generatePath(API_ENDPOINTS.FESTIVAL_NOTICE, { festivalId }),
