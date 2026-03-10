@@ -8,6 +8,7 @@ import { ToastContainer } from 'react-toastify';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorComponent from '@/components/error/ErrorComponent';
 import { WebSocketProvider } from '@/context/WebSocketContext';
+import { HelmetProvider } from 'react-helmet-async';
 
 const App = () => {
   return (
@@ -17,9 +18,11 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <WebSocketProvider>
-            <BrowserRouter>
-              <Routes />
-            </BrowserRouter>
+            <HelmetProvider>
+              <BrowserRouter>
+                <Routes />
+              </BrowserRouter>
+            </HelmetProvider>
           </WebSocketProvider>
         </AuthProvider>
         <ToastContainer />
