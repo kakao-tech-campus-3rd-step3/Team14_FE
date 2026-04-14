@@ -8,7 +8,7 @@ const HomePage = () => {
   return (
     <Container>
       <SEOHead
-        title="FestaPick - 축제를 골라봐"
+        title="FestaPick"
         description="축제의 모든 것, 다 FestaPick에서! 다양한 축제 정보와 취향 맞춤 추천을 확인해보세요."
         url="/"
       />
