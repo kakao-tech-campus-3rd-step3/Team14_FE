@@ -6,11 +6,13 @@ import type { SEOConfig, SEOStaticConfig } from '@/types/Seo';
 const SEO_DEFAULTS: SEOStaticConfig = seoDefaults;
 
 const toAbsoluteUrl = (value: string) => {
-  if (/^https?:\/\//i.test(value)) {
-    return value;
+  const withoutHash = value.split('#')[0] || '/';
+
+  if (/^https?:\/\//i.test(withoutHash)) {
+    return withoutHash;
   }
 
-  const normalizedPath = value.startsWith('/') ? value : `/${value}`;
+  const normalizedPath = withoutHash.startsWith('/') ? withoutHash : `/${withoutHash}`;
   return `${SEO_DEFAULTS.siteUrl}${normalizedPath}`;
 };
 
@@ -36,13 +38,13 @@ const SEOHead = ({ title, description, url, image, type, noindex = false }: SEOC
       <meta property="og:site_name" content={SEO_DEFAULTS.title} />
       <meta property="og:locale" content={SEO_DEFAULTS.locale} />
 
-      <meta property="twitter:card" content="summary_large_image" />
-      <meta property="twitter:url" content={resolvedUrl} />
-      <meta property="twitter:title" content={resolvedTitle} />
-      <meta property="twitter:description" content={resolvedDescription} />
-      <meta property="twitter:image" content={resolvedImage} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:url" content={resolvedUrl} />
+      <meta name="twitter:title" content={resolvedTitle} />
+      <meta name="twitter:description" content={resolvedDescription} />
+      <meta name="twitter:image" content={resolvedImage} />
 
-      <link rel="canonical" href={resolvedUrl} />
+      {!noindex && <link rel="canonical" href={resolvedUrl} />}
     </Helmet>
   );
 };

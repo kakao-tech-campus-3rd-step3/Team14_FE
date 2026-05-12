@@ -70,7 +70,7 @@ const FestivalInfoPage = () => {
           `${festivalData.content.title}의 상세 정보를 확인해보세요.`
         }
         url={`/festival/${festivalId}`}
-        image={festivalData.content.posterInfo || '/logo.svg'}
+        image={festivalData.content.posterInfo || undefined}
       />
       <Header variant="all" />
       <div className="flex flex-col items-center w-full h-full">

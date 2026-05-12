@@ -44,14 +44,12 @@ const buildStaticUrls = (areaIds) => [
 ];
 
 const buildSitemapXml = (urls, siteUrl) => {
-  const lastmod = new Date().toISOString().split('T')[0];
   const body = urls
     .map(({ loc, changefreq, priority }) => {
       const absoluteLoc = toAbsoluteUrl(loc, siteUrl);
       return [
         '  <url>',
         `    <loc>${xmlEscape(absoluteLoc)}</loc>`,
-        `    <lastmod>${lastmod}</lastmod>`,
         `    <changefreq>${changefreq}</changefreq>`,
         `    <priority>${priority}</priority>`,
         '  </url>',
