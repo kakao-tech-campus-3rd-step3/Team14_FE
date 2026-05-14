@@ -2,6 +2,7 @@ import { useAuth } from '@/context/AuthContext';
 import { generatePath, useLocation, useNavigate } from 'react-router-dom';
 import { ROUTE_PATH } from '@/constants/routes';
 import { useEffect } from 'react';
+import SEOHead from '@/components/common/SEOHead';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -27,7 +28,15 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   }, [isLoggedIn, navigate, location]);
 
   if (!isLoggedIn) return null;
-  return <>{children}</>;
+
+  const currentUrl = `${location.pathname}${location.search}${location.hash}`;
+
+  return (
+    <>
+      <SEOHead noindex={true} url={currentUrl} />
+      {children}
+    </>
+  );
 };
 
 export default ProtectedRoute;

@@ -1,0 +1,35 @@
+User-agent: *
+Allow: /
+Allow: /festival/
+Allow: /festivals/
+Allow: /search
+
+Disallow: /chat
+Disallow: /cookie
+Disallow: /festival/*/manager-apply
+Disallow: /festival/*/notice
+Disallow: /festival/*/notice/*/edit
+Disallow: /festival/*/notice/create
+Disallow: /festival/*/notices
+Disallow: /festival/*/overview/delete
+Disallow: /festival/*/overview/edit
+Disallow: /login
+Disallow: /login/check
+Disallow: /mypage
+Disallow: /pick
+Disallow: /pick/histories
+Disallow: /review
+Disallow: /review/*/edit
+Disallow: /settings
+Disallow: /settings/faq
+Disallow: /settings/festival-my-manage
+Disallow: /settings/festival-my-manage-application
+Disallow: /settings/festival-my-manage/*/edit
+Disallow: /settings/festival-my-registered
+Disallow: /settings/festival-my-registered-application
+Disallow: /settings/festival-register
+Disallow: /settings/fm-permission-application
+Disallow: /settings/fm-permission-status
+Disallow: /settings/my-reviews
+
+Sitemap: https://www.festapick.com/sitemap.xml

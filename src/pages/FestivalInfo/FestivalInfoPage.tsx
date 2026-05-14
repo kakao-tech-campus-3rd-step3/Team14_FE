@@ -16,6 +16,7 @@ import FestivalContentNoticeSection from '@/pages/FestivalInfo/components/Festiv
 import LoadingPage from '@/components/loading/LoadingPage';
 import ErrorPage from '@/components/error/ErrorPage';
 import { useAuth } from '@/context/AuthContext';
+import SEOHead from '@/components/common/SEOHead';
 
 const FestivalInfoPage = () => {
   const { festivalId } = useParams();
@@ -62,6 +63,15 @@ const FestivalInfoPage = () => {
 
   return (
     <Container>
+      <SEOHead
+        title={`${festivalData.content.title} | FestaPick`}
+        description={
+          festivalData.content.overView ||
+          `${festivalData.content.title}의 상세 정보를 확인해보세요.`
+        }
+        url={`/festival/${festivalId}`}
+        image={festivalData.content.posterInfo || undefined}
+      />
       <Header variant="all" />
       <div className="flex flex-col items-center w-full h-full">
         <FestivalPoster
